@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">      
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Cabeçalho de página do template</title>
+            </f:facet>
+            <h:outputStylesheet name="css/jsfcrud.css"/>            
+            <h:outputStylesheet name="css/trt23.css"/>                        
+        </h:head>
+
+        <h:body>
+            <h:form id="formRoot">
+                <p:layout fullPage="true" style="border-width: 1px;">
+                    <p:layoutUnit position="north" size="150"  closable="false" collapsible="false">
+                        <ui:insert name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-9 ui-grid-nopad">
+                                        <div class="ui-grid">
+                                            <div class="ui-grid-row" style="margin: 10px 0px 10px 0px">
+                                                <div class="ui-grid-col-6">
+                                                    <h:outputText styleClass="msgPageTitle" value="#{proxyController.controller.msgPageTitle}"></h:outputText>
+                                                </div>
+                                                <div class="ui-grid-col-6">
+                                                    <p:growl autoUpdate="true" />
+                                                    <p:messages autoUpdate="true" showDetail="true" showIcon="true" />
+                                                    <p:toolbar styleClass="noBorder noBackground">
+                                                        <f:facet name="left">
+                                                            <p:commandButton type="button" title="#{messages.SearchLink}" icon="ui-icon-search" />
+                                                            <p:commandButton type="button" title="#{messages.PrintLink}"  icon="ui-icon-print" />                                                            
+                                                            <span class="ui-separator">
+                                                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                                                            </span>
+                                                            <p:commandButton action="#{proxyController.controller.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" />                                                                
+                                                            <p:commandButton action="#{proxyController.controller.saveOrCreate}" title="#{messages.SaveLink}" icon="ui-icon-disk" />                                                                                                
+                                                            <p:commandButton action="#{proxyController.controller.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
+                                                        </f:facet>
+                                                    </p:toolbar>
+                                                </div>                                
+                                            </div>
+                                            <div class="ui-grid-row">
+                                                <div class="ui-grid-col-12">
+                                                    <p:breadCrumb styleClass="noBorder noBackground">
+                                                        <p:menuitem value="#{messages.HomePage}"  url="/faces/index.xhtml"/>
+                                                        <p:menuitem value="#{proxyController.controller.msgPageTitle}"/>
+                                                    </p:breadCrumb> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <div class="ui-grid">
+                                            <div class="ui-grid-row">
+                                                <div class="ui-grid-col-6">
+                                                    <h:outputLabel value="Usuário"/>
+                                                </div>
+                                                <div class="ui-grid-col-6 alignRight">
+                                                    <h:outputText value="j129-9"/>
+                                                </div>
+                                            </div>
+                                            <div class="ui-grid-row">
+                                                <div class="ui-grid-col-6">
+                                                    <h:outputLabel value="Nome"/>
+                                                </div>
+                                                <div class="ui-grid-col-6 alignRight">
+                                                    <h:outputText styleClass="alignRight" value="Jeronimo Vicente Farias"/>
+                                                </div>
+                                            </div>
+                                            <div class="ui-grid-row">
+                                                <div class="ui-grid-col-6">
+                                                    <h:outputLabel value="Último acesso"/>
+                                                </div>
+                                                <div class="ui-grid-col-6 alignRight">
+                                                    <h:outputText value="30/03/2016 14h32"/>
+                                                </div>
+                                            </div>
+                                            <div class="ui-grid-row" style="margin-top: 10px">
+                                                <div class="ui-grid-col-6 alignCenter">
+                                                    <p:commandButton type="button" title="Perfil"  icon="ui-icon-contact" />
+                                                </div>
+                                                <div class="ui-grid-col-6 alignCenter">
+                                                    <p:commandButton type="button" title="Logout"  icon="ui-icon-locked" />
+                                                </div>                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </ui:insert>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="south" size="0" closable="false" collapsible="false">
+                        <ui:insert name="footer">Rodapé do template</ui:insert>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="west" size="225"  collapsible="false">
+                        <ui:insert name="menu">
+                            <p:menu toggleable="true" >
+                                <p:submenu label="Tabelas básicas">
+                                    <p:menuitem  value="Cargo/função"/>
+                                    <p:menuitem outcome="/encargo/List" value="Encargo"/>
+                                    <p:menuitem outcome="/fiscalespecie/List" value="Espécie de fiscal"/>                           
+                                </p:submenu>
+                                <p:submenu label="Pessoa">
+                                    <p:menuitem  value="Pessoa física"/>                        
+                                    <p:menuitem outcome="/pessoajuridica/List" value="Pessoa jurídica"/>                                                                                                           
+                                    <p:menuitem outcome="/servidor/List" value="Servidor"/>                                                                         
+                                    <p:menuitem value="Fiscal"/>                                                                                                             
+                                </p:submenu>
+                                <p:submenu label="Fiscal técnico">
+                                    <p:menuitem value="Lançamentos ponto"/>                        
+                                    <p:menuitem value="Manutenção colaboradores"/>                                      
+                                </p:submenu>
+                                <p:submenu label="Fiscal administrativo">
+                                    <p:menuitem outcome="/contrato/List" value="Contrato"/>                        
+                                    <p:menuitem value="Liquidações"/>                                                            
+                                </p:submenu>                                
+                                <p:submenu label="Consultas e relatórios">
+                                    <p:menuitem value="Ext de retenções sintético"/>                        
+                                    <p:menuitem value="Ext de retenções analítico"/>                                                            
+                                    <p:menuitem value="Extrato de liquidações"/>                                     
+                                    <p:menuitem value="Termo abertura de conta"/>                                                                                                             
+                                </p:submenu>                                                                
+                            </p:menu> 
+                        </ui:insert>                   
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <ui:insert name="content">Conteúdo do template</ui:insert>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+
+</html>

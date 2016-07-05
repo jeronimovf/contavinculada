@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" pkg="br.jus.trt23.contratos23web.entity" v="1.5.1" persistenceUnitName="contratosPU" xs="false" id="_145866993297350" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity xre="false" sm="false" abs="true" class="Pessoa" visibile="true" minimized="true" rootElement="_145866993297350" id="_145866993304556">
+        <jpa:attributes>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933465131" visibile="true" name="emails" id="_145866993304557"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_145866993319972" visibile="true" name="enderecos" id="_145866993304558"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933550151" connected-attribute-id="_1458669933550156" visibile="true" name="contratos" id="_145866993304559"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933437126" visibile="true" name="telefones" id="_145866993304661"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993304560">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="PessoaJuridica" superclassId="_145866993304556" visibile="true" minimized="true" rootElement="_145866993297350" id="_145866993304351">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nomeFantasia" id="_145866993304452"/>
+            <basic attribute-type="String" visibile="true" name="inscricaoEstadual" id="_145866993304453"/>
+            <basic attribute-type="String" visibile="true" name="cnpj" id="_145866993304454"/>
+            <basic attribute-type="String" visibile="true" name="razaoSocial" id="_145866993304455"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Colaborador" visibile="true" minimized="false" rootElement="_145866993297350" id="_145866993307762">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="recebeuManualEm" id="_145866993307764">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="responsavelTecnico" id="_145866993307765"/>
+            <basic attribute-type="String" visibile="true" name="ctps" id="_145866993307766"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933522144" connected-attribute-id="_1458669933522145" visibile="true" name="alocacoes" id="_145866993307767"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933495135" connected-attribute-id="_1458669933495136" visibile="true" name="pessoaFisica" id="_145866993307763"/>
+            <one-to-many collection-type="java.util.List" connected-entity-id="_1458669933349110" connected-attribute-id="_146661709303651" visibile="true" name="retencaos" id="_146661709307852"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993307768">
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="RetencaoEspecie" visibile="true" minimized="false" rootElement="_145866993297350" id="_145866993311169">
+        <jpa:attributes>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933349110" connected-attribute-id="_1458669933349111" visibile="true" name="retencoes" id="_145866993311171"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993311170">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Endereco" visibile="true" minimized="true" rootElement="_145866993297350" id="_145866993319972">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="uf" id="_145866993319973"/>
+            <basic attribute-type="String" visibile="true" name="cidade" id="_145866993319974"/>
+            <basic attribute-type="String" visibile="true" name="complemento" id="_145866993319975"/>
+            <basic attribute-type="String" visibile="true" name="numero" id="_145866993319976"/>
+            <basic attribute-type="String" visibile="true" name="logradouro" id="_145866993319977"/>
+            <basic attribute-type="String" visibile="true" name="bairro" id="_145866993319978"/>
+            <basic attribute-type="String" visibile="true" name="nome" id="_145866993319979"/>
+            <basic attribute-type="String" visibile="true" name="cep" id="_145866993319981"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993319980">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="PostoDeTrabalho" visibile="true" minimized="false" rootElement="_145866993297350" id="_145866993322882">
+        <jpa:attributes>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933522144" connected-attribute-id="_1458669933522146" visibile="true" name="alocacoes" id="_145866993322883"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933407118" connected-attribute-id="_1458669933407124" visibile="true" name="cargoOuFuncao" id="_145866993322985"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993322884">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Faturamento" visibile="true" minimized="false" rootElement="_145866993297350" id="_145866993326486">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nfeOuFatura" id="_145866993326487"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="atestadaEm" id="_145866993326489">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Double" visibile="true" name="valorLiquido" id="_145866993326490"/>
+            <basic attribute-type="String" visibile="true" name="situacao" id="_145866993326491"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="atestadaPor" id="_145866993326493">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Double" visibile="true" name="valorBruto" id="_145866993326494"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="espelhoCriadoEm" id="_145866993326496">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="competencia" id="_145866993326497">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933577169" visibile="true" name="encargos" id="_145866993326488"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933684187" connected-attribute-id="_1458669933684193" visibile="true" name="glosas" id="_145866993326492"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_145866993326495">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="GlosaEspecie" visibile="true" minimized="true" rootElement="_145866993297350" id="_145866993329298">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nome" id="_1458669933292100"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933684187" connected-attribute-id="_1458669933684189" visibile="true" name="glosas" id="_145866993329299"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933292101">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Fiscal" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933320102">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="designadoDesde" id="_1458669933320105">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="designadoAte" id="_1458669933320108">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="atoDesignacao" id="_1458669933320109"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933737204" connected-attribute-id="_1458669933737205" visibile="true" name="especie" id="_1458669933320103"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933378115" connected-attribute-id="_1458669933378116" visibile="true" name="servidor" id="_1458669933320104"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933550151" connected-attribute-id="_1458669933551164" visibile="true" name="contrato" id="_1458669933320106"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933320107">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Retencao" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933349110">
+        <jpa:attributes>
+            <many-to-one primaryKey="false" connected-entity-id="_145866993307762" connected-attribute-id="_146661709307852" visibile="true" name="colaborador" id="_146661709303651"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_145866993311169" connected-attribute-id="_145866993311171" visibile="true" name="especie" id="_1458669933349111"/>
+            <one-to-one own="true" optional="true" primaryKey="false" connected-entity-id="_1458669933632180" connected-attribute-id="_1458669933632183" visibile="true" name="liberacao" id="_1458669933349112"/>
+            <one-to-one own="true" optional="true" primaryKey="false" connected-entity-id="_145866993326486" visibile="true" name="faturamento" id="_1458669933349114"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933349113">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Servidor" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933378115">
+        <jpa:attributes>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933320102" connected-attribute-id="_1458669933320104" visibile="true" name="fiscais" id="_1458669933378116"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933378117">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="CargoOuFuncao" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933407118">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteDesde" id="_1458669933407119">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteAte" id="_1458669933407120">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="atribuicoes" id="_1458669933407121"/>
+            <basic attribute-type="String" visibile="true" name="nome" id="_1458669933407122"/>
+            <basic attribute-type="String" visibile="true" name="descricao" id="_1458669933407125"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_145866993322882" connected-attribute-id="_145866993322985" visibile="true" name="postosDeTrabalho" id="_1458669933407124"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933407123">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Telefone" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933437126">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="tipo" id="_1458669933437127"/>
+            <basic attribute-type="String" visibile="true" name="numero" id="_1458669933437128"/>
+            <basic attribute-type="String" visibile="true" name="ddd" id="_1458669933437129"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933437130">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Email" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933465131">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="email" id="_1458669933465133"/>
+            <basic attribute-type="String" visibile="true" name="descricao" id="_1458669933465134"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933465132">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="PessoaFisica" superclassId="_145866993304556" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933495135">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="rgOgaoExpedidor" id="_1458669933495137"/>
+            <basic attribute-type="String" visibile="true" name="rgUF" id="_1458669933495138"/>
+            <basic attribute-type="String" visibile="true" name="nascimentoData" id="_1458669933495139"/>
+            <basic attribute-type="String" visibile="true" name="rgNumero" id="_1458669933495140"/>
+            <basic attribute-type="String" visibile="true" name="pisPasep" id="_1458669933495141"/>
+            <basic attribute-type="String" visibile="true" name="cpf" id="_1458669933495142"/>
+            <basic attribute-type="String" visibile="true" name="nome" id="_1458669933495143"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_145866993307762" connected-attribute-id="_145866993307763" visibile="true" name="colaborador" id="_1458669933495136"/>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="alocacao" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933522144">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="periodoInicio" id="_1458669933522147">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Double" visibile="true" name="salario" id="_1458669933522148"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="periodoTermino" id="_1458669933522149">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_145866993307762" connected-attribute-id="_145866993307767" visibile="true" name="colaborador" id="_1458669933522145"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_145866993322882" connected-attribute-id="_145866993322883" visibile="true" name="postoDeTrabalho" id="_1458669933522146"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933522150">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Contrato" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933550151">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="situacao" id="_1458669933550153"/>
+            <basic attribute-type="String" visibile="true" name="numero" id="_1458669933550154"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteAte" id="_1458669933550155">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="assinaturaData" id="_1458669933550157">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="objeto" id="_1458669933550158"/>
+            <basic attribute-type="Byte[]" visibile="true" name="inteiroTeor" id="_1458669933550160">
+                <jpa:lob/>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteDesde" id="_1458669933550163">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="processo" id="_1458669933551165"/>
+            <basic attribute-type="String" visibile="true" name="arp" id="_1458669933551168"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_145866993304556" connected-attribute-id="_145866993304559" visibile="true" name="contratado" id="_1458669933550156"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_1458669933320102" connected-attribute-id="_1458669933320106" visibile="true" name="fiscais" id="_1458669933551164"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933710196" visibile="true" name="contasVinculadas" id="_1458669933550159"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_145866993322882" visibile="true" name="postosDeTrabalho" id="_1458669933550161"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_145866993326486" visibile="true" name="faturamentos" id="_1458669933550162"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933604174" visibile="true" name="aditivos" id="_1458669933551167"/>
+            <many-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933764208" connected-attribute-id="_1458669933764211" visibile="true" name="encargos" id="_1458669933550152"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933551166">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="EncargoAliquota" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933577169">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteDesde" id="_1458669933577170">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteAte" id="_1458669933577171">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Double" visibile="true" name="aliquota" id="_1458669933577172"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933577173">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Aditivo" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933604174">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteDesde" id="_1458669933604175">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="situacao" id="_1458669933604176"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="vigenteAte" id="_1458669933604177">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Byte[]" visibile="true" name="inteiroTeor" id="_1458669933604179">
+                <jpa:lob/>
+            </basic>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933604178">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Liberacao" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933632180">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="liberadoEm" id="_1458669933632181">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="Byte[]" visibile="true" name="anexos" id="_1458669933632182">
+                <jpa:lob/>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="liberadoPor" id="_1458669933632185"/>
+            <basic attribute-type="String" visibile="true" name="parecerLiberacao" id="_1458669933632186"/>
+            <one-to-one own="false" optional="true" primaryKey="false" connected-entity-id="_1458669933349110" connected-attribute-id="_1458669933349112" visibile="true" name="retencao" id="_1458669933632183"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933632184">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Glosa" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933684187">
+        <jpa:attributes>
+            <basic attribute-type="Integer" visibile="true" name="qtd" id="_1458669933684188"/>
+            <basic attribute-type="String" visibile="true" name="glosadoPor" id="_1458669933684190"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="glosadoEm" id="_1458669933684191">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="descricao" id="_1458669933684194"/>
+            <basic attribute-type="Double" visibile="true" name="valorUnitario" id="_1458669933684195"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_145866993329298" connected-attribute-id="_145866993329299" visibile="true" name="especie" id="_1458669933684189"/>
+            <many-to-one optional="true" primaryKey="false" connected-entity-id="_145866993326486" connected-attribute-id="_145866993326492" visibile="true" name="faturamento" id="_1458669933684193"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933684192">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="ContaVinculada" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933710196">
+        <jpa:attributes>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="encerramentoData" id="_1458669933710197">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="operacao" id="_1458669933710198"/>
+            <basic attribute-type="String" visibile="true" name="conta" id="_1458669933710199"/>
+            <basic attribute-type="java.util.Calendar" visibile="true" name="aberturaData" id="_1458669933710200">
+                <jpa:temporal>DATE</jpa:temporal>
+            </basic>
+            <basic attribute-type="String" visibile="true" name="banco" id="_1458669933710201"/>
+            <basic attribute-type="String" visibile="true" name="agencia" id="_1458669933710203"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933710202">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="FiscalEspecie" visibile="true" minimized="true" rootElement="_145866993297350" id="_1458669933737204">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nome" id="_1458669933737206"/>
+            <one-to-many own="false" collection-type="java.util.List" connected-entity-id="_1458669933320102" connected-attribute-id="_1458669933320103" visibile="true" name="fiscais" id="_1458669933737205"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933737207">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Encargo" visibile="true" minimized="false" rootElement="_145866993297350" id="_1458669933764208">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nome" id="_1458669933764210"/>
+            <one-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933577169" visibile="true" name="aliquota" id="_1458669933764209"/>
+            <many-to-many own="true" collection-type="java.util.List" connected-entity-id="_1458669933550151" connected-attribute-id="_1458669933550152" visibile="true" name="contratos" id="_1458669933764211"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_1458669933764212">
+                <jpa:column unique="true" nullable="true" insertable="true" updatable="true"/>
+                <jpa:generated-value strategy="AUTO"/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:c/>
+    <jpa:diagram>
+        <plane elementRef="_145866993297350">
+            <shape elementRef="_145866993304556">
+                <Bounds x="534.0" y="1254.0" width="139.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_145866993304351">
+                <Bounds x="442.0" y="1419.0" width="185.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_145866993307762">
+                <Bounds x="1506.0" y="496.0" width="166.0" height="210.0"/>
+            </shape>
+            <shape elementRef="_145866993311169">
+                <Bounds x="1247.0" y="2210.0" width="195.0" height="92.0"/>
+            </shape>
+            <shape elementRef="_145866993319972">
+                <Bounds x="812.0" y="1419.0" width="150.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_145866993322882">
+                <Bounds x="989.0" y="496.0" width="194.0" height="113.0"/>
+            </shape>
+            <shape elementRef="_145866993326486">
+                <Bounds x="989.0" y="1254.0" width="168.0" height="294.0"/>
+            </shape>
+            <shape elementRef="_145866993329298">
+                <Bounds x="1434.0" y="1612.0" width="173.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933320102">
+                <Bounds x="772.0" y="222.0" width="146.0" height="210.0"/>
+            </shape>
+            <shape elementRef="_1458669933349110">
+                <Bounds x="772.0" y="1612.0" width="150.0" height="155.0"/>
+            </shape>
+            <shape elementRef="_1458669933378115">
+                <Bounds x="989.0" y="32.0" width="144.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933407118">
+                <Bounds x="1247.0" y="980.0" width="187.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933437126">
+                <Bounds x="285.0" y="1419.0" width="145.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933465131">
+                <Bounds x="642.0" y="1419.0" width="130.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933495135">
+                <Bounds x="517.0" y="1160.0" width="172.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933522144">
+                <Bounds x="1247.0" y="222.0" width="148.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933550151">
+                <Bounds x="513.0" y="342.0" width="160.0" height="420.0"/>
+            </shape>
+            <shape elementRef="_1458669933577169">
+                <Bounds x="32.0" y="496.0" width="189.0" height="134.0"/>
+            </shape>
+            <shape elementRef="_1458669933604174">
+                <Bounds x="772.0" y="980.0" width="134.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933632180">
+                <Bounds x="772.0" y="2210.0" width="153.0" height="189.0"/>
+            </shape>
+            <shape elementRef="_1458669933684187">
+                <Bounds x="1247.0" y="1612.0" width="130.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933710196">
+                <Bounds x="285.0" y="980.0" width="185.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933737204">
+                <Bounds x="534.0" y="32.0" width="174.0" height="24.0"/>
+            </shape>
+            <shape elementRef="_1458669933764208">
+                <Bounds x="285.0" y="222.0" width="143.0" height="147.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>

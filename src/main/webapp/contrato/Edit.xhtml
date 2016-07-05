@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <div class="ui-grid">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12" >
+                        <p:panel rendered="#{contratoController.selected.aditivoDe!=null}">
+                            <h:outputText value="#{messages.Contrato_Field_aditivoDe}"/>
+                            <h:outputLink value="#{contratoController.selected.aditivoDe.numero}"/>
+                            <h:outputText value="#{contratoController.selected.aditivoDe.objeto}"/>
+                        </p:panel>
+                    </div>
+                </div>                
+                <div class="ui-grid-row">                    
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('numero')}" for="numero" />
+                    </div>
+                    <div class="ui-grid-col-2 ">
+                        <p:inputText id="numero" value="#{contratoController.selected.numero}" required="true"/>        
+                    </div>
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('contratado')}" for="contratado" />                        
+                    </div>
+                    <div class="ui-grid-col-8 ">
+                        <p:selectOneMenu id="contratado" value="#{contratoController.selected.contratado}">
+                            <f:selectItems value="#{pessoaController.itemsAvailableSelectOne}" var="p" itemLabel="#{p.toString()}" itemValue="#{p}"/>
+                        </p:selectOneMenu>                        
+                    </div>                    
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('objeto')}" for="objeto" />                        
+                    </div>
+                    <div class="ui-grid-col-11 ">
+                        <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" required="true"/>        
+                    </div>
+                </div>                
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('processo')}" for="processo" />                        
+                    </div>
+                    <div class="ui-grid-col-2 ">
+                        <p:inputText id="processo" value="#{contratoController.selected.processo}" required="true"/>        
+                    </div>
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('assinaturaData')}" for="assinaturaData" />                        
+                    </div>
+                    <div class="ui-grid-col-1 ">
+                        <p:inputText id="assinaturaData" size="10" value="#{contratoController.selected.assinaturaData}" required="true" converter="localDateConverter"/>
+                    </div> 
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteDesde')}" for="vigenteDesde" />                        
+                    </div>
+                    <div class="ui-grid-col-1 ">
+                        <p:inputText id="vigenteDesde" size="10" value="#{contratoController.selected.vigenteDesde}" required="true" converter="localDateTimeConverter"/>
+                    </div>                    
+                    <div class="ui-grid-col-1 ">
+                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteAte')}" for="vigenteAte" />                        
+                    </div>
+                    <div class="ui-grid-col-1 ">
+                        <p:inputText id="vigenteAte" size="10" value="#{contratoController.selected.vigenteAte}" required="true" converter="localDateTimeConverter"/>
+                    </div>                                        
+                    <div class="ui-grid-col-3 ">
+                    </div>                        
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <p:panel>                                                        
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-12">
+                                    <p:dataTable id="aditivos" value="#{contratoController.selected.aditivos}"  var="item" paginator="true" rows="10" sortBy="#{item.vigenteDesde}" sortOrder="descending" paginatorPosition="top" paginatorAlwaysVisible="false" rendered="#{contratoController.selected.aditivoDe==null}">
+                                        <f:facet name="header">
+                                            <h:outputText value="Aditivos"/>
+                                            <p:commandButton value="#{contratoController.getMsgAction('Aditivo_Novo')}"/>                                            
+                                        </f:facet>
+                                        <p:column width="10%" filterBy="#{item.numero}" filterMatchMode="contains" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('numero')}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.numero}"/>
+                                        </p:column>
+                                        <p:column width="20%" filterBy="#{item.contratado}" filterMatchMode="contains" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('contratado')}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.contratado.descricao}"/>
+                                        </p:column>
+                                        <p:column width="20%" filterBy="#{item.objeto}" filterMatchMode="contains">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('objeto')}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.objeto}"/>
+                                        </p:column>      
+                                        <p:column width="10%" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteDesde')}"/>                                        
+                                            </f:facet>
+                                            <h:outputText value="#{item.vigenteDesde}" converter="localDateTimeConverter"/>
+                                        </p:column>   
+                                        <p:column width="10%">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteAte')}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.vigenteAte}" converter="localDateTimeConverter"/>                            
+                                        </p:column>                       
+                                        <p:column width="10%" filterBy="#{item.processo}" filterMatchMode="contains">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{contratoController.getMsgFieldLabel('processo')}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.processo}"/>
+                                        </p:column>                        
+                                        <p:column width="10%">
+                                            <f:facet name="header">
+                                                <p:outputLabel value="#{messages.ActionLink}"/>
+                                            </f:facet>
+                                            <p:commandButton action="#{contratoController.prepareEdit()}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </p:panel>
+                    </div>
+                </div>
+            </div>
+            <p:tabView>
+                <p:tab title="Postos de trabalho">
+                    <p:dataTable id="postosDeTrabalho" value="#{contratoController.selected.postosDeTrabalho}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false">
+                        <p:column width="45%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.cargoOuFuncao}" required="true"/>
+                        </p:column>   
+                        <p:column width="45%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.jornada}" required="true"/>
+                        </p:column>                           
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                           
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Encargos">
+                    <p:dataTable id="encargos" value="#{contratoController.selected.aliquotas}"  var="item" paginator="true" rows="10"  paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <p:column width="45%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.encargo.nome}" required="true"/>
+                        </p:column>   
+                        <p:column width="20%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.aliquota}" required="true"/>
+                        </p:column>                           
+                        <p:column width="25%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.encargo.isRetencaoContaVinculada}" required="true"/>
+                        </p:column>                                                   
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                           
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Faturamentos">
+                    <p:dataTable id="faturamentos" value="#{contratoController.selected.faturamentos}"  var="item" paginator="true" rows="10" sortBy="#{item.numero}" paginatorPosition="top" paginatorAlwaysVisible="false" rendered="#{contratoController.selected.aditivoDe==null}">
+                        <p:column width="20%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.competencia}" required="true"/>
+                        </p:column>   
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.valorBruto}" required="true"/>
+                        </p:column>                           
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.valorLiquido}" required="true"/>
+                        </p:column>          
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.nfeOuFatura}" required="true"/>
+                        </p:column>                                            
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.atestadaEm}" required="true"/>
+                        </p:column>                                            
+                        <p:column width="30%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.atestadaPor}" required="true"/>
+                        </p:column>                                                                    
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                      
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Fiscais">
+                    <p:dataTable id="fiscais" value="#{contratoController.selected.fiscais}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <p:column width="25 %">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.fiscal.especie.nome}" required="true"/>
+                        </p:column>   
+                        <p:column width="50%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.servidor.nome}" required="true"/>
+                        </p:column>                           
+                        <p:column width="15%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.atoDesignacao}" required="true"/>
+                        </p:column>                                                   
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                                
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Conta vinculada" >
+                    <p:dataTable id="contaVinculada"  value="#{contratoController.selected.contasVinculadas}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <p:column width="40%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.banco}" required="true"/>
+                        </p:column>   
+                        <p:column width="20%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.agencia}" required="true"/>
+                        </p:column>                           
+                        <p:column width="15%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.conta}" required="true"/>
+                        </p:column>      
+                        <p:column width="15%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>
+                            </f:facet>
+                            <p:inputText value="#{item.operacao}" required="true"/>
+                        </p:column>                            
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                           
+
+                    </p:dataTable>
+                </p:tab>                
+            </p:tabView>
+        </ui:define>
+    </ui:composition>
+
+</html>

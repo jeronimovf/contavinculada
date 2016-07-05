@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06/06/2016, 10:14:43
+    Author     : j129-9
+*/
+
+.ui-outputlabel-rfi {
+            color:gold;
+}
+
+*:required{
+    background-color: navajowhite;
+    border-color: orange;
+}
+
+.msgPageTitle{
+    font-size: 2em;
+}
+
+.noBorder{
+    border: none !important;
+}
+
+.noBackground{
+    background: none !important;
+}
+
+.loginArea{
+    line-height: 50%;
+    font-size: xx-small;
+}
+
+.alignLeft{
+    text-align: left;
+}
+
+.alignRight{
+    text-align: right;
+}
+
+.alignCenter{
+    text-align: center;
+}
+
+.withBorder{
+    border: 1px solid blue;
+}

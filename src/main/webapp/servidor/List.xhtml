@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"      
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <h:outputText value="#{servidorController.msgEmptyList}" rendered="#{servidorController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{servidorController.items.rowCount > 0}">
+                <p:dataTable id="listItems" value="#{servidorController.items}"  var="item" paginator="true" rows="10" sortBy="#{item.nome}" paginatorPosition="top" paginatorAlwaysVisible="false" rowSelectMode="checkbox" selection="#{servidorController.selectedItems}" rowKey="#{item.id}" filteredValue="#{servidorController.filteredItems}">
+                    <p:column width="10%" selectionMode="multiple" style="text-align: center"/>
+                    <p:column width="20%" filterBy="#{item.cpf}" filterMatchMode="contains" >
+                        <f:facet name="header">
+                            <h:outputText value="#{servidorController.getMsgFieldLabel('cpf')}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.cpf}"/>
+                    </p:column>
+                    <p:column width="40%" filterBy="#{item.nome}" filterMatchMode="contains" >
+                        <f:facet name="header">
+                            <h:outputText value="#{servidorController.getMsgFieldLabel('nome')}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nome}"/>
+                    </p:column>
+                    <p:column width="20%" filterBy="#{item.matricula}" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="#{servidorController.getMsgFieldLabel('matricula')}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.matricula}"/>
+                    </p:column>                                          
+                    <p:column width="10%">
+                        <f:facet name="header">
+                            <p:outputLabel value="#{messages.ActionLink}"/>
+                        </f:facet>
+                        <p:commandButton action="#{servidorController.prepareEdit()}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>
