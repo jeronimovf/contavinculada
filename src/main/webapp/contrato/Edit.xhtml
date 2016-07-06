@@ -77,8 +77,16 @@
                                 <div class="ui-grid-col-12">
                                     <p:dataTable id="aditivos" value="#{contratoController.selected.aditivos}"  var="item" paginator="true" rows="10" sortBy="#{item.vigenteDesde}" sortOrder="descending" paginatorPosition="top" paginatorAlwaysVisible="false" rendered="#{contratoController.selected.aditivoDe==null}">
                                         <f:facet name="header">
-                                            <h:outputText value="Aditivos"/>
-                                            <p:commandButton value="#{contratoController.getMsgAction('Aditivo_Novo')}"/>                                            
+                                            <div class="ui-grid">
+                                                <div class="ui-grid-row">
+                                                    <div class="ui-grid-col-6 alignLeft">
+                                                        <h:outputText value="Aditivos"/>                                                        
+                                                    </div>
+                                                    <div class="ui-grid-col-6 alignRight">
+                                                        <p:commandButton value="#{contratoController.getMsgAction('Aditivo_Novo')}"/>                                                                                                    
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
                                         </f:facet>
                                         <p:column width="10%" filterBy="#{item.numero}" filterMatchMode="contains" >
                                             <f:facet name="header">
@@ -132,6 +140,17 @@
             <p:tabView>
                 <p:tab title="Postos de trabalho">
                     <p:dataTable id="postosDeTrabalho" value="#{contratoController.selected.postosDeTrabalho}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false">
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Novo')}"  type="button" onclick="PF('dlgPostoDeTrabalho').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
+
+                        </f:facet>
                         <p:column width="45%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
@@ -154,6 +173,16 @@
                 </p:tab>
                 <p:tab title="Encargos">
                     <p:dataTable id="encargos" value="#{contratoController.selected.aliquotas}"  var="item" paginator="true" rows="10"  paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('Encargo_Novo')}"  type="button" onclick="PF('dlgEncargoAliquota').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Encargo_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
+                        </f:facet>
                         <p:column width="45%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
@@ -182,6 +211,16 @@
                 </p:tab>
                 <p:tab title="Faturamentos">
                     <p:dataTable id="faturamentos" value="#{contratoController.selected.faturamentos}"  var="item" paginator="true" rows="10" sortBy="#{item.numero}" paginatorPosition="top" paginatorAlwaysVisible="false" rendered="#{contratoController.selected.aditivoDe==null}">
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Novo')}"  type="button" onclick="PF('dlgFaturamento').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
+                        </f:facet>
                         <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
@@ -226,8 +265,18 @@
                         </p:column>                      
                     </p:dataTable>
                 </p:tab>
-                <p:tab title="Fiscais">
+                <p:tab title="Fiscais">                    
                     <p:dataTable id="fiscais" value="#{contratoController.selected.fiscais}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}"  type="button" onclick="PF('dlgFiscal').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
+                        </f:facet>
                         <p:column width="25 %">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
@@ -256,6 +305,16 @@
                 </p:tab>
                 <p:tab title="Conta vinculada" >
                     <p:dataTable id="contaVinculada"  value="#{contratoController.selected.contasVinculadas}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('Conta_Novo')}" type="button" onclick="PF('dlgContaVinculada').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Conta_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
+                        </f:facet>                        
                         <p:column width="40%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
@@ -290,6 +349,193 @@
                     </p:dataTable>
                 </p:tab>                
             </p:tabView>
+            <p:dialog id="dlgPostoDeTrabalho" header="#{contratoController.getDlgHeader('PostoDeTrabalho')}"  position="center" modal="true" draggable="true" widgetVar="dlgPostoDeTrabalho">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="atoDesignacao" value="#{contratoController.postoNovo.cargoOuFuncao}"/>                            
+                        </div>                        
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.postoNovo.jornada}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgPostoDeTrabalho').hide()"/>
+                            <p:commandButton value="#{messages.CancelLink}"/>
+                        </div>  
+                    </div>
+                </div>
+
+            </p:dialog>
+            <p:dialog id="dlgEncargoAliquota" header="#{contratoController.getDlgHeader('EncargoAliquota')}"  position="center" modal="true" draggable="true" widgetVar="dlgEncargoAliquota">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="atoDesignacao" value="#{contratoController.aliquotaNova.encargo}"/>                            
+                        </div>                        
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.aliquotaNova.aliquota}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgEncargoAliquota').hide()"/>
+                            <p:commandButton value="#{messages.CancelLink}"/>
+                        </div>  
+                    </div>
+                </div>
+            </p:dialog>
+            <p:dialog id="dlgFaturamento" header="#{contratoController.getDlgHeader('Faturamento')}"  position="center" modal="true" draggable="true" widgetVar="dlgFaturamento">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="atoDesignacao" value="#{contratoController.faturamentoNovo.competencia}"/>                            
+                        </div>                        
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.valorBruto}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.valorLiquido}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.nfeOuFatura}"/>
+                        </div>    
+                    </div>      
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.atestadaPor}"/>
+                        </div>    
+                    </div> 
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.atestadaEm}"/>
+                        </div>    
+                    </div>                     
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgFaturamento').hide()"/>
+                            <p:commandButton value="#{messages.CancelLink}"/>
+                        </div>  
+                    </div>
+                </div>
+            </p:dialog>
+            <p:dialog id="dlgConta" header="#{contratoController.getDlgHeader('ContaVinculada')}"  position="center" modal="true" draggable="true" widgetVar="dlgContaVinculada">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="atoDesignacao" value="#{contratoController.contaNova.banco}"/>                            
+                        </div>                        
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.contaNova.agencia}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.contaNova.conta}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel("ContaVinculada_operacao")}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.contaNova.operacao}"/>
+                        </div>    
+                    </div>                    
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgContaVinculada').hide()"/>
+                            <p:commandButton value="#{messages.CancelLink}"/>
+                        </div>  
+                    </div>
+                </div>
+            </p:dialog>
+            <p:dialog id="dlgFiscal" header="#{contratoController.getDlgHeader('Fiscal')}" position="center" modal="true" draggable="true" widgetVar="dlgFiscal">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="atoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}"/>                            
+                        </div>                        
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.fiscalNovo.servidor}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:inputText id="servidor" value="#{contratoController.fiscalNovo.especie}"/>
+                        </div>    
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:commandButton value="#{messages.SaveLink}"  type="button" onclick="PF('dlgFiscal').hide()"/>
+                            <p:commandButton value="#{messages.CancelLink}"/>
+                        </div>  
+                    </div>
+                </div>
+            </p:dialog>            
         </ui:define>
     </ui:composition>
 

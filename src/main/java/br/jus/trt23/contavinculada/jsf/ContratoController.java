@@ -1,6 +1,11 @@
 package br.jus.trt23.contavinculada.jsf;
 
+import br.jus.trt23.contavinculada.entities.ContaVinculada;
 import br.jus.trt23.contavinculada.entities.Contrato;
+import br.jus.trt23.contavinculada.entities.EncargoAliquota;
+import br.jus.trt23.contavinculada.entities.Faturamento;
+import br.jus.trt23.contavinculada.entities.Fiscal;
+import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.session.ContratoFacade;
 
 import javax.inject.Named;
@@ -20,6 +25,77 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
 
     public ContratoController() {
         setMessagePrefix("Contrato");
+    }
+
+    private Fiscal fiscalNovo;
+    private EncargoAliquota aliquotaNova;
+    private Faturamento faturamentoNovo;
+    private ContaVinculada contaNova;
+    private PostoDeTrabalho postoNovo;
+
+    public String prepareFiscalNovo(){
+        setFiscalNovo(new Fiscal());
+        return "fiscalNovo";
+    }
+    
+    public String prepareAliquotaNova(){
+        setAliquotaNova(new EncargoAliquota());
+        return "aliquotaNova";        
+    }
+
+    public String prepareFaturamentoNovo(){
+        setFaturamentoNovo(new Faturamento());
+        return "faturamentoNovo";
+    }
+
+    public String prepareContaNova(){
+        setContaNova(new ContaVinculada());
+        return "contaNova";        
+    }
+
+    public String preparePostoNovo(){
+        setPostoNovo(new PostoDeTrabalho());
+        return "postoNovo";
+    }
+    
+    public Fiscal getFiscalNovo() {
+        return fiscalNovo;
+    }
+
+    public void setFiscalNovo(Fiscal fiscalNovo) {
+        this.fiscalNovo = fiscalNovo;
+    }
+
+    public EncargoAliquota getAliquotaNova() {
+        return aliquotaNova;
+    }
+
+    public void setAliquotaNova(EncargoAliquota aliquotaNova) {
+        this.aliquotaNova = aliquotaNova;
+    }
+
+    public Faturamento getFaturamentoNovo() {
+        return faturamentoNovo;
+    }
+
+    public void setFaturamentoNovo(Faturamento faturamentoNovo) {
+        this.faturamentoNovo = faturamentoNovo;
+    }
+
+    public ContaVinculada getContaNova() {
+        return contaNova;
+    }
+
+    public void setContaNova(ContaVinculada contaNova) {
+        this.contaNova = contaNova;
+    }
+
+    public PostoDeTrabalho getPostoNovo() {
+        return postoNovo;
+    }
+
+    public void setPostoNovo(PostoDeTrabalho postoNovo) {
+        this.postoNovo = postoNovo;
     }
 
     @Override

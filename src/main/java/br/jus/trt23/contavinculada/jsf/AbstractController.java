@@ -201,7 +201,10 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
     public String getMsgAction(String action) {
         return messages.getString(getMessagePrefix().concat("_Action_").concat(action));
     }
-    
+
+    public String getDlgHeader(String header) {
+        return messages.getString(getMessagePrefix().concat("_DlgHeader_").concat(header));
+    }    
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {

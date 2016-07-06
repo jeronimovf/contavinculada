@@ -20,7 +20,7 @@ import javax.persistence.PersistenceUnit;
  */
 @ApplicationScoped
 public class EntityManagerProvider implements Serializable {
-    @PersistenceUnit(unitName = "contratosPU" )
+    @PersistenceUnit(unitName = "contaVinculadaPU" )
     private EntityManagerFactory entityManagerQCFactory;
     
     @Produces
