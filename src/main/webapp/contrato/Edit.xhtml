@@ -177,8 +177,8 @@
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Encargo_Novo')}"  type="button" onclick="PF('dlgEncargoAliquota').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('Encargo_Excluir')}"/>  
+                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Novo')}"  type="button" onclick="PF('dlgEncargoAliquota').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Excluir')}"/>  
                                     </div>
                                 </div>
                             </div>
@@ -309,8 +309,8 @@
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Conta_Novo')}" type="button" onclick="PF('dlgContaVinculada').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('Conta_Excluir')}"/>  
+                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Novo')}" type="button" onclick="PF('dlgContaVinculada').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Excluir')}"/>  
                                     </div>
                                 </div>
                             </div>
@@ -353,18 +353,18 @@
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
+                            <p:outputLabel for="postoDeTrabalhoCargoOuFuncao" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="atoDesignacao" value="#{contratoController.postoNovo.cargoOuFuncao}"/>                            
+                            <p:inputText id="postoDeTrabalhoCargoOuFuncao" value="#{contratoController.postoNovo.cargoOuFuncao}"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
+                            <p:outputLabel for="postoDeTrabalhoJornada" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.postoNovo.jornada}"/>
+                            <p:inputText id="postoDeTrabalhoJornada" value="#{contratoController.postoNovo.jornada}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
@@ -380,18 +380,18 @@
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
+                            <p:outputLabel for="encargoAliquotaNome" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="atoDesignacao" value="#{contratoController.aliquotaNova.encargo}"/>                            
+                            <p:inputText id="encargoAliquotaNome" value="#{contratoController.aliquotaNova.encargo}"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
+                            <p:outputLabel for="encargoAliquotaAliquota" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.aliquotaNova.aliquota}"/>
+                            <p:inputText id="encargoAliquotaAliquota" value="#{contratoController.aliquotaNova.aliquota}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
@@ -406,50 +406,50 @@
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
+                            <p:outputLabel for="faturamentoCompetencia" value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="atoDesignacao" value="#{contratoController.faturamentoNovo.competencia}"/>                            
+                            <p:inputText id="faturamentoCompetencia" value="#{contratoController.faturamentoNovo.competencia}"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
+                            <p:outputLabel for="faturamentoValorBruto" value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.valorBruto}"/>
+                            <p:inputText id="faturamentoValorBruto" value="#{contratoController.faturamentoNovo.valorBruto}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
+                            <p:outputLabel for="faturamentoValorLiquido" value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.valorLiquido}"/>
+                            <p:inputText id="faturamentoValorLiquido" value="#{contratoController.faturamentoNovo.valorLiquido}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
+                            <p:outputLabel for="faturamentoNfeOuFatura" value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.nfeOuFatura}"/>
+                            <p:inputText id="faturamentoNfeOuFatura" value="#{contratoController.faturamentoNovo.nfeOuFatura}"/>
                         </div>    
                     </div>      
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
+                            <p:outputLabel for="faturamentoAtestadaPor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.atestadaPor}"/>
+                            <p:inputText id="faturamentoAtestadaPor" value="#{contratoController.faturamentoNovo.atestadaPor}"/>
                         </div>    
                     </div> 
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
+                            <p:outputLabel for="faturamentoAtestadaEm" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.faturamentoNovo.atestadaEm}"/>
+                            <p:inputText id="faturamentoAtestadaEm" value="#{contratoController.faturamentoNovo.atestadaEm}"/>
                         </div>    
                     </div>                     
                     <div class="ui-grid-row">
@@ -464,34 +464,34 @@
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
+                            <p:outputLabel for="contaVinculadaBanco" value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="atoDesignacao" value="#{contratoController.contaNova.banco}"/>                            
+                            <p:inputText id="contaVinculadaBanco" value="#{contratoController.contaNova.banco}"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
+                            <p:outputLabel for="contaVinculadaAgencia" value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.contaNova.agencia}"/>
+                            <p:inputText id="contaVinculadaAgencia" value="#{contratoController.contaNova.agencia}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
+                            <p:outputLabel for="contaVinculadaConta" value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.contaNova.conta}"/>
+                            <p:inputText id="contaVinculadaConta" value="#{contratoController.contaNova.conta}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel("ContaVinculada_operacao")}"/>
+                            <p:outputLabel for="contaVinculadaOperacao" value="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.contaNova.operacao}"/>
+                            <p:inputText id="contaVinculadaOperacao" value="#{contratoController.contaNova.operacao}"/>
                         </div>    
                     </div>                    
                     <div class="ui-grid-row">
@@ -506,26 +506,26 @@
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="atoDesignacao" value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
+                            <p:outputLabel for="fiscalAtoDesignacao" value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="atoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}"/>                            
+                            <p:inputText id="fiscalAtoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
+                            <p:outputLabel for="fiscalServidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.fiscalNovo.servidor}"/>
+                            <p:inputText id="fiscalServidor" value="#{contratoController.fiscalNovo.servidor}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
-                            <p:outputLabel for="servidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
+                            <p:outputLabel for="fiscalEspecie" value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="servidor" value="#{contratoController.fiscalNovo.especie}"/>
+                            <p:inputText id="fiscalEspecie" value="#{contratoController.fiscalNovo.especie}"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
