@@ -20,7 +20,7 @@ import javax.faces.convert.FacesConverter;
 public class LocalDateTimeConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-          return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
+          return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 
     @Override

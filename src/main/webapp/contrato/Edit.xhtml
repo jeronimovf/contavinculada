@@ -529,7 +529,7 @@
                     </div>
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"  onclick="PF('dlgFiscal').hide()" actionListener="#{contratoController.fiscalCreate}" update="messagesCentral" validateClient="true"/>
+                            <p:commandButton value="#{messages.SaveLink}"  onclick="PF('dlgFiscal').hide()" actionListener="#{contratoController.fiscalCreate}" update="messagesCentral" validateClient="true" process="dlgFiscal"/>
                             <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('dlgFiscal').hide()"/>
                         </div>  
                     </div>
