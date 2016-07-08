@@ -6,10 +6,14 @@
 package br.jus.trt23.contavinculada.session;
 
 import br.jus.trt23.contavinculada.entities.Encargo;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -21,8 +25,6 @@ public class EncargoFacade extends AbstractFacade<Encargo> {
 
     @Inject
     private EntityManager em;
-    
-
 
     public EncargoFacade() {
         super(Encargo.class);
@@ -33,7 +35,14 @@ public class EncargoFacade extends AbstractFacade<Encargo> {
         return em;
     }
 
-    
-    
-    
+    @Override
+    public List<Encargo> complete(String criteria) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Encargo> c = cq.from(Encargo.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("nome")), "%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();
+
+    }
+
 }

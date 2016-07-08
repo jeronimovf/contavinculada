@@ -49,3 +49,7 @@ and open the template in the editor.
 .withBorder{
     border: 1px solid blue;
 }
+
+.paddingPlus10{
+    padding: 10px;
+}

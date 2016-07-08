@@ -30,6 +30,8 @@ public abstract class AbstractFacade<T> {
     }
 
     protected abstract EntityManager getEntityManager();
+    
+    public abstract List<T> complete(String criteria);
 
     public void create(T entity) throws Exception{
         

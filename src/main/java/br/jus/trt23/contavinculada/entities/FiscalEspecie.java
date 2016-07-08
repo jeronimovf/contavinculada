@@ -10,9 +10,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
-@Data
 @Table(
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
@@ -25,6 +30,11 @@ public class FiscalEspecie extends EntidadeGenerica {
     
     @OneToMany(targetEntity = Fiscal.class, mappedBy = "especie")
     private List<Fiscal> fiscais;
+
+    @Override
+    public String toString() {
+        return getNome(); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
  }

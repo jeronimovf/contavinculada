@@ -3,6 +3,8 @@ package br.jus.trt23.contavinculada.jsf;
 import br.jus.trt23.contavinculada.entities.Pessoa;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.session.PessoaFacade;
+import br.jus.trt23.contavinculada.session.PessoaFisicaFacade;
+import br.jus.trt23.contavinculada.session.PessoaJuridicaFacade;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,10 @@ public class PessoaController extends AbstractController<PessoaFacade, Pessoa> {
 
     @Inject
     private transient PessoaFacade facade;
+    @Inject
+    private transient PessoaJuridicaFacade pjFacade;
+    @Inject
+    private transient PessoaFisicaFacade pfFacade;    
 
     public PessoaController() {
         setMessagePrefix("Pessoa");
@@ -29,18 +35,13 @@ public class PessoaController extends AbstractController<PessoaFacade, Pessoa> {
     protected PessoaFacade getFacade() {
         return facade;
     }
-    
-    public List<Pessoa> getHashedItems(){
-        ArrayList<Pessoa> pessoas = new ArrayList<>();
-        PessoaJuridica pj;
-        for(int i=0;i<5;i++){
-             pj = new PessoaJuridica();
-             pj.setId(new Long(i+1));
-             pj.setNomeFantasia("PJ".concat(Integer.toString(i)));
-             pj.setRazaoSocial(pj.getNomeFantasia().concat(" LTDA"));
-             pessoas.add(pj);
-        }      
-        return pessoas;
+
+    @Override
+    public List<Pessoa> complete(String criteria) {
+        List<Pessoa> p = new ArrayList<>();
+        p.addAll(pfFacade.complete(criteria));
+        p.addAll(pjFacade.complete(criteria));
+        return p; //To change body of generated methods, choose Tools | Templates.
     }
 
     @FacesConverter(forClass = Pessoa.class)

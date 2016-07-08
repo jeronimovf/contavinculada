@@ -108,6 +108,12 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
+    
+    public String fiscalCreate() throws Exception{
+        selected.getFiscais().add(fiscalNovo);
+        saveOrCreate();
+        return "Edit";
+    }        
 
     @FacesConverter(forClass = Contrato.class)
     public static class ContratoControllerConverter implements Converter {

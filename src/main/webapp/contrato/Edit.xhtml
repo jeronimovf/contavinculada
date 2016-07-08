@@ -29,9 +29,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('contratado')}" for="contratado" />                        
                     </div>
                     <div class="ui-grid-col-8 ">
-                        <p:selectOneMenu id="contratado" value="#{contratoController.selected.contratado}">
-                            <f:selectItems value="#{pessoaController.itemsAvailableSelectOne}" var="p" itemLabel="#{p.toString()}" itemValue="#{p}"/>
-                        </p:selectOneMenu>                        
+                        <p:autoComplete id="contratado" value="#{contratoController.selected.contratado}" completeMethod="#{pessoaController.complete}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{pessoaController.msgNotFound}" var="pessoa" itemLabel="#{pessoa.toString()}" itemValue="#{pessoa}" size="62"/>                       
                     </div>                    
                 </div>
                 <div class="ui-grid-row">
@@ -349,7 +347,7 @@
                     </p:dataTable>
                 </p:tab>                
             </p:tabView>
-            <p:dialog id="dlgPostoDeTrabalho" header="#{contratoController.getDlgHeader('PostoDeTrabalho')}"  position="center" modal="true" draggable="true" widgetVar="dlgPostoDeTrabalho">
+            <p:dialog id="dlgPostoDeTrabalho" header="#{contratoController.getDlgHeader('PostoDeTrabalho')}"  position="center" modal="true" draggable="true" widgetVar="dlgPostoDeTrabalho" appendTo="formRoot" width="356px" responsive="true">
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
@@ -368,7 +366,7 @@
                         </div>    
                     </div>
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
+                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgPostoDeTrabalho').hide()"/>
                             <p:commandButton value="#{messages.CancelLink}"/>
                         </div>  
@@ -376,7 +374,7 @@
                 </div>
 
             </p:dialog>
-            <p:dialog id="dlgEncargoAliquota" header="#{contratoController.getDlgHeader('EncargoAliquota')}"  position="center" modal="true" draggable="true" widgetVar="dlgEncargoAliquota">
+            <p:dialog id="dlgEncargoAliquota" header="#{contratoController.getDlgHeader('EncargoAliquota')}"  position="center" modal="true" draggable="true" widgetVar="dlgEncargoAliquota" appendTo="formRoot" width="356px" responsive="true">
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
@@ -395,14 +393,14 @@
                         </div>    
                     </div>
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
+                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgEncargoAliquota').hide()"/>
                             <p:commandButton value="#{messages.CancelLink}"/>
                         </div>  
                     </div>
                 </div>
             </p:dialog>
-            <p:dialog id="dlgFaturamento" header="#{contratoController.getDlgHeader('Faturamento')}"  position="center" modal="true" draggable="true" widgetVar="dlgFaturamento">
+            <p:dialog id="dlgFaturamento" header="#{contratoController.getDlgHeader('Faturamento')}"  position="center" modal="true" draggable="true" widgetVar="dlgFaturamento" appendTo="formRoot" width="356px" responsive="true">
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
@@ -453,14 +451,14 @@
                         </div>    
                     </div>                     
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
+                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgFaturamento').hide()"/>
                             <p:commandButton value="#{messages.CancelLink}"/>
                         </div>  
                     </div>
                 </div>
             </p:dialog>
-            <p:dialog id="dlgConta" header="#{contratoController.getDlgHeader('ContaVinculada')}"  position="center" modal="true" draggable="true" widgetVar="dlgContaVinculada">
+            <p:dialog id="dlgConta" header="#{contratoController.getDlgHeader('ContaVinculada')}"  position="center" modal="true" draggable="true" widgetVar="dlgContaVinculada" appendTo="formRoot" width="356px" responsive="true">
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
@@ -495,21 +493,22 @@
                         </div>    
                     </div>                    
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
+                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgContaVinculada').hide()"/>
                             <p:commandButton value="#{messages.CancelLink}"/>
                         </div>  
                     </div>
                 </div>
             </p:dialog>
-            <p:dialog id="dlgFiscal" header="#{contratoController.getDlgHeader('Fiscal')}" position="center" modal="true" draggable="true" widgetVar="dlgFiscal">
+            <p:dialog id="dlgFiscal" header="#{contratoController.getDlgHeader('Fiscal')}" position="center" modal="true" draggable="true" widgetVar="dlgFiscal" appendTo="formRoot" width="356px" responsive="true">
+                <p:ajax event="open" listener="#{contratoController.prepareFiscalNovo()}"/>
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6">
                             <p:outputLabel for="fiscalAtoDesignacao" value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="fiscalAtoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}"/>                            
+                            <p:inputText id="fiscalAtoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}" required="true"/>                            
                         </div>                        
                     </div>
                     <div class="ui-grid-row">
@@ -517,7 +516,7 @@
                             <p:outputLabel for="fiscalServidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="fiscalServidor" value="#{contratoController.fiscalNovo.servidor}"/>
+                            <p:autoComplete id="fiscalServidor" value="#{contratoController.fiscalNovo.servidor}" completeMethod="#{servidorController.complete}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{servidor.msgNotFound}" var="servidor" itemLabel="#{servidor.toString()}" itemValue="#{servidor}"  moreText="#{messages.RecordsLimited}" required="true"/>                            
                         </div>    
                     </div>
                     <div class="ui-grid-row">
@@ -525,13 +524,13 @@
                             <p:outputLabel for="fiscalEspecie" value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
                         </div>
                         <div class="ui-grid-col-6">
-                            <p:inputText id="fiscalEspecie" value="#{contratoController.fiscalNovo.especie}"/>
+                            <p:autoComplete id="fiscalEspecie" value="#{contratoController.fiscalNovo.especie}" completeMethod="#{fiscalEspecieController.complete}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{fiscalEspecieController.msgNotFound}" var="fiscalEspecie" itemLabel="#{fiscalEspecie.toString()}" itemValue="#{fiscalEspecie}" moreText="#{messages.RecordsLimited}" required="true"/>
                         </div>    
                     </div>
                     <div class="ui-grid-row">
-                        <div class="ui-grid-col-12">
-                            <p:commandButton value="#{messages.SaveLink}"  type="button" onclick="PF('dlgFiscal').hide()"/>
-                            <p:commandButton value="#{messages.CancelLink}"/>
+                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
+                            <p:commandButton value="#{messages.SaveLink}"  onclick="PF('dlgFiscal').hide()" actionListener="#{contratoController.fiscalCreate}" update="messagesCentral" validateClient="true"/>
+                            <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('dlgFiscal').hide()"/>
                         </div>  
                     </div>
                 </div>

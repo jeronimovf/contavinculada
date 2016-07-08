@@ -1,8 +1,6 @@
 package br.jus.trt23.contavinculada.jsf;
 
-import br.jus.trt23.contavinculada.entities.Encargo;
 import br.jus.trt23.contavinculada.entities.Colaborador;
-import br.jus.trt23.contavinculada.session.EncargoFacade;
 import br.jus.trt23.contavinculada.session.ColaboradorFacade;
 
 import javax.inject.Named;

@@ -6,10 +6,14 @@
 package br.jus.trt23.contavinculada.session;
 
 import br.jus.trt23.contavinculada.entities.FiscalEspecie;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -31,6 +35,16 @@ public class FiscalEspecieFacade extends AbstractFacade<FiscalEspecie> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @Override
+    public List<FiscalEspecie> complete(String criteria) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<FiscalEspecie> c = cq.from(FiscalEspecie.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();        
+
     }
 
     

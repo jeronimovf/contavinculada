@@ -25,8 +25,6 @@ public class ContratoFacade extends AbstractFacade<Contrato> {
 
     @Inject
     private EntityManager em;
-    
-
 
     public ContratoFacade() {
         super(Contrato.class);
@@ -36,7 +34,7 @@ public class ContratoFacade extends AbstractFacade<Contrato> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     @Override
     public List<Contrato> findAll() {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -56,6 +54,15 @@ public class ContratoFacade extends AbstractFacade<Contrato> {
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
-    }    
-    
+    }
+
+    @Override
+    public List<Contrato> complete(String criteria) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Contrato> c = cq.from(Contrato.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("numero")), "%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
 }

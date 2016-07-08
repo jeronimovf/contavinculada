@@ -185,6 +185,10 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
             JsfUtil.addErrorMessage(e, msg);
         }
     }
+    
+    public List<T> complete(String criteria){
+        return getFacade().complete(criteria);        
+    }
 
     public String getMsgPageTitle() {
         return messages.getString(getMessagePrefix().concat("_Title_").concat(activeAction.toString()));
@@ -192,6 +196,10 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     public String getMsgEmptyList() {
         return messages.getString(getMessagePrefix().concat("_Empty"));
+    }
+    
+    public String getMsgNotFound(){
+        return messages.getString(getMessagePrefix().concat("_NotFound"));        
     }
 
     public String getMsgFieldLabel(String field) {
