@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <p:tabView>
+            <p:tabView id="contratoTabs">
                 <p:tab title="Postos de trabalho">
                     <p:dataTable id="postosDeTrabalho" value="#{contratoController.selected.postosDeTrabalho}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false">
                         <f:facet name="header">
@@ -564,12 +564,12 @@
                     </div>
                 </div>
             </p:dialog>   
-            <t:FormDlgCreate id="dlgFiscal1" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgHeader('Fiscal')}">
+            <t:FormDlgCreate id="dlgFiscal1" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
                 <t:FormRowDate id="fiscalVigenteDesde1" calendarValue="#{contratoController.fiscalNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}" calendarRequired="true"/>
                 <t:FormRowDate id="fiscalVigenteAte1" calendarValue="#{contratoController.fiscalNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>                
-                <t:FormRowString id="fiscalAtoDesignacao1" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}"/>
-                <t:FormRowAutoComplete id="fiscalEspecie1" autoCompleteItem="especie" autoCompleteValue="#{contratoController.fiscalNovo.especie}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" autoCompleteRequired="true" completeMethod="#{fiscalEspecieController.complete}"/>
-                <t:FormRowAutoComplete id="fiscalServidor1" autoCompleteItem="servidor" autoCompleteValue="#{contratoController.fiscalNovo.servidor}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" autoCompleteRequired="true" completeMethod="#{servidorController.complete}"/>                
+                <t:FormRowString id="fiscalAtoDesignacao1" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}" />
+                <t:FormRowAutoComplete id="fiscalEspecie1" autoCompleteItem="especie" autoCompleteValue="#{contratoController.fiscalNovo.especie}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" autoCompleteRequired="true" completeMethod="#{fiscalEspecieController.complete}" autoCompleteItemLabel="#{especie.toString()}" autoCompleteItemValue="#{especie}"/>
+                <t:FormRowAutoComplete id="fiscalServidor1" autoCompleteItem="servidor" autoCompleteValue="#{contratoController.fiscalNovo.servidor}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" autoCompleteRequired="true" completeMethod="#{servidorController.complete}"  autoCompleteItemLabel="#{servidor.toString()}" autoCompleteItemValue="#{servidor}"/>                
             </t:FormDlgCreate>
         </ui:define>
     </ui:composition>

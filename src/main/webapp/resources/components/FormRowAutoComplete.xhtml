@@ -5,13 +5,15 @@
       xmlns:p="http://primefaces.org/ui">
 
       <cc:interface>
-        <cc:attribute name="id" required="true"/>
-        <cc:attribute name="labelValue" required="true"/>
-        <cc:attribute name="autoCompleteValue" required="true"/>        
+        <cc:attribute name="id"/>
+        <cc:attribute name="labelValue"/>
+        <cc:attribute name="autoCompleteValue"/>        
         <cc:attribute name="autoCompleteRequired" default="false"/> 
         <cc:attribute name="autoCompleteSize" default="10"/> 
         <cc:attribute name="autoCompleteRequired" default="false"/>         
-        <cc:attribute name="autoCompleteItem" required="true"/>                 
+        <cc:attribute name="autoCompleteItem"/>                 
+        <cc:attribute name="autoCompleteItemLabel"/>           
+        <cc:attribute name="autoCompleteItemValue"/>                   
         <cc:attribute name="completeMethod" method-signature="String complete(String)"/>
     </cc:interface>
 
@@ -21,7 +23,7 @@
                 <p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:autoComplete id="#{cc.attrs.id}" value="#{cc.attrs.autoCompleteValue}" completeMethod="#{cc.attrs.completeMethod}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{pessoaController.msgNotFound}" var="#{cc.attrs.autoCompleteItem}" itemLabel="#{cc.attrs.autoCompleteItem}.toString()" itemValue="#{cc.attrs.autoCompleteItem}" size="#{cc.attrs.autoCompleteSize}"/>                                       
+                <p:autoComplete id="#{cc.attrs.id}" value="#{cc.attrs.autoCompleteValue}" completeMethod="#{cc.attrs.completeMethod}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{pessoaController.msgNotFound}" var="#{cc.attrs.autoCompleteItem}" itemLabel="#{cc.attrs.autoCompleteItemLabel}" itemValue="#{cc.attrs.autoCompleteItemValue}" size="#{cc.attrs.autoCompleteSize}"/>                                       
             </div>                        
         </div>
     </cc:implementation>
