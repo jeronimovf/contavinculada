@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+      <cc:interface>
+        <cc:attribute name="id" required="true"/>
+        <cc:attribute name="header"/>
+        <cc:attribute name="openListener" method-signature="void action()"/>        
+        <cc:attribute name="actionListener" method-signature="void action()"/>        
+    </cc:interface>
+
+    <cc:implementation>
+        <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.id}" appendTo="formRoot" width="356px" responsive="true">
+            <p:ajax event="open" listener="#{contratoController.prepareFiscalNovo()}"/>
+            <p:ajax update="formRoot"/>
+            <div class="ui-grid">            
+                <cc:insertChildren />
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 paddingPlus10 alignCenter">
+                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" update="messagesCentral" validateClient="true" process="#{cc.attrs.id}"/>
+                        <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.id}').hide()"/>
+                    </div>  
+                </div>
+            </div>
+        </p:dialog> 
+    </cc:implementation>
+</html>

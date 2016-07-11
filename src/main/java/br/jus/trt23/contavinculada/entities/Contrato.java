@@ -5,6 +5,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -61,7 +62,7 @@ public class Contrato extends EntidadeGenerica {
     @OneToMany(mappedBy = "aditivoDe")
     private List<Contrato> aditivos;
 
-    @OneToMany(mappedBy = "contrato")
+    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE}  )
     private List<Fiscal> fiscais;
 
     @ManyToMany(mappedBy = "contratos")

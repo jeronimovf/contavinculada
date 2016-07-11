@@ -5,6 +5,7 @@
  */
 package br.jus.trt23.contavinculada.session;
 
+import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.qualifiers.Slf4jLogger;
 import java.util.List;
 import javax.enterprise.context.Dependent;
@@ -18,7 +19,7 @@ import org.slf4j.Logger;
  * @param <T>
  */
 @Dependent
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T extends EntidadeGenerica> {
     @Inject
     @Slf4jLogger
     Logger logger;
@@ -34,7 +35,7 @@ public abstract class AbstractFacade<T> {
     public abstract List<T> complete(String criteria);
 
     public void create(T entity) throws Exception{
-        
+
        getEntityManager().persist(entity);
     }
 

@@ -50,7 +50,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     @Inject
     @MessageBundle
-    private transient ResourceBundle messages;
+    protected transient ResourceBundle messages;
 
     public String getMessagePrefix() {
         return messagePrefix;
@@ -118,8 +118,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     public String create() throws Exception {
         String msg;
-        try {
-            selected.setCriadoEm(LocalDateTime.now());            
+        try {    
             getFacade().create(selected);
             msg = messages.getString(getMessagePrefix().concat("_Created"));
             JsfUtil.addSuccessMessage(msg);

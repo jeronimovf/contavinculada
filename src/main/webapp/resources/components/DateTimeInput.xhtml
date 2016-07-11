@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+      <cc:interface>
+        <cc:attribute name="id" required="true"/>
+        <cc:attribute name="value" required="true" />
+    </cc:interface>
+
+    <cc:implementation>
+        <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.value}" mask="true" converter="localDateTimeConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy HH:mm"/>                        
+    </cc:implementation>
+</html>

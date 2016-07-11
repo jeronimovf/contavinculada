@@ -6,12 +6,15 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import lombok.Data;
 
 /**
@@ -25,12 +28,20 @@ public abstract class EntidadeGenerica implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
         
-    private LocalDateTime vigenteDesde;
+    private LocalDate vigenteDesde;
 
-    private LocalDateTime vigenteAte;  
+    private LocalDate vigenteAte;  
     
     @Column(nullable = false)
     private LocalDateTime criadoEm;
 
-    private LocalDateTime destruidoEm;    
+    private LocalDateTime destruidoEm;   
+    
+    //set mandatory fields
+    @PreUpdate
+    @PrePersist
+    public void setMandatoryFields(){
+        setCriadoEm(LocalDateTime.now());
+    }
+   
 }

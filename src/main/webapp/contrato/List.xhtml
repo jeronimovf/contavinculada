@@ -33,13 +33,13 @@
                         <f:facet name="header">
                             <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteDesde')}"/>                                        
                         </f:facet>
-                        <h:outputText value="#{item.vigenteDesde}" converter="localDateTimeConverter"/>
+                        <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
                     </p:column>   
                     <p:column width="10%">
                         <f:facet name="header">
                             <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteAte')}"/>
                         </f:facet>
-                        <h:outputText value="#{item.vigenteAte}" converter="localDateTimeConverter"/>                            
+                        <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>                            
                     </p:column>                       
                     <p:column width="10%" filterBy="#{item.processo}" filterMatchMode="contains">
                         <f:facet name="header">

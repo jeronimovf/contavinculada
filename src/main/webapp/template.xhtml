@@ -13,7 +13,8 @@
                 <title>Cabeçalho de página do template</title>
             </f:facet>
             <h:outputStylesheet name="css/jsfcrud.css"/>            
-            <h:outputStylesheet name="css/trt23.css"/>                        
+            <h:outputStylesheet name="css/trt23.css"/>  
+            <h:outputScript library="js" name="PrimeFaces.locales.pt_BR.js"/>
         </h:head>
 
         <h:body>
@@ -30,7 +31,7 @@
                                                     <h:outputText styleClass="msgPageTitle" value="#{proxyController.controller.msgPageTitle}"></h:outputText>
                                                 </div>
                                                 <div class="ui-grid-col-6">
-                                                    <p:messages autoUpdate="true" showDetail="true" showIcon="true" id="messagesCentral"/>
+                                                    <p:messages autoUpdate="true" showDetail="true" showIcon="true" id="messagesCentral" styleClass="messagePanel"/>
                                                     <p:toolbar styleClass="noBorder noBackground">
                                                         <f:facet name="left">
                                                             <p:commandButton type="button" title="#{messages.SearchLink}" icon="ui-icon-search" />

@@ -6,6 +6,7 @@ import br.jus.trt23.contavinculada.entities.EncargoAliquota;
 import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.Fiscal;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
+import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.ContratoFacade;
 
 import javax.inject.Named;
@@ -33,31 +34,33 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
     private ContaVinculada contaNova;
     private PostoDeTrabalho postoNovo;
 
-    public String prepareFiscalNovo(){
-        setFiscalNovo(new Fiscal());
+    public String prepareFiscalNovo() {
+        Fiscal f = new Fiscal();
+        f.setContrato(selected);
+        setFiscalNovo(f);
         return "fiscalNovo";
     }
-    
-    public String prepareAliquotaNova(){
+
+    public String prepareAliquotaNova() {
         setAliquotaNova(new EncargoAliquota());
-        return "aliquotaNova";        
+        return "aliquotaNova";
     }
 
-    public String prepareFaturamentoNovo(){
+    public String prepareFaturamentoNovo() {
         setFaturamentoNovo(new Faturamento());
         return "faturamentoNovo";
     }
 
-    public String prepareContaNova(){
+    public String prepareContaNova() {
         setContaNova(new ContaVinculada());
-        return "contaNova";        
+        return "contaNova";
     }
 
-    public String preparePostoNovo(){
+    public String preparePostoNovo() {
         setPostoNovo(new PostoDeTrabalho());
         return "postoNovo";
     }
-    
+
     public Fiscal getFiscalNovo() {
         return fiscalNovo;
     }
@@ -108,12 +111,25 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-    
-    public String fiscalCreate() throws Exception{
-        selected.getFiscais().add(fiscalNovo);
-        saveOrCreate();
-        return "Edit";
-    }        
+
+    public String fiscalCreate() throws Exception {
+        String msg;
+        try {
+            selected.getFiscais().add(fiscalNovo);
+            saveOrCreate();
+            msg = getResponseCreated("Fiscal");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }
+
+    public String getResponseCreated(String child) {
+        return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));
+    }
 
     @FacesConverter(forClass = Contrato.class)
     public static class ContratoControllerConverter implements Converter {
