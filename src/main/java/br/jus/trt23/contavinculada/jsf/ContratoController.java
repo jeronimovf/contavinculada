@@ -141,7 +141,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             selected.getContasVinculadas().add(contaNova);
             contaNova.setContrato(selected);
             saveOrCreate();
-            msg = getResponseCreated("Conta");
+            msg = getResponseCreated("ContaVinculada");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
         } catch (Exception e) {
@@ -150,6 +150,22 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             return null;
         }
     }    
+    
+    public String faturamentoCreate() throws Exception {
+        String msg;
+        try {
+            selected.getFaturamentos().add(faturamentoNovo);
+            faturamentoNovo.setContrato(selected);
+            saveOrCreate();
+            msg = getResponseCreated("Faturamento");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }       
 
     public String getResponseCreated(String child) {
         return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));

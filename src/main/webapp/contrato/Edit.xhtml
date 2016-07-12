@@ -413,9 +413,9 @@
                 </div>
             </p:dialog>
             
-            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contaVinculada">
-                <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
+            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamento()}" header="#{contratoController.getDlgHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
+                <t:FormRowDate id="faturamentoVigenteDesde" calendarValue="#{contratoController.faturamento.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="faturamentoVigenteAte" calendarValue="#{contratoController.faturamento.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteAte')}"/>                
                 <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
                 <t:FormRowString id="contaAgencia" textValue="#{contratoController.contaNova.agencia}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}" textRequired="true"/>                
                 <t:FormRowString id="contaConta" textValue="#{contratoController.contaNova.conta}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}" textRequired="true"/>                
