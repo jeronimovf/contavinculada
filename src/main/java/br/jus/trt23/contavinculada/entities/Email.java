@@ -4,10 +4,14 @@
 package br.jus.trt23.contavinculada.entities;
 
 import javax.persistence.Entity;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Email extends EntidadeGenerica {
 
    private String email;

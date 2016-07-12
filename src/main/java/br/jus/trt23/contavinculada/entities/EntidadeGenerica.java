@@ -15,14 +15,18 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author j129-9
  */
 @MappedSuperclass
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public abstract class EntidadeGenerica implements Serializable{   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

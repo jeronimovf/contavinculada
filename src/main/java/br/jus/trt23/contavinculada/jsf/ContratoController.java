@@ -26,6 +26,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
 
     public ContratoController() {
         setMessagePrefix("Contrato");
+        prepareDlg();
     }
 
     private Fiscal fiscalNovo;
@@ -34,10 +35,16 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
     private ContaVinculada contaNova;
     private PostoDeTrabalho postoNovo;
 
+    private void prepareDlg(){
+        prepareFiscalNovo();
+        prepareAliquotaNova();
+        prepareContaNova();
+        preparePostoNovo();
+        prepareFaturamentoNovo();
+    }
+    
     public String prepareFiscalNovo() {
-        Fiscal f = new Fiscal();
-        f.setContrato(selected);
-        setFiscalNovo(f);
+        setFiscalNovo(new Fiscal());
         return "fiscalNovo";
     }
 
@@ -116,6 +123,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         String msg;
         try {
             selected.getFiscais().add(fiscalNovo);
+            fiscalNovo.setContrato(selected);
             saveOrCreate();
             msg = getResponseCreated("Fiscal");
             JsfUtil.addSuccessMessage(msg);
@@ -126,6 +134,22 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             return null;
         }
     }
+    
+    public String contaCreate() throws Exception {
+        String msg;
+        try {
+            selected.getContasVinculadas().add(contaNova);
+            contaNova.setContrato(selected);
+            saveOrCreate();
+            msg = getResponseCreated("Conta");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }    
 
     public String getResponseCreated(String child) {
         return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));

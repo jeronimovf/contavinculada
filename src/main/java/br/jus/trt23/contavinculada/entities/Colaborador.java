@@ -11,10 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "empregador_id", "colaborador_id"})            

@@ -4,9 +4,14 @@
 package br.jus.trt23.contavinculada.entities;
 
 import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Telefone extends EntidadeGenerica {
 
     private String tipo;

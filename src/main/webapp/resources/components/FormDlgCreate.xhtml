@@ -14,13 +14,13 @@
 
     <cc:implementation>
         <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.id}" appendTo="formRoot" width="356px" responsive="true">
-            <p:ajax event="open" listener="#{contratoController.prepareFiscalNovo()}"/>
+            <p:ajax event="open" listener="#{cc.attrs.openListener}"/>
             <p:ajax update="#{cc.attrs.updateContainer}"/>
             <div class="ui-grid">            
                 <cc:insertChildren />
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" validateClient="true" process="#{cc.attrs.id}"/>
+                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent"/>
                         <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.id}').hide()"/>
                     </div>  
                 </div>

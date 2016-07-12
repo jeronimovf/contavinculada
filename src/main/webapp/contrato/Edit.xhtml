@@ -412,6 +412,16 @@
                     </div>
                 </div>
             </p:dialog>
+            
+            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contaVinculada">
+                <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
+                <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
+                <t:FormRowString id="contaAgencia" textValue="#{contratoController.contaNova.agencia}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}" textRequired="true"/>                
+                <t:FormRowString id="contaConta" textValue="#{contratoController.contaNova.conta}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}" textRequired="true"/>                
+                <t:FormRowString id="contaOperacao" textValue="#{contratoController.contaNova.operacao}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>                                
+            </t:FormDlgCreate>             
+            
             <p:dialog id="dlgFaturamento" header="#{contratoController.getDlgHeader('Faturamento')}"  position="center" modal="true" draggable="true" widgetVar="dlgFaturamento" appendTo="formRoot" width="356px" responsive="true">
                 <div class="ui-grid">
                     <div class="ui-grid-row">
@@ -470,106 +480,21 @@
                     </div>
                 </div>
             </p:dialog>
-            <p:dialog id="dlgConta" header="#{contratoController.getDlgHeader('ContaVinculada')}"  position="center" modal="true" draggable="true" widgetVar="dlgContaVinculada" appendTo="formRoot" width="356px" responsive="true">
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="contaVinculadaBanco" value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="contaVinculadaBanco" value="#{contratoController.contaNova.banco}"/>                            
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="contaVinculadaAgencia" value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="contaVinculadaAgencia" value="#{contratoController.contaNova.agencia}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="contaVinculadaConta" value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="contaVinculadaConta" value="#{contratoController.contaNova.conta}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="contaVinculadaOperacao" value="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="contaVinculadaOperacao" value="#{contratoController.contaNova.operacao}"/>
-                        </div>    
-                    </div>                    
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgContaVinculada').hide()"/>
-                            <p:commandButton value="#{messages.CancelLink}"/>
-                        </div>  
-                    </div>
-                </div>
-            </p:dialog>
-            <p:dialog id="dlgFiscal" header="#{contratoController.getDlgHeader('Fiscal')}" position="center" modal="true" draggable="true" widgetVar="dlgFiscal" appendTo="formRoot" width="356px" responsive="true">
-                <p:ajax event="open" listener="#{contratoController.prepareFiscalNovo()}"/>
-                <p:ajax update="formRoot" />
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="fiscalVigenteDesde" value="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:calendar id="fiscalVigenteDesde" value="#{contratoController.fiscalNovo.vigenteDesde}" required="true" mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>                            
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="fiscalVigenteAte" value="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:calendar id="fiscalVigenteAte" value="#{contratoController.fiscalNovo.vigenteAte}" mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>                                                        
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="fiscalAtoDesignacao" value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="fiscalAtoDesignacao" value="#{contratoController.fiscalNovo.atoDesignacao}" required="true"/>                            
-                        </div>                        
-                    </div>                    
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="fiscalServidor" value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:autoComplete id="fiscalServidor" value="#{contratoController.fiscalNovo.servidor}" completeMethod="#{servidorController.complete}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{servidor.msgNotFound}" var="servidor" itemLabel="#{servidor.toString()}" itemValue="#{servidor}"  moreText="#{messages.RecordsLimited}" required="true"/>                            
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="fiscalEspecie" value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:autoComplete id="fiscalEspecie" value="#{contratoController.fiscalNovo.especie}" completeMethod="#{fiscalEspecieController.complete}" minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" emptyMessage="#{fiscalEspecieController.msgNotFound}" var="fiscalEspecie" itemLabel="#{fiscalEspecie.toString()}" itemValue="#{fiscalEspecie}" moreText="#{messages.RecordsLimited}" required="true"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"  onclick="PF('dlgFiscal').hide()" actionListener="#{contratoController.fiscalCreate}" update="messagesCentral" validateClient="true" process="dlgFiscal"/>
-                            <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('dlgFiscal').hide()"/>
-                        </div>  
-                    </div>
-                </div>
-            </p:dialog>   
-            <t:FormDlgCreate id="dlgFiscal1" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
-                <t:FormRowDate id="fiscalVigenteDesde1" calendarValue="#{contratoController.fiscalNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}" calendarRequired="true"/>
-                <t:FormRowDate id="fiscalVigenteAte1" calendarValue="#{contratoController.fiscalNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>                
-                <t:FormRowString id="fiscalAtoDesignacao1" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}" />
-                <t:FormRowAutoComplete id="fiscalEspecie1" autoCompleteItem="especie" autoCompleteValue="#{contratoController.fiscalNovo.especie}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" autoCompleteRequired="true" completeMethod="#{fiscalEspecieController.complete}" autoCompleteItemLabel="#{especie.toString()}" autoCompleteItemValue="#{especie}"/>
-                <t:FormRowAutoComplete id="fiscalServidor1" autoCompleteItem="servidor" autoCompleteValue="#{contratoController.fiscalNovo.servidor}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" autoCompleteRequired="true" completeMethod="#{servidorController.complete}"  autoCompleteItemLabel="#{servidor.toString()}" autoCompleteItemValue="#{servidor}"/>                
+            <t:FormDlgCreate id="dlgConta" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contaVinculada">
+                <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
+                <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
+                <t:FormRowString id="contaAgencia" textValue="#{contratoController.contaNova.agencia}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}" textRequired="true"/>                
+                <t:FormRowString id="contaConta" textValue="#{contratoController.contaNova.conta}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}" textRequired="true"/>                
+                <t:FormRowString id="contaOperacao" textValue="#{contratoController.contaNova.operacao}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>                                
+            </t:FormDlgCreate>   
+            
+            <t:FormDlgCreate id="dlgFiscal" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
+                <t:FormRowDate id="fiscalVigenteDesde" calendarValue="#{contratoController.fiscalNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}" calendarRequired="true"/>
+                <t:FormRowDate id="fiscalVigenteAte" calendarValue="#{contratoController.fiscalNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>                
+                <t:FormRowString id="fiscalAtoDesignacao" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}" />
+                <t:FormRowAutoComplete id="fiscalEspecie" autoCompleteItem="especie" autoCompleteValue="#{contratoController.fiscalNovo.especie}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" autoCompleteRequired="true" completeMethod="#{fiscalEspecieController.complete}" autoCompleteItemLabel="#{especie.toString()}" autoCompleteItemValue="#{especie}"/>
+                <t:FormRowAutoComplete id="fiscalServidor" autoCompleteItem="servidor" autoCompleteValue="#{contratoController.fiscalNovo.servidor}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" autoCompleteRequired="true" completeMethod="#{servidorController.complete}"  autoCompleteItemLabel="#{servidor.toString()}" autoCompleteItemValue="#{servidor}"/>                
             </t:FormDlgCreate>
         </ui:define>
     </ui:composition>

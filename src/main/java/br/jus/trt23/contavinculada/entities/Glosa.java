@@ -5,10 +5,14 @@ package br.jus.trt23.contavinculada.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Glosa extends EntidadeGenerica{
 
     private Integer qtd;

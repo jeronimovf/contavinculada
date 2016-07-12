@@ -13,13 +13,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Table(
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "numero"})            
@@ -50,22 +53,24 @@ public class Contrato extends EntidadeGenerica {
 
     private String regimeTributacao;
 
-    @OneToOne
-    private ContaVinculada contasVinculadas;
+    
+    @OneToMany(mappedBy = "contrato", cascade={CascadeType.MERGE,CascadeType.PERSIST})
+    private List<ContaVinculada> contasVinculadas;
 
-    @OneToMany(targetEntity = PostoDeTrabalho.class)
+
+    @OneToMany(mappedBy = "contrato")
     private List<PostoDeTrabalho> postosDeTrabalho;
 
-    @OneToMany(targetEntity = Faturamento.class)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<Faturamento> faturamentos;
 
-    @OneToMany(mappedBy = "aditivoDe")
+    @OneToMany(mappedBy = "aditivoDe", cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<Contrato> aditivos;
 
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE}  )
     private List<Fiscal> fiscais;
 
-    @ManyToMany(mappedBy = "contratos")
+    @ManyToMany(mappedBy = "contratos" , cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<EncargoAliquota> aliquotas;
 
     private String situacao;

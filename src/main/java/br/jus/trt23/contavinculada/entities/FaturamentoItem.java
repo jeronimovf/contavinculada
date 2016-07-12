@@ -8,16 +8,18 @@ package br.jus.trt23.contavinculada.entities;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  *
  * @author j129-9
  */
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class FaturamentoItem extends EntidadeGenerica {
 
     @ManyToOne

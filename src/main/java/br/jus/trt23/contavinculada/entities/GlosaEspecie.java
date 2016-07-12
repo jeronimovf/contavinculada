@@ -6,10 +6,14 @@ package br.jus.trt23.contavinculada.entities;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class GlosaEspecie extends EntidadeGenerica {
     private String nome;
 
