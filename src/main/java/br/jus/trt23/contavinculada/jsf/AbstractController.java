@@ -209,9 +209,22 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
         return messages.getString(getMessagePrefix().concat("_Action_").concat(action));
     }
 
-    public String getDlgHeader(String header) {
-        return messages.getString(getMessagePrefix().concat("_DlgHeader_").concat(header));
+    public String getDlgCreateHeader(String header) {
+        String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
+        header_.concat(" (").concat(messages.getString("CreateLink")).concat(")");
+        return header_;
     }    
+    
+    public String getDlgEditHeader(String header) {
+        String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
+        header_.concat(" (").concat(messages.getString("EditLink")).concat(")");
+        return header_;
+    }    
+
+    public String getTabHeader(String header) {
+        return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
+    } 
+    
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {

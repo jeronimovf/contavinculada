@@ -20,7 +20,7 @@
                 <cc:insertChildren />
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent"/>
+                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent" immediate="true"/>
                         <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.id}').hide()"/>
                     </div>  
                 </div>
