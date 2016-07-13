@@ -135,6 +135,22 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         }
     }
     
+    public String postoDeTrabalhoCreate() throws Exception {
+        String msg;
+        try {
+            selected.getPostosDeTrabalho().add(postoNovo);
+            postoNovo.setContrato(selected);
+            saveOrCreate();
+            msg = getResponseCreated("PostoDeTrabalho");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }
+
     public String contaCreate() throws Exception {
         String msg;
         try {
@@ -166,7 +182,22 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             return null;
         }
     }       
+    public String encargoAliquotaCreate() throws Exception {
+        String msg;
+        try {
+            selected.getAliquotas().add(aliquotaNova);
+            saveOrCreate();
+            msg = getResponseCreated("EncargoAliquota");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }       
 
+    
     public String getResponseCreated(String child) {
         return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));
     }

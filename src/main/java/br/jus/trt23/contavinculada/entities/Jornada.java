@@ -22,4 +22,11 @@ public class Jornada extends EntidadeGenerica {
 
     @OneToMany(mappedBy = "jornada")
     private List<PostoDeTrabalho> postosDeTrabalho;
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
+    
+    
 }

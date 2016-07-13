@@ -182,7 +182,7 @@
                         </f:facet>
                         <p:column width="45%">
                             <f:facet name="header">
-                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_encargo')}"/>
                             </f:facet>
                             <p:inputText value="#{item.encargo.nome}" required="true"/>
                         </p:column>   
@@ -269,7 +269,6 @@
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
                                         <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}"  type="button" onclick="PF('dlgFiscal').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}1"  type="button" onclick="PF('dlgFiscal1').show()"/>                                                                           
                                         <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Excluir')}"/>  
                                     </div>
                                 </div>
@@ -314,7 +313,7 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Conta vinculada" >
-                    <p:dataTable id="contaVinculada"  value="#{contratoController.selected.contasVinculadas}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
+                    <p:dataTable id="contasVinculadas"  value="#{contratoController.selected.contasVinculadas}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
                         <f:facet name="header">
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
@@ -355,132 +354,37 @@
                             </f:facet>
                             <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
                         </p:column>                           
-
                     </p:dataTable>
                 </p:tab>                
             </p:tabView>
-            <p:dialog id="dlgPostoDeTrabalho" header="#{contratoController.getDlgHeader('PostoDeTrabalho')}"  position="center" modal="true" draggable="true" widgetVar="dlgPostoDeTrabalho" appendTo="formRoot" width="356px" responsive="true">
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="postoDeTrabalhoCargoOuFuncao" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="postoDeTrabalhoCargoOuFuncao" value="#{contratoController.postoNovo.cargoOuFuncao}"/>                            
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="postoDeTrabalhoJornada" value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="postoDeTrabalhoJornada" value="#{contratoController.postoNovo.jornada}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgPostoDeTrabalho').hide()"/>
-                            <p:commandButton value="#{messages.CancelLink}"/>
-                        </div>  
-                    </div>
-                </div>
-
-            </p:dialog>
-            <p:dialog id="dlgEncargoAliquota" header="#{contratoController.getDlgHeader('EncargoAliquota')}"  position="center" modal="true" draggable="true" widgetVar="dlgEncargoAliquota" appendTo="formRoot" width="356px" responsive="true">
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="encargoAliquotaNome" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_nome')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="encargoAliquotaNome" value="#{contratoController.aliquotaNova.encargo}"/>                            
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="encargoAliquotaAliquota" value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="encargoAliquotaAliquota" value="#{contratoController.aliquotaNova.aliquota}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgEncargoAliquota').hide()"/>
-                            <p:commandButton value="#{messages.CancelLink}"/>
-                        </div>  
-                    </div>
-                </div>
-            </p:dialog>
             
-            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamento()}" header="#{contratoController.getDlgHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
-                <t:FormRowDate id="faturamentoVigenteDesde" calendarValue="#{contratoController.faturamento.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="faturamentoVigenteAte" calendarValue="#{contratoController.faturamento.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteAte')}"/>                
-                <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
-                <t:FormRowString id="contaAgencia" textValue="#{contratoController.contaNova.agencia}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}" textRequired="true"/>                
-                <t:FormRowString id="contaConta" textValue="#{contratoController.contaNova.conta}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}" textRequired="true"/>                
-                <t:FormRowString id="contaOperacao" textValue="#{contratoController.contaNova.operacao}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>                                
+            <t:FormDlgCreate id="dlgPostoDeTrabalho" actionListener="#{contratoController.postoDeTrabalhoCreate}" openListener="#{contratoController.preparePostoNovo()}" header="#{contratoController.getDlgHeader('PostoDeTrabalho')}" updateContainer=":formRoot:contratoTabs:postosDeTrabalho">
+                <t:FormRowDate id="postoDeTrabalhoVigenteDesde" calendarValue="#{contratoController.postoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="postoDeTrabalhoVigenteAte" calendarValue="#{contratoController.postoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteAte')}"/>                
+                <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" autoCompleteValue="#{contratoController.postoNovo.cargoOuFuncao}" autoCompleteRequired="true" autoCompleteItem="cargoOuFuncao" autoCompleteItemLabel="#{cargoOuFuncao.toString()}" autoCompleteItemValue="#{cargoOuFuncao}" completeMethod="#{cargoOuFuncaoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>                
+                <t:FormRowAutoComplete id="postoDeTrabalhoJornada" autoCompleteValue="#{contratoController.postoNovo.jornada}" autoCompleteRequired="true" autoCompleteItem="jornada" autoCompleteItemLabel="#{jornada.toString()}" autoCompleteItemValue="#{jornada}" completeMethod="#{jornadaController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>                                
+            </t:FormDlgCreate> 
+            
+            <t:FormDlgCreate id="dlgEncargoAliquota" actionListener="#{contratoController.encargoAliquotaCreate}" openListener="#{contratoController.prepareAliquotaNova()}" header="#{contratoController.getDlgHeader('EncargoAliquota')}" updateContainer=":formRoot:contratoTabs:encargos">
+                <t:FormRowDate id="encargoAliquotaVigenteDesde" calendarValue="#{contratoController.aliquotaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="encargoAliquotaVigenteAte" calendarValue="#{contratoController.aliquotaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteAte')}"/>                
+                <t:FormRowAutoComplete id="encargoAliquotaEncargo" autoCompleteValue="#{contratoController.aliquotaNova.encargo}" autoCompleteRequired="true" autoCompleteItem="encargo" autoCompleteItemLabel="#{encargo.toString()}" autoCompleteItemValue="#{encargo}" completeMethod="#{encargoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_encargo')}"/>                
+                <t:FormRowPercent id="encargoAliquotaAliquota" numberValue="#{contratoController.aliquotaNova.aliquota}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}" />                
+                <t:FormRowCheck id="encargoRetencaoContaVinculada" checkValue="#{contratoController.aliquotaNova.retencaoContaVinculada}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}" />                                
+            </t:FormDlgCreate>      
+                       
+            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamentoNovo()}" header="#{contratoController.getDlgHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
+                <t:FormRowDate id="faturamentoVigenteDesde" calendarValue="#{contratoController.faturamentoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteDesde')}" calendarRequired="true"/>                
+                <t:FormRowDate id="faturamentoVigenteAte" calendarValue="#{contratoController.faturamentoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteAte')}"/>                
+                <t:FormRowDate id="faturamentoCompetencia" calendarValue="#{contratoController.faturamentoNovo.competencia}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}" pattern="MM/yyyy" calendarRequired="true"/>                
+                <t:FormRowMonetary id="faturamentoValorBruto" numberValue="#{contratoController.faturamentoNovo.valorBruto}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+                <t:FormRowMonetary id="faturamentoValorLiquido" numberValue="#{contratoController.faturamentoNovo.valorLiquido}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+                <t:FormRowString id="faturamentoNfeOuFatura" textValue="#{contratoController.faturamentoNovo.nfeOuFatura}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+                <t:FormRowDate id="faturamentoAtestadaEm" calendarValue="#{contratoController.faturamentoNovo.atestadaEm}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+                <t:FormRowString id="faturamentoAtestadaPor" textValue="#{contratoController.faturamentoNovo.atestadaPor}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>                                
             </t:FormDlgCreate>             
             
-            <p:dialog id="dlgFaturamento" header="#{contratoController.getDlgHeader('Faturamento')}"  position="center" modal="true" draggable="true" widgetVar="dlgFaturamento" appendTo="formRoot" width="356px" responsive="true">
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoCompetencia" value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoCompetencia" value="#{contratoController.faturamentoNovo.competencia}"/>                            
-                        </div>                        
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoValorBruto" value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoValorBruto" value="#{contratoController.faturamentoNovo.valorBruto}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoValorLiquido" value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoValorLiquido" value="#{contratoController.faturamentoNovo.valorLiquido}"/>
-                        </div>    
-                    </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoNfeOuFatura" value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoNfeOuFatura" value="#{contratoController.faturamentoNovo.nfeOuFatura}"/>
-                        </div>    
-                    </div>      
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoAtestadaPor" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoAtestadaPor" value="#{contratoController.faturamentoNovo.atestadaPor}"/>
-                        </div>    
-                    </div> 
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel for="faturamentoAtestadaEm" value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <p:inputText id="faturamentoAtestadaEm" value="#{contratoController.faturamentoNovo.atestadaEm}"/>
-                        </div>    
-                    </div>                     
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                            <p:commandButton value="#{messages.SaveLink}"   type="button" onclick="PF('dlgFaturamento').hide()"/>
-                            <p:commandButton value="#{messages.CancelLink}"/>
-                        </div>  
-                    </div>
-                </div>
-            </p:dialog>
-            <t:FormDlgCreate id="dlgConta" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contaVinculada">
+            <t:FormDlgCreate id="dlgConta" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contasVinculadas">
                 <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
                 <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
                 <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                

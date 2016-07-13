@@ -33,4 +33,11 @@ public class CargoOuFuncao extends EntidadeGenerica {
 
     private String atribuicoes;
 
+    @Override
+    public String toString() {
+        return getNome();
+    }
+    
+    
+
 }

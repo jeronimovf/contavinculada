@@ -26,6 +26,8 @@ public class EncargoAliquota extends EntidadeGenerica {
     @ManyToMany
     private List<Contrato> contratos;
     
+    private Boolean retencaoContaVinculada;
+    
     @OneToMany(mappedBy = "aliquota")
     private List<Retencao> retencoes;    
 

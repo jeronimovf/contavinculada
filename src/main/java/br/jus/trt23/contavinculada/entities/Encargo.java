@@ -22,4 +22,10 @@ public class Encargo extends EntidadeGenerica{
     @OneToMany(mappedBy = "encargo")
     private List<EncargoAliquota> aliquota;    
 
+    @Override
+    public String toString() {
+        return getNome();
+    }
+
+    
 }

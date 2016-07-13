@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+      <cc:interface>
+        <cc:attribute name="id"/>
+        <cc:attribute name="labelValue"/>
+        <cc:attribute name="numberValue"/>        
+        <cc:attribute name="numberRequired" default="false"/>              
+        <cc:attribute name="numberSize" default="10"/>        
+        <cc:attribute name="minValue"/>        
+        <cc:attribute name="maxValue"/>                
+        <cc:attribute name="roudMethod"/>    
+        <cc:attribute name="decimalPlaces" default="2"/>        
+        <cc:attribute name="roudMethod"/>            
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
+                <p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
+            </div>
+            <div class="ui-grid-col-6">
+                <p:inputNumber id="#{cc.attrs.id}" value="#{cc.attrs.numberValue}" required="#{cc.attrs.numberRequired}" size="#{cc.attrs.numberSize}" minValue="#{cc.attrs.minValue}" maxValue="#{cc.attrs.maxValue}" roundMethod="#{cc.attrs.roundMethod}" decimalPlaces="#{cc.attrs.decimalPlaces}" decimalSeparator="," thousandSeparator="." symbol="%" symbolPosition="s"/>                            
+            </div>                        
+        </div>
+    </cc:implementation>
+</html>
