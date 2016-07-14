@@ -135,19 +135,46 @@
                 </div>
             </div>
             <p:tabView id="contratoTabs">
-                <t:TabItem header="Capeta"/>
-                <t:TabItem header="Demônio" dataValue="#{contratoController.selected.postosDeTrabalho}" id="postosDeTrabalho">
-                    <t:TabItemColumn header="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}" value="#{item.cargoOuFuncao}" width="45%"/>
-                    <t:TabItemColumn header="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}" value="#{item.jornada}" width="45%"/>                    
-                </t:TabItem>
+                <p:tab title="Postos de trabalho">
+                    <p:dataTable id="postosDeTrabalho" value="#{contratoController.selected.postosDeTrabalho}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false">
+                        <f:facet name="header">
+                            <div class="ui-grid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 alignRight">
+                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Novo')}"  type="button" onclick="PF('postoDeTrabalhoDlg').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Excluir')}"/>  
+                                    </div>
+                                </div>
+                            </div>
 
+                        </f:facet>
+                        <p:column width="45%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cargoOuFuncao}"/>
+                        </p:column>   
+                        <p:column width="45%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jornada}"/>
+                        </p:column>                           
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{messages.ActionLink}"/>
+                            </f:facet>
+                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        </p:column>                           
+                    </p:dataTable>
+                </p:tab>
                 <p:tab title="Encargos">
                     <p:dataTable id="encargos" value="#{contratoController.selected.aliquotas}"  var="item" paginator="true" rows="10"  paginatorPosition="top" paginatorAlwaysVisible="false" >
                         <f:facet name="header">
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Novo')}"  type="button" onclick="PF('dlgEncargoAliquota').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Novo')}"  type="button" onclick="PF('encargoAliquotaDlg').show()"/>                                   
                                         <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Excluir')}"/>  
                                     </div>
                                 </div>
@@ -185,7 +212,7 @@
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Novo')}"  type="button" onclick="PF('dlgFaturamento').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Novo')}"  type="button" onclick="PF('faturamentoDlg').show()"/>                                   
                                         <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Excluir')}"/>  
                                     </div>
                                 </div>
@@ -241,7 +268,7 @@
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}"  type="button" onclick="PF('dlgFiscal').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}"  type="button" onclick="PF('fiscalDlg').show()"/>                                   
                                         <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Excluir')}"/>  
                                     </div>
                                 </div>
@@ -291,7 +318,7 @@
                             <div class="ui-grid">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Novo')}" type="button" onclick="PF('dlgContaVinculada').show()"/>                                   
+                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Novo')}" type="button" onclick="PF('contaVinculadaDlg').show()"/>                                   
                                         <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Excluir')}"/>  
                                     </div>
                                 </div>
@@ -331,14 +358,14 @@
                 </p:tab>                
             </p:tabView>
             
-            <t:FormDlgCreate id="postosDeTrabalhoDlg" actionListener="#{contratoController.postoDeTrabalhoCreate}" openListener="#{contratoController.preparePostoNovo()}" header="#{contratoController.getDlgCreateHeader('PostoDeTrabalho')}" updateContainer=":formRoot:contratoTabs:postosDeTrabalho">
+            <t:FormDlgCreate id="postoDeTrabalhoDlg" actionListener="#{contratoController.postoDeTrabalhoCreate}" openListener="#{contratoController.preparePostoNovo()}" header="#{contratoController.getDlgCreateHeader('PostoDeTrabalho')}" updateContainer=":formRoot:contratoTabs:postosDeTrabalho">
                 <t:FormRowDate id="postoDeTrabalhoVigenteDesde" calendarValue="#{contratoController.postoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteDesde')}" calendarRequired="true"/>                
                 <t:FormRowDate id="postoDeTrabalhoVigenteAte" calendarValue="#{contratoController.postoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteAte')}"/>                
                 <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" autoCompleteValue="#{contratoController.postoNovo.cargoOuFuncao}" autoCompleteRequired="true" autoCompleteItem="cargoOuFuncao" autoCompleteItemLabel="#{cargoOuFuncao.toString()}" autoCompleteItemValue="#{cargoOuFuncao}" completeMethod="#{cargoOuFuncaoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>                
                 <t:FormRowAutoComplete id="postoDeTrabalhoJornada" autoCompleteValue="#{contratoController.postoNovo.jornada}" autoCompleteRequired="true" autoCompleteItem="jornada" autoCompleteItemLabel="#{jornada.toString()}" autoCompleteItemValue="#{jornada}" completeMethod="#{jornadaController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>                                
             </t:FormDlgCreate> 
             
-            <t:FormDlgCreate id="dlgEncargoAliquota" actionListener="#{contratoController.encargoAliquotaCreate}" openListener="#{contratoController.prepareAliquotaNova()}" header="#{contratoController.getDlgCreateHeader('EncargoAliquota')}" updateContainer=":formRoot:contratoTabs:encargos">
+            <t:FormDlgCreate id="encargoAliquotaDlg" actionListener="#{contratoController.encargoAliquotaCreate}" openListener="#{contratoController.prepareAliquotaNova()}" header="#{contratoController.getDlgCreateHeader('EncargoAliquota')}" updateContainer=":formRoot:contratoTabs:encargos">
                 <t:FormRowDate id="encargoAliquotaVigenteDesde" calendarValue="#{contratoController.aliquotaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteDesde')}" calendarRequired="true"/>                
                 <t:FormRowDate id="encargoAliquotaVigenteAte" calendarValue="#{contratoController.aliquotaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteAte')}"/>                
                 <t:FormRowAutoComplete id="encargoAliquotaEncargo" autoCompleteValue="#{contratoController.aliquotaNova.encargo}" autoCompleteRequired="true" autoCompleteItem="encargo" autoCompleteItemLabel="#{encargo.toString()}" autoCompleteItemValue="#{encargo}" completeMethod="#{encargoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_encargo')}"/>                
@@ -346,7 +373,7 @@
                 <t:FormRowCheck id="encargoRetencaoContaVinculada" checkValue="#{contratoController.aliquotaNova.retencaoContaVinculada}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}" />                                
             </t:FormDlgCreate>      
                        
-            <t:FormDlgCreate id="dlgFaturamento" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamentoNovo()}" header="#{contratoController.getDlgCreateHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
+            <t:FormDlgCreate id="faturamentoDlg" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamentoNovo()}" header="#{contratoController.getDlgCreateHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
                 <t:FormRowDate id="faturamentoVigenteDesde" calendarValue="#{contratoController.faturamentoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteDesde')}" calendarRequired="true"/>                
                 <t:FormRowDate id="faturamentoVigenteAte" calendarValue="#{contratoController.faturamentoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteAte')}"/>                
                 <t:FormRowDate id="faturamentoCompetencia" calendarValue="#{contratoController.faturamentoNovo.competencia}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}" pattern="MM/yyyy" calendarRequired="true"/>                
@@ -357,7 +384,7 @@
                 <t:FormRowString id="faturamentoAtestadaPor" textValue="#{contratoController.faturamentoNovo.atestadaPor}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>                                
             </t:FormDlgCreate>             
             
-            <t:FormDlgCreate id="dlgConta" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgCreateHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contasVinculadas">
+            <t:FormDlgCreate id="contaVinculadaDlg" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgCreateHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contasVinculadas">
                 <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
                 <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
                 <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
@@ -366,7 +393,7 @@
                 <t:FormRowString id="contaOperacao" textValue="#{contratoController.contaNova.operacao}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>                                
             </t:FormDlgCreate>   
             
-            <t:FormDlgCreate id="dlgFiscal" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgCreateHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
+            <t:FormDlgCreate id="fiscalDlg" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgCreateHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
                 <t:FormRowDate id="fiscalVigenteDesde" calendarValue="#{contratoController.fiscalNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}" calendarRequired="true"/>
                 <t:FormRowDate id="fiscalVigenteAte" calendarValue="#{contratoController.fiscalNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>                
                 <t:FormRowString id="fiscalAtoDesignacao" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}" />

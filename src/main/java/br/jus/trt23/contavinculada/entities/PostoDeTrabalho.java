@@ -5,6 +5,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class PostoDeTrabalho extends EntidadeGenerica {
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Contrato contrato;
     @ManyToOne(targetEntity = CargoOuFuncao.class)
     private CargoOuFuncao cargoOuFuncao;
