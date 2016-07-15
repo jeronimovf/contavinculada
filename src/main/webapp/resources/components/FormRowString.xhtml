@@ -15,7 +15,7 @@
     <cc:implementation>
         <div class="ui-grid-row">
             <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
+                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
                 <p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.textValue}" required="#{cc.attrs.textRequired}" size="#{cc.attrs.textSize}"/>                            

@@ -215,6 +215,12 @@
             <version>6.0.0</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.jasig.cas</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>3.1.10</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>

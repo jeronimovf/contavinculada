@@ -15,7 +15,7 @@
     <cc:implementation>
         <div class="ui-grid-row">
             <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
+                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
                 <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" required="#{cc.attrs.calendarRequired}" mask="true" converter="localDateTimeConverter" mode="popup" showOn="button" locale="pt_BR" size="8" pattern="#{cc.attrs.pattern}"/>                            

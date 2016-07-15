@@ -5,23 +5,24 @@
       xmlns:p="http://primefaces.org/ui">
 
     <cc:interface>
-        <cc:attribute name="id"/>
+        <cc:attribute name="widgetVar"/>
         <cc:attribute name="header"/>
         <cc:attribute name="updateContainer"/>
+        <cc:attribute name="appendTo" default="formRoot"/>
         <cc:attribute name="openListener" method-signature="void action()"/>        
         <cc:attribute name="actionListener" method-signature="void action()"/>  
     </cc:interface>
 
     <cc:implementation>
-        <p:dialog id="#{cc.attrs.id}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.id}" appendTo="formRoot" width="356px" responsive="true">
+        <p:dialog header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.widgetVar}" appendTo="formRoot" width="356px" responsive="true">
             <p:ajax event="open" listener="#{cc.attrs.openListener}"/>
             <p:ajax update="#{cc.attrs.updateContainer}"/>
             <div class="ui-grid">            
                 <cc:insertChildren/>
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.id}).hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="#{cc.attrs.id}"/>
-                        <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.id}').hide()"/>
+                        <p:commandButton value="#{messages.SaveLink}"  onclick="PF(#{cc.attrs.widgetVar}).hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="#{cc.id}"/>
+                        <p:commandButton value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.widgetVar}').hide()"/>
                     </div>  
                 </div>
             </div>

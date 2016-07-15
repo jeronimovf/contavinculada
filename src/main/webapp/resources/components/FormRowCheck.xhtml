@@ -14,10 +14,10 @@
     <cc:implementation>
         <div class="ui-grid-row">
             <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
+                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" required="#{cc.attrs.calendarRequired}"/>                            
+                <p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.checkValue}" required="#{cc.attrs.checkRequired}"/>                            
             </div>                        
         </div>
     </cc:implementation>

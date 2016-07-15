@@ -17,4 +17,9 @@
     <lifecycle>
         <phase-listener>br.jus.trt23.contavinculada.listeners.ContratosPhaseListener</phase-listener>
     </lifecycle>
+    <factory>
+        <exception-handler-factory>
+            br.jus.trt23.contavinculada.factories.ExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
 </faces-config>
