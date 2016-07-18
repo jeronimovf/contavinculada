@@ -4,6 +4,10 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <application>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
         <resource-bundle>
             <base-name>messages</base-name>
             <var>messages</var>
@@ -17,9 +21,12 @@
     <lifecycle>
         <phase-listener>br.jus.trt23.contavinculada.listeners.ContratosPhaseListener</phase-listener>
     </lifecycle>
+<!--
+    interceptação de exception extraída do JSF 2.0 do Ed Burns
     <factory>
         <exception-handler-factory>
             br.jus.trt23.contavinculada.factories.ExceptionHandlerFactory
         </exception-handler-factory>
     </factory>
+-->
 </faces-config>

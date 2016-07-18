@@ -5,7 +5,6 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -23,8 +22,8 @@ public class EncargoAliquota extends EntidadeGenerica {
    
     private Double aliquota;
     
-    @ManyToMany
-    private List<Contrato> contratos;
+    @ManyToOne
+    private Contrato contrato;
     
     private Boolean retencaoContaVinculada;
     

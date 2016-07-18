@@ -125,6 +125,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             selected.getFiscais().add(fiscalNovo);
             fiscalNovo.setContrato(selected);
             saveOrCreate();
+            prepareFiscalNovo();
             msg = getResponseCreated("Fiscal");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -157,6 +158,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             selected.getContasVinculadas().add(contaNova);
             contaNova.setContrato(selected);
             saveOrCreate();
+            prepareContaNova();
             msg = getResponseCreated("ContaVinculada");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -173,6 +175,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
             selected.getFaturamentos().add(faturamentoNovo);
             faturamentoNovo.setContrato(selected);
             saveOrCreate();
+            prepareFaturamentoNovo();
             msg = getResponseCreated("Faturamento");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -186,7 +189,9 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         String msg;
         try {
             selected.getAliquotas().add(aliquotaNova);
+            aliquotaNova.setContrato(selected);
             saveOrCreate();
+            prepareAliquotaNova();
             msg = getResponseCreated("EncargoAliquota");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";

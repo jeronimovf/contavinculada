@@ -55,13 +55,13 @@
                         <p:calendar id="assinaturaData" value="#{contratoController.selected.assinaturaData}" mask="true" converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>                        
                     </div> 
                     <div class="ui-grid-col-1">
-                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteDesde')}" for="vigenteDesde" />                        
+                        <p:outputLabel value="#{messages.ActiveSince}" for="vigenteDesde" />                        
                     </div>
                     <div class="ui-grid-col-2">
                         <p:calendar id="vigenteDesde" value="#{contratoController.selected.vigenteDesde}" required="true" mask="true" converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>
                     </div>                    
                     <div class="ui-grid-col-1 ">
-                        <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteAte')}" for="vigenteAte" />                        
+                        <p:outputLabel value="#{messages.ActiveUntil}" for="vigenteAte" />                        
                     </div>
                     <div class="ui-grid-col-2 ">
                         <p:calendar id="vigenteAte" value="#{contratoController.selected.vigenteAte}" mask="true" converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>
@@ -105,13 +105,13 @@
                                         </p:column>      
                                         <p:column width="10%" >
                                             <f:facet name="header">
-                                                <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteDesde')}"/>                                        
+                                                <h:outputText value="#{messages.ActiveSince}"/>                                        
                                             </f:facet>
                                             <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
                                         </p:column>   
                                         <p:column width="10%">
                                             <f:facet name="header">
-                                                <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteAte')}"/>
+                                                <h:outputText value="#{messages.ActiveUntil}"/>
                                             </f:facet>
                                             <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>                            
                                         </p:column>                       
@@ -135,157 +135,87 @@
                 </div>
             </div>
             <p:tabView id="contratoTabs">
-                <p:tab title="Postos de trabalho">
-                    <p:dataTable id="postosDeTrabalho" value="#{contratoController.selected.postosDeTrabalho}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false">
-                        <f:facet name="header">
-                            <div class="ui-grid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Novo')}"  type="button" onclick="PF('postoDeTrabalhoDlg').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('PostoDeTrabalho_Excluir')}"/>  
-                                    </div>
-                                </div>
-                            </div>
-
-                        </f:facet>
-                        <p:column width="45%">
+                <p:tab title="#{contratoController.getTabHeader('PostoDeTrabalho')}">
+                    <t:TabItem id="postoDeTrabalho" dataValue="#{contratoController.selected.postosDeTrabalho}">
+                        <p:column width="50%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
                             </f:facet>
-                            <h:outputText value="#{item.cargoOuFuncao}"/>
+                            <h:outputText value="#{item.cargoOuFuncao.nome}"/>
                         </p:column>   
-                        <p:column width="45%">
+                        <p:column width="30%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
                             </f:facet>
-                            <h:outputText value="#{item.jornada}"/>
-                        </p:column>                           
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{messages.ActionLink}"/>
-                            </f:facet>
-                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                        </p:column>                           
-                    </p:dataTable>
+                            <h:outputText value="#{item.jornada.nome}"/>
+                        </p:column>                                                     
+                    </t:TabItem> 
                 </p:tab>
-                <p:tab title="Encargos">
-                    <p:dataTable id="encargos" value="#{contratoController.selected.aliquotas}"  var="item" paginator="true" rows="10"  paginatorPosition="top" paginatorAlwaysVisible="false" >
-                        <f:facet name="header">
-                            <div class="ui-grid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Novo')}"  type="button" onclick="PF('encargoAliquotaDlg').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('EncargoAliquota_Excluir')}"/>  
-                                    </div>
-                                </div>
-                            </div>
-                        </f:facet>
-                        <p:column width="45%">
+
+                <p:tab title="#{contratoController.getTabHeader('EncargoAliquota')}">
+                    <t:TabItem id="encargoAliquota" dataValue="#{contratoController.selected.aliquotas}">
+                        <p:column width="50%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_encargo')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.encargo.nome}" required="true"/>
+                            <h:outputText value="#{item.encargo.nome}"/>
                         </p:column>   
                         <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.aliquota}" required="true"/>
+                            <h:outputText value="#{item.aliquota}"/>
                         </p:column>                           
-                        <p:column width="25%">
+                        <p:column width="10%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.encargo.isRetencaoContaVinculada}" required="true"/>
+                            <p:selectBooleanCheckbox value="#{item.retencaoContaVinculada}" disabled="true"/>
                         </p:column>                                                   
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{messages.ActionLink}"/>
-                            </f:facet>
-                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                        </p:column>                           
-                    </p:dataTable>
-                </p:tab>
-                <p:tab title="Faturamentos">
-                    <p:dataTable id="faturamentos" value="#{contratoController.selected.faturamentos}"  var="item" paginator="true" rows="10" sortBy="#{item.numero}" paginatorPosition="top" paginatorAlwaysVisible="false" rendered="#{contratoController.selected.aditivoDe==null}">
-                        <f:facet name="header">
-                            <div class="ui-grid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Novo')}"  type="button" onclick="PF('faturamentoDlg').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('Faturamento_Excluir')}"/>  
-                                    </div>
-                                </div>
-                            </div>
-                        </f:facet>
+                    </t:TabItem> 
+                </p:tab>  
+                <p:tab title="#{contratoController.getTabHeader('Faturamento')}">
+                    <t:TabItem id="faturamento" dataValue="#{contratoController.selected.faturamentos}">
                         <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.competencia}" required="true"/>
+                            <h:outputText value="#{item.competencia}"/>
                         </p:column>   
                         <p:column width="10%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.valorBruto}" required="true"/>
+                            <h:outputText value="#{item.valorBruto}"/>
                         </p:column>                           
                         <p:column width="10%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.valorLiquido}" required="true"/>
+                            <h:outputText value="#{item.valorLiquido}"/>
                         </p:column>          
                         <p:column width="10%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.nfeOuFatura}" required="true"/>
+                            <h:outputText value="#{item.nfeOuFatura}"/>
                         </p:column>                                            
                         <p:column width="10%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.atestadaEm}" required="true"/>
+                            <h:outputText value="#{item.atestadaEm}"/>
                         </p:column>                                            
-                        <p:column width="30%">
+                        <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.atestadaPor}" required="true"/>
-                        </p:column>                                                                    
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{messages.ActionLink}"/>
-                            </f:facet>
-                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                        </p:column>                      
-                    </p:dataTable>
-                </p:tab>
-                <p:tab title="Fiscais">                    
-                    <p:dataTable id="fiscais" value="#{contratoController.selected.fiscais}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
-                        <f:facet name="header">
-                            <div class="ui-grid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Novo')}"  type="button" onclick="PF('fiscalDlg').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('Fiscal_Excluir')}"/>  
-                                    </div>
-                                </div>
-                            </div>
-                        </f:facet>
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.vigenteDesde}" />
-                        </p:column>  
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.vigenteAte}" />
-                        </p:column>                        
+                            <h:outputText value="#{item.atestadaPor}"/>
+                        </p:column>                                                                                                                 
+                    </t:TabItem> 
+                </p:tab>                 
+                <p:tab title="#{contratoController.getTabHeader('Fiscal')}">
+                    <t:TabItem id="fiscal" dataValue="#{contratoController.selected.fiscais}">
                         <p:column width="15%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
@@ -304,78 +234,51 @@
                             </f:facet>
                             <h:outputText value="#{item.servidor.nome}" />
                         </p:column>                                                                           
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{messages.ActionLink}"/>
-                            </f:facet>
-                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                        </p:column>                                
-                    </p:dataTable>
+                    </t:TabItem> 
                 </p:tab>
-                <p:tab title="Conta vinculada" >
-                    <p:dataTable id="contasVinculadas"  value="#{contratoController.selected.contasVinculadas}"  var="item" paginator="true" rows="10" paginatorPosition="top" paginatorAlwaysVisible="false" >
-                        <f:facet name="header">
-                            <div class="ui-grid">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 alignRight">
-                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Novo')}" type="button" onclick="PF('contaVinculadaDlg').show()"/>                                   
-                                        <p:commandButton value="#{contratoController.getMsgAction('ContaVinculada_Excluir')}"/>  
-                                    </div>
-                                </div>
-                            </div>
-                        </f:facet>                        
-                        <p:column width="40%">
+                
+                <p:tab title="#{contratoController.getTabHeader('ContaVinculada')}">
+                    <t:TabItem id="contaVinculada" dataValue="#{contratoController.selected.contasVinculadas}">
+                        <p:column width="30%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.banco}" required="true"/>
+                            <h:outputText value="#{item.banco}"/>
                         </p:column>   
                         <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.agencia}" required="true"/>
+                            <h:outputText value="#{item.agencia}"/>
                         </p:column>                           
                         <p:column width="15%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.conta}" required="true"/>
+                            <h:outputText value="#{item.conta}"/>
                         </p:column>      
                         <p:column width="15%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>
                             </f:facet>
-                            <p:inputText value="#{item.operacao}" required="true"/>
+                            <h:outputText value="#{item.operacao}"/>
                         </p:column>                            
-                        <p:column width="10%">
-                            <f:facet name="header">
-                                <p:outputLabel value="#{messages.ActionLink}"/>
-                            </f:facet>
-                            <p:commandButton action="#{contratoController.prepareAditivoEdit(item)}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                        </p:column>                           
-                    </p:dataTable>
-                </p:tab>                
+                    </t:TabItem> 
+                </p:tab>                            
             </p:tabView>
-            
-            <t:FormDlgCreate id="postoDeTrabalhoDlg" actionListener="#{contratoController.postoDeTrabalhoCreate}" openListener="#{contratoController.preparePostoNovo()}" header="#{contratoController.getDlgCreateHeader('PostoDeTrabalho')}" updateContainer=":formRoot:contratoTabs:postosDeTrabalho">
-                <t:FormRowDate id="postoDeTrabalhoVigenteDesde" calendarValue="#{contratoController.postoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="postoDeTrabalhoVigenteAte" calendarValue="#{contratoController.postoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_vigenteAte')}"/>                
+
+            <t:FormDlgCreate id="postoDeTrabalhoDlg" entityToUpdate="#{contratoController.postoNovo}" actionListener="#{contratoController.postoDeTrabalhoCreate}" openListener="#{contratoController.preparePostoNovo()}" header="#{contratoController.getDlgCreateHeader('PostoDeTrabalho')}" updateContainer="postoDeTrabalho">
                 <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" autoCompleteValue="#{contratoController.postoNovo.cargoOuFuncao}" autoCompleteRequired="true" autoCompleteItem="cargoOuFuncao" autoCompleteItemLabel="#{cargoOuFuncao.toString()}" autoCompleteItemValue="#{cargoOuFuncao}" completeMethod="#{cargoOuFuncaoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>                
                 <t:FormRowAutoComplete id="postoDeTrabalhoJornada" autoCompleteValue="#{contratoController.postoNovo.jornada}" autoCompleteRequired="true" autoCompleteItem="jornada" autoCompleteItemLabel="#{jornada.toString()}" autoCompleteItemValue="#{jornada}" completeMethod="#{jornadaController.complete}" labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>                                
             </t:FormDlgCreate> 
-            
-            <t:FormDlgCreate id="encargoAliquotaDlg" actionListener="#{contratoController.encargoAliquotaCreate}" openListener="#{contratoController.prepareAliquotaNova()}" header="#{contratoController.getDlgCreateHeader('EncargoAliquota')}" updateContainer=":formRoot:contratoTabs:encargos">
-                <t:FormRowDate id="encargoAliquotaVigenteDesde" calendarValue="#{contratoController.aliquotaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="encargoAliquotaVigenteAte" calendarValue="#{contratoController.aliquotaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_vigenteAte')}"/>                
+
+            <t:FormDlgCreate id="encargoAliquotaDlg"  entityToUpdate="#{contratoController.aliquotaNova}" actionListener="#{contratoController.encargoAliquotaCreate}" openListener="#{contratoController.prepareAliquotaNova()}" header="#{contratoController.getDlgCreateHeader('EncargoAliquota')}" updateContainer="encargoAliquota">
                 <t:FormRowAutoComplete id="encargoAliquotaEncargo" autoCompleteValue="#{contratoController.aliquotaNova.encargo}" autoCompleteRequired="true" autoCompleteItem="encargo" autoCompleteItemLabel="#{encargo.toString()}" autoCompleteItemValue="#{encargo}" completeMethod="#{encargoController.complete}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_encargo')}"/>                
                 <t:FormRowPercent id="encargoAliquotaAliquota" numberValue="#{contratoController.aliquotaNova.aliquota}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}" />                
                 <t:FormRowCheck id="encargoRetencaoContaVinculada" checkValue="#{contratoController.aliquotaNova.retencaoContaVinculada}" labelValue="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}" />                                
             </t:FormDlgCreate>      
-                       
-            <t:FormDlgCreate id="faturamentoDlg" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamentoNovo()}" header="#{contratoController.getDlgCreateHeader('Faturamento')}" updateContainer=":formRoot:contratoTabs:faturamentos">
-                <t:FormRowDate id="faturamentoVigenteDesde" calendarValue="#{contratoController.faturamentoNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="faturamentoVigenteAte" calendarValue="#{contratoController.faturamentoNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_vigenteAte')}"/>                
+
+            <t:FormDlgCreate id="faturamentoDlg" entityToUpdate="#{contratoController.faturamentoNovo}" actionListener="#{contratoController.faturamentoCreate}" openListener="#{contratoController.prepareFaturamentoNovo()}" header="#{contratoController.getDlgCreateHeader('Faturamento')}" updateContainer="faturamento">
                 <t:FormRowDate id="faturamentoCompetencia" calendarValue="#{contratoController.faturamentoNovo.competencia}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}" pattern="MM/yyyy" calendarRequired="true"/>                
                 <t:FormRowMonetary id="faturamentoValorBruto" numberValue="#{contratoController.faturamentoNovo.valorBruto}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
                 <t:FormRowMonetary id="faturamentoValorLiquido" numberValue="#{contratoController.faturamentoNovo.valorLiquido}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
@@ -383,19 +286,15 @@
                 <t:FormRowDate id="faturamentoAtestadaEm" calendarValue="#{contratoController.faturamentoNovo.atestadaEm}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
                 <t:FormRowString id="faturamentoAtestadaPor" textValue="#{contratoController.faturamentoNovo.atestadaPor}" labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>                                
             </t:FormDlgCreate>             
-            
-            <t:FormDlgCreate id="contaVinculadaDlg" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgCreateHeader('ContaVinculada')}" updateContainer=":formRoot:contratoTabs:contasVinculadas">
-                <t:FormRowDate id="contaVigenteDesde" calendarValue="#{contratoController.contaNova.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteDesde')}" calendarRequired="true"/>                
-                <t:FormRowDate id="contaVigenteAte" calendarValue="#{contratoController.contaNova.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_vigenteAte')}"/>                
+
+            <t:FormDlgCreate id="contaVinculadaDlg" entityToUpdate="#{contratoController.contaNova}" actionListener="#{contratoController.contaCreate}" openListener="#{contratoController.prepareContaNova()}" header="#{contratoController.getDlgCreateHeader('ContaVinculada')}" updateContainer="contaVinculada">
                 <t:FormRowString id="contaBanco" textValue="#{contratoController.contaNova.banco}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}" textRequired="true"/>                
                 <t:FormRowString id="contaAgencia" textValue="#{contratoController.contaNova.agencia}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}" textRequired="true"/>                
                 <t:FormRowString id="contaConta" textValue="#{contratoController.contaNova.conta}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}" textRequired="true"/>                
                 <t:FormRowString id="contaOperacao" textValue="#{contratoController.contaNova.operacao}" labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>                                
             </t:FormDlgCreate>   
-            
-            <t:FormDlgCreate id="fiscalDlg" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgCreateHeader('Fiscal')}" updateContainer=":formRoot:contratoTabs:fiscais">
-                <t:FormRowDate id="fiscalVigenteDesde" calendarValue="#{contratoController.fiscalNovo.vigenteDesde}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteDesde')}" calendarRequired="true"/>
-                <t:FormRowDate id="fiscalVigenteAte" calendarValue="#{contratoController.fiscalNovo.vigenteAte}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_vigenteAte')}"/>                
+
+            <t:FormDlgCreate id="fiscalDlg" entityToUpdate="#{contratoController.fiscalNovo}" actionListener="#{contratoController.fiscalCreate}" openListener="#{contratoController.prepareFiscalNovo()}" header="#{contratoController.getDlgCreateHeader('Fiscal')}" updateContainer="fiscal">
                 <t:FormRowString id="fiscalAtoDesignacao" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" textRequired="true" textValue="#{contratoController.fiscalNovo.atoDesignacao}" />
                 <t:FormRowAutoComplete id="fiscalEspecie" autoCompleteItem="especie" autoCompleteValue="#{contratoController.fiscalNovo.especie}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" autoCompleteRequired="true" completeMethod="#{fiscalEspecieController.complete}" autoCompleteItemLabel="#{especie.toString()}" autoCompleteItemValue="#{especie}"/>
                 <t:FormRowAutoComplete id="fiscalServidor" autoCompleteItem="servidor" autoCompleteValue="#{contratoController.fiscalNovo.servidor}" labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" autoCompleteRequired="true" completeMethod="#{servidorController.complete}"  autoCompleteItemLabel="#{servidor.toString()}" autoCompleteItemValue="#{servidor}"/>                

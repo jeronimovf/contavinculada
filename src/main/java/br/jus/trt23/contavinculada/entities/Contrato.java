@@ -70,7 +70,7 @@ public class Contrato extends EntidadeGenerica {
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE}  )
     private List<Fiscal> fiscais;
 
-    @ManyToMany(mappedBy = "contratos" , cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private List<EncargoAliquota> aliquotas;
 
     private String situacao;
