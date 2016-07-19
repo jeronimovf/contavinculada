@@ -41,7 +41,7 @@
                                                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                                                             </span>
                                                             <p:commandButton action="#{proxyController.controller.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" />                                                                
-                                                            <p:commandButton action="#{proxyController.controller.saveOrCreate}" title="#{messages.SaveLink}" icon="ui-icon-disk" />                                                                                                
+                                                            <p:commandButton action="#{proxyController.controller.saveOrCreate}" title="#{messages.SaveLink}" icon="ui-icon-disk" partialSubmit="true" process="@(#master > *)"/>                                                                                                
                                                             <p:commandButton action="#{proxyController.controller.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
                                                         </f:facet>
                                                     </p:toolbar>
@@ -102,6 +102,7 @@
                         <ui:insert name="menu">
                             <p:menu toggleable="true" >
                                 <p:submenu label="Tabelas básicas">
+                                    <p:menuitem  outcome="/calendarioferiado/List" value="Calendario feriados"/>                                    
                                     <p:menuitem  value="Cargo/função"/>
                                     <p:menuitem outcome="/encargo/List" value="Encargo"/>
                                     <p:menuitem outcome="/fiscalespecie/List" value="Espécie de fiscal"/>                           

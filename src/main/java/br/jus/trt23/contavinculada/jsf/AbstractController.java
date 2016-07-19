@@ -9,7 +9,6 @@ import br.jus.trt23.contavinculada.qualifiers.MessageBundle;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.Dependent;
@@ -21,7 +20,9 @@ import org.primefaces.context.RequestContext;
 
 @Dependent
 public abstract class AbstractController<F extends AbstractFacade, T extends EntidadeGenerica> implements Serializable {
-
+    protected void prepareDlg(){
+        
+    }
     private List<T> selectedItems;
 
     private List<T> filteredItems;
@@ -64,6 +65,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     public AbstractController() {
         this.activeAction = EActiveAction.VIEW;
+        prepareDlg();
     }
 
     public T getSelected() {
@@ -220,10 +222,15 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
         header_.concat(" (").concat(messages.getString("EditLink")).concat(")");
         return header_;
     }    
-
+    public String getResponseCreated(String child) {
+        return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));
+    }
+    
     public String getTabHeader(String header) {
         return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
     } 
+    
+
     
     private void updateCurrentItem() {
         int count = getFacade().count();

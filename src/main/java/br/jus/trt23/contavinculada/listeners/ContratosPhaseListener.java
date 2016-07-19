@@ -5,6 +5,7 @@
  */
 package br.jus.trt23.contavinculada.listeners;
 
+import br.jus.trt23.contavinculada.jsf.CalendarioFeriadoController;
 import br.jus.trt23.contavinculada.jsf.ColaboradorController;
 import br.jus.trt23.contavinculada.jsf.ContratoController;
 import br.jus.trt23.contavinculada.jsf.EncargoController;
@@ -41,6 +42,8 @@ public class ContratosPhaseListener implements PhaseListener {
     ColaboradorController colaboradorController;  
     @Inject
     ServidorController servidorController;
+    @Inject
+    CalendarioFeriadoController calendarioFeriadoController;
 
     @Override
     public void afterPhase(PhaseEvent event) {
@@ -67,7 +70,10 @@ public class ContratosPhaseListener implements PhaseListener {
                     break;           
                 case "/servidor/List.xhtml":
                     proxyController.setController(servidorController);
-                    break;                      
+                    break;          
+                case "/calendarioferiado/List.xhtml":
+                    proxyController.setController(calendarioFeriadoController);
+                    break;                       
                 default:
                     break;
             }

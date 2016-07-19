@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+      <cc:interface>
+        <cc:attribute name="id"/>
+        <cc:attribute name="labelValue"/>
+        <cc:attribute name="selectValue"/>     
+        <cc:attribute name="selectRequired"/>
+        <cc:attribute name="itemLabel"/>
+        <cc:attribute name="itemValue"/>
+        <cc:attribute name="itemValues"/>        
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
+                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
+            </div>
+            <div class="ui-grid-col-6">
+                <p:selectOneMenu id="#{cc.attrs.id}"  required="#{cc.attrs.selectRequired}" var="item" value="#{cc.attrs.selectValue}">                            
+                    <f:selectItems itemLabel="#{item_[cc.attrs.itemLabel]}" itemValue="#{item_}" var="item_" value="#{cc.attrs.itemValues}"/>
+                </p:selectOneMenu>
+            </div>                        
+        </div>
+    </cc:implementation>
+</html>

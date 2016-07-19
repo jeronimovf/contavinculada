@@ -3,10 +3,15 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -31,7 +36,14 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     private List<Alocacao> alocacoes;
     
     @OneToMany(mappedBy = "postoDeTrabalho")
-    private List<FaturamentoItem> faturamentoItems;    
+    private List<FaturamentoItem> faturamentoItems;  
+    
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    private Set<EDiasComputados> diasComputados;
+    
+    @ManyToOne
+    private CalendarioFeriado feriadoCalendario;
     
     public Alocacao getAlocacaoAtiva(){
         //TODO: Buscar a alocação ativa no momento

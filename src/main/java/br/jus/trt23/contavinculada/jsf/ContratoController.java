@@ -16,17 +16,21 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import lombok.Getter;
+import lombok.Setter;
 
 @Named
 @SessionScoped
+@Getter
+@Setter
 public class ContratoController extends AbstractController<ContratoFacade, Contrato> {
 
     @Inject
     private transient ContratoFacade facade;
 
     public ContratoController() {
+        super();
         setMessagePrefix("Contrato");
-        prepareDlg();
     }
 
     private Fiscal fiscalNovo;
@@ -35,7 +39,8 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
     private ContaVinculada contaNova;
     private PostoDeTrabalho postoNovo;
 
-    private void prepareDlg(){
+    @Override
+    protected void prepareDlg(){
         prepareFiscalNovo();
         prepareAliquotaNova();
         prepareContaNova();
@@ -66,46 +71,6 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
     public String preparePostoNovo() {
         setPostoNovo(new PostoDeTrabalho());
         return "postoNovo";
-    }
-
-    public Fiscal getFiscalNovo() {
-        return fiscalNovo;
-    }
-
-    public void setFiscalNovo(Fiscal fiscalNovo) {
-        this.fiscalNovo = fiscalNovo;
-    }
-
-    public EncargoAliquota getAliquotaNova() {
-        return aliquotaNova;
-    }
-
-    public void setAliquotaNova(EncargoAliquota aliquotaNova) {
-        this.aliquotaNova = aliquotaNova;
-    }
-
-    public Faturamento getFaturamentoNovo() {
-        return faturamentoNovo;
-    }
-
-    public void setFaturamentoNovo(Faturamento faturamentoNovo) {
-        this.faturamentoNovo = faturamentoNovo;
-    }
-
-    public ContaVinculada getContaNova() {
-        return contaNova;
-    }
-
-    public void setContaNova(ContaVinculada contaNova) {
-        this.contaNova = contaNova;
-    }
-
-    public PostoDeTrabalho getPostoNovo() {
-        return postoNovo;
-    }
-
-    public void setPostoNovo(PostoDeTrabalho postoNovo) {
-        this.postoNovo = postoNovo;
     }
 
     @Override
@@ -202,10 +167,7 @@ public class ContratoController extends AbstractController<ContratoFacade, Contr
         }
     }       
 
-    
-    public String getResponseCreated(String child) {
-        return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));
-    }
+
 
     @FacesConverter(forClass = Contrato.class)
     public static class ContratoControllerConverter implements Converter {
