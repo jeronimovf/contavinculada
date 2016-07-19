@@ -59,7 +59,8 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
     }
 
     public EFeriadoEscopo[] getFeriadoEscopo() {
-        return EFeriadoEscopo.values();
+        EFeriadoEscopo[] feriadoEscopoA = EFeriadoEscopo.values();
+        return feriadoEscopoA;
     }
 
     @Override
