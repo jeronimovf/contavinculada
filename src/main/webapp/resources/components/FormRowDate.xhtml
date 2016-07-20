@@ -8,7 +8,6 @@
         <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="calendarValue"/>        
-        <cc:attribute name="calendarRequired" default="false"/>              
         <cc:attribute name="pattern" default="dd/MM/yyyy"/>             
     </cc:interface>
 
@@ -18,7 +17,9 @@
                 <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" required="#{cc.attrs.calendarRequired}" mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" size="8" pattern="#{cc.attrs.pattern}"/>                            
+                <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" 
+                            mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" 
+                            size="8" pattern="#{cc.attrs.pattern}"/>                            
             </div>                        
         </div>
     </cc:implementation>

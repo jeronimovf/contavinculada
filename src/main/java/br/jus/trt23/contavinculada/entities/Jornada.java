@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
@@ -16,8 +17,10 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class Jornada extends EntidadeGenerica {
 
+    @NotEmpty
     private String nome;
 
+    @NotEmpty
     private String descricao;    
 
     @OneToMany(mappedBy = "jornada")

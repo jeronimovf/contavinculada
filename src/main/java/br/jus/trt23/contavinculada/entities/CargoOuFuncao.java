@@ -12,6 +12,7 @@ import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
@@ -23,14 +24,16 @@ import lombok.Setter;
 )
 public class CargoOuFuncao extends EntidadeGenerica {
 
-    @Column(nullable = false)
+    @NotEmpty
     private String nome;
 
     @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao")
     private List<PostoDeTrabalho> postosDeTrabalho;
 
+    @NotEmpty
     private String descricao;
 
+    @NotEmpty
     private String atribuicoes;
 
     @Override

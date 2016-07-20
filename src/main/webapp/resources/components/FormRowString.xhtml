@@ -8,7 +8,6 @@
         <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="textValue"/>        
-        <cc:attribute name="textRequired" default="false"/>              
         <cc:attribute name="textSize" default="10"/>        
     </cc:interface>
 
@@ -18,7 +17,7 @@
                 <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.textValue}" required="#{cc.attrs.textRequired}" size="#{cc.attrs.textSize}"/>                            
+                <p:inputText id="#{cc.attrs.id}" value="#{cc.attrs.textValue}" size="#{cc.attrs.textSize}"/>                            
             </div>                        
         </div>
     </cc:implementation>

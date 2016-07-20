@@ -5,6 +5,10 @@
  */
 package br.jus.trt23.contavinculada.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.model.SelectItem;
+
 /**
  *
  * @author j129-9
@@ -19,14 +23,22 @@ public enum EDiasComputados {
     public String getNome() {
         return nome;
     }
-    
-    EDiasComputados(String nome){
+
+    EDiasComputados(String nome) {
         this.nome = nome;
     }
-
+    
+    public static EDiasComputados getByNome(String nome){
+        for(EDiasComputados edc: EDiasComputados.values()){
+            if(edc.getNome().equals(nome)){
+                return edc;
+            }
+        }
+        return null;        
+    }
+    
     @Override
     public String toString(){
         return getNome();
-    }    
-    
+    }        
 }

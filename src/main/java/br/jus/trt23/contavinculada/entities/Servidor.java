@@ -9,12 +9,14 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class Servidor extends PessoaFisica {
+    @NotEmpty
     private String matricula;
     @OneToMany(mappedBy = "servidor")
     private List<Fiscal> fiscais;

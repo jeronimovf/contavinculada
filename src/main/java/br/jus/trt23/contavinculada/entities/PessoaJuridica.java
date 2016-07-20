@@ -9,18 +9,24 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class PessoaJuridica extends Pessoa  {
+    @CNPJ
+    @NotEmpty
     private String cnpj;
 
+    @NotEmpty
     private String nomeFantasia;
 
     private String inscricaoEstadual;
 
+    @NotEmpty
     private String razaoSocial;
     
     @OneToMany(mappedBy = "empregador")

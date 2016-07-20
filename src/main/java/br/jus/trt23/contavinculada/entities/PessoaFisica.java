@@ -10,14 +10,18 @@ import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class PessoaFisica extends Pessoa {
+    @CPF
     private String cpf;
 
+    @NotEmpty
     private String nome;
 
     private LocalDate nascimentoData;

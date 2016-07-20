@@ -28,5 +28,4 @@ public enum EFeriadoEscopo {
     public String toString(){
         return getNome();
     }    
-    
 }

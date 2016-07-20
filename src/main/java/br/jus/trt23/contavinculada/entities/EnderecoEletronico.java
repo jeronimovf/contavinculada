@@ -7,15 +7,19 @@ import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Email extends EntidadeGenerica {
+public class EnderecoEletronico extends EntidadeGenerica {
 
-   private String email;
+   @Email
+    private String email;
 
-    private String descricao;
+   @NotEmpty
+   private String descricao;
 
 }

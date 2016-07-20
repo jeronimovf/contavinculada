@@ -8,9 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 @Getter
@@ -22,15 +25,19 @@ import lombok.Setter;
 )
 public class ContaVinculada extends EntidadeGenerica {
 
+    @NotNull
     @ManyToOne
     private Contrato contrato;
 
+    @NotEmpty
     @Column(nullable = false)
     private String banco;
 
+    @NotEmpty
     @Column(nullable = false)
     private String agencia;
 
+    @NotEmpty
     @Column(nullable = false)
     private String conta;
 

@@ -2,13 +2,15 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
       <cc:interface>
         <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
-        <cc:attribute name="calendarValue"/>        
-        <cc:attribute name="pattern" default="dd/MM/yyyy HH:mm"/>         
+        <cc:attribute name="selectValue"/>     
+        <cc:attribute name="itemValues"/>        
+        <cc:attribute name="selectConverter"/>
     </cc:interface>
 
     <cc:implementation>
@@ -17,8 +19,9 @@
                 <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" mask="true" converter="localDateTimeConverter" 
-                            mode="popup" showOn="button" locale="pt_BR" size="8" pattern="#{cc.attrs.pattern}"/>                            
+                <p:selectManyCheckbox id="#{cc.attrs.id}"  value="#{cc.attrs.selectValue}" converter="#{cc.attrs.selectConverter}">                            
+                    <f:selectItems value="#{cc.attrs.itemValues}"/>
+                </p:selectManyCheckbox>
             </div>                        
         </div>
     </cc:implementation>

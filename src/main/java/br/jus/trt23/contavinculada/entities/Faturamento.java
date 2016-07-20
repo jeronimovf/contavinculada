@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,8 +23,10 @@ public class Faturamento extends EntidadeGenerica {
     @OneToMany(mappedBy = "faturamento")
     private List<Retencao> retencoes;
 
+    @NotNull
     private LocalDate competencia;
 
+    @NotNull
     @ManyToOne
     private Contrato contrato;
 

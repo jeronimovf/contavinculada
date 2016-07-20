@@ -6,14 +6,13 @@ package br.jus.trt23.contavinculada.entities;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -24,11 +23,15 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class PostoDeTrabalho extends EntidadeGenerica {
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Contrato contrato;
+    
+    @NotNull
     @ManyToOne(targetEntity = CargoOuFuncao.class)
     private CargoOuFuncao cargoOuFuncao;
     
+    @NotNull
     @ManyToOne
     private Jornada jornada;
     
@@ -38,10 +41,12 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     @OneToMany(mappedBy = "postoDeTrabalho")
     private List<FaturamentoItem> faturamentoItems;  
     
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     @ElementCollection
-    private Set<EDiasComputados> diasComputados;
+    private List<EDiasComputados> diasComputados;
     
+    //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
+    //se o item não estiver em diasComputados
     @ManyToOne
     private CalendarioFeriado feriadoCalendario;
     

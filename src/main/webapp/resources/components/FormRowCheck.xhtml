@@ -8,7 +8,6 @@
         <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="checkValue"/>        
-        <cc:attribute name="checkRequired" default="false"/>              
     </cc:interface>
 
     <cc:implementation>
@@ -17,7 +16,7 @@
                 <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.checkValue}" required="#{cc.attrs.checkRequired}"/>                            
+                <p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.checkValue}" />                            
             </div>                        
         </div>
     </cc:implementation>

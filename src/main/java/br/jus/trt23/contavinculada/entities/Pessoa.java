@@ -16,8 +16,8 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public abstract class Pessoa extends EntidadeGenerica {
 
-    @OneToMany(targetEntity = Email.class)
-    private List<Email> emails;
+    @OneToMany(targetEntity = EnderecoEletronico.class)
+    private List<EnderecoEletronico> emails;
 
     @OneToMany(targetEntity = Endereco.class)
     private List<Endereco> enderecos;

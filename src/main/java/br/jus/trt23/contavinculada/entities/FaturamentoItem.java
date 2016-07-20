@@ -8,6 +8,7 @@ package br.jus.trt23.contavinculada.entities;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,12 +23,15 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class FaturamentoItem extends EntidadeGenerica {
 
+    @NotNull
     @ManyToOne
     private Faturamento faturamento;
     
+    @NotNull
     @ManyToOne
     private PostoDeTrabalho postoDeTrabalho;
     
+    @NotNull
     private LocalDate dia;
     
     @ManyToOne

@@ -59,16 +59,14 @@
                              openListener="#{calendarioFeriadoController.prepareCalendarioFeriadoItemNovo}" 
                              header="#{calendarioFeriadoController.getDlgCreateHeader('Feriado')}" updateContainer="feriado">
                 <t:FormRowString id="feriadoNome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}" 
-                                 textRequired="true" textValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.nome}" />
-                <t:FormRowDate id="feriadoQuando" calendarRequired="true" 
-                               labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}" 
+                                 textValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.nome}" />
+                <t:FormRowDate id="feriadoQuando" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}" 
                                calendarValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.quando}"/>                
                 <t:FormRowSelectOneMenu id="feriadoEscopo" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}" 
                                         selectValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.escopo}" 
-                                        itemValues="#{EnumFE.TUDO}"/>
-              
+                                        itemValues="#{calendarioFeriadoController.feriadoEscopo}"/>              
                 <t:FormRowString id="feriadoOnde" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"                                  
-                                 textValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.nome}"/>
+                                 textValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.onde}"/>
             </t:FormDlgCreate>
         </ui:define>
     </ui:composition>

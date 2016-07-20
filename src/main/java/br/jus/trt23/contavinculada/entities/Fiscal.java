@@ -4,31 +4,35 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
 public class Fiscal extends EntidadeGenerica {
+    @NotNull
     @ManyToOne(targetEntity = FiscalEspecie.class)
     @JoinColumn(nullable=false)
     private FiscalEspecie especie;
 
-    @Column(nullable=false)
+    @NotEmpty
     private String atoDesignacao;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(nullable=false)
     private Servidor servidor;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(nullable=false)
     private Contrato contrato;

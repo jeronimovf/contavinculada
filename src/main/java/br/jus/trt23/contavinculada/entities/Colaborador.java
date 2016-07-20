@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class Colaborador extends EntidadeGenerica {
     @JoinColumn(nullable=false)    
     private PessoaJuridica empregador;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(nullable=false)        
     private PessoaFisica colaborador;

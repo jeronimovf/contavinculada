@@ -6,18 +6,18 @@ package br.jus.trt23.contavinculada.entities;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Getter
@@ -29,24 +29,27 @@ import lombok.Setter;
 )
 public class Contrato extends EntidadeGenerica {
 
-    @Column(nullable=false)
+    @NotEmpty
     private String numero;
 
     @ManyToOne
     private Contrato aditivoDe;
 
+    @NotNull
     @ManyToOne(targetEntity = Pessoa.class)
     @JoinColumn(nullable=false)        
     private Pessoa contratado;
 
-    @Column(nullable=false)
+    @NotEmpty
     private String objeto;
 
+    @NotNull
     private LocalDate assinaturaData;
 
     @Lob
     private Byte[] inteiroTeor;
 
+    @NotNull
     private String processo;
 
     private String arp;

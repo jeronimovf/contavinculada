@@ -3,7 +3,9 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,6 +16,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FaturamentoItemEvento extends EntidadeGenerica {
+    @NotNull
     private String nome;
+    @Column(columnDefinition = "default -1")
     private Boolean isSubstituicao;
 }

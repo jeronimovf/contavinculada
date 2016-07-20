@@ -2,9 +2,11 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.CalendarioFeriado;
 import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
+import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.CalendarioFeriadoFacade;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,10 +67,19 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
         return JsfUtil.getSelectItems(Arrays.asList(EFeriadoEscopo.values()), true);
     }
 
+    public List<SelectItem> getDiasComputados() {
+        List<SelectItem> si = new ArrayList<>();
+        for(EDiasComputados edc: EDiasComputados.values()){
+            si.add(new SelectItem(edc,edc.getNome()));
+        }
+        return si;
+    }
+
     @Override
     protected void prepareDlg() {
         prepareCalendarioFeriadoItemNovo();
     }
+
 
     @FacesConverter(forClass = CalendarioFeriado.class)
     public static class CalendarioFeriadoControllerConverter implements Converter {
