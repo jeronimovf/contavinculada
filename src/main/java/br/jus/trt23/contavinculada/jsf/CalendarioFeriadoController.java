@@ -5,6 +5,8 @@ import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.CalendarioFeriadoFacade;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +14,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,9 +61,8 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
         return facade;
     }
 
-    public EFeriadoEscopo[] getFeriadoEscopo() {
-        EFeriadoEscopo[] feriadoEscopoA = EFeriadoEscopo.values();
-        return feriadoEscopoA;
+    public List<SelectItem> getFeriadoEscopo() {
+        return JsfUtil.getSelectItems(Arrays.asList(EFeriadoEscopo.values()), true);
     }
 
     @Override

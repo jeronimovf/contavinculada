@@ -23,7 +23,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('numero')}" for="numero" />
                     </div>
                     <div class="ui-grid-col-2 ">
-                        <p:inputText id="numero" value="#{contratoController.selected.numero}" required="true"/>        
+                        <p:inputText id="numero" value="#{contratoController.selected.numero}" />        
                     </div>
                     <div class="ui-grid-col-1 ">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('contratado')}" for="contratado" />                        
@@ -39,7 +39,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('objeto')}" for="objeto" />                        
                     </div>
                     <div class="ui-grid-col-11 withBorder">
-                        <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" required="true"/>        
+                        <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" />        
                     </div>
                 </div>                
                 <div class="ui-grid-row">
@@ -47,25 +47,25 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('processo')}" for="processo" />                        
                     </div>
                     <div class="ui-grid-col-2 withBorder">
-                        <p:inputText id="processo" value="#{contratoController.selected.processo}" required="true"/>        
+                        <p:inputText id="processo" value="#{contratoController.selected.processo}" />        
                     </div>
                     <div class="ui-grid-col-1 withBorder">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('assinaturaData')}" for="assinaturaData" />                        
                     </div>
                     <div class="ui-grid-col-1 withBorder">
-                        <p:inputText id="assinaturaData" size="10" value="#{contratoController.selected.assinaturaData}" required="true" converter="localDateConverter"/>        
+                        <p:inputText id="assinaturaData" size="10" value="#{contratoController.selected.assinaturaData}"  converter="localDateConverter"/>        
                     </div> 
                     <div class="ui-grid-col-1 withBorder">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteDesde')}" for="vigenteDesde" />                        
                     </div>
                     <div class="ui-grid-col-1 withBorder">
-                        <p:inputText id="vigenteDesde" size="10" value="#{contratoController.selected.vigenteDesde}" required="true" converter="localDateConverter"/>        
+                        <p:inputText id="vigenteDesde" size="10" value="#{contratoController.selected.vigenteDesde}"  converter="localDateConverter"/>        
                     </div>                    
                     <div class="ui-grid-col-1 withBorder">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('vigenteAte')}" for="vigenteAte" />                        
                     </div>
                     <div class="ui-grid-col-1 withBorder">
-                        <p:inputText id="vigenteAte" size="10" value="#{contratoController.selected.vigenteAte}" required="true" converter="localDateConverter"/>        
+                        <p:inputText id="vigenteAte" size="10" value="#{contratoController.selected.vigenteAte}"  converter="localDateConverter"/>        
                     </div>                                        
                     <div class="ui-grid-col-3 withBorder">
                     </div>                        

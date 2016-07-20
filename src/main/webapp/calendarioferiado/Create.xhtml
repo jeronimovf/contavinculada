@@ -10,9 +10,9 @@
         <ui:define name="content">
             <p:panelGrid columns="2" layout="grid">
                 <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" for="nome" />
-                <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}" required="true"/>
+                <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}" />
                 <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" for="descricao" />
-                <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}" required="true"/>                
+                <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}" />                
             </p:panelGrid>
         </ui:define>
     </ui:composition>

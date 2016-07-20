@@ -24,7 +24,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('numero')}" for="numero" />
                     </div>
                     <div class="ui-grid-col-2 ">
-                        <p:inputText id="numero" value="#{contratoController.selected.numero}" required="true"/>        
+                        <p:inputText id="numero" value="#{contratoController.selected.numero}" />        
                     </div>
                     <div class="ui-grid-col-1 ">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('contratado')}" for="contratado" />                        
@@ -38,7 +38,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('objeto')}" for="objeto" />                        
                     </div>
                     <div class="ui-grid-col-11 ">
-                        <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" required="true"/>        
+                        <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" />        
                     </div>
                 </div>                
                 <div class="ui-grid-row">
@@ -46,7 +46,7 @@
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('processo')}" for="processo" />                        
                     </div>
                     <div class="ui-grid-col-2">
-                        <p:inputText id="processo" value="#{contratoController.selected.processo}" required="true"/>        
+                        <p:inputText id="processo" value="#{contratoController.selected.processo}" />        
                     </div>
                     <div class="ui-grid-col-1">
                         <p:outputLabel value="#{contratoController.getMsgFieldLabel('assinaturaData')}" for="assinaturaData" />                        
@@ -58,7 +58,7 @@
                         <p:outputLabel value="#{messages.ActiveSince}" for="vigenteDesde" />                        
                     </div>
                     <div class="ui-grid-col-2">
-                        <p:calendar id="vigenteDesde" value="#{contratoController.selected.vigenteDesde}" required="true" mask="true" converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>
+                        <p:calendar id="vigenteDesde" value="#{contratoController.selected.vigenteDesde}"  mask="true" converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" pattern="dd/MM/yyyy"/>
                     </div>                    
                     <div class="ui-grid-col-1 ">
                         <p:outputLabel value="#{messages.ActiveUntil}" for="vigenteAte" />                        

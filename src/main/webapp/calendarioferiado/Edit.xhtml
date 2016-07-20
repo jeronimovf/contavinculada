@@ -17,13 +17,13 @@
                             <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" for="nome" />
                         </div>
                         <div class="ui-grid-col-2 ">
-                            <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}" required="true"/>        
+                            <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}"/>        
                         </div>
                         <div class="ui-grid-col-1 ">
                             <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" for="descricao" />                        
                         </div>
                         <div class="ui-grid-col-8 ">
-                            <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}" required="true"/>        
+                            <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}"/>        
                         </div>                    
                     </div>
                 </div>
@@ -64,11 +64,9 @@
                                labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}" 
                                calendarValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.quando}"/>                
                 <t:FormRowSelectOneMenu id="feriadoEscopo" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}" 
-                                        selectRequired="true" selectValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.escopo}" 
-                                        itemLabel="nome" itemValue="nome" itemValues="#{EnumFE.TUDO}"/>
-                <p:selectOneMenu required="true" var="item" value="#{calendarioFeriadoController.calendarioFeriadoItemNovo.escopo}">                            
-                    <f:selectItems value="#{calendarioFeriadoController.feriadoEscopo}"/>
-                </p:selectOneMenu>                
+                                        selectValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.escopo}" 
+                                        itemValues="#{EnumFE.TUDO}"/>
+              
                 <t:FormRowString id="feriadoOnde" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"                                  
                                  textValue="#{calendarioFeriadoController.calendarioFeriadoItemNovo.nome}"/>
             </t:FormDlgCreate>
