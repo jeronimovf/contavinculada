@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:t="http://java.sun.com/jsf/composite/components"      
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <t:ListView id="listItems" controller="#{cargoOuFuncaoController}" sortBy="nome">
+                <p:column width="20%" filterBy="#{item.nome}" filterMatchMode="contains" 
+                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('nome')}">
+                    <h:outputText value="#{item.nome}"/>
+                </p:column>
+                <p:column width="30%" filterBy="#{item.nome}" filterMatchMode="contains" 
+                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('descricao')}">
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+                <p:column width="39%" filterBy="#{item.nome}" filterMatchMode="contains" 
+                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('atribuicoes')}">
+                    <h:outputText value="#{item.atribuicoes}"/>
+                </p:column>
+            </t:ListView>
+        </ui:define>
+    </ui:composition>
+
+</html>

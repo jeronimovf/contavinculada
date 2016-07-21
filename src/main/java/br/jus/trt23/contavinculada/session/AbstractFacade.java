@@ -7,10 +7,13 @@ package br.jus.trt23.contavinculada.session;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.qualifiers.Slf4jLogger;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import org.slf4j.Logger;
 
 /**
@@ -84,5 +87,24 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
     }
 
-
+    public LocalDateTime getTimestampOnServer(){
+        Query qry = getEntityManager().createNativeQuery("SELECT CURRENT_DATE AS now FROM DUAL", "currentTimestamp");
+        Timestamp ts = (Timestamp) qry.getSingleResult();
+        return ts.toLocalDateTime();               
+    }
+    
+//    public Calendar getTimestamp() {
+//        EntityManager em = entityManagerQC;
+//        SessionImpl con = (SessionImpl) em.getDelegate();
+//        try {
+//            con.connection().createStatement().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Query qry = em.createNativeQuery("SELECT CURRENT_DATE AS now FROM DUAL", "currentTimestamp");
+//        Calendar cal = Calendar.getInstance();
+//        Timestamp ts = (Timestamp) qry.getSingleResult();
+//        cal.setTime(ts);
+//        return cal;
+//    }
 }

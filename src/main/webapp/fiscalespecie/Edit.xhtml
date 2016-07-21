@@ -2,58 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditContratoTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditContratoLabel_situacao}" for="situacao" />
-                    <h:inputText id="situacao" value="#{contratoController.selected.situacao}" title="#{bundle.EditContratoTitle_situacao}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_numero}" for="numero" />
-                    <h:inputText id="numero" value="#{contratoController.selected.numero}" title="#{bundle.EditContratoTitle_numero}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_vigenteAte}" for="vigenteAte" />
-                    <h:inputText id="vigenteAte" value="#{contratoController.selected.vigenteAte}" title="#{bundle.EditContratoTitle_vigenteAte}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_contratado}" for="contratado" />
-                    <h:selectOneMenu id="contratado" value="#{contratoController.selected.contratado}" title="#{bundle.EditContratoTitle_contratado}" >
-                        <f:selectItems value="#{pessoaController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditContratoLabel_assinaturaData}" for="assinaturaData" />
-                    <h:inputText id="assinaturaData" value="#{contratoController.selected.assinaturaData}" title="#{bundle.EditContratoTitle_assinaturaData}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_objeto}" for="objeto" />
-                    <h:inputText id="objeto" value="#{contratoController.selected.objeto}" title="#{bundle.EditContratoTitle_objeto}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_inteiroTeor}" for="inteiroTeor" />
-                    <h:inputTextarea rows="4" cols="30" id="inteiroTeor" value="#{contratoController.selected.inteiroTeor}" title="#{bundle.EditContratoTitle_inteiroTeor}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_vigenteDesde}" for="vigenteDesde" />
-                    <h:inputText id="vigenteDesde" value="#{contratoController.selected.vigenteDesde}" title="#{bundle.EditContratoTitle_vigenteDesde}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_fiscais}" for="fiscais" />
-                    <h:selectOneMenu id="fiscais" value="#{contratoController.selected.fiscais}" title="#{bundle.EditContratoTitle_fiscais}" >
-                        <f:selectItems value="#{fiscalController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditContratoLabel_processo}" for="processo" />
-                    <h:inputText id="processo" value="#{contratoController.selected.processo}" title="#{bundle.EditContratoTitle_processo}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{contratoController.selected.id}" title="#{bundle.EditContratoTitle_id}" />
-                    <h:outputLabel value="#{bundle.EditContratoLabel_arp}" for="arp" />
-                    <h:inputText id="arp" value="#{contratoController.selected.arp}" title="#{bundle.EditContratoTitle_arp}" />
-                </h:panelGrid>
-                <h:commandLink action="#{contratoController.update}" value="#{bundle.EditContratoSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditContratoViewLink}"/>
-                <br />
-                <h:commandLink action="#{contratoController.prepareList}" value="#{bundle.EditContratoShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditContratoIndexLink}" />
-            </h:form>
+        <ui:define name="content">
+            <p:panelGrid columns="2" layout="grid">
+                <p:outputLabel value="#{fiscalEspecieController.getMsgFieldLabel('nome')}" 
+                               for="nome" />
+                <p:inputText id="nome" value="#{fiscalEspecieController.selected.nome}" />
+            </p:panelGrid>
         </ui:define>
     </ui:composition>
 

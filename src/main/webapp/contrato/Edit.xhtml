@@ -168,7 +168,6 @@
                             </f:facet>
                             <h:outputText value="#{item.diasComputados}"/>
                         </p:column>                                                     
-
                         <p:column width="20%">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"/>
@@ -186,13 +185,13 @@
                             </f:facet>
                             <h:outputText value="#{item.encargo.nome}"/>
                         </p:column>   
-                        <p:column width="20%">
+                        <p:column width="20%" styleClass="alignRight">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
                             </f:facet>
                             <h:outputText value="#{item.aliquota}"/>
                         </p:column>                           
-                        <p:column width="10%">
+                        <p:column width="10%" styleClass="alignCenter">
                             <f:facet name="header">
                                 <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}"/>
                             </f:facet>
@@ -310,10 +309,12 @@
                                        completeMethod="#{jornadaController.complete}" 
                                        labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>                                
                 <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
-                                     labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}" 
+                                     labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
                                      itemValues="#{calendarioFeriadoController.diasComputados}" 
                                      selectValue="#{contratoController.postoNovo.diasComputados}" 
-                                     selectConverter="diasComputadosConverter"/>
+                                     selectConverter="diasComputadosConverter">
+                    <f:converter converterId="diasComputadosConverter" for="checkComponent"/>
+                </t:FormRowCheckMulti>
                 <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
                                        autoCompleteValue="#{contratoController.postoNovo.feriadoCalendario}" 
                                         autoCompleteItem="feriadoCalendario" 

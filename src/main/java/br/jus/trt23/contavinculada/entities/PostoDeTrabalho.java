@@ -6,6 +6,7 @@ package br.jus.trt23.contavinculada.entities;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -43,7 +44,7 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     
     @Enumerated
     @ElementCollection
-    private List<EDiasComputados> diasComputados;
+    private Set<EDiasComputados> diasComputados;
     
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
       <cc:interface>
         <cc:attribute name="id"/>
@@ -19,7 +20,10 @@
                 <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
             </div>
             <div class="ui-grid-col-6">
-                <p:selectManyCheckbox id="#{cc.attrs.id}"  value="#{cc.attrs.selectValue}" converter="#{cc.attrs.selectConverter}">                            
+                <p:selectManyCheckbox id="#{cc.attrs.id}"  value="#{cc.attrs.selectValue}"> 
+                    <c:if test="#{not empty cc.attrs.selectConverter}">
+                        <f:converter converterId="#{cc.attrs.selectConverter}"/>
+                    </c:if>                    
                     <f:selectItems value="#{cc.attrs.itemValues}"/>
                 </p:selectManyCheckbox>
             </div>                        

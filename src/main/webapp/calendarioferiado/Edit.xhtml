@@ -8,26 +8,13 @@
       xmlns:t="http://java.sun.com/jsf/composite/components">
 
     <ui:composition template="/template.xhtml">
-        <p:importEnum type="br.jus.trt23.contavinculada.enums.EFeriadoEscopo" var="EnumFE" allSuffix="TUDO"/>
         <ui:define name="content">
-            <p:fieldset id="master">
-                <div class="ui-grid">            
-                    <div class="ui-grid-row">                    
-                        <div class="ui-grid-col-1 ">
-                            <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" for="nome" />
-                        </div>
-                        <div class="ui-grid-col-2 ">
-                            <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}"/>        
-                        </div>
-                        <div class="ui-grid-col-1 ">
-                            <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" for="descricao" />                        
-                        </div>
-                        <div class="ui-grid-col-8 ">
-                            <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}"/>        
-                        </div>                    
-                    </div>
-                </div>
-            </p:fieldset>
+            <p:panelGrid columns="2" layout="grid">
+                <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" for="nome" />
+                <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}"/>        
+                <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" for="descricao" />                        
+                <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}"/>        
+            </p:panelGrid>
             <t:TabItem id="feriado" dataValue="#{calendarioFeriadoController.selected.feriados}">
                 <p:column width="30%">
                     <f:facet name="header">
