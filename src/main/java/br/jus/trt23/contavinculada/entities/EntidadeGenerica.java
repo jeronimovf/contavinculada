@@ -12,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -40,17 +38,5 @@ public abstract class EntidadeGenerica implements Serializable{
     @NotNull
     private LocalDateTime criadoEm;
 
-    private LocalDateTime destruidoEm;   
-    
-    //set mandatory fields
-    @PreUpdate
-    @PrePersist
-    public void setMandatoryFields(){
-        //TODO: O timestamp deve vir do servidor de bd para evitar burla ou
-        //erro
-        setCriadoEm(LocalDateTime.now());
-        //TODO: Deve ser checado se ao incluir uma mesma entidade se há outra
-        //com conflito de vigência.
-    }
-   
+    private LocalDateTime destruidoEm;      
 }

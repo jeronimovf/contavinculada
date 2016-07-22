@@ -4,9 +4,8 @@ import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.jsf.util.PaginationHelper;
-import br.jus.trt23.contavinculada.session.AbstractFacade;
 import br.jus.trt23.contavinculada.qualifiers.MessageBundle;
-
+import br.jus.trt23.contavinculada.session.AbstractFacade;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.List;
@@ -16,32 +15,16 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.context.RequestContext;
 
 @Dependent
+@Getter
+@Setter
 public abstract class AbstractController<F extends AbstractFacade, T extends EntidadeGenerica> implements Serializable {
-    protected void prepareDlg(){
-        
-    }
     private List<T> selectedItems;
-
     private List<T> filteredItems;
-
-    public List<T> getFilteredItems() {
-        return filteredItems;
-    }
-
-    public void setFilteredItems(List<T> filteredItems) {
-        this.filteredItems = filteredItems;
-    }
-
-    public List<T> getSelectedItems() {
-        return selectedItems;
-    }
-
-    public void setSelectedItems(List<T> selectedItems) {
-        this.selectedItems = selectedItems;
-    }
     private DataModel items = null;
     protected PaginationHelper pagination;
     protected int selectedItemIndex;
@@ -52,14 +35,6 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
     @Inject
     @MessageBundle
     protected transient ResourceBundle messages;
-
-    public String getMessagePrefix() {
-        return messagePrefix;
-    }
-
-    public void setMessagePrefix(String messagePrefix) {
-        this.messagePrefix = messagePrefix;
-    }
 
     protected abstract AbstractFacade getFacade();
 
@@ -139,7 +114,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
             case NEW:
                 return create();
             default:
-                return "Erro";
+                return "";
         }
     }
 
@@ -286,5 +261,9 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("formRoot:listItems");
     }
-
+    
+   
+    protected void prepareDlg(){
+        
+    }
 }

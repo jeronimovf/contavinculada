@@ -53,7 +53,8 @@ public class ContratosPhaseListener implements PhaseListener {
 
     @Override
     public void afterPhase(PhaseEvent event) {
-        if (event.getPhaseId().equals(getPhaseId())) {
+        if (event.getPhaseId().equals(PhaseId.RESTORE_VIEW) ||
+                event.getPhaseId().equals(PhaseId.RENDER_RESPONSE)) {
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             switch (viewId) {
                 case "/fiscalespecie/List.xhtml":

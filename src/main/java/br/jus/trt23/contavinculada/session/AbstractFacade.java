@@ -8,12 +8,16 @@ package br.jus.trt23.contavinculada.session;
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.qualifiers.Slf4jLogger;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.slf4j.Logger;
 
 /**
@@ -23,6 +27,7 @@ import org.slf4j.Logger;
  */
 @Dependent
 public abstract class AbstractFacade<T extends EntidadeGenerica> {
+
     @Inject
     @Slf4jLogger
     Logger logger;
@@ -34,12 +39,12 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     }
 
     protected abstract EntityManager getEntityManager();
-    
+
     public abstract List<T> complete(String criteria);
 
-    public void create(T entity) throws Exception{
-
-       getEntityManager().persist(entity);
+    public void create(T entity) throws Exception {
+        entity.setCriadoEm(getTimestampOnServer());
+        getEntityManager().persist(entity);
     }
 
     public void edit(T entity) {
@@ -54,16 +59,59 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         return getEntityManager().find(entityClass, id);
     }
 
+    //o método findAll retorna apenas os registros que não tenham sido destruídos
     public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> c = cq.from(entityClass);
+        cq.select(c).where(cb.isNull(c.get("destruidoEm")));
+        Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
     }
 
+    //o método findAll retorna apenas os registros que não tenham sido destruídos
     public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> c = cq.from(entityClass);
+        cq.select(c).where(cb.isNull(c.get("destruidoEm")));
+        Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
+
+    //o método findAll retorna apenas os registros que não tenham sido destruídos
+    // e que estejam vigentes em todo o período informado
+    public List<T> findAll(LocalDate vigenteDesde, LocalDate vigenteAte) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> c = cq.from(entityClass);
+        cq.select(c).where(
+                cb.and(
+                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
+                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
+                    cb.isNull(c.get("destruidoEm"))
+                ));
+        Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }
+
+    //o método findAll retorna apenas os registros que não tenham sido destruídos
+    //o método findAll retorna apenas os registros que não tenham sido destruídos
+    // e que estejam vigentes em todo o período informado
+    public List<T> findRange(int[] range, LocalDate vigenteDesde,
+            LocalDate vigenteAte) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> c = cq.from(entityClass);
+        cq.select(c).where(
+                cb.and(
+                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
+                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
+                    cb.isNull(c.get("destruidoEm"))
+                ));
+        Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
@@ -78,7 +126,6 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     }
 
     public T newInstance() {
-
         try {
             return (T) Class.forName(entityClass.getName()).newInstance();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
@@ -86,25 +133,10 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
             return null;
         }
     }
-
-    public LocalDateTime getTimestampOnServer(){
-        Query qry = getEntityManager().createNativeQuery("SELECT CURRENT_DATE AS now FROM DUAL", "currentTimestamp");
-        Timestamp ts = (Timestamp) qry.getSingleResult();
-        return ts.toLocalDateTime();               
-    }
     
-//    public Calendar getTimestamp() {
-//        EntityManager em = entityManagerQC;
-//        SessionImpl con = (SessionImpl) em.getDelegate();
-//        try {
-//            con.connection().createStatement().execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        Query qry = em.createNativeQuery("SELECT CURRENT_DATE AS now FROM DUAL", "currentTimestamp");
-//        Calendar cal = Calendar.getInstance();
-//        Timestamp ts = (Timestamp) qry.getSingleResult();
-//        cal.setTime(ts);
-//        return cal;
-//    }
+    public LocalDateTime getTimestampOnServer() {
+        Query qry = getEntityManager().createNativeQuery("SELECT localtimestamp");
+        Timestamp ts = (Timestamp) qry.getSingleResult();
+        return ts.toLocalDateTime();
+    }    
 }

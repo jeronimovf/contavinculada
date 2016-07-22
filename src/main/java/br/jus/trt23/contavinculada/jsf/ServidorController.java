@@ -2,17 +2,16 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Servidor;
 import br.jus.trt23.contavinculada.session.ServidorFacade;
-
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ServidorController extends AbstractController<ServidorFacade, Servidor> {
 
     @Inject
