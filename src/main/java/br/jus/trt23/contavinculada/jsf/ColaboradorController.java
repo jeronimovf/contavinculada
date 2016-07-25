@@ -19,6 +19,7 @@ public class ColaboradorController extends AbstractController<ColaboradorFacade,
     private transient ColaboradorFacade facade;
 
     public ColaboradorController() {
+        super();        
         setMessagePrefix("Colaborador");
     }
 

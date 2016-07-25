@@ -28,6 +28,7 @@ public class PessoaController extends AbstractController<PessoaFacade, Pessoa> {
     private transient PessoaFisicaFacade pfFacade;    
 
     public PessoaController() {
+        super();        
         setMessagePrefix("Pessoa");
     }
 

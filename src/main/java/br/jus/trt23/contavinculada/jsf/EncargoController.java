@@ -19,6 +19,7 @@ public class EncargoController extends AbstractController<EncargoFacade, Encargo
     private transient EncargoFacade facade;
 
     public EncargoController() {
+        super();        
         setMessagePrefix("Encargo");
     }
 

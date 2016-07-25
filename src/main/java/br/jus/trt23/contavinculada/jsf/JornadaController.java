@@ -19,6 +19,7 @@ public class JornadaController extends AbstractController<JornadaFacade, Jornada
     private transient JornadaFacade facade;
 
     public JornadaController() {
+        super();        
         setMessagePrefix("Jornada");
     }
 

@@ -21,6 +21,7 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridicaF
     private transient PessoaJuridicaFacade facade;
 
     public PessoaJuridicaController() {
+        super();        
         setMessagePrefix("PessoaJuridica");
     }
 

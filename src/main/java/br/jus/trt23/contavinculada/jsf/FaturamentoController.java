@@ -19,6 +19,7 @@ public class FaturamentoController extends AbstractController<FaturamentoFacade,
     private transient FaturamentoFacade facade;
 
     public FaturamentoController() {
+        super();        
         setMessagePrefix("Faturamento");
     }
 

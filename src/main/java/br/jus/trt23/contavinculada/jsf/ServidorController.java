@@ -18,6 +18,7 @@ public class ServidorController extends AbstractController<ServidorFacade, Servi
     private transient ServidorFacade facade;
 
     public ServidorController() {
+        super();        
         setMessagePrefix("Servidor");
     }
 

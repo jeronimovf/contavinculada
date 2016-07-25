@@ -19,6 +19,7 @@ public class CargoOuFuncaoController extends AbstractController<CargoOuFuncaoFac
     private transient CargoOuFuncaoFacade facade;
 
     public CargoOuFuncaoController() {
+        super();
         setMessagePrefix("CargoOuFuncao");
     }
 

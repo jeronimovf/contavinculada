@@ -19,6 +19,7 @@ public class PessoaFisicaController extends AbstractController<PessoaFisicaFacad
     private transient PessoaFisicaFacade facade;
 
     public PessoaFisicaController() {
+        super();        
         setMessagePrefix("PessoaFisica");
     }
 

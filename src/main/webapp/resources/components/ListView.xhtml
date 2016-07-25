@@ -19,7 +19,7 @@
                 <p:dataTable id="#{cc.id}" value="#{cc.attrs.controller.items}"  var="item" paginator="true" rows="10" 
                              sortBy="#{empty cc.attrs.sortBy ? '' : item[cc.attrs.sortby]}" paginatorPosition="top" paginatorAlwaysVisible="false" 
                              rowSelectMode="checkbox" selection="#{cc.attrs.controller.selectedItems}" rowKey="#{item.id}" 
-                             filteredValue="#{cc.attrs.controller.filteredItems}">
+                             filteredValue="#{cc.attrs.controller.filteredItems}" lazy="true">
                     <p:column width="5%" selectionMode="multiple" style="text-align: center"/>
                     <cc:insertChildren/>
                     <p:column width="6%">

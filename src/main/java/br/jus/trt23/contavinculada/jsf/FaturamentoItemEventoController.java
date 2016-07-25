@@ -19,6 +19,7 @@ public class FaturamentoItemEventoController extends AbstractController<Faturame
     private transient FaturamentoItemEventoFacade facade;
 
     public FaturamentoItemEventoController() {
+        super();        
         setMessagePrefix("FaturamentoItemEvento");
     }
 

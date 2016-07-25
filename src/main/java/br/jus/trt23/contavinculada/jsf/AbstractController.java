@@ -2,6 +2,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
+import br.jus.trt23.contavinculada.handlers.CustomLazyDataModel;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.jsf.util.PaginationHelper;
 import br.jus.trt23.contavinculada.qualifiers.MessageBundle;
@@ -11,8 +12,6 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.enterprise.context.Dependent;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import lombok.Getter;
@@ -25,7 +24,7 @@ import org.primefaces.context.RequestContext;
 public abstract class AbstractController<F extends AbstractFacade, T extends EntidadeGenerica> implements Serializable {
     private List<T> selectedItems;
     private List<T> filteredItems;
-    private DataModel items = null;
+    private CustomLazyDataModel<T> items = null;
     protected PaginationHelper pagination;
     protected int selectedItemIndex;
     protected T selected;
@@ -40,6 +39,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     public AbstractController() {
         this.activeAction = EActiveAction.VIEW;
+        items = new CustomLazyDataModel<>(getFacade());
         prepareDlg();
     }
 
@@ -55,33 +55,15 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
         return (T) getFacade().find(id);
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
 
     public String prepareList() {
-        recreateModel();
         activeAction = EActiveAction.VIEW;
         return "List?faces-redirect=true";
     }
 
     public String prepareView() {
-        selected = (T) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selected = (T) items.getRowData();
+        selectedItemIndex = items.getRowIndex();
         activeAction = EActiveAction.VIEW;
         return "View";
     }
@@ -120,7 +102,7 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
 
     public String prepareEdit() {
         selected = (T) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedItemIndex = items.getRowIndex();
         activeAction = EActiveAction.EDIT;
         return "Edit";
     }
@@ -147,8 +129,6 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
         msg = MessageFormat.format(messages.getString(getMessagePrefix().concat("_Deleted")), getSelectedItems().size());
         JsfUtil.addSuccessMessage(msg);
         refreshList();
-        recreatePagination();
-        recreateModel();
         return prepareList();
     }
 
@@ -204,50 +184,6 @@ public abstract class AbstractController<F extends AbstractFacade, T extends Ent
     public String getTabHeader(String header) {
         return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
     } 
-    
-
-    
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            selected = (T) getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    private void recreateModel() {
-        items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
 
     public List<SelectItem> getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(getFacade().findAll(), false);

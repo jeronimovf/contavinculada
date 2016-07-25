@@ -19,6 +19,7 @@ public class FiscalEspecieController extends AbstractController<FiscalEspecieFac
     private transient FiscalEspecieFacade facade;
 
     public FiscalEspecieController() {
+        super();        
         setMessagePrefix("FiscalEspecie");
     }
 
