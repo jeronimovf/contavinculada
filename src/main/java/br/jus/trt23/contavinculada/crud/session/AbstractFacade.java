@@ -3,37 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.crud.session;
 
-import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
-import br.jus.trt23.contavinculada.qualifiers.Slf4jLogger;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.slf4j.Logger;
 
 /**
  *
  * @author j129-9
- * @param <T>
  */
-public abstract class AbstractFacade<T extends EntidadeGenerica> {
+public abstract class AbstractFacade<T> {
 
-    @Inject
-    @Slf4jLogger
-    Logger logger;
-
-    private final Class<T> entityClass;
+    private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -41,10 +27,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
 
     protected abstract EntityManager getEntityManager();
 
-    public abstract List<T> complete(String criteria);
-
-    public void create(T entity) throws Exception {
-        entity.setCriadoEm(getTimestampOnServer());
+    public void create(T entity) {
         getEntityManager().persist(entity);
     }
 
@@ -60,59 +43,16 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         return getEntityManager().find(entityClass, id);
     }
 
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
     public List<T> findAll() {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<T> c = cq.from(entityClass);
-        cq.select(c).where(cb.isNull(c.get("destruidoEm")));
-        Query q = getEntityManager().createQuery(cq);
-        return q.getResultList();
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
     public List<T> findRange(int[] range) {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<T> c = cq.from(entityClass);
-        cq.select(c).where(cb.isNull(c.get("destruidoEm")));
-        Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
-        return q.getResultList();
-    }
-
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
-    // e que estejam vigentes em todo o período informado
-    public List<T> findAll(LocalDate vigenteDesde, LocalDate vigenteAte) {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<T> c = cq.from(entityClass);
-        cq.select(c).where(
-                cb.and(
-                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
-                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
-                    cb.isNull(c.get("destruidoEm"))
-                ));
-        Query q = getEntityManager().createQuery(cq);
-        return q.getResultList();
-    }
-
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
-    // e que estejam vigentes em todo o período informado
-    public List<T> findRange(int[] range, LocalDate vigenteDesde,
-            LocalDate vigenteAte) {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<T> c = cq.from(entityClass);
-        cq.select(c).where(
-                cb.and(
-                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
-                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
-                    cb.isNull(c.get("destruidoEm"))
-                ));
-        Query q = getEntityManager().createQuery(cq);
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
@@ -126,15 +66,6 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    public T newInstance() {
-        try {
-            return (T) Class.forName(entityClass.getName()).newInstance();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            logger.error(ex.getMessage());
-            return null;
-        }
-    }
-    
     public List<T> findRange(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
@@ -205,11 +136,11 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.metamodel.Metamodel entityModel = this.getEntityManager().getMetamodel();
         javax.persistence.metamodel.ManagedType<T> entityType = entityModel.managedType(entityClass);
         java.util.Set<javax.persistence.metamodel.EmbeddableType<?>> embeddables = entityModel.getEmbeddables();
-        String fieldTypeName;
+        String fieldTypeName = null;
         // Add predicates (WHERE clauses) based on filters map
         List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
         for (String s : filters.keySet()) {
-            javax.persistence.criteria.Path<Object> pkFieldPath;
+            javax.persistence.criteria.Path<Object> pkFieldPath = null;
             if (s.contains(".")) {
                 String embeddedIdField = s.split("\\.")[0];
                 String embeddedIdMember = s.split("\\.")[1];
@@ -264,11 +195,6 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
                 break;
         }
         return expression;
-    }    
+    }
     
-    public LocalDateTime getTimestampOnServer() {
-        Query qry = getEntityManager().createNativeQuery("SELECT localtimestamp");
-        Timestamp ts = (Timestamp) qry.getSingleResult();
-        return ts.toLocalDateTime();
-    }    
 }

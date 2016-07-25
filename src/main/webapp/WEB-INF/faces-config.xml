@@ -16,11 +16,14 @@
             <base-name>configs</base-name>
             <var>configs</var>
         </resource-bundle>
-        
+        <resource-bundle>
+            <base-name>/MyBundle2</base-name>
+            <var>myBundle2</var>
+        </resource-bundle>
     </application>
-    <lifecycle>
+<!--    <lifecycle>
         <phase-listener>br.jus.trt23.contavinculada.listeners.ContratosPhaseListener</phase-listener>
-    </lifecycle>
+    </lifecycle>-->
 <!--
     interceptação de exception extraída do JSF 2.0 do Ed Burns
     <factory>

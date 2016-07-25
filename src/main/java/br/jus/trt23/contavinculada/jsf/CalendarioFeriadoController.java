@@ -5,31 +5,20 @@ import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import br.jus.trt23.contavinculada.session.CalendarioFeriadoFacade;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
-import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@SessionScoped
+@ViewScoped
 @Getter
 @Setter
-public class CalendarioFeriadoController extends AbstractController<CalendarioFeriadoFacade, CalendarioFeriado> {
-
-    @Inject
-    private transient CalendarioFeriadoFacade facade;
-
+public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado> {
     private CalendarioFeriadoItem calendarioFeriadoItemNovo;
 
     public String prepareCalendarioFeriadoItemNovo() {
@@ -55,12 +44,6 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
 
     public CalendarioFeriadoController() {
         super();
-        setMessagePrefix("CalendarioFeriado");
-    }
-
-    @Override
-    protected CalendarioFeriadoFacade getFacade() {
-        return facade;
     }
 
     public List<SelectItem> getFeriadoEscopo() {
@@ -80,44 +63,8 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
         prepareCalendarioFeriadoItemNovo();
     }
 
-
-    @FacesConverter(forClass = CalendarioFeriado.class)
-    public static class CalendarioFeriadoControllerConverter implements Converter {
-
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            CalendarioFeriadoController controller = (CalendarioFeriadoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "calendarioFeriadoController");
-            return controller.getEntity(getKey(value));
-        }
-
-        java.lang.Long getKey(String value) {
-            java.lang.Long key;
-            key = Long.valueOf(value);
-            return key;
-        }
-
-        String getStringKey(java.lang.Long value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
-
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof CalendarioFeriado) {
-                CalendarioFeriado o = (CalendarioFeriado) object;
-                return getStringKey(o.getId());
-            } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + CalendarioFeriado.class.getName());
-            }
-        }
+    @Override
+    protected String getMessagePrefix() {
+        return "CalendarioFeriado";
     }
-
 }

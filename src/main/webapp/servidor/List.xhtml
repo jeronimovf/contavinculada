@@ -7,9 +7,9 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="/template.xhtml">
         <ui:define name="content">
-            <h:outputText value="#{servidorController.msgEmptyList}" rendered="#{servidorController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{servidorController.items.rowCount > 0}">
-                <p:dataTable id="listItems" value="#{servidorController.items}"  var="item" paginator="true" rows="10" sortBy="#{item.nome}" paginatorPosition="top" paginatorAlwaysVisible="false" rowSelectMode="checkbox" selection="#{servidorController.selectedItems}" rowKey="#{item.id}" filteredValue="#{servidorController.filteredItems}">
+            <h:outputText value="#{servidorController.msgEmptyList}" rendered="#{servidorController.lazyItems.rowCount == 0}"/>
+            <h:panelGroup rendered="#{servidorController.lazyItems.rowCount > 0}">
+                <p:dataTable id="listItems" value="#{servidorController.lazyItems}"  var="item" paginator="true" rows="10" sortBy="#{item.nome}" paginatorPosition="top" paginatorAlwaysVisible="false" rowSelectMode="checkbox" selection="#{servidorController.selectedItems}" rowKey="#{item.id}" filteredValue="#{servidorController.filteredItems}">
                     <p:column width="10%" selectionMode="multiple" style="text-align: center"/>
                     <p:column width="20%" filterBy="#{item.cpf}" filterMatchMode="contains" >
                         <f:facet name="header">

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EncargoEditDlg" widgetVar="EncargoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle2.EditEncargoTitle}" closeOnEscape="true">
+
+            <h:form id="EncargoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{encargoController_.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle2.EditEncargoLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <h:outputText id="id" value="#{encargoController_.selected.id}" />
+                            <p:tooltip for="id" value="#{encargoController_.getComponentMessages('id', myBundle2.EditEncargoHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_vigenteDesde}" for="vigenteDesde" />
+                        <h:panelGroup>
+                            <p:inputText id="vigenteDesde" value="#{encargoController_.selected.vigenteDesde}" title="#{myBundle2.EditEncargoTitle_vigenteDesde}"/>
+                            <p:tooltip for="vigenteDesde" value="#{encargoController_.getComponentMessages('vigenteDesde', myBundle2.EditEncargoHelpText_vigenteDesde)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_vigenteAte}" for="vigenteAte" />
+                        <h:panelGroup>
+                            <p:inputText id="vigenteAte" value="#{encargoController_.selected.vigenteAte}" title="#{myBundle2.EditEncargoTitle_vigenteAte}"/>
+                            <p:tooltip for="vigenteAte" value="#{encargoController_.getComponentMessages('vigenteAte', myBundle2.EditEncargoHelpText_vigenteAte)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_criadoEm}" for="criadoEm" />
+                        <h:panelGroup>
+                            <p:inputText id="criadoEm" value="#{encargoController_.selected.criadoEm}" title="#{myBundle2.EditEncargoTitle_criadoEm}"/>
+                            <p:tooltip for="criadoEm" value="#{encargoController_.getComponentMessages('criadoEm', myBundle2.EditEncargoHelpText_criadoEm)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_destruidoEm}" for="destruidoEm" />
+                        <h:panelGroup>
+                            <p:inputText id="destruidoEm" value="#{encargoController_.selected.destruidoEm}" title="#{myBundle2.EditEncargoTitle_destruidoEm}"/>
+                            <p:tooltip for="destruidoEm" value="#{encargoController_.getComponentMessages('destruidoEm', myBundle2.EditEncargoHelpText_destruidoEm)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_nome}" for="nome" />
+                        <h:panelGroup>
+                            <p:inputText id="nome" value="#{encargoController_.selected.nome}" title="#{myBundle2.EditEncargoTitle_nome}"/>
+                            <p:tooltip for="nome" value="#{encargoController_.getComponentMessages('nome', myBundle2.EditEncargoHelpText_nome)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle2.EditEncargoLabel_isRetencaoContaVinculada}" for="isRetencaoContaVinculada" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="isRetencaoContaVinculada" value="#{encargoController_.selected.isRetencaoContaVinculada}" />
+                            <p:tooltip for="isRetencaoContaVinculada" value="#{encargoController_.getComponentMessages('isRetencaoContaVinculada', myBundle2.EditEncargoHelpText_isRetencaoContaVinculada)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{encargoController_.save}" value="#{myBundle2.Save}" update="display,:EncargoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EncargoEditDialog'));">
+                        <p:confirm header="#{myBundle2.ConfirmationHeader}" message="#{myBundle2.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle2.Cancel}" oncomplete="PF('EncargoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

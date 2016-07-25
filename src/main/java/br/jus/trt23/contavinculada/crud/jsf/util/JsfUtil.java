@@ -1,6 +1,5 @@
-package br.jus.trt23.contavinculada.jsf.util;
+package br.jus.trt23.contavinculada.crud.jsf.util;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -8,22 +7,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.model.SelectItem;
 
 public class JsfUtil {
-    
-    public static List<SelectItem>getSelectItems(List<?> entities, boolean selectOne) {
-        ArrayList<SelectItem> items = new ArrayList<>();
-        if (selectOne) {
-            items.add(new SelectItem("","---"));
-        }
-        entities.forEach(entity->items.add(new SelectItem(entity,entity.toString())));
-        return items;
-    }
 
     public static void addErrorMessage(Exception ex, String defaultMsg) {
-        String msg = ex.getLocalizedMessage();        
+        String msg = ex.getLocalizedMessage();
         if (msg != null && msg.length() > 0) {
             addErrorMessage(msg);
         } else {
@@ -32,14 +20,16 @@ public class JsfUtil {
     }
 
     public static void addErrorMessages(List<String> messages) {
-        messages.stream().forEach((message) -> {
+        for (String message : messages) {
             addErrorMessage(message);
-        });
+        }
     }
 
     public static void addErrorMessage(String msg) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
+        FacesContext.getCurrentInstance().validationFailed(); // Invalidate JSF page if we raise an error message
+
     }
 
     public static void addSuccessMessage(String msg) {
@@ -47,16 +37,7 @@ public class JsfUtil {
         FacesContext.getCurrentInstance().addMessage("successInfo", facesMsg);
     }
 
-    public static String getRequestParameter(String key) {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(key);
-    }
-
-    public static Object getObjectFromRequestParameter(String requestParameterName, Converter converter, UIComponent component) {
-        String theId = JsfUtil.getRequestParameter(requestParameterName);
-        return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
-    }
-    
- public static Throwable getRootCause(Throwable cause) {
+    public static Throwable getRootCause(Throwable cause) {
         if (cause != null) {
             Throwable source = cause.getCause();
             if (source != null) {
@@ -101,6 +82,5 @@ public class JsfUtil {
         }
         return "";
     }
-    
 
 }

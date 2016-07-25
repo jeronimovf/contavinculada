@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EncargoViewDlg" widgetVar="EncargoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle2.ViewEncargoTitle}" closeOnEscape="true">
+
+            <h:form id="EncargoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{encargoController_.selected != null}">
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_id}"/>
+                        <h:outputText value="#{encargoController_.selected.id}" title="#{myBundle2.ViewEncargoTitle_id}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_vigenteDesde}"/>
+                        <h:outputText value="#{encargoController_.selected.vigenteDesde}" title="#{myBundle2.ViewEncargoTitle_vigenteDesde}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_vigenteAte}"/>
+                        <h:outputText value="#{encargoController_.selected.vigenteAte}" title="#{myBundle2.ViewEncargoTitle_vigenteAte}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_criadoEm}"/>
+                        <h:outputText value="#{encargoController_.selected.criadoEm}" title="#{myBundle2.ViewEncargoTitle_criadoEm}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_destruidoEm}"/>
+                        <h:outputText value="#{encargoController_.selected.destruidoEm}" title="#{myBundle2.ViewEncargoTitle_destruidoEm}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_nome}"/>
+                        <h:outputText value="#{encargoController_.selected.nome}" title="#{myBundle2.ViewEncargoTitle_nome}"/>
+
+                        <h:outputText value="#{myBundle2.ViewEncargoLabel_isRetencaoContaVinculada}"/>
+                        <h:selectBooleanCheckbox id="isRetencaoContaVinculada" value="#{encargoController_.selected.isRetencaoContaVinculada}" title="#{myBundle2.EditEncargoTitle_isRetencaoContaVinculada}"  disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle2.Close}" onclick="PF('EncargoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
