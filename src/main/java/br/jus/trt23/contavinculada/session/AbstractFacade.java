@@ -139,7 +139,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
         javax.persistence.criteria.Root<T> entityRoot = cq.from(entityClass);
-        cq.select(entityRoot);
+        cq.select(entityRoot);    
         List<javax.persistence.criteria.Predicate> predicates = getPredicates(cb, entityRoot, filters);
         if (predicates.size() > 0) {
             cq.where(predicates.toArray(new javax.persistence.criteria.Predicate[]{}));
@@ -221,8 +221,13 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
                 fieldTypeName = entityType.getAttribute(s).getJavaType().getName();
             }
             if (pkFieldPath != null && fieldTypeName != null) {
+                //TODO: a compilação de predicatos não faz a normalização
+                //das strings para realizar a busca fonética
+                //O dilema:  salvar no banco a versão fonética?
+                //Criar uma função em bd e outra na aplicação para converter 
+                //o texto armazenado e pesquisado e permitir a comparação?
                 if (fieldTypeName.contains("String")) {
-                    predicates.add(cb.like((javax.persistence.criteria.Expression) pkFieldPath, filters.get(s) + "%"));
+                    predicates.add(cb.like(cb.upper((javax.persistence.criteria.Expression) pkFieldPath), filters.get(s).toString().toUpperCase()));
                 } else {
                     javax.persistence.criteria.Expression<?> filterExpression = getCastExpression((String) filters.get(s), fieldTypeName, cb);
                     if (filterExpression != null) {

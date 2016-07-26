@@ -1,7 +1,7 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Servidor;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named

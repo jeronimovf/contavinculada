@@ -3,7 +3,7 @@ package br.jus.trt23.contavinculada.jsf;
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
 @Named
 @ViewScoped

@@ -9,7 +9,7 @@ import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import lombok.Getter;
 import lombok.Setter;
 

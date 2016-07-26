@@ -17,7 +17,7 @@
 
     <cc:implementation>
         <p:dialog id="#{cc.id}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.id}" 
-                  appendTo="formRoot" width="356px" responsive="true">
+                  appendTo="@(body)" width="356px" responsive="true" closeOnEscape="true">
             <div class="ui-grid">            
                 <t:FormRowDate id="fiscalVigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
                 <t:FormRowDate id="fiscalVigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                

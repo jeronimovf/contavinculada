@@ -8,7 +8,7 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import lombok.Getter;

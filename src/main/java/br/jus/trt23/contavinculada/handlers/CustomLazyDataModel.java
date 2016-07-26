@@ -22,17 +22,19 @@ import org.primefaces.model.SortOrder;
  * @author generico
  * @param <T>
  */
-public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataModel<T>{
+public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataModel<T> {
+
     private final AbstractFacade<T> facade;
     private List<T> itemList;
+    private Boolean isCountValid = Boolean.FALSE;
 
     public CustomLazyDataModel(AbstractFacade<T> facade) {
         super();
         this.facade = facade;
         this.itemList = null;
     }
-    
-    public CustomLazyDataModel(List<T> itemList){
+
+    public CustomLazyDataModel(List<T> itemList) {
         super();
         this.facade = null;
         this.itemList = itemList;
@@ -66,6 +68,7 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
         }
         itemList = this.facade.findRange(first, pageSize, sortFields, filters);
         this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
+        this.isCountValid = Boolean.TRUE;
         return itemList;
     }
 
@@ -76,6 +79,7 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
             String sortOrderName = sortOrder.toString();
             this.itemList = this.facade.findRange(first, pageSize, sortField, sortOrderName, filters);
             this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
+            this.isCountValid = Boolean.TRUE;
             return this.itemList;
 
         } else if (this.itemList != null) { // Handle data that was passed in by application
@@ -108,7 +112,6 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
         }
     }
 
-   
     private List<T> filter(List<T> itemList, Map<String, Object> filters) {
 
         List<T> filteredItemList = new ArrayList<>();
@@ -129,12 +132,23 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
             }
         }
         return filteredItemList;
-    }    
+    }
 
     @Override
     public int getRowCount() {
-        int rowCountTmp = this.facade.count();
-        setRowCount(rowCountTmp);
-        return rowCountTmp;
-    }   
+        int rowCountTmp = super.getRowCount();
+        if(this.isCountValid){
+            return rowCountTmp;
+        }
+        else{
+            rowCountTmp = this.facade.count();
+            setRowCount(rowCountTmp);  
+            this.isCountValid = Boolean.TRUE;            
+            return rowCountTmp;
+        }
+    }
+    
+    public void refreshQuery(){
+        this.isCountValid = Boolean.FALSE;
+    }
 }

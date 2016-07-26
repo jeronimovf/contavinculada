@@ -18,7 +18,7 @@
             <h:panelGroup rendered="#{cc.attrs.controller.lazyItems.rowCount > 0}">
                 <p:dataTable id="#{cc.id}" value="#{cc.attrs.controller.lazyItems}"  var="item" paginator="true" rows="10" 
                              paginatorPosition="top" paginatorAlwaysVisible="false" 
-                             rowSelectMode="checkbox" selection="#{cc.attrs.controller.selectedItems}" rowKey="#{item.id}" 
+                             rowSelectMode="checkbox" selection="#{cc.attrs.controller.selectedItems}"  
                              filteredValue="#{cc.attrs.controller.filteredItems}" lazy="true">
                     <p:column width="5%" selectionMode="multiple" style="text-align: center"/>
                     <cc:insertChildren/>
