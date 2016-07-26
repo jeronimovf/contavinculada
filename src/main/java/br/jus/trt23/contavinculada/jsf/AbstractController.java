@@ -48,12 +48,13 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     protected transient ResourceBundle messages;
 
     public AbstractController() {
+        this.activeAction = EActiveAction.VIEW;
+        prepareDlg();        
     }
 
     public AbstractController(Class<T> itemClass){
+        this();
         this.itemClass = itemClass;
-        this.activeAction = EActiveAction.VIEW;
-        prepareDlg();
     }
     
     public T getEntity(java.lang.Long id) {

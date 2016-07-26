@@ -26,7 +26,7 @@
                         <f:facet name="header">
                             <p:outputLabel value="#{messages.ActionLink}"/>
                         </f:facet>
-                        <p:commandButton action="#{cc.attrs.controller.prepareEdit}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        <p:commandButton oncomplete="PF('editDlg').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>

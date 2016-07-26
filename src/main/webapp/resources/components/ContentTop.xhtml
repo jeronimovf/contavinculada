@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"        
+      xmlns:t="http://java.sun.com/jsf/composite/components">
+
+    <cc:interface>
+        <cc:attribute name="controller"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <div class="ui-grid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-6">
+                    <h:outputText styleClass="msgPageTitle" value="#{cc.attrs.controller.msgPageTitle}"></h:outputText>
+                </div>
+                <div class="ui-grid-col-6">
+                    <p:messages autoUpdate="true" showIcon="true" id="messagesCentral" styleClass="withBorder messagePanel"/>
+                    <p:toolbar styleClass="noBorder noBackground">
+                        <f:facet name="left">
+                            <p:commandButton type="button" title="#{messages.SearchLink}" icon="ui-icon-search" />
+                            <p:commandButton type="button" title="#{messages.PrintLink}"  icon="ui-icon-print" />                                                            
+                            <span class="ui-separator">
+                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            </span>
+                                <p:commandButton action="#{cc.attrs.controller.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" oncomplete="PF('editDlg').show()"/>                                                                
+                            <p:commandButton action="#{cc.attrs.controller.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
+                        </f:facet>
+                    </p:toolbar>
+                </div>                                
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <p:breadCrumb styleClass="noBorder noBackground">
+                        <p:menuitem value="#{messages.HomePage}"  url="/faces/index.xhtml"/>
+                        <p:menuitem value="#{cc.attrs.controller.msgPageTitle}"/>
+                    </p:breadCrumb> 
+                </div>
+            </div>
+        </div>
+    </cc:implementation>
+
+</html>
