@@ -12,10 +12,11 @@ and open the template in the editor.
 
     <cc:interface>
         <cc:attribute name="controller"/>
+        <cc:attribute name="casePrefix"/>        
     </cc:interface>
 
     <cc:implementation>
-        <h:form id="#{cc.id}">
+        <h:form id="#{cc.attrs.casePrefix}#{'ListForm'}" class="listForm">
             <t:ContentTop controller="#{cc.attrs.controller}"/>
             <cc:insertChildren/>
         </h:form>        

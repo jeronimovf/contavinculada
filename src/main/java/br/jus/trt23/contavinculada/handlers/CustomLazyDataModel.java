@@ -81,8 +81,8 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
             this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
             this.isCountValid = Boolean.TRUE;
             return this.itemList;
-
-        } else if (this.itemList != null) { // Handle data that was passed in by application
+        } 
+        else if (this.itemList != null) { // Handle data that was passed in by application
 
             // filter
             List<T> filteredItemList = filter(this.itemList, filters);

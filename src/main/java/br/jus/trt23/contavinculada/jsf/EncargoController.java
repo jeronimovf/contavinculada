@@ -16,4 +16,11 @@ public class EncargoController extends AbstractController<Encargo> {
     protected String getMessagePrefix() {
         return "Encargo";
     }
+
+    @Override
+    public void setSelected(Encargo selected) {
+        super.setSelected(selected); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

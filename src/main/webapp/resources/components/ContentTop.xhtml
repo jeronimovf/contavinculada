@@ -19,11 +19,8 @@ and open the template in the editor.
     <cc:implementation>
         <div class="ui-grid">
             <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
+                <div class="ui-grid-col-3">
                     <h:outputText styleClass="msgPageTitle" value="#{cc.attrs.controller.msgPageTitle}"></h:outputText>
-                </div>
-                <div class="ui-grid-col-6">
-                    <p:messages autoUpdate="true" showIcon="true" id="messagesCentral" styleClass="withBorder messagePanel"/>
                     <p:toolbar styleClass="noBorder noBackground">
                         <f:facet name="left">
                             <p:commandButton type="button" title="#{messages.SearchLink}" icon="ui-icon-search" />
@@ -35,6 +32,9 @@ and open the template in the editor.
                             <p:commandButton action="#{cc.attrs.controller.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
                         </f:facet>
                     </p:toolbar>
+                </div>
+                <div class="ui-grid-col-9">
+                    <p:messages autoUpdate="true" showIcon="true" id="messagesCentral" styleClass="withBorder messagePanel"/>
                 </div>                                
             </div>
             <div class="ui-grid-row">

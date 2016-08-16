@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .ui-outputlabel-rfi {
-            color:gold;
+    color:gold;
 }
 
 *:required{
@@ -57,4 +57,21 @@ and open the template in the editor.
 .messagePanel{
     height: 84px;
     overflow: auto;
+    font-size: xx-small;
+}
+
+.likeBlock{
+    display: block;
+}
+
+.editForm{
+    
+}
+
+.listForm{
+    
+}
+
+.listDT{
+    
 }

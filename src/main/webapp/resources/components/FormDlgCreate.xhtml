@@ -12,12 +12,13 @@
         <cc:attribute name="updateContainer"/>
         <cc:attribute name="entityToUpdate" type="br.jus.trt23.contavinculada.entities.EntidadeGenerica"/>
         <cc:attribute name="actionListener" method-signature="void action()"/>  
+        <cc:attribute name="casePrefix"/>        
     </cc:interface>
 
     <cc:implementation>
-        <p:dialog id="#{cc.id}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.id}" 
+        <p:dialog id="#{cc.attrs.casePrefix}#{'EditDlg'}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.casePrefix}#{'EditDlg'}" 
                   appendTo="@(body)" width="356px" responsive="true" closeOnEscape="true">
-            <h:form id="#{cc.id}#{'Form'}">
+            <h:form id="#{cc.attrs.casePrefix}#{'EditForm'}" class="editForm">
                 <div class="ui-grid">            
                     <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
                     <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
@@ -27,7 +28,7 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"  onclick="PF('#{cc.id}').hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent" update="@(.ui-datatable) @(.ui-dialog)" icon="ui-icon-disk"/>                                
-                            <p:commandButton id="cancelDlg" value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.id}').hide()"/>
+                            <p:commandButton id="cancelDlg" value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.casePrefix}#{'EditDlg'}').hide()"/>
                         </div>  
                     </div>
                 </div>

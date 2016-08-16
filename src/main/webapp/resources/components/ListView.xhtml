@@ -10,23 +10,24 @@
     <cc:interface>
         <cc:attribute name="controller"/>
         <cc:attribute name="sortBy"/>
+        <cc:attribute name="casePrefix"/>        
     </cc:interface>
 
     <cc:implementation>
             <h:outputText value="#{cc.attrs.controller.msgEmptyList}" 
                           rendered="#{cc.attrs.controller.lazyItems.rowCount == 0}"/>
             <h:panelGroup rendered="#{cc.attrs.controller.lazyItems.rowCount > 0}">
-                <p:dataTable id="#{cc.id}" value="#{cc.attrs.controller.lazyItems}"  var="item" paginator="true" rows="10" 
+                <p:dataTable id="#{cc.attrs.casePrefix}#{'DT'}" value="#{cc.attrs.controller.lazyItems}"  var="item" paginator="true" rows="10" 
                              paginatorPosition="top" paginatorAlwaysVisible="false" 
-                             rowSelectMode="checkbox" selection="#{cc.attrs.controller.selectedItems}"  
-                             filteredValue="#{cc.attrs.controller.filteredItems}" lazy="true">
-                    <p:column width="5%" selectionMode="multiple" style="text-align: center"/>
+                             selectionMode="single" selection="#{cc.attrs.controller.selected}"  
+                             filteredValue="#{cc.attrs.controller.filteredItems}" lazy="true" 
+                             class="listDT">
                     <cc:insertChildren/>
                     <p:column width="6%">
                         <f:facet name="header">
                             <p:outputLabel value="#{messages.ActionLink}"/>
                         </f:facet>
-                        <p:commandButton oncomplete="PF('editDlg').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
+                        <p:commandButton oncomplete="PF('encargoEditDlg').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{cc.attrs.controller.prepareEdit()}" update="@(.editForm)"/>                                                                
                     </p:column>
                 </p:dataTable>
             </h:panelGroup>

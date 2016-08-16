@@ -5,8 +5,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html" 
                 xmlns:t="http://java.sun.com/jsf/composite/components"      
                 xmlns:p="http://primefaces.org/ui">
-    <t:ListForm controller="#{encargoController}">
-        <t:ListView id="listItems" controller="#{encargoController}">
+    <t:ListForm id="encargoListForm" controller="#{encargoController}">
+        <t:ListView id="encargoListView" controller="#{encargoController}">
             <p:column width="89%" filterBy="#{item.nome}" 
                       filterMatchMode="contains" 
                       headerText="#{encargoController.getMsgFieldLabel('nome')}"
