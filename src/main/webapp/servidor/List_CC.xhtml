@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://java.sun.com/jsf/composite/components">    
+    <t:ListForm id="servidorListForm" controller="#{servidorController}">
+        <t:ListView id="listItems" controller="#{servidorController}">
+            <p:column width="20%" filterBy="#{item.cpf}" filterMatchMode="contains"
+                      headerText="#{servidorController.getMsgFieldLabel('cpf')}">
+                <h:outputText value="#{item.cpf}"/>
+            </p:column>
+            <p:column width="40%" filterBy="#{item.nome}" 
+                      filterMatchMode="contains" 
+                      headerText="#{servidorController.getMsgFieldLabel('nome')}"
+                      sortBy="#{item.nome}">
+                <h:outputText value="#{item.nome}"/>
+            </p:column>
+            <p:column width="20%" filterBy="#{item.matricula}" 
+                      filterMatchMode="contains"
+                      headerText="#{servidorController.getMsgFieldLabel('matricula')}"
+                      sortBy="#{item.matricula}">
+                <h:outputText value="#{item.matricula}"/>
+            </p:column>                                          
+        </t:ListView>            
+    </t:ListForm>    
+</ui:composition>

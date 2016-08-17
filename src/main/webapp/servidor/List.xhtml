@@ -4,25 +4,72 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"                 
                 xmlns:t="http://java.sun.com/jsf/composite/components">    
-    <t:ListForm id="servidorListForm" controller="#{servidorController}">
-        <t:ListView id="listItems" controller="#{servidorController}">
-            <p:column width="20%" filterBy="#{item.cpf}" filterMatchMode="contains"
-                      headerText="#{servidorController.getMsgFieldLabel('cpf')}">
-                <h:outputText value="#{item.cpf}"/>
-            </p:column>
-            <p:column width="40%" filterBy="#{item.nome}" 
-                      filterMatchMode="contains" 
-                      headerText="#{servidorController.getMsgFieldLabel('nome')}"
-                      sortBy="#{item.nome}">
-                <h:outputText value="#{item.nome}"/>
-            </p:column>
-            <p:column width="20%" filterBy="#{item.matricula}" 
-                      filterMatchMode="contains"
-                      headerText="#{servidorController.getMsgFieldLabel('matricula')}"
-                      sortBy="#{item.matricula}">
-                <h:outputText value="#{item.matricula}"/>
-            </p:column>                                          
-        </t:ListView>            
-    </t:ListForm>    
+    <h:form id="servidorListForm" class="listForm">
+        <div class="ui-grid">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-3">
+                    <h:outputText styleClass="msgPageTitle" value="#{servidorController.msgPageTitle}"></h:outputText>
+                    <p:toolbar styleClass="noBorder noBackground">
+                        <f:facet name="left">
+                            <p:commandButton type="button" title="#{messages.SearchLink}" icon="ui-icon-search" />
+                            <p:commandButton type="button" title="#{messages.PrintLink}"  icon="ui-icon-print" />                                                            
+                            <span class="ui-separator">
+                                <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                            </span>
+                            <p:commandButton action="#{servidorController.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" oncomplete="PF('editDlg').show()"/>                                                                
+                            <p:commandButton action="#{servidorController.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
+                        </f:facet>
+                    </p:toolbar>
+                </div>
+                <div class="ui-grid-col-9">
+                    <p:messages autoUpdate="true" showIcon="true" id="messagesCentral" styleClass="withBorder messagePanel"/>
+                </div>                                
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-12">
+                    <p:breadCrumb styleClass="noBorder noBackground">
+                        <p:menuitem value="#{messages.HomePage}"  url="/faces/index.xhtml"/>
+                        <p:menuitem value="#{servidorController.msgPageTitle}"/>
+                    </p:breadCrumb> 
+                </div>
+            </div>
+        </div>
+        <h:outputText value="#{servidorController.msgEmptyList}" 
+                      rendered="#{servidorController.lazyItems.rowCount == 0}"/>
+            <p:dataTable id="servidorDT" value="#{servidorController.lazyItems}"  var="item" paginator="true" rows="10" 
+                         paginatorPosition="top" paginatorAlwaysVisible="false" 
+                         selectionMode="single" selection="#{servidorController.selected}"  
+                         lazy="true" filterDelay="600" 
+                         class="listDT">
+                <p:column width="20%" filterBy="#{item.cpf}"
+                          sortBy="#{item.cpf}">
+                    <f:facet name="header">
+                        <h:outputText value="#{servidorController.getMsgFieldLabel('cpf')}"/>
+                    </f:facet>                    
+                    <h:outputText value="#{item.cpf}"/>
+                </p:column>
+                <p:column width="40%" filterBy="#{item.nome}" 
+                          sortBy="#{item.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="#{servidorController.getMsgFieldLabel('nome')}"/>
+                    </f:facet>                       
+                    <h:outputText value="#{item.nome}"/>
+                </p:column>
+                <p:column width="20%" filterBy="#{item.matricula}"                           
+                          sortBy="#{item.matricula}">
+                    <f:facet name="header">
+                        <h:outputText value="#{servidorController.getMsgFieldLabel('matricula')}"/>
+                    </f:facet>                         
+                    <h:outputText value="#{item.matricula}"/>
+                </p:column>                                          
+                <p:column width="6%">
+                    <f:facet name="header">
+                        <p:outputLabel value="#{messages.ActionLink}"/>
+                    </f:facet>
+                    <p:commandButton oncomplete="PF('servidorEditDlg').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{servidorController.prepareEdit()}" update="@(.editForm)"/>                                                                
+                </p:column>
+            </p:dataTable>
+    </h:form>       
 </ui:composition>

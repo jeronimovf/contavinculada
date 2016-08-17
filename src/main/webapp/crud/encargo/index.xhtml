@@ -4,13 +4,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="/crud/template.xhtml">
+                template="/template.xhtml">
 
-    <ui:define name="title">
-        <h:outputText value="#{myBundle2.EncargoTitle}"/>
-    </ui:define>
 
-    <ui:define name="body">
+    <ui:define name="content">
 
         <ui:include src="/crud/encargo/List.xhtml"/>
         <ui:include src="/crud/encargo/View.xhtml"/>

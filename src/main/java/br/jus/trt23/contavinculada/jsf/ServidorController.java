@@ -9,7 +9,7 @@ import javax.inject.Named;
 public class ServidorController extends AbstractController<Servidor> {
 
     public ServidorController() {
-        super();
+        super(Servidor.class);
     }
 
     @Override

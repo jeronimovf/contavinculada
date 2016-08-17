@@ -20,7 +20,7 @@
                 <p:dataTable id="#{cc.attrs.casePrefix}#{'DT'}" value="#{cc.attrs.controller.lazyItems}"  var="item" paginator="true" rows="10" 
                              paginatorPosition="top" paginatorAlwaysVisible="false" 
                              selectionMode="single" selection="#{cc.attrs.controller.selected}"  
-                             filteredValue="#{cc.attrs.controller.filteredItems}" lazy="true" 
+                             lazy="true" filterDelay="600" 
                              class="listDT">
                     <cc:insertChildren/>
                     <p:column width="6%">

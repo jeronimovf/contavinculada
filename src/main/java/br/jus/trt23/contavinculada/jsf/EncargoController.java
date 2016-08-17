@@ -9,7 +9,7 @@ import javax.inject.Named;
 public class EncargoController extends AbstractController<Encargo> {
 
     public EncargoController() {
-        super();
+        super(Encargo.class);
     }
 
     @Override

@@ -102,7 +102,7 @@
             <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle2.Create}" actionListener="#{encargoController_.prepareCreate}" update=":EncargoCreateForm" oncomplete="PF('EncargoCreateDialog').show()"/>
             <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle2.View}" update=":EncargoViewForm" oncomplete="PF('EncargoViewDialog').show()" disabled="#{empty encargoController_.selected}"/>
             <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle2.Edit}" update=":EncargoEditForm" oncomplete="PF('EncargoEditDialog').show()" disabled="#{empty encargoController_.selected}"/>
-            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle2.Delete}" actionListener="#{encargoController_.delete}" update=":growl,datalist" disabled="#{empty encargoController_.selected}">
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle2.Delete}" actionListener="#{encargoController_.delete}" update="datalist" disabled="#{empty encargoController_.selected}">
                 <p:confirm header="#{myBundle2.ConfirmationHeader}" message="#{myBundle2.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
             </p:commandButton>
 

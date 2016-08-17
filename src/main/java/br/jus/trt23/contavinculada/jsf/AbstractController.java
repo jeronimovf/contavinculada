@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import lombok.Getter;
@@ -21,6 +23,7 @@ import org.primefaces.context.RequestContext;
 @Getter
 @Setter
 public abstract class AbstractController<T extends EntidadeGenerica> implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Inject
     private AbstractFacade<T> facade;
     private Class<T> itemClass;
@@ -220,7 +223,39 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         context.update("formRoot:listItems");
     }
     
-   
+    /**
+     * Inform the user interface whether any validation error exist on a page.
+     *
+     * @return a logical value whether form validation has passed or failed
+     */
+    public boolean isValidationFailed() {
+        return JsfUtil.isValidationFailed();
+    }
+    
+    /**
+     * Retrieve all messages as a String to be displayed on the page.
+     *
+     * @param clientComponent the component for which the message applies
+     * @param defaultMessage a default message to be shown
+     * @return a concatenation of all messages
+     */
+    public String getComponentMessages(String clientComponent, String defaultMessage) {
+        return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
+    }    
+    
+    /**
+     * Retrieve a collection of Entity items for a specific Controller from
+     * another JSF page via Request parameters.
+     */
+    @PostConstruct
+    public void initParams() {
+        Object paramItems = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(itemClass.getSimpleName() + "_items");
+        if (paramItems != null) {
+            setItems((Collection<T>) paramItems);
+            setLazyItems((Collection<T>) paramItems);
+        }
+    }
+    
     protected void prepareDlg(){
         
     }

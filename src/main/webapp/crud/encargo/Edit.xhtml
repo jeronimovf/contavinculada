@@ -57,7 +57,7 @@
                             <p:tooltip for="isRetencaoContaVinculada" value="#{encargoController_.getComponentMessages('isRetencaoContaVinculada', myBundle2.EditEncargoHelpText_isRetencaoContaVinculada)}"/>
                         </h:panelGroup>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{encargoController_.save}" value="#{myBundle2.Save}" update="display,:EncargoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EncargoEditDialog'));">
+                    <p:commandButton actionListener="#{encargoController_.save}" value="#{myBundle2.Save}" update="display,:EncargoListForm:datalist" oncomplete="handleSubmit(xhr,status,args,PF('EncargoEditDialog'));">
                         <p:confirm header="#{myBundle2.ConfirmationHeader}" message="#{myBundle2.ConfirmEditMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
                     <p:commandButton value="#{myBundle2.Cancel}" oncomplete="PF('EncargoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>

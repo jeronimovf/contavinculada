@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:t="http://java.sun.com/jsf/composite/components">        
-    <t:FormDlgCreate id="servidorFormDlg" casePrefix="servidor" entityToUpdate="#{servidorController.selected}" actionListener="#{servidorController.saveOrCreate()}">
-        <t:FormRowString textValue="#{servidorController.selected.cpf}" labelValue="#{servidorController.getMsgFieldLabel('cpf')}" id="cpf"/>
-        <t:FormRowString textValue="#{servidorController.selected.nome}" labelValue="#{servidorController.getMsgFieldLabel('nome')}" id="nome"/>
-        <t:FormRowString textValue="#{servidorController.selected.matricula}" labelValue="#{servidorController.getMsgFieldLabel('matricula')}" id="matricula"/>            
-    </t:FormDlgCreate>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>        
+        <p:dialog id="EncargoEditDlg" widgetVar="servidorEditDlg" modal="true" resizable="false"  appendTo="@(body)" closeOnEscape="true">
+        </p:dialog>
 </ui:composition>
+</html>
 
