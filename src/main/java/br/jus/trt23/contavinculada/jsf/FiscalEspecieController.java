@@ -9,7 +9,7 @@ import javax.inject.Named;
 public class FiscalEspecieController extends AbstractController<FiscalEspecie> {
 
     public FiscalEspecieController() {
-        super();
+        super(FiscalEspecie.class);
     }
 
     @Override

@@ -9,7 +9,7 @@ import javax.inject.Named;
 public class ColaboradorController extends AbstractController<Colaborador> {
 
     public ColaboradorController() {
-        super();
+        super(Colaborador.class);
     }
 
     @Override

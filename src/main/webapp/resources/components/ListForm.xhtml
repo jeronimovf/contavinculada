@@ -16,8 +16,8 @@ and open the template in the editor.
     </cc:interface>
 
     <cc:implementation>
-        <h:form id="#{cc.attrs.casePrefix}#{'ListForm'}" class="listForm">
-            <t:ContentTop controller="#{cc.attrs.controller}"/>
+        <h:form id="#{cc.attrs.casePrefix.concat('ListForm')}" class="listForm">
+            <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>
             <cc:insertChildren/>
         </h:form>        
     </cc:implementation>

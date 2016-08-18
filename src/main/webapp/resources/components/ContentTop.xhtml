@@ -14,6 +14,7 @@ and open the template in the editor.
 
     <cc:interface>
         <cc:attribute name="controller"/>
+        <cc:attribute name="casePrefix" class="String"/>        
     </cc:interface>
 
     <cc:implementation>
@@ -28,7 +29,7 @@ and open the template in the editor.
                             <span class="ui-separator">
                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                             </span>
-                                <p:commandButton action="#{cc.attrs.controller.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" oncomplete="PF('editDlg').show()"/>                                                                
+                                <p:commandButton actionListener="#{cc.attrs.controller.prepareCreate}" title="#{messages.CreateLink}" icon="ui-icon-document" oncomplete="PF('#{cc.attrs.casePrefix.concat('CreateDlg')}').show()" update="@(.editForm)"/>                                                                
                             <p:commandButton action="#{cc.attrs.controller.destroy}" title="#{messages.DestroyLink}" icon="ui-icon-trash"/>
                         </f:facet>
                     </p:toolbar>

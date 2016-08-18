@@ -5,7 +5,9 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components">                    
-    <t:FormDlgCreate id="encargoFormDlg" casePrefix="encargo" entityToUpdate="#{encargoController.selected}" actionListener="#{encargoController.saveOrCreate()}">
+    <t:FormDlgCreate id="encargoEdit" casePrefix="encargoEdit" entityToUpdate="#{encargoController.selected}" 
+                     actionListener="#{encargoController.saveOrCreate()}"
+                     header="#{encargoController.msgPageTitle}">
         <t:FormRowString textValue="#{encargoController.selected.nome}" labelValue="#{encargoController.getMsgFieldLabel('nome')}" id="nome"/>
     </t:FormDlgCreate>
 </ui:composition>

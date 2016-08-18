@@ -9,7 +9,7 @@ import javax.inject.Named;
 public class PessoaFisicaController extends AbstractController<PessoaFisica> {
 
     public PessoaFisicaController() {
-        super();        
+        super(PessoaFisica.class);        
     }
 
     @Override

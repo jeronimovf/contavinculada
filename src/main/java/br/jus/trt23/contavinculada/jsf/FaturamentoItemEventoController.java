@@ -1,16 +1,15 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
-
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 @Named
 @ViewScoped
 public class FaturamentoItemEventoController extends AbstractController<FaturamentoItemEvento> {
 
     public FaturamentoItemEventoController() {
-        super();
+        super(FaturamentoItemEvento.class);
     }
 
     @Override

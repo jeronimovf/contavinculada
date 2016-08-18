@@ -7,18 +7,18 @@
       xmlns:t="http://java.sun.com/jsf/composite/components">      
 
     <cc:interface>
-        <cc:attribute name="widgetVar"/>
         <cc:attribute name="header"/>
         <cc:attribute name="updateContainer"/>
         <cc:attribute name="entityToUpdate" type="br.jus.trt23.contavinculada.entities.EntidadeGenerica"/>
         <cc:attribute name="actionListener" method-signature="void action()"/>  
-        <cc:attribute name="casePrefix"/>        
+        <cc:attribute name="casePrefix" class="String"/>       
+        <cc:attribute name="width"/>
     </cc:interface>
 
     <cc:implementation>
-        <p:dialog id="#{cc.attrs.casePrefix}#{'EditDlg'}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.casePrefix}#{'EditDlg'}" 
-                  appendTo="@(body)" width="356px" responsive="true" closeOnEscape="true">
-            <h:form id="#{cc.attrs.casePrefix}#{'EditForm'}" class="editForm">
+        <p:dialog id="#{cc.attrs.casePrefix.concat('Dlg')}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.casePrefix.concat('Dlg')}" 
+                  appendTo="@(body)" width="#{empty cc.attrs.width?'356px':cc.attrs.width}" responsive="true" closeOnEscape="true" class="editForm">
+            <h:form id="#{cc.attrs.casePrefix.concat('Form')}">
                 <div class="ui-grid">            
                     <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
                     <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
@@ -28,7 +28,7 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"  onclick="PF('#{cc.id}').hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent" update="@(.ui-datatable) @(.ui-dialog)" icon="ui-icon-disk"/>                                
-                            <p:commandButton id="cancelDlg" value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.casePrefix}#{'EditDlg'}').hide()"/>
+                            <p:commandButton id="cancelDlg" value="#{messages.CancelLink}" type="reset" onclick="PF('#{cc.attrs.casePrefix.concat('Dlg')}').hide()"/>
                         </div>  
                     </div>
                 </div>

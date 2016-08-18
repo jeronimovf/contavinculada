@@ -7,9 +7,8 @@ import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.Fiscal;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,7 @@ import lombok.Setter;
 public class ContratoController extends AbstractController<Contrato> {
 
     public ContratoController() {
-        super();
+        super(Contrato.class);
     }
 
     private Fiscal fiscalNovo;

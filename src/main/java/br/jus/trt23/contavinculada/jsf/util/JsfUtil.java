@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.convert.Converter;
@@ -107,5 +108,9 @@ public class JsfUtil {
         return "";
     }
     
+    public static UIComponent getUIComponent(String name){
+        UIViewRoot view = FacesContext.getCurrentInstance().getViewRoot();
+        return view.findComponent(name);        
+    }
 
 }

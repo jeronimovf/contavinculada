@@ -8,30 +8,40 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.faces.view.ViewScoped;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.component.datatable.DataTable;
 
 @Named
 @ViewScoped
 @Getter
 @Setter
 public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado> {
-    private CalendarioFeriadoItem calendarioFeriadoItemNovo;
 
-    public String prepareCalendarioFeriadoItemNovo() {
-        setCalendarioFeriadoItemNovo(new CalendarioFeriadoItem());
-        return "CalendarioFeriadoItemNovo";
+    private CalendarioFeriadoItem calendarioFeriadoItem;
+
+    public String prepareCalendarioFeriadoItemCreate() {
+        setCalendarioFeriadoItem(new CalendarioFeriadoItem());
+        return "CalendarioFeriadoItemCreate";
     }
 
-    public String calendarioFeriadoItemCreate() throws Exception {
+    public void prepareCalendarioFeriadoItemEdit() {
+        Object obj = JsfUtil.getUIComponent("calendarioFeriadoEdit:calendarioFeriadoEditForm:feriadoCalendario:feriadoCalendario");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            calendarioFeriadoItem = (CalendarioFeriadoItem) dt.getRowData();
+        }
+    }
+
+    public String calendarioFeriadoItemSaveOrCreate() throws Exception {
         String msg;
         try {
-            selected.getFeriados().add(calendarioFeriadoItemNovo);
+            selected.getFeriados().add(calendarioFeriadoItem);
             saveOrCreate();
-            prepareCalendarioFeriadoItemNovo();
+            prepareCalendarioFeriadoItemCreate();
             msg = getResponseCreated("Feriado");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -43,7 +53,7 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
     }
 
     public CalendarioFeriadoController() {
-        super();
+        super(CalendarioFeriado.class);
     }
 
     public List<SelectItem> getFeriadoEscopo() {
@@ -52,15 +62,15 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
 
     public List<SelectItem> getDiasComputados() {
         List<SelectItem> si = new ArrayList<>();
-        for(EDiasComputados edc: EDiasComputados.values()){
-            si.add(new SelectItem(edc,edc.getNome()));
+        for (EDiasComputados edc : EDiasComputados.values()) {
+            si.add(new SelectItem(edc, edc.getNome()));
         }
         return si;
     }
 
     @Override
     protected void prepareDlg() {
-        prepareCalendarioFeriadoItemNovo();
+        prepareCalendarioFeriadoItemCreate();
     }
 
     @Override

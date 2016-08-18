@@ -8,7 +8,7 @@ import javax.inject.Named;
 @ViewScoped
 public class CargoOuFuncaoController extends AbstractController<CargoOuFuncao> {
     public CargoOuFuncaoController() {
-        super();
+        super(CargoOuFuncao.class);
     }
 
     @Override
