@@ -4,20 +4,55 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"                
-                xmlns:t="http://java.sun.com/jsf/composite/components">                    
+                xmlns:t="http://java.sun.com/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">                    
     <t:FormDlgCreate id="calendarioFeriadoEdit" casePrefix="calendarioFeriadoEdit" entityToUpdate="#{calendarioFeriadoController.selected}" 
                      actionListener="#{calendarioFeriadoController.saveOrCreate()}"
                      header="#{calendarioFeriadoController.msgPageTitle}" width="800px">
-            <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" for="nome" />
-            <p:inputText id="nome" value="#{calendarioFeriadoController.selected.nome}"/>        
-            <p:outputLabel value="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" for="descricao" />                        
-            <p:inputText id="descricao" value="#{calendarioFeriadoController.selected.descricao}"/>        
+        <p:panel header="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_calendario')}">
+            <t:FormRowString id="nome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('nome')}"
+                             textSize="30" textValue="#{calendarioFeriadoController.selected.nome}"/>
+            <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}"
+                             textSize="50" textValue="#{calendarioFeriadoController.selected.descricao}"/>    
+        </p:panel>
         <t:ListView id="calendarioFeriadoItem" controller="#{calendarioFeriadoController}" 
-                    casePrefix="calendarioFeriadoEdit" 
+                    casePrefix="calendarioFeriadoItem" 
                     value="#{calendarioFeriadoController.selected.feriados}"
-                    actionListener="#{calendarioFeriadoController.prepareCalendarioFeriadoItemEdit()}"
                     selection="#{calendarioFeriadoController.calendarioFeriadoItem}"
-                    lazy="false">        
+                    actionListener="#{calendarioFeriadoController.prepareCalendarioFeriadoItemEdit}"
+                    lazy="false" specificValues="true"> 
+            <f:facet name="header">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6 alignLeft">
+                            <h:outputText value="#{calendarioFeriadoController.getMsgFieldLabel('feriados')}"/>                            
+                        </div>
+                        <div class="ui-grid-col-6 alignRight">
+                            <p:commandButton oncomplete="PF('calendarioFeriadoItemCreateDlg').show();" 
+                                             actionListener="#{calendarioFeriadoController.prepareCalendarioFeriadoItemCreate()}"
+                                             value="#{messages.CreateLink}" update="@(.editForm)"/>
+
+                        </div>                        
+                    </div>
+                </div>
+
+            </f:facet>
+            <p:column width="30%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}"
+                      sortBy="#{item.nome}">
+                <h:outputText value="#{item.nome}"/>
+            </p:column>   
+            <p:column width="10%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}"
+                      sortBy="#{item.quando}">
+                <h:outputText value="#{item.quando}" converter="localDateConverter"/>
+            </p:column>                                                     
+            <p:column width="15%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}"
+                      sortBy="#{item.escopo}">
+                <h:outputText value="#{item.escopo}" />
+            </p:column>                                                                             
+            <p:column width="20%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"
+                      sortBy="#{item.onde}">
+                <h:outputText value="#{item.onde}" />
+            </p:column>             
         </t:ListView>            
     </t:FormDlgCreate>
 </ui:composition>

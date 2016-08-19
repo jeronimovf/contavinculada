@@ -2,6 +2,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.CalendarioFeriado;
 import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
+import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
@@ -19,24 +20,26 @@ import org.primefaces.component.datatable.DataTable;
 @ViewScoped
 @Getter
 @Setter
-public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado> {
+public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado>{
 
-    private CalendarioFeriadoItem calendarioFeriadoItem;
+    private CalendarioFeriadoItem calendarioFeriadoItem;    
 
     public String prepareCalendarioFeriadoItemCreate() {
         setCalendarioFeriadoItem(new CalendarioFeriadoItem());
         return "CalendarioFeriadoItemCreate";
     }
 
-    public void prepareCalendarioFeriadoItemEdit() {
-        Object obj = JsfUtil.getUIComponent("calendarioFeriadoEdit:calendarioFeriadoEditForm:feriadoCalendario:feriadoCalendario");
+    public String prepareCalendarioFeriadoItemEdit() {
+        Object obj = JsfUtil.findComponent("calendarioFeriadoItemDT");
         if(obj instanceof DataTable){
             DataTable dt = (DataTable)obj;  
             calendarioFeriadoItem = (CalendarioFeriadoItem) dt.getRowData();
         }
+        setActiveAction(EActiveAction.EDIT);
+        return "Edit";
     }
 
-    public String calendarioFeriadoItemSaveOrCreate() throws Exception {
+    public String saveOrCreateCalendarioFeriadoItem() throws Exception {
         String msg;
         try {
             selected.getFeriados().add(calendarioFeriadoItem);
@@ -54,6 +57,7 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
 
     public CalendarioFeriadoController() {
         super(CalendarioFeriado.class);
+        calendarioFeriadoItem = new CalendarioFeriadoItem();
     }
 
     public List<SelectItem> getFeriadoEscopo() {
@@ -70,11 +74,13 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
 
     @Override
     protected void prepareDlg() {
-        prepareCalendarioFeriadoItemCreate();
+
     }
 
     @Override
     protected String getMessagePrefix() {
         return "CalendarioFeriado";
     }
+ 
+    
 }

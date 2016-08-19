@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:t="http://java.sun.com/jsf/composite/components"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <t:FormDlgCreate id="cargoOuFuncaoEdit" casePrefix="cargoOuFuncaoEdit" entityToUpdate="#{cargoOuFuncaoController.selected}" 
+                     actionListener="#{cargoOuFuncaoController.saveOrCreate()}"
+                     header="#{cargoOuFuncaoController.msgPageTitle}" width="800px">
+        <t:FormRowString id="nome" textSize="40" textValue="#{cargoOuFuncaoController.selected.nome}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('nome')}"/>
+        <t:FormRowString id="descricao" textSize="40" textValue="#{cargoOuFuncaoController.selected.descricao}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('descricao')}"/>
+        <t:FormRowString id="atribuicoes" textSize="40" textValue="#{cargoOuFuncaoController.selected.atribuicoes}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('atribuicoes')}"/>        
+    </t:FormDlgCreate>
+</ui:composition>
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="content">
-            <p:panelGrid columns="2" layout="grid">
-                <p:outputLabel value="#{cargoOuFuncaoController.getMsgFieldLabel('nome')}" 
-                               for="nome" />
-                <p:inputText id="nome" value="#{cargoOuFuncaoController.selected.nome}" />
-                <p:outputLabel value="#{cargoOuFuncaoController.getMsgFieldLabel('descricao')}" 
-                               for="descricao" />
-                <p:inputText id="descricao" value="#{cargoOuFuncaoController.selected.descricao}" />
-                <p:outputLabel value="#{cargoOuFuncaoController.getMsgFieldLabel('atribuicoes')}" 
-                               for="atribuicoes" />
-                <p:inputText id="atribuicoes" value="#{cargoOuFuncaoController.selected.atribuicoes}" />                
-            </p:panelGrid>
-        </ui:define>
-    </ui:composition>
-</html>
+
+

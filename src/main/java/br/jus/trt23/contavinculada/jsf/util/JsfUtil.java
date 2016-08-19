@@ -1,5 +1,6 @@
 package br.jus.trt23.contavinculada.jsf.util;
 
+import com.sun.faces.component.visit.FullVisitContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,24 +9,27 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
 public class JsfUtil {
-    
-    public static List<SelectItem>getSelectItems(List<?> entities, boolean selectOne) {
+
+    public static List<SelectItem> getSelectItems(List<?> entities, boolean selectOne) {
         ArrayList<SelectItem> items = new ArrayList<>();
         if (selectOne) {
-            items.add(new SelectItem("","---"));
+            items.add(new SelectItem("", "---"));
         }
-        entities.forEach(entity->items.add(new SelectItem(entity,entity.toString())));
+        entities.forEach(entity -> items.add(new SelectItem(entity, entity.toString())));
         return items;
     }
 
     public static void addErrorMessage(Exception ex, String defaultMsg) {
-        String msg = ex.getLocalizedMessage();        
+        String msg = ex.getLocalizedMessage();
         if (msg != null && msg.length() > 0) {
             addErrorMessage(msg);
         } else {
@@ -57,12 +61,12 @@ public class JsfUtil {
         String theId = JsfUtil.getRequestParameter(requestParameterName);
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
     }
-    
-    public static Flash getFlash(){
+
+    public static Flash getFlash() {
         return FacesContext.getCurrentInstance().getExternalContext().getFlash();
     }
-    
- public static Throwable getRootCause(Throwable cause) {
+
+    public static Throwable getRootCause(Throwable cause) {
         if (cause != null) {
             Throwable source = cause.getCause();
             if (source != null) {
@@ -107,10 +111,23 @@ public class JsfUtil {
         }
         return "";
     }
-    
-    public static UIComponent getUIComponent(String name){
-        UIViewRoot view = FacesContext.getCurrentInstance().getViewRoot();
-        return view.findComponent(name);        
-    }
 
+    public static UIComponent findComponent(final String id) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        UIViewRoot root = context.getViewRoot();
+        final UIComponent[] found = new UIComponent[1];
+
+        root.visitTree(new FullVisitContext(context), new VisitCallback() {
+            @Override
+            public VisitResult visit(VisitContext context, UIComponent component) {
+                if (component.getId().equals(id)) {
+                    found[0] = component;
+                    return VisitResult.COMPLETE;
+                }
+                return VisitResult.ACCEPT;
+            }
+        });
+
+        return found[0];
+    }
 }

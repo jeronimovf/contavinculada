@@ -8,7 +8,6 @@
     <t:ListForm id="encargoListForm" controller="#{encargoController}" casePrefix="encargo">
         <t:ListView id="encargoListView" controller="#{encargoController}" casePrefix="encargo">
             <p:column width="89%" filterBy="#{item.nome}" 
-                      filterMatchMode="contains" 
                       headerText="#{encargoController.getMsgFieldLabel('nome')}"
                       sortBy="#{item.nome}">
                 <h:outputText value="#{item.nome}"/>

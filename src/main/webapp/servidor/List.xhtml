@@ -5,20 +5,18 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components">    
-    <t:ListForm id="servidorListForm" controller="#{servidorController}">
-        <t:ListView id="listItems" controller="#{servidorController}">
-            <p:column width="20%" filterBy="#{item.cpf}" filterMatchMode="contains"
+    <t:ListForm id="servidorListForm" controller="#{servidorController}" casePrefix="servidor">
+        <t:ListView id="servidorListView" controller="#{servidorController}" casePrefix="servidor">
+            <p:column width="20%" filterBy="#{item.cpf}" 
                       headerText="#{servidorController.getMsgFieldLabel('cpf')}">
                 <h:outputText value="#{item.cpf}"/>
             </p:column>
             <p:column width="40%" filterBy="#{item.nome}" 
-                      filterMatchMode="contains" 
                       headerText="#{servidorController.getMsgFieldLabel('nome')}"
                       sortBy="#{item.nome}">
                 <h:outputText value="#{item.nome}"/>
             </p:column>
             <p:column width="20%" filterBy="#{item.matricula}" 
-                      filterMatchMode="contains"
                       headerText="#{servidorController.getMsgFieldLabel('matricula')}"
                       sortBy="#{item.matricula}">
                 <h:outputText value="#{item.matricula}"/>

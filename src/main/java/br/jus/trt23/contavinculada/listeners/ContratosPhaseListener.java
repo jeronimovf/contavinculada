@@ -5,22 +5,13 @@
  */
 package br.jus.trt23.contavinculada.listeners;
 
-import br.jus.trt23.contavinculada.jsf.CalendarioFeriadoController;
-import br.jus.trt23.contavinculada.jsf.CargoOuFuncaoController;
-import br.jus.trt23.contavinculada.jsf.ColaboradorController;
-import br.jus.trt23.contavinculada.jsf.ContratoController;
-import br.jus.trt23.contavinculada.jsf.EncargoController;
-import br.jus.trt23.contavinculada.jsf.FaturamentoItemEventoController;
-import br.jus.trt23.contavinculada.jsf.FiscalEspecieController;
-import br.jus.trt23.contavinculada.jsf.PessoaFisicaController;
-import br.jus.trt23.contavinculada.jsf.PessoaJuridicaController;
-import br.jus.trt23.contavinculada.jsf.ProxyController;
-import br.jus.trt23.contavinculada.jsf.ServidorController;
+import java.util.List;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-import javax.inject.Inject;
 
 /**
  *
@@ -28,65 +19,19 @@ import javax.inject.Inject;
  */
 public class ContratosPhaseListener implements PhaseListener {
 
-    @Inject
-    FiscalEspecieController fiscalEspecieController;
-    @Inject
-    ProxyController proxyController;
-    @Inject
-    EncargoController encargoController;
-    @Inject
-    ContratoController contratoController;
-    @Inject
-    PessoaJuridicaController pessoaJuridicaController;
-    @Inject
-    PessoaFisicaController pessoaFisicaController;    
-    @Inject
-    ColaboradorController colaboradorController;  
-    @Inject
-    ServidorController servidorController;
-    @Inject
-    CalendarioFeriadoController calendarioFeriadoController;
-    @Inject
-    FaturamentoItemEventoController faturamentoItemEventoController;
-    @Inject
-    CargoOuFuncaoController cargoOuFuncaoController;
+    public static final int INDENTSIZE = 2;
 
     @Override
     public void afterPhase(PhaseEvent event) {
-        if (event.getPhaseId().equals(PhaseId.RESTORE_VIEW) ||
-                event.getPhaseId().equals(PhaseId.RENDER_RESPONSE)) {
+        if (event.getPhaseId().equals(PhaseId.RESTORE_VIEW)
+                || event.getPhaseId().equals(PhaseId.RENDER_RESPONSE)) {
             String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
             switch (viewId) {
-                case "/fiscalespecie/List.xhtml":
-                    proxyController.setController(fiscalEspecieController);
+                case "/calendarioferiado/index.xhtml":
+                    StringBuilder tree = new StringBuilder();
+                    tree.append(printComponentTree(FacesContext.getCurrentInstance().getViewRoot(), 0));
+                    System.out.print(tree.toString());
                     break;
-                case "/encargo/List.xhtml":
-                    proxyController.setController(encargoController);                    
-                    break;
-                case "/contrato/List.xhtml":
-                    proxyController.setController(contratoController);
-                    break;  
-                case "/pessoajuridica/List.xhtml":
-                    proxyController.setController(pessoaJuridicaController);
-                    break;         
-                case "/pessoafisica/List.xhtml":
-                    proxyController.setController(pessoaFisicaController);
-                    break;    
-                case "/colaborador/List.xhtml":
-                    proxyController.setController(colaboradorController);
-                    break;           
-                case "/servidor/List.xhtml":
-                    proxyController.setController(servidorController);
-                    break;          
-                case "/calendarioferiado/List.xhtml":
-                    proxyController.setController(calendarioFeriadoController);
-                    break;                       
-                case "/faturamentoitemevento/List.xhtml":
-                    proxyController.setController(faturamentoItemEventoController);
-                    break;                       
-                case "/cargooufuncao/List.xhtml":
-                    proxyController.setController(cargoOuFuncaoController);
-                    break;                       
                 default:
                     break;
             }
@@ -100,7 +45,48 @@ public class ContratosPhaseListener implements PhaseListener {
 
     @Override
     public PhaseId getPhaseId() {
-        return PhaseId.RESTORE_VIEW;
+        return PhaseId.RENDER_RESPONSE;
     }
 
+    public String printComponentTree(UIComponent comp, Integer indent) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(printComponentInfo(comp, indent));
+        Integer cont = indent;
+
+        List complist = comp.getChildren();
+        if (complist.size() > 0) {
+            cont++;
+        }
+        for (int i = 0; i < complist.size(); i++) {
+            if (complist.get(i) instanceof UIComponentBase) {
+                UIComponentBase uicomb = (UIComponentBase) complist.get(i);
+                sb.append(printComponentTree(uicomb, cont));
+            } else {
+                UIComponent uicom = (UIComponent) complist.get(i);
+                sb.append(printComponentTree(uicom, cont));
+            }
+
+        }
+        return sb.toString();
+    }
+
+    public String printComponentInfo(UIComponent comp, Integer indent) {
+        StringBuilder sb = new StringBuilder();
+        if (comp.getId() == null) {
+            sb.append("UIViewRoot" + " " + "(").append(comp.getClass().getName()).append(")");
+        } else {
+            sb.append("|\n\r").append(printIndent(indent)).append(comp.getId()).append(" " + "(").append(comp.getClass().getName()).append(")");
+        }
+        return sb.toString();
+    }
+
+    public String printIndent(Integer indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < indent; i++) {
+            for (int j = 0; j < INDENTSIZE; j++) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
+    }
 }

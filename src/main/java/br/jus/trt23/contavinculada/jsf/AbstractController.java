@@ -96,9 +96,9 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     }
 
     public String prepareCreate() {
-        selected = (T) getFacade().newInstance();
-        activeAction = EActiveAction.NEW;
-        return "Create";
+        setSelected((T) getFacade().newInstance());
+        setActiveAction(EActiveAction.NEW);
+        return "Create";        
     }
 
     public String create() throws Exception {
@@ -127,8 +127,8 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     }
 
     public String prepareEdit() {
-        selected = (T) getLazyItems().getRowData();
-        activeAction = EActiveAction.EDIT;
+        setSelected((T) getLazyItems().getRowData());
+        setActiveAction(EActiveAction.EDIT);
         return "Edit";
     }
 

@@ -5,7 +5,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components">        
-    <t:FormDlgCreate id="servidorFormDlg" casePrefix="servidor" entityToUpdate="#{servidorController.selected}" actionListener="#{servidorController.saveOrCreate()}">
+    <t:FormDlgCreate id="servidorEdit" casePrefix="servidorEdit" 
+                     entityToUpdate="#{servidorController.selected}" 
+                     actionListener="#{servidorController.saveOrCreate()}"
+                     header="#{servidorController.msgPageTitle}">
         <t:FormRowString textValue="#{servidorController.selected.cpf}" labelValue="#{servidorController.getMsgFieldLabel('cpf')}" id="cpf"/>
         <t:FormRowString textValue="#{servidorController.selected.nome}" labelValue="#{servidorController.getMsgFieldLabel('nome')}" id="nome"/>
         <t:FormRowString textValue="#{servidorController.selected.matricula}" labelValue="#{servidorController.getMsgFieldLabel('matricula')}" id="matricula"/>            

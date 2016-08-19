@@ -9,7 +9,7 @@
 
     <ui:composition>
         <t:FormDlgCreate id="calendarioFeriadoItemCreate" entityToUpdate="#{calendarioFeriadoController.calendarioFeriadoItem}" 
-                         actionListener="#{calendarioFeriadoController.saveOrCreate()}" 
+                         actionListener="#{calendarioFeriadoController.saveOrCreateCalendarioFeriadoItem()}" 
                          header="#{calendarioFeriadoController.getDlgCreateHeader('Feriado')}" casePrefix="calendarioFeriadoItemCreate">
             <t:FormRowString id="feriadoNome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}" 
                              textValue="#{calendarioFeriadoController.calendarioFeriadoItem.nome}" />

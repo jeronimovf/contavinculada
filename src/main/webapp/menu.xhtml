@@ -8,17 +8,16 @@
         <h:form id="mainMenu">
             <p:menu toggleable="true" >
                 <p:submenu label="Tabelas básicas">
-                    <p:menuitem  outcome="/faturamentoitemevento/List" value="Evento de faturamento"/>                                    
+                    <p:menuitem   value="Evento de faturamento"/>                                    
                     <p:menuitem  outcome="/calendarioferiado/index" value="Calendario feriados"/>                                    
-                    <p:menuitem  outcome="/cargooufuncao/List" value="Cargo/função"/>
+                    <p:menuitem  outcome="/cargooufuncao/index" value="Cargo/função"/>
                     <p:menuitem outcome="/encargo/index" value="Encargo"/>
                     <p:menuitem outcome="/crud/encargo/index" value="Encargo from crud"/>                    
-                    <p:menuitem outcome="/fiscalespecie/List" value="Espécie de fiscal"/>                           
+                    <p:menuitem outcome="/fiscalespecie/index" value="Espécie de fiscal"/>                           
                 </p:submenu>
                 <p:submenu label="Pessoa">
                     <p:menuitem  value="Pessoa física"/>                        
-                    <p:menuitem outcome="/pessoajuridica/List" value="Pessoa jurídica"/>                                                                                                           
-                    <p:menuitem outcome="/servidor/index" value="Servidor"/>                                                                         
+                    <p:menuitem outcome="/pessoajuridica/index" value="Pessoa jurídica"/>                                                                                                                               <p:menuitem outcome="/servidor/index" value="Servidor"/>                                                                         
                     <p:menuitem value="Fiscal"/>                                                                                                             
                 </p:submenu>
                 <p:submenu label="Fiscal técnico">
@@ -26,7 +25,7 @@
                     <p:menuitem value="Manutenção colaboradores"/>                                      
                 </p:submenu>
                 <p:submenu label="Fiscal administrativo">
-                    <p:menuitem outcome="/contrato/List" value="Contrato"/>                        
+                    <p:menuitem outcome="/contrato/index" value="Contrato"/>                        
                     <p:menuitem value="Liquidações"/>                                                            
                 </p:submenu>                                
                 <p:submenu label="Consultas e relatórios">
