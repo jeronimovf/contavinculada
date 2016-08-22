@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"      
-      xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="/template.xhtml">
-        <ui:define name="content">
-            <h:outputText value="#{pessoaJuridicaController.msgEmptyList}" rendered="#{pessoaJuridicaController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{pessoaJuridicaController.items.rowCount > 0}">
-                <p:dataTable id="listItems" value="#{pessoaJuridicaController.items}"  var="item" paginator="true" rows="10" sortBy="#{item.nomeFantasia}" paginatorPosition="top" paginatorAlwaysVisible="false" rowSelectMode="checkbox" selection="#{pessoaJuridicaController.selectedItems}" rowKey="#{item.id}" filteredValue="#{pessoaJuridicaController.filteredItems}">
-                    <p:column width="10%" selectionMode="multiple" style="text-align: center"/>
-                    <p:column width="10%" filterBy="#{item.cnpj}" filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="#{pessoaJuridicaController.getMsgFieldLabel('cnpj')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.cnpj}"/>
-                    </p:column>
-                    <p:column width="30%" filterBy="#{item.nomeFantasia}" filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nomeFantasia}"/>
-                    </p:column>
-                    <p:column width="40%" filterBy="#{item.razaoSocial}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.razaoSocial}"/>
-                    </p:column>                        
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{messages.ActionLink}"/>
-                        </f:facet>
-                        <p:commandButton action="#{pessoaJuridicaController.prepareEdit()}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                    </p:column>
-                </p:dataTable>
-            </h:panelGroup>
-        </ui:define>
-    </ui:composition>
-
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"       
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">
+    <t:ListForm id="pessoaJuridicaListForm" controller="#{pessoaJuridicaController}" casePrefix="pessoaJuridica">
+        <t:ListView id="pessoaJuridicaListView" controller="#{pessoaJuridicaController}" casePrefix="pessoaJuridica">
+            <p:column width="10%" filterBy="#{item.cnpj}" 
+                      headerText="#{pessoaJuridicaController.getMsgFieldLabel('cnpj')}" >
+                <h:outputText value="#{item.cnpj}"/>
+            </p:column>
+            <p:column width="30%" filterBy="#{item.nomeFantasia}" 
+                      headerText="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" >
+                <h:outputText value="#{item.nomeFantasia}"/>
+            </p:column>
+            <p:column width="40%" filterBy="#{item.razaoSocial}" 
+                      headerText="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}">
+                <h:outputText value="#{item.razaoSocial}"/>
+            </p:column>                        
+            <p:column width="40%" filterBy="#{item.inscricaoEstadual}" 
+                      headerText="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}">
+                <h:outputText value="#{item.inscricaoEstadual}"/>
+            </p:column>                        
+        </t:ListView>
+    </t:ListForm>
+</ui:composition>

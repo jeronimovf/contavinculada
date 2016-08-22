@@ -6,6 +6,9 @@
 package br.jus.trt23.contavinculada.session;
 
 import br.jus.trt23.contavinculada.entities.Pessoa;
+import br.jus.trt23.contavinculada.entities.PessoaFisica;
+import br.jus.trt23.contavinculada.entities.PessoaJuridica;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -37,11 +40,23 @@ public class PessoaFacade extends AbstractFacade<Pessoa> {
 
     @Override
     public List<Pessoa> complete(String criteria) {
+        List<Pessoa> pessoas = new ArrayList<>();
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<Pessoa> c = cq.from(Pessoa.class);
-        cq.select(c).where(cb.like(cb.upper(c.get("id")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        
+        CriteriaQuery cqPF = cb.createQuery();
+        Root<PessoaFisica> cPF = cqPF.from(PessoaFisica.class);
+        cqPF.select(cPF).where(cb.like(cb.upper(cPF.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
+        pessoas.addAll(getEntityManager().createQuery(cqPF).getResultList());
+        
+        CriteriaQuery cqPJ = cb.createQuery();
+        Root<PessoaJuridica> cPJ = cqPJ.from(PessoaJuridica.class);
+        cqPJ.select(cPJ).where(cb.or(
+                cb.like(cb.upper(cPJ.get("razaoSocial")),"%".concat(criteria.toUpperCase()).concat("%")),
+                cb.like(cb.upper(cPJ.get("nomeFantasia")),"%".concat(criteria.toUpperCase()).concat("%"))                
+        ));
+        pessoas.addAll(getEntityManager().createQuery(cqPJ).getResultList());
+        
+        return pessoas;        
 
     }
 

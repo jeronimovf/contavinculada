@@ -5,7 +5,10 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMappings;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,8 +17,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NamedNativeQueries({
+    @NamedNativeQuery(name="getPessoaPorNomeOuRazaoSocial", query ="SELECT * FROM pessoa WHERE upper(nome) like '%:nome'% OR upper(razaoSocial) like '%:razaoSocial%'")
+})
+@SqlResultSetMappings({
+})
 public abstract class Pessoa extends EntidadeGenerica {
-
     @OneToMany(targetEntity = EnderecoEletronico.class)
     private List<EnderecoEletronico> emails;
 

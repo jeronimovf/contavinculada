@@ -1,61 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"      
-      xmlns:p="http://primefaces.org/ui">
-    <ui:composition template="/template.xhtml">
-        <ui:define name="content">
-            <h:outputText value="#{contratoController.msgEmptyList}" rendered="#{contratoController.items.rowCount == 0}"/>
-            <h:panelGroup rendered="#{contratoController.items.rowCount > 0}">
-                <p:dataTable id="listItems" value="#{contratoController.items}"  var="item" paginator="true" rows="10" sortBy="#{item.numero}" paginatorPosition="top" paginatorAlwaysVisible="false" rowSelectMode="checkbox" selection="#{contratoController.selectedItems}" rowKey="#{item.id}" filteredValue="#{contratoController.filteredItems}">
-                    <p:column width="10%" selectionMode="multiple" style="text-align: center"/>
-                    <p:column width="10%" filterBy="#{item.numero}" filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('numero')}"/>
-                        </f:facet>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:t="http://java.sun.com/jsf/composite/components"      
+                xmlns:p="http://primefaces.org/ui">
+    <t:ListForm id="contratoListForm" controller="#{contratoController}" casePrefix="contrato">
+        <t:ListView id="contratoListView" controller="#{contratoController}" casePrefix="contrato">
+                    <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoController.getMsgFieldLabel('numero')}" >
                         <h:outputText value="#{item.numero}"/>
                     </p:column>
-                    <p:column width="20%" filterBy="#{item.contratado}" filterMatchMode="contains" >
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('contratado')}"/>
-                        </f:facet>
+                    <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoController.getMsgFieldLabel('contratado')}" >
                         <h:outputText value="#{item.contratado.descricao}"/>
                     </p:column>
-                    <p:column width="20%" filterBy="#{item.objeto}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('objeto')}"/>
-                        </f:facet>
+                    <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoController.getMsgFieldLabel('objeto')}">
                         <h:outputText value="#{item.objeto}"/>
                     </p:column>      
-                    <p:column width="10%" >
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteDesde')}"/>                                        
-                        </f:facet>
-                        <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
-                    </p:column>   
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('vigenteAte')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>                            
-                    </p:column>                       
-                    <p:column width="10%" filterBy="#{item.processo}" filterMatchMode="contains">
-                        <f:facet name="header">
-                            <h:outputText value="#{contratoController.getMsgFieldLabel('processo')}"/>
-                        </f:facet>
+                    <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoController.getMsgFieldLabel('processo')}">
                         <h:outputText value="#{item.processo}"/>
                     </p:column>                        
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{messages.ActionLink}"/>
-                        </f:facet>
-                        <p:commandButton action="#{contratoController.prepareEdit()}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                    </p:column>
-                </p:dataTable>
-            </h:panelGroup>
-        </ui:define>
-    </ui:composition>
+        </t:ListView>
+    </t:ListForm>
 
-</html>
+</ui:composition>  
+

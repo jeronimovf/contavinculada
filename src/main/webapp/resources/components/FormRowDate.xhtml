@@ -4,7 +4,7 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:p="http://primefaces.org/ui">
 
-      <cc:interface>
+    <cc:interface>
         <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="calendarValue"/>        
@@ -12,15 +12,12 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
-            </div>
-            <div class="ui-grid-col-6">
-                <p:calendar id="#{cc.attrs.id}" value="#{cc.attrs.calendarValue}" 
-                            mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" 
-                            size="8" pattern="#{cc.attrs.pattern}"/>                            
-            </div>                        
-        </div>
+        <div class="formRow">
+            <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
+            <p:calendar id="Input" value="#{cc.attrs.calendarValue}" 
+                        mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" 
+                        size="8" pattern="#{cc.attrs.pattern}" styleClass="formRowValue"/>                            
+
+        </div>        
     </cc:implementation>
 </html>

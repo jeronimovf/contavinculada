@@ -10,29 +10,43 @@ import br.jus.trt23.contavinculada.entities.PessoaFisica;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.PessoaFacade;
+import br.jus.trt23.contavinculada.session.PessoaFisicaFacade;
+import br.jus.trt23.contavinculada.session.PessoaJuridicaFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author j129-9
  */
+@Named
+@Dependent
 @FacesConverter(forClass = Pessoa.class)
 public class PessoaConverter implements Converter {
+
     @Inject
     private PessoaFacade facade;
+    @Inject
+    private PessoaFisicaFacade facadePF;
+    @Inject
+    private PessoaJuridicaFacade facadePJ;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.facade.find(getKey(value));
+        facade.find(getKey(value));
+        facadePF.find(getKey(value));
+        facadePJ.find(getKey(value));
+        return facade.find(getKey(value));
     }
 
     java.lang.Long getKey(String value) {
@@ -56,7 +70,7 @@ public class PessoaConverter implements Converter {
         if (object instanceof PessoaJuridica) {
             PessoaJuridica o = (PessoaJuridica) object;
             return getStringKey(o.getId());
-        }else if (object instanceof PessoaFisica) {
+        } else if (object instanceof PessoaFisica) {
             PessoaFisica o = (PessoaFisica) object;
             return getStringKey(o.getId());
         } else {

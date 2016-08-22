@@ -10,16 +10,20 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.CargoOuFuncaoFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author j129-9
  */
+@Named
+@Dependent
 @FacesConverter(forClass = CargoOuFuncao.class)
 public class CargoOuFuncaoConverter implements Converter {
 

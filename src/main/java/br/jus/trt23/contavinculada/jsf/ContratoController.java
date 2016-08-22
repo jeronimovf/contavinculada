@@ -27,6 +27,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private Faturamento faturamentoNovo;
     private ContaVinculada contaNova;
     private PostoDeTrabalho postoNovo;
+    private Contrato aditivoNovo;
 
     @Override
     protected void prepareDlg(){
@@ -35,6 +36,7 @@ public class ContratoController extends AbstractController<Contrato> {
         prepareContaNova();
         preparePostoNovo();
         prepareFaturamentoNovo();
+        prepareAditivoNovo();
     }
     
     public String prepareFiscalNovo() {
@@ -62,6 +64,11 @@ public class ContratoController extends AbstractController<Contrato> {
         return "postoNovo";
     }
 
+    public String prepareAditivoNovo() {
+        setAditivoNovo(new Contrato());
+        return "aditivoNovo";
+    }
+    
     public String prepareAditivoEdit(Contrato aditivo) {
         selected = aditivo;
         return "Edit";

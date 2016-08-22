@@ -10,16 +10,20 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.PessoaJuridicaFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author j129-9
  */
+@Named
+@Dependent
 @FacesConverter(forClass = PessoaJuridica.class)
 public class PessoaJuridicaConverter implements Converter {
     @Inject
@@ -30,7 +34,7 @@ public class PessoaJuridicaConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.facade.find(getKey(value));
+        return facade.find(getKey(value));
     }
 
     java.lang.Long getKey(String value) {
