@@ -6,11 +6,13 @@ import br.jus.trt23.contavinculada.entities.EncargoAliquota;
 import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.Fiscal;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
+import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.component.datatable.DataTable;
 
 @Named
 @ViewScoped
@@ -70,11 +72,111 @@ public class ContratoController extends AbstractController<Contrato> {
     }
     
     public String prepareAditivoEdit(Contrato aditivo) {
-        selected = aditivo;
-        return "Edit";
+        setSelected(aditivo);
+        return "aditivoEdit";
+    }
+    
+    public String preparePostoEdit(){
+        Object obj = JsfUtil.findComponent("postoDeTrabalhoDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            setPostoNovo((PostoDeTrabalho) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "postoEdit";
+    }
+    
+    public String prepareContaEdit(){
+        Object obj = JsfUtil.findComponent("contaVinculadaDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj; 
+            setContaNova((ContaVinculada) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "contaEdit";
+    }    
+    public String prepareAliquotaEdit(){
+        Object obj = JsfUtil.findComponent("encargoAliquotaDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            setAliquotaNova((EncargoAliquota) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "aliquotaEdit";
+    } 
+    
+    public String prepareFiscalEdit(){
+        Object obj = JsfUtil.findComponent("fiscalDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            setFiscalNovo((Fiscal) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "fiscalEdit";
+    } 
+    
+    public String prepareFaturamentoEdit(){
+        Object obj = JsfUtil.findComponent("faturamentoDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            setFaturamentoNovo((Faturamento) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "faturamentoEdit";
+    }    
+    
+    public String saveOrCreatePostoDeTrabalho() throws Exception {
+        String msg;
+        try {
+            selected.getPostosDeTrabalho().add(postoNovo);
+            postoNovo.setContrato(selected);
+            saveOrCreate();
+            preparePostoNovo();
+            msg = getResponseCreated("PostoDeTrabalho");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }
+    
+    public String saveOrCreateEncargoAliquota() throws Exception {
+        String msg;
+        try {
+            selected.getAliquotas().add(aliquotaNova);
+            aliquotaNova.setContrato(selected);
+            saveOrCreate();
+            prepareAliquotaNova();
+            msg = getResponseCreated("EncargoAliquota");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }
+    
+    public String saveOrCreateContaVinculada() throws Exception {
+        String msg;
+        try {
+            selected.getContasVinculadas().add(contaNova);
+            contaNova.setContrato(selected);
+            saveOrCreate();
+            prepareContaNova();
+            msg = getResponseCreated("ContaVinculada");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
     }
 
-    public String fiscalCreate() throws Exception {
+    public String saveOrCreateFiscal() throws Exception {
         String msg;
         try {
             selected.getFiscais().add(fiscalNovo);
@@ -91,40 +193,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
     
-    public String postoDeTrabalhoCreate() throws Exception {
-        String msg;
-        try {
-            selected.getPostosDeTrabalho().add(postoNovo);
-            postoNovo.setContrato(selected);
-            saveOrCreate();
-            msg = getResponseCreated("PostoDeTrabalho");
-            JsfUtil.addSuccessMessage(msg);
-            return "Edit";
-        } catch (Exception e) {
-            msg = messages.getString("PersistenceErrorOccured");
-            JsfUtil.addErrorMessage(e, msg);
-            return null;
-        }
-    }
-
-    public String contaCreate() throws Exception {
-        String msg;
-        try {
-            selected.getContasVinculadas().add(contaNova);
-            contaNova.setContrato(selected);
-            saveOrCreate();
-            prepareContaNova();
-            msg = getResponseCreated("ContaVinculada");
-            JsfUtil.addSuccessMessage(msg);
-            return "Edit";
-        } catch (Exception e) {
-            msg = messages.getString("PersistenceErrorOccured");
-            JsfUtil.addErrorMessage(e, msg);
-            return null;
-        }
-    }    
-    
-    public String faturamentoCreate() throws Exception {
+    public String saveOrCreateFaturamento() throws Exception {
         String msg;
         try {
             selected.getFaturamentos().add(faturamentoNovo);
@@ -139,24 +208,8 @@ public class ContratoController extends AbstractController<Contrato> {
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
-    }       
-    public String encargoAliquotaCreate() throws Exception {
-        String msg;
-        try {
-            selected.getAliquotas().add(aliquotaNova);
-            aliquotaNova.setContrato(selected);
-            saveOrCreate();
-            prepareAliquotaNova();
-            msg = getResponseCreated("EncargoAliquota");
-            JsfUtil.addSuccessMessage(msg);
-            return "Edit";
-        } catch (Exception e) {
-            msg = messages.getString("PersistenceErrorOccured");
-            JsfUtil.addErrorMessage(e, msg);
-            return null;
-        }
-    }       
-
+    }
+    
     @Override
     protected String getMessagePrefix() {
         return "Contrato";

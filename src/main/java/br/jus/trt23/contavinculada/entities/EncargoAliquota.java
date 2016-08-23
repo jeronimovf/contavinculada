@@ -20,7 +20,7 @@ public class EncargoAliquota extends EntidadeGenerica {
     @ManyToOne
     private Encargo encargo;
    
-    private Double aliquota;
+    private double aliquota;
     
     @ManyToOne
     private Contrato contrato;

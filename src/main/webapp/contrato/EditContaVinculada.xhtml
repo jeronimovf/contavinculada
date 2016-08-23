@@ -6,174 +6,27 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                    
-    <t:FormDlgCreate id="contratoEdit" casePrefix="contratoEdit" entityToUpdate="#{contratoController.selected}" 
+    <t:FormDlgCreate id="contaVinculadaEdit" casePrefix="contaVinculadaEdit" 
+                     entityToUpdate="#{contratoController.contaNova}" 
                      actionListener="#{contratoController.saveOrCreate()}"
                      header="#{contratoController.msgPageTitle}"
-                     width="1370px">
-
-        <p:panel rendered="#{contratoController.selected.aditivoDe ne null}">
-            <h:outputText value="#{messages.Contrato_Field_aditivoDe} "/>
-            <h:outputLink value="#{contratoController.selected.aditivoDe.numero}"/>
-            <h:outputText value="#{contratoController.selected.aditivoDe.objeto}"/>
-        </p:panel>
-        <t:FormRowString labelValue="#{contratoController.getMsgFieldLabel('numero')}" 
-                         textValue="#{contratoController.selected.numero}"/>
-        <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"
-                               autoCompleteValue="#{contratoController.selected.contratado}"
-                               labelValue="#{contratoController.getMsgFieldLabel('contratado')}"
-                               completeMethod="#{pessoaController.complete}"
-                               autoCompleteSize="62" 
-                               autoCompleteItemValue="#{pessoa}"
-                               autoCompleteItem="pessoa"
-                               autoCompleteEmptyMessage="#{pessoaController.msgNotFound}"/><br/>
-        <t:FormRowString labelValue="#{contratoController.getMsgFieldLabel('objeto')}" 
-                         textValue="#{contratoController.selected.objeto}" 
-                         textSize="120"/><br/>
-        <t:FormRowString labelValue="#{contratoController.getMsgFieldLabel('processo')}" 
-                         textValue="#{contratoController.selected.processo}"/>
-        <t:FormRowDate labelValue="#{contratoController.getMsgFieldLabel('assinaturaData')}"
-                       calendarValue="#{contratoController.selected.assinaturaData}"/>
-
-
-        <t:ListView id="contratoAditivo"
-                    actionListener="#{contratoController.prepareAditivoEdit}" 
-                    specificValues="true"
-                    casePrefix="contratoAditivo" 
-                    controller="#{contratoController}" 
-                    selection="#{contratoController.aditivoNovo}" 
-                    value="#{contratoController.selected.aditivos}">
-            <f:facet name="header">
-                <div class="ui-grid">
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-6 alignLeft">
-                            <h:outputText value="Aditivos"/>                                                        
-                        </div>
-                        <div class="ui-grid-col-6 alignRight">
-                            <p:commandButton value="#{contratoController.getMsgAction('Aditivo_Novo')}"/>                                                                                                    
-                        </div>                                                    
-                    </div>
-                </div>
-            </f:facet>                                    
-            <p:column width="10%" headerText="#{contratoController.getMsgFieldLabel('numero')}" >
-                <h:outputText value="#{item.numero}"/>
-            </p:column>
-            <p:column width="20%" headerText="#{contratoController.getMsgFieldLabel('contratado')}" >
-                <h:outputText value="#{item.contratado.descricao}"/>
-            </p:column>
-            <p:column width="20%" headerText="#{contratoController.getMsgFieldLabel('objeto')}">
-                <h:outputText value="#{item.objeto}"/>
-            </p:column>      
-            <p:column width="10%" headerText="#{messages.ActiveSince}">
-                <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
-            </p:column>   
-            <p:column width="10%" headerText="#{messages.ActiveUntil}">
-                <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>                            
-            </p:column>                       
-            <p:column width="10%" headerText="#{contratoController.getMsgFieldLabel('processo')}">
-                <h:outputText value="#{item.processo}"/>
-            </p:column>                        
-        </t:ListView>
-        <br/>
-        <p:tabView id="contratoTabs">
-            <p:tab title="#{contratoController.getTabHeader('PostoDeTrabalho')}">
-                <t:TabItem id="postoDeTrabalho" dataValue="#{contratoController.selected.postosDeTrabalho}">
-                    <p:column width="25%" 
-                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}">
-                        <h:outputText value="#{item.cargoOuFuncao.nome}"/>
-                    </p:column>   
-                    <p:column width="10%"  
-                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}">
-                        <h:outputText value="#{item.jornada.nome}"/>
-                    </p:column>                                                     
-                    <p:column width="25%"  
-                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}">
-                        <h:outputText value="#{item.diasComputados}"/>
-                    </p:column>                                                     
-                    <p:column width="20%"  
-                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}">
-                        <h:outputText value="#{item.feriadoCalendario.nome}"/>
-                    </p:column>                                                     
-                </t:TabItem> 
-            </p:tab>
-
-            <p:tab title="#{contratoController.getTabHeader('EncargoAliquota')}">
-                <t:TabItem id="contratoAliquota" dataValue="#{contratoController.selected.aliquotas}">
-                    <p:column width="20%" styleClass="alignRight" 
-                              headerText="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}">
-                        <h:outputText value="#{item.aliquota}"/>
-                    </p:column>                           
-                    <p:column width="10%" styleClass="alignCenter"  
-                              headerText="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}">
-                        <p:selectBooleanCheckbox value="#{item.retencaoContaVinculada}" disabled="true"/>
-                    </p:column>                                                   
-                </t:TabItem> 
-            </p:tab>  
-            <p:tab title="#{contratoController.getTabHeader('Faturamento')}">
-                <t:TabItem id="faturamento" dataValue="#{contratoController.selected.faturamentos}">
-                    <p:column width="20%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}">
-                        <h:outputText value="#{item.competencia}"/>
-                    </p:column>   
-                    <p:column width="10%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}">
-                        <h:outputText value="#{item.valorBruto}"/>
-                    </p:column>                           
-                    <p:column width="10%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}">
-                        <h:outputText value="#{item.valorLiquido}"/>
-                    </p:column>          
-                    <p:column width="10%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
-                        <h:outputText value="#{item.nfeOuFatura}"/>
-                    </p:column>                                            
-                    <p:column width="10%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}">
-                        <h:outputText value="#{item.atestadaEm}"/>
-                    </p:column>                                            
-                    <p:column width="20%"
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}">
-                        <h:outputText value="#{item.atestadaPor}"/>
-                    </p:column>                                                                                                                 
-                </t:TabItem> 
-            </p:tab>                 
-            <p:tab title="#{contratoController.getTabHeader('Fiscal')}">
-                <t:TabItem id="fiscal" dataValue="#{contratoController.selected.fiscais}">
-                    <p:column width="15%"
-                              headerText="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}">
-                        <h:outputText value="#{item.atoDesignacao}" />
-                    </p:column>                          
-                    <p:column width="25%"
-                              headerText="#{contratoController.getMsgFieldLabel('Fiscal_especie')}">
-                        <h:outputText value="#{item.especie.nome}"/>
-                    </p:column>   
-                    <p:column width="40%"
-                              headerText="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}">
-                        <h:outputText value="#{item.servidor.nome}" />
-                    </p:column>                                                                           
-                </t:TabItem> 
-            </p:tab>
-
-            <p:tab title="#{contratoController.getTabHeader('ContaVinculada')}">
-                <t:TabItem id="contaVinculada" dataValue="#{contratoController.selected.contasVinculadas}">
-                    <p:column width="30%"
-                              headerText="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}">
-                        <h:outputText value="#{item.banco}"/>
-                    </p:column>   
-                    <p:column width="20%"
-                              headerText="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}">
-                        <h:outputText value="#{item.agencia}"/>
-                    </p:column>                           
-                    <p:column width="15%"
-                              headerText="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}">
-                        <h:outputText value="#{item.conta}"/>
-                    </p:column>      
-                    <p:column width="15%"
-                              headerText="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}">
-                        <h:outputText value="#{item.operacao}"/>
-                    </p:column>                            
-                </t:TabItem> 
-            </p:tab>                            
-        </p:tabView>
+                     width="605px">
+        <t:FormRowString id="contaBanco" 
+                         textValue="#{contratoController.contaNova.banco}" 
+                         labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"
+                         textSize="30"/>                
+        <t:FormRowString id="contaAgencia" 
+                         textValue="#{contratoController.contaNova.agencia}" 
+                         labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"
+                         textSize="30"/><br/>
+        <t:FormRowString id="contaConta" 
+                         textValue="#{contratoController.contaNova.conta}" 
+                         labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"
+                         textSize="15"/>                
+        <t:FormRowString id="contaOperacao" 
+                         textValue="#{contratoController.contaNova.operacao}" 
+                         labelValue="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"
+                         textSize="20"/> 
     </t:FormDlgCreate>
 </ui:composition>
 

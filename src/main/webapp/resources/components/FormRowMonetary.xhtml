@@ -5,7 +5,6 @@
       xmlns:p="http://primefaces.org/ui">
 
       <cc:interface>
-        <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="numberValue"/>        
         <cc:attribute name="numberSize" default="10"/>        
@@ -15,15 +14,11 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
-            </div>
-            <div class="ui-grid-col-6">
-                <p:inputNumber id="#{cc.attrs.id}" value="#{cc.attrs.numberValue}" size="#{cc.attrs.numberSize}" 
+        <div class="formRow">
+                <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
+                <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" size="#{cc.attrs.numberSize}" 
                                minValue="#{cc.attrs.minValue}" maxValue="#{cc.attrs.maxValue}" roundMethod="#{cc.attrs.roundMethod}" 
-                               decimalPlaces="2" symbol="R$" symbolPosition="p" decimalSeparator="," thousandSeparator="."/>                            
-            </div>                        
+                               decimalPlaces="2" symbol="R$" symbolPosition="p" decimalSeparator="," thousandSeparator="." styleClass="formRowValue"/>                            
         </div>
     </cc:implementation>
 </html>

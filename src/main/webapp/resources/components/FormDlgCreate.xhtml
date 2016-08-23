@@ -19,12 +19,13 @@
         <p:dialog id="#{cc.attrs.casePrefix.concat('Dlg')}" header="#{cc.attrs.header}" position="center" modal="true" draggable="true" widgetVar="#{cc.attrs.casePrefix.concat('Dlg')}" 
                   appendTo="@(body)" width="#{empty cc.attrs.width?'356px':cc.attrs.width}" responsive="true" closeOnEscape="true" class="editForm">
             <h:form id="#{cc.attrs.casePrefix.concat('Form')}">
-                <div class="ui-grid">            
-                    <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
-                    <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
-
+                <div class="ui-grid">  
+                    <p:panel header="#{messages.Active}">
+                        <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
+                        <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
+                    </p:panel>
                     <cc:insertChildren/>
-                    
+
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12 paddingPlus10 alignCenter">
                             <p:commandButton value="#{messages.SaveLink}"  onclick="PF('#{cc.id}').hide()" actionListener="#{cc.attrs.actionListener}" partialSubmit="true" process="@parent" update="@(.ui-datatable) @(.ui-dialog)" icon="ui-icon-disk"/>                                

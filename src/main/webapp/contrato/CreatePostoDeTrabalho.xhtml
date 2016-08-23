@@ -6,269 +6,42 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                    
-    <t:FormDlgCreate id="contratoCreate" casePrefix="contratoCreate" entityToUpdate="#{contratoController.selected}" 
-                     actionListener="#{contratoController.saveOrCreate()}"
+    <t:FormDlgCreate id="postoDeTrabalhoCreate" casePrefix="postoDeTrabalhoCreate" 
+                     entityToUpdate="#{contratoController.postoNovo}" 
+                     actionListener="#{contratoController.saveOrCreatePostoDeTrabalho()}"
                      header="#{contratoController.msgPageTitle}"
-                     width="1370px">
-        <div class="ui-grid">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12" >
-                    <p:panel rendered="#{contratoController.selected.aditivoDe!=null}">
-                        <h:outputText value="#{messages.Contrato_Field_aditivoDe}"/>
-                        <h:outputLink value="#{contratoController.selected.aditivoDe.numero}"/>
-                        <h:outputText value="#{contratoController.selected.aditivoDe.objeto}"/>
-                    </p:panel>
-                </div>
-            </div>                
-            <div class="ui-grid-row">                    
-                <div class="ui-grid-col-1 ">
-                    <p:outputLabel value="#{contratoController.getMsgFieldLabel('numero')}" for="numero" />
-                </div>
-                <div class="ui-grid-col-2 ">
-                    <p:inputText id="numero" value="#{contratoController.selected.numero}" />        
-                </div>
-                <div class="ui-grid-col-1 ">
-                    <p:outputLabel value="#{contratoController.getMsgFieldLabel('contratado')}" for="contratado" />                        
-                </div>
-                <div class="ui-grid-col-8 ">
-                    <p:autoComplete id="contratado" value="#{contratoController.selected.contratado}" 
-                                    completeMethod="#{pessoaController.complete}" minQueryLength="3" maxResults="10" 
-                                    queryDelay="600" forceSelection="true" cache="true" 
-                                    emptyMessage="#{pessoaController.msgNotFound}" var="pessoa" itemLabel="#{pessoa.toString()}" 
-                                    itemValue="#{pessoa}" size="62"/>                       
-                </div>                    
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-1 ">
-                    <p:outputLabel value="#{contratoController.getMsgFieldLabel('objeto')}" for="objeto" />                        
-                </div>
-                <div class="ui-grid-col-11 ">
-                    <p:inputText id="objeto" value="#{contratoController.selected.objeto}" size="120" />        
-                </div>
-            </div>                
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-1">
-                    <p:outputLabel value="#{contratoController.getMsgFieldLabel('processo')}" for="processo" />                        
-                </div>
-                <div class="ui-grid-col-2">
-                    <p:inputText id="processo" value="#{contratoController.selected.processo}" />        
-                </div>
-                <div class="ui-grid-col-1">
-                    <p:outputLabel value="#{contratoController.getMsgFieldLabel('assinaturaData')}" for="assinaturaData" />                        
-                </div>
-                <div class="ui-grid-col-2">
-                    <p:calendar id="assinaturaData" value="#{contratoController.selected.assinaturaData}" mask="true" 
-                                converter="localDateConverter" mode="popup" showOn="button"  locale="pt_BR" size="8" 
-                                pattern="dd/MM/yyyy"/>                        
-                </div> 
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-12">
-                    <p:panel>                                                        
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-12">
-                                <p:dataTable id="aditivos" value="#{contratoController.selected.aditivos}"  var="item" 
-                                             paginator="true" rows="10" sortBy="#{item.vigenteDesde}" sortOrder="descending" 
-                                             paginatorPosition="top" paginatorAlwaysVisible="false" 
-                                             rendered="#{contratoController.selected.aditivoDe==null}">
-                                    <f:facet name="header">
-                                        <div class="ui-grid">
-                                            <div class="ui-grid-row">
-                                                <div class="ui-grid-col-6 alignLeft">
-                                                    <h:outputText value="Aditivos"/>                                                        
-                                                </div>
-                                                <div class="ui-grid-col-6 alignRight">
-                                                    <p:commandButton value="#{contratoController.getMsgAction('Aditivo_Novo')}"/>                                                                                                    
-                                                </div>                                                    
-                                            </div>
-                                        </div>
-                                    </f:facet>
-                                    <p:column width="10%" filterBy="#{item.numero}" filterMatchMode="contains" >
-                                        <f:facet name="header">
-                                            <h:outputText value="#{contratoController.getMsgFieldLabel('numero')}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.numero}"/>
-                                    </p:column>
-                                    <p:column width="20%" filterBy="#{item.contratado}" filterMatchMode="contains" >
-                                        <f:facet name="header">
-                                            <h:outputText value="#{contratoController.getMsgFieldLabel('contratado')}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.contratado.descricao}"/>
-                                    </p:column>
-                                    <p:column width="20%" filterBy="#{item.objeto}" filterMatchMode="contains">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{contratoController.getMsgFieldLabel('objeto')}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.objeto}"/>
-                                    </p:column>      
-                                    <p:column width="10%" >
-                                        <f:facet name="header">
-                                            <h:outputText value="#{messages.ActiveSince}"/>                                        
-                                        </f:facet>
-                                        <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
-                                    </p:column>   
-                                    <p:column width="10%">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{messages.ActiveUntil}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>                            
-                                    </p:column>                       
-                                    <p:column width="10%" filterBy="#{item.processo}" filterMatchMode="contains">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{contratoController.getMsgFieldLabel('processo')}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.processo}"/>
-                                    </p:column>                        
-                                    <p:column width="10%">
-                                        <f:facet name="header">
-                                            <p:outputLabel value="#{messages.ActionLink}"/>
-                                        </f:facet>
-                                        <p:commandButton action="#{contratoController.prepareEdit()}" title="#{messages.EditLink}" icon="ui-icon-pencil" />                                                                
-                                    </p:column>
-                                </p:dataTable>
-                            </div>
-                        </div>
-                    </p:panel>
-                </div>
-            </div>
-        </div>
-        <p:tabView id="contratoTabs">
-            <p:tab title="#{contratoController.getTabHeader('PostoDeTrabalho')}">
-                <t:TabItem id="postoDeTrabalho" dataValue="#{contratoController.selected.postosDeTrabalho}">
-                    <p:column width="25%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.cargoOuFuncao.nome}"/>
-                    </p:column>   
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.jornada.nome}"/>
-                    </p:column>                                                     
-                    <p:column width="25%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.diasComputados}"/>
-                    </p:column>                                                     
-                    <p:column width="20%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.feriadoCalendario.nome}"/>
-                    </p:column>                                                     
-                </t:TabItem> 
-            </p:tab>
-
-            <p:tab title="#{contratoController.getTabHeader('EncargoAliquota')}">
-                <t:TabItem id="contratoAliquota" dataValue="#{contratoController.selected.aliquotas}">
-                    <p:column width="20%" styleClass="alignRight">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_aliquota')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.aliquota}"/>
-                    </p:column>                           
-                    <p:column width="10%" styleClass="alignCenter">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}"/>
-                        </f:facet>
-                        <p:selectBooleanCheckbox value="#{item.retencaoContaVinculada}" disabled="true"/>
-                    </p:column>                                                   
-                </t:TabItem> 
-            </p:tab>  
-            <p:tab title="#{contratoController.getTabHeader('Faturamento')}">
-                <t:TabItem id="faturamento" dataValue="#{contratoController.selected.faturamentos}">
-                    <p:column width="20%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.competencia}"/>
-                    </p:column>   
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.valorBruto}"/>
-                    </p:column>                           
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.valorLiquido}"/>
-                    </p:column>          
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nfeOuFatura}"/>
-                    </p:column>                                            
-                    <p:column width="10%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.atestadaEm}"/>
-                    </p:column>                                            
-                    <p:column width="20%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.atestadaPor}"/>
-                    </p:column>                                                                                                                 
-                </t:TabItem> 
-            </p:tab>                 
-            <p:tab title="#{contratoController.getTabHeader('Fiscal')}">
-                <t:TabItem id="fiscal" dataValue="#{contratoController.selected.fiscais}">
-                    <p:column width="15%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.atoDesignacao}" />
-                    </p:column>                          
-                    <p:column width="25%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_especie')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.especie.nome}"/>
-                    </p:column>   
-                    <p:column width="40%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.servidor.nome}" />
-                    </p:column>                                                                           
-                </t:TabItem> 
-            </p:tab>
-
-            <p:tab title="#{contratoController.getTabHeader('ContaVinculada')}">
-                <t:TabItem id="contaVinculada" dataValue="#{contratoController.selected.contasVinculadas}">
-                    <p:column width="30%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_banco')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.banco}"/>
-                    </p:column>   
-                    <p:column width="20%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_agencia')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.agencia}"/>
-                    </p:column>                           
-                    <p:column width="15%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_conta')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.conta}"/>
-                    </p:column>      
-                    <p:column width="15%">
-                        <f:facet name="header">
-                            <p:outputLabel value="#{contratoController.getMsgFieldLabel('ContaVinculada_operacao')}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.operacao}"/>
-                    </p:column>                            
-                </t:TabItem> 
-            </p:tab>                            
-        </p:tabView>
+                     width="500px">
+        <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
+                               autoCompleteValue="#{contratoController.postoNovo.cargoOuFuncao}" 
+                               autoCompleteItem="cargoOuFuncao" 
+                               autoCompleteItemLabel="#{cargoOuFuncao.toString()}" 
+                               autoCompleteItemValue="#{cargoOuFuncao}" 
+                               completeMethod="#{cargoOuFuncaoController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"
+                               autoCompleteConverter="#{cargoOuFuncaoConverter}"
+                               autoCompleteSize="40"/><br/>
+        <t:FormRowAutoComplete id="postoDeTrabalhoJornada" 
+                               autoCompleteValue="#{contratoController.postoNovo.jornada}" 
+                               autoCompleteItem="jornada" 
+                               autoCompleteItemLabel="#{jornada.toString()}" 
+                               autoCompleteItemValue="#{jornada}" 
+                               completeMethod="#{jornadaController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
+                               autoCompleteConverter="#{jornadaConverter}"
+                               autoCompleteSize="30"/><br/>
+        <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
+                             labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
+                             itemValues="#{calendarioFeriadoController.diasComputados}" 
+                             selectValue="#{contratoController.postoNovo.diasComputados}" 
+                             selectConverter="#{diasComputadosConverter}"/><br/>
+        <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
+                               autoCompleteValue="#{contratoController.postoNovo.feriadoCalendario}" 
+                               autoCompleteItem="feriadoCalendario" 
+                               autoCompleteItemLabel="#{feriadoCalendario.toString()}" 
+                               autoCompleteItemValue="#{feriadoCalendario}" 
+                               completeMethod="#{calendarioFeriadoController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
+                               autoCompleteConverter="#{calendarioFeriadoConverter}"
+                               autoCompleteSize="30"/> 
     </t:FormDlgCreate>
 </ui:composition>

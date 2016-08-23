@@ -4,7 +4,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:t="http://java.sun.com/jsf/composite/components">                    
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                                    >                    
     <t:FormDlgCreate id="pessoaJuridicaEdit" casePrefix="pessoaJuridicaEdit" entityToUpdate="#{pessoaJuridicaController.selected}" 
                      actionListener="#{pessoaJuridicaController.saveOrCreate()}"
                      header="#{pessoaJuridicaController.msgPageTitle}"
@@ -13,5 +14,36 @@
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.nomeFantasia}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" id="nomeFantasia" textSize="50"/>
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.razaoSocial}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}" id="razaoSocial" textSize="50"/>
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.inscricaoEstadual}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}" id="inscricaoEstadual" textSize="20"/>                
+        <p:tabView id="contratoTabs">
+            <p:tab title="#{pessoaJuridicaController.getTabHeader('Colaborador')}">
+                <t:ListView selection="#{pessoaJuridicaController.colaboradorNovo}" 
+                            value="#{pessoaJuridicaController.selected.contratanteEm}" 
+                            casePrefix="colaborador" 
+                            actionListener="#{pessoaJuridicaController.prepareColaboradorEdit}" 
+                            controller="#{pessoaJuridicaController}" 
+                            id="colaborador"
+                            specificValues="true">
+                    <f:facet name="header">
+                        <div class="alignRight">
+                            <p:commandButton oncomplete="PF('colaboradorCreateDlg').show();" 
+                                             actionListener="#{pessoaJuridicaController.prepareColaboradorNovo()}"
+                                             value="#{messages.CreateLink}" update="@(.editForm)"/>
+                        </div>
+                    </f:facet>
+                    <p:column width="25%" 
+                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_colaborador')}">
+                        <h:outputText value="#{item.colaborador}"/>
+                    </p:column>   
+                    <p:column width="10%"  
+                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_isDesligamentoPorJustaCausa')}">
+                        <h:outputText value="#{item.isDesligamentoPorJustaCausa}"/>
+                    </p:column>                                                     
+                    <p:column width="25%"  
+                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_recebeuManualEm')}">
+                        <h:outputText value="#{item.recebeuManualEm}"/>
+                    </p:column>                                                     
+                </t:ListView>
+            </p:tab>
+        </p:tabView>        
     </t:FormDlgCreate>
 </ui:composition>

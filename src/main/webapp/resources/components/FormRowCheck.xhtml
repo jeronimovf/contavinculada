@@ -5,19 +5,14 @@
       xmlns:p="http://primefaces.org/ui">
 
       <cc:interface>
-        <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="checkValue"/>        
     </cc:interface>
 
     <cc:implementation>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
-            </div>
-            <div class="ui-grid-col-6">
-                <p:selectBooleanCheckbox id="#{cc.attrs.id}" value="#{cc.attrs.checkValue}" />                            
-            </div>                        
+        <div class="formRow">
+            <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
+                <p:selectBooleanCheckbox id="Input" value="#{cc.attrs.checkValue}" styleClass="formRowValue"/>                            
         </div>
     </cc:implementation>
 </html>

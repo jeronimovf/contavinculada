@@ -13,18 +13,24 @@
         <cc:attribute name="autoCompleteItemValue"/>                   
         <cc:attribute name="completeMethod" method-signature="String complete(String)"/>
         <cc:attribute name="autoCompleteEmptyMessage"/>
+        <cc:attribute name="autoCompleteConverter"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
-            <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
-            <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}" completeMethod="#{cc.attrs.completeMethod}" 
-                            minQueryLength="3" maxResults="10" queryDelay="600" forceSelection="true" cache="true" 
-                            emptyMessage="#{cc.attrs.autoCompleteEmptyMessage}" var="#{cc.attrs.autoCompleteItem}" 
-                            itemLabel="#{cc.attrs.autoCompleteItemLabel}" itemValue="#{cc.attrs.autoCompleteItemValue}" 
+            <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" 
+                           styleClass="formRowLabel"/>
+            <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}" 
+                            completeMethod="#{cc.attrs.completeMethod}" 
+                            minQueryLength="3" maxResults="10" queryDelay="600" 
+                            forceSelection="true" cache="true" 
+                            emptyMessage="#{cc.attrs.autoCompleteEmptyMessage}" 
+                            var="#{cc.attrs.autoCompleteItem}" 
+                            itemLabel="#{cc.attrs.autoCompleteItemLabel}" 
+                            itemValue="#{cc.attrs.autoCompleteItemValue}" 
                             size="#{cc.attrs.autoCompleteSize}"
-                            styleClass="formRowValue"/>     
-
+                            styleClass="formRowValue"
+                            converter="#{cc.attrs.autoCompleteConverter}"/>     
         </div>
     </cc:implementation>
 </html>

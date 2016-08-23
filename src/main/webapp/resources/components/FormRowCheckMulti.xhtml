@@ -6,8 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-      <cc:interface>
-        <cc:attribute name="id"/>
+    <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="selectValue"/>     
         <cc:attribute name="itemValues"/>        
@@ -15,18 +14,18 @@
     </cc:interface>
 
     <cc:implementation>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
-            </div>
-            <div class="ui-grid-col-6">
-                <p:selectManyCheckbox id="#{cc.attrs.id}"  value="#{cc.attrs.selectValue}"> 
-                    <c:if test="#{not empty cc.attrs.selectConverter}">
-                        <f:converter converterId="#{cc.attrs.selectConverter}"/>
-                    </c:if>                    
-                    <f:selectItems value="#{cc.attrs.itemValues}"/>
-                </p:selectManyCheckbox>
-            </div>                        
+        <div class="formRow">
+            <p:outputLabel for="#{cc.id}:#{'Input'}" 
+                           value="#{cc.attrs.labelValue}" 
+                           styleClass="formRowLabel"/>
+            <p:selectManyCheckbox 
+                id="Input"  
+                value="#{cc.attrs.selectValue}" 
+                styleClass="formRowLabel"
+                converter="#{cc.attrs.selectConverter}"> 
+                <f:selectItems value="#{cc.attrs.itemValues}"/>
+                <f:attribute name="collectionType" value="java.util.ArrayList" />                    
+            </p:selectManyCheckbox>
         </div>
     </cc:implementation>
 </html>

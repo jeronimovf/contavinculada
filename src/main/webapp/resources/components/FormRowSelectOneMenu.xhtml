@@ -6,22 +6,17 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
       <cc:interface>
-        <cc:attribute name="id"/>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="selectValue"/>     
         <cc:attribute name="itemValues"/>        
     </cc:interface>
 
     <cc:implementation>
-        <div class="ui-grid-row">
-            <div class="ui-grid-col-6">
-                <p:outputLabel for="#{cc.id}:#{cc.attrs.id}" value="#{cc.attrs.labelValue}"/>
-            </div>
-            <div class="ui-grid-col-6">
-                <p:selectOneMenu id="#{cc.attrs.id}"  value="#{cc.attrs.selectValue}">                            
+        <div class="formRow">
+                <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
+                <p:selectOneMenu id="Input"  value="#{cc.attrs.selectValue}" styleClass="formRowValue">                            
                     <f:selectItems value="#{cc.attrs.itemValues}"/>
                 </p:selectOneMenu>
-            </div>                        
         </div>
     </cc:implementation>
 </html>

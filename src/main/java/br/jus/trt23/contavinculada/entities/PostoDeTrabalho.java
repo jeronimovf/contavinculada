@@ -6,11 +6,11 @@ package br.jus.trt23.contavinculada.entities;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
@@ -43,8 +43,8 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     private List<FaturamentoItem> faturamentoItems;  
     
     @Enumerated
-    @ElementCollection
-    private Set<EDiasComputados> diasComputados;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<EDiasComputados> diasComputados;
     
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados
