@@ -46,6 +46,11 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<EDiasComputados> diasComputados;
     
+    private String responsavelTecnico;
+    
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+    private List<Salario> remuneracoes;
+    
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados
     @ManyToOne

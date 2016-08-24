@@ -1,14 +1,19 @@
 package br.jus.trt23.contavinculada.jsf;
 
+import br.jus.trt23.contavinculada.entities.Alocacao;
+import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.ContaVinculada;
 import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.entities.EncargoAliquota;
 import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.Fiscal;
+import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
+import java.util.List;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +24,9 @@ import org.primefaces.component.datatable.DataTable;
 @Getter
 @Setter
 public class ContratoController extends AbstractController<Contrato> {
-
+    @Inject
+    ColaboradorController colaboradorController;
+    
     public ContratoController() {
         super(Contrato.class);
     }
@@ -30,6 +37,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private ContaVinculada contaNova;
     private PostoDeTrabalho postoNovo;
     private Contrato aditivoNovo;
+    private Alocacao alocacaoNova;
 
     @Override
     protected void prepareDlg(){
@@ -69,6 +77,12 @@ public class ContratoController extends AbstractController<Contrato> {
     public String prepareAditivoNovo() {
         setAditivoNovo(new Contrato());
         return "aditivoNovo";
+    }
+    
+    public String prepareAlocacaoNova(){
+        setAlocacaoNova(new Alocacao());
+        getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
+        return "alocacaoNova";
     }
     
     public String prepareAditivoEdit(Contrato aditivo) {
@@ -123,6 +137,16 @@ public class ContratoController extends AbstractController<Contrato> {
         }
         setActiveAction(EActiveAction.EDIT);
         return "faturamentoEdit";
+    }    
+    
+    public String prepareAlocacaoEdit(){
+        Object obj = JsfUtil.findComponent("alocacaoDT");
+        if(obj instanceof DataTable){
+            DataTable dt = (DataTable)obj;  
+            setAlocacaoNova((Alocacao) dt.getRowData());
+        }
+        setActiveAction(EActiveAction.EDIT);
+        return "alocacaoEdit";
     }    
     
     public String saveOrCreatePostoDeTrabalho() throws Exception {
@@ -209,9 +233,34 @@ public class ContratoController extends AbstractController<Contrato> {
             return null;
         }
     }
+
+    public String saveOrCreateAlocacao() throws Exception {
+        String msg;
+        try {
+            getPostoNovo().getAlocacoes().add(getAlocacaoNova());
+            getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
+            saveOrCreate();
+            prepareAlocacaoNova();
+            msg = getResponseCreated("PostoDeTrabalho_Alocacao");
+            JsfUtil.addSuccessMessage(msg);
+            return "Edit";
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }
     
     @Override
     protected String getMessagePrefix() {
         return "Contrato";
+    }
+    
+    public List<Colaborador> completeColaboradores(String criteria) throws Exception{
+        if(getSelected().getContratado() instanceof PessoaJuridica){
+            PessoaJuridica pj = (PessoaJuridica) getSelected().getContratado();
+            return colaboradorController.complete(criteria, pj);            
+        }
+        throw new Exception("Contratado não é pessoa jurídica e não suporta colaboradores.");
     }
 }

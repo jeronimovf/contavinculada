@@ -4,6 +4,7 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class PessoaJuridica extends Pessoa  {
     @NotEmpty
     private String razaoSocial;
     
-    @OneToMany(mappedBy = "empregador")
+    @OneToMany(mappedBy = "empregador", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Colaborador> contratanteEm;
 
     @Override

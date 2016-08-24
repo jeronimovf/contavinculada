@@ -28,7 +28,7 @@ public class PessoaFisica extends Pessoa {
 
     private String rgNumero;
     
-    private String rgOgaoExpedidor;
+    private String rgOrgaoExpedidor;
 
     private String rgUF;
 

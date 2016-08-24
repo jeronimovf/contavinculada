@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                                    >                    
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                                                        
     <t:FormDlgCreate id="pessoaJuridicaEdit" casePrefix="pessoaJuridicaEdit" entityToUpdate="#{pessoaJuridicaController.selected}" 
                      actionListener="#{pessoaJuridicaController.saveOrCreate()}"
                      header="#{pessoaJuridicaController.msgPageTitle}"
@@ -14,7 +14,7 @@
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.nomeFantasia}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" id="nomeFantasia" textSize="50"/>
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.razaoSocial}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}" id="razaoSocial" textSize="50"/>
         <t:FormRowString textValue="#{pessoaJuridicaController.selected.inscricaoEstadual}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}" id="inscricaoEstadual" textSize="20"/>                
-        <p:tabView id="contratoTabs">
+        <p:tabView id="pjTabs">
             <p:tab title="#{pessoaJuridicaController.getTabHeader('Colaborador')}">
                 <t:ListView selection="#{pessoaJuridicaController.colaboradorNovo}" 
                             value="#{pessoaJuridicaController.selected.contratanteEm}" 
@@ -31,16 +31,16 @@
                         </div>
                     </f:facet>
                     <p:column width="25%" 
-                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_colaborador')}">
-                        <h:outputText value="#{item.colaborador}"/>
+                              headerText="#{colaboradorController.getMsgFieldLabel('colaborador')}">
+                        <h:outputText value="#{item.colaborador.toString()}"/>
                     </p:column>   
                     <p:column width="10%"  
-                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_isDesligamentoPorJustaCausa')}">
-                        <h:outputText value="#{item.isDesligamentoPorJustaCausa}"/>
+                              headerText="#{colaboradorController.getMsgFieldLabel('isDesligamentoPorJustaCausa')}">
+                        <p:selectBooleanCheckbox value="#{item.isDesligamentoPorJustaCausa}" disabled="true"/>
                     </p:column>                                                     
                     <p:column width="25%"  
-                              headerText="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_recebeuManualEm')}">
-                        <h:outputText value="#{item.recebeuManualEm}"/>
+                              headerText="#{colaboradorController.getMsgFieldLabel('recebeuManualEm')}">
+                        <h:outputText value="#{item.recebeuManualEm}" converter="localDateConverter"/>
                     </p:column>                                                     
                 </t:ListView>
             </p:tab>

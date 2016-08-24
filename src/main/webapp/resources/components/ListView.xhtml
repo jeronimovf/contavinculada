@@ -34,12 +34,14 @@
                          lazy="#{cc.attrs.lazy}" filterDelay="600" 
                          class="listDT">  
                 <cc:insertFacet name="header"/>
+                <p:column width="7%" headerText="#{messages.ActiveSince}">
+                    <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
+                </p:column>  
+                <p:column width="7%" headerText="#{messages.ActiveUntil}">
+                    <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
+                </p:column>                  
                 <cc:insertChildren/>
-                <p:column width="6%">
-                    <f:facet name="header">
-                        <p:outputLabel value="#{messages.ActionLink}"/>
-                    </f:facet>
-
+                <p:column width="6%" headerText="#{messages.ActionLink}">
                     <p:commandButton oncomplete="PF('#{cc.attrs.casePrefix.concat('EditDlg')}').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{cc.attrs.actionListener}" update="@(.editForm)"/>                                                                
 
                 </p:column>
@@ -55,12 +57,15 @@
                          lazy="true" filterDelay="600" 
                          class="listDT">     
                 <cc:insertFacet name="header"/>
+                <p:column width="7%" headerText="#{messages.ActiveSince}">
+                    <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
+                </p:column>  
+                <p:column width="7%" headerText="#{messages.ActiveUntil}">
+                    <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
+                </p:column>                  
+                
                 <cc:insertChildren/>
-                <p:column width="6%">
-                    <f:facet name="header">
-                        <p:outputLabel value="#{messages.ActionLink}"/>
-                    </f:facet>
-
+                <p:column width="6%" headerText="#{messages.ActionLink}">
                     <p:commandButton oncomplete="PF('#{cc.attrs.casePrefix.concat('EditDlg')}').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{cc.attrs.controller.prepareEdit}" update="@(.editForm)"/>                                                                
                 </p:column>
             </p:dataTable>                

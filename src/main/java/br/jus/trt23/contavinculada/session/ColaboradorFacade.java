@@ -7,6 +7,7 @@ package br.jus.trt23.contavinculada.session;
 
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.PessoaFisica;
+import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -47,6 +48,18 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
         return getEntityManager().createQuery(cq).getResultList();        
     }
 
+    public List<Colaborador> complete(String criteria, PessoaJuridica contratante) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Colaborador> c = cq.from(Colaborador.class);
+        Join<Colaborador,PessoaFisica> p = c.join("colaborador");
+        cq.select(c).where(
+                cb.like(cb.upper(p.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")),
+                cb.equal(c.get("empregador"), contratante)
+        );
+        return getEntityManager().createQuery(cq).getResultList();        
+
+    }
 
 
     

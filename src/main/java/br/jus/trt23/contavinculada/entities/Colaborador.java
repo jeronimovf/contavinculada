@@ -5,12 +5,11 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +19,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(
-    uniqueConstraints = 
-            @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "empregador_id", "colaborador_id"})            
-)
 public class Colaborador extends EntidadeGenerica {
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(nullable=false)    
     private PessoaJuridica empregador;
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(nullable=false)        
     private PessoaFisica colaborador;
     
@@ -42,12 +37,23 @@ public class Colaborador extends EntidadeGenerica {
 
     private String responsavelTecnico;
 
-    @OneToMany(mappedBy = "colaborador")
-    private List<Alocacao> alocacoes;
+    @OneToMany(mappedBy = "titular")
+    private List<Alocacao> titularEm;
     
+    @OneToMany(mappedBy = "substituto")
+    private List<Alocacao> substitutoEm;
+
     @OneToMany(mappedBy = "substituto")
     private List<FaturamentoItem> substituicoes;   
 
     @OneToMany(mappedBy = "colaborador")
-    private List<Retencao> retencoes;    
+    private List<Retencao> retencoes; 
+    
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Salario> salarios;
+    
+    @Override
+    public String toString(){
+        return getColaborador().toString();
+    }
 }

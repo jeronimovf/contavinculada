@@ -3,11 +3,10 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -16,19 +15,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(
-    uniqueConstraints = 
-            @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "colaborador_id", "postoDeTrabalho_id"})            
-)
 public class Alocacao extends EntidadeGenerica {
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(nullable = false)
-    private Colaborador colaborador;
+    private Colaborador titular;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
+    @JoinColumn(nullable = false)
+    private Colaborador substituto;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(nullable = false)    
-    private PostoDeTrabalho postoDeTrabalho;
-    
-    private Double salario;
+    private PostoDeTrabalho postoDeTrabalho;        
 }
