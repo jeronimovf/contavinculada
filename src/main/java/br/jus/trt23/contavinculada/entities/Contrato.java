@@ -55,11 +55,9 @@ public class Contrato extends EntidadeGenerica {
     private String arp;
 
     private String regimeTributacao;
-
     
     @OneToMany(mappedBy = "contrato", cascade={CascadeType.MERGE,CascadeType.PERSIST})
     private List<ContaVinculada> contasVinculadas;
-
 
     @OneToMany(mappedBy = "contrato" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<PostoDeTrabalho> postosDeTrabalho;

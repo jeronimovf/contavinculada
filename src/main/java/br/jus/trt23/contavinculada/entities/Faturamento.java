@@ -5,6 +5,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -33,7 +34,7 @@ public class Faturamento extends EntidadeGenerica {
     @Transient
     private String situacao;
     
-    @OneToMany(mappedBy = "faturamento")
+    @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<FaturamentoItem> itens;
 
     @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")

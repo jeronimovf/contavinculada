@@ -6,7 +6,9 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"      
                 xmlns:p="http://primefaces.org/ui">
     <t:ListForm id="contratoListForm" controller="#{contratoController}" casePrefix="contrato">
-        <t:ListView id="contratoListView" controller="#{contratoController}" casePrefix="contrato">
+        <t:ListView id="contratoListView" 
+                    controller="#{contratoController}" 
+                    casePrefix="contrato">
                     <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoController.getMsgFieldLabel('numero')}" >
                         <h:outputText value="#{item.numero}"/>
                     </p:column>

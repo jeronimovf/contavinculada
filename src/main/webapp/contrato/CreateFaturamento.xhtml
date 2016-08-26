@@ -14,7 +14,7 @@
         <t:FormRowDate id="faturamentoCompetencia" 
                        calendarValue="#{contratoController.faturamentoNovo.competencia}" 
                        labelValue="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}" 
-                       pattern="MM/yyyy"/>                
+                       pattern="dd/MM/yyyy"/>                
         <t:FormRowMonetary id="faturamentoValorBruto" 
                            numberValue="#{contratoController.faturamentoNovo.valorBruto}" 
                            labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
@@ -30,5 +30,34 @@
         <t:FormRowString id="faturamentoAtestadaPor" 
                          textValue="#{contratoController.faturamentoNovo.atestadaPor}" 
                          labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+        <p:tabView id="faturamentoTabs">
+            <p:tab title="#{contratoController.getTabHeader('Faturamento_Item')}">
+                <t:ListView selection="#{contratoController.faturamentoItemNovo}" 
+                            value="#{contratoController.faturamentoNovo.itens}" 
+                            casePrefix="faturamentoItem" 
+                            actionListener="#{contratoController.prepareFaturamentoItemEdit}" 
+                            controller="#{contratoController}" 
+                            id="faturamentoItem"
+                            specificValues="true">
+                    <p:column width="20%" 
+                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_dia')}">
+                        <h:outputText value="#{contratoController.faturamentoItemNovo.dia}" converter="localDateConverter"/>
+                    </p:column>   
+                    <p:column width="20%" 
+                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_titular')}">
+                        <h:outputText value="#{contratoController.faturamentoItemNovo.titular.colaborador.toString}"/>
+                    </p:column>   
+                    <p:column width="20%" 
+                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_evento')}">
+                        <h:outputText value="#{contratoController.faturamentoItemNovo.evento.nome}"/>
+                    </p:column>   
+                    
+                    <p:column width="10%"  
+                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_substituto')}">
+                        <h:outputText value="#{contratoController.faturamentoItemNovo.substituto.colaborador.toString}"/>
+                    </p:column>                                                     
+                </t:ListView>
+            </p:tab>
+        </p:tabView>
     </t:FormDlgCreate>
 </ui:composition>

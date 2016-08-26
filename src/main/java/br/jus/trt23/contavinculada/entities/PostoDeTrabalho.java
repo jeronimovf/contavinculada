@@ -4,7 +4,6 @@
 package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
@@ -22,8 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class PostoDeTrabalho extends EntidadeGenerica {
-
+public class PostoDeTrabalho extends EntidadeGenerica {   
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Contrato contrato;
@@ -36,7 +34,7 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     @ManyToOne
     private Jornada jornada;
     
-    @OneToMany(mappedBy = "postoDeTrabalho")
+    @OneToMany(mappedBy = "postoDeTrabalho", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Alocacao> alocacoes;
     
     @OneToMany(mappedBy = "postoDeTrabalho")
@@ -54,15 +52,10 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados
     @ManyToOne
-    private CalendarioFeriado feriadoCalendario;
+    private CalendarioFeriado feriadoCalendario;   
     
-    public Alocacao getAlocacaoAtiva(){
-        //TODO: Buscar a alocação ativa no momento
-        return null;
+    @Override
+    public String toString(){
+        return getCargoOuFuncao().getNome().concat(" - " + getJornada() + " (" + getId() + ")");
     }
-    
-    public Alocacao getAlocacaoAtivaEntre(Date inicio, Date fim){
-        //TODO: Buscar a alocação ativa em um período
-        return null;
-    }    
 }

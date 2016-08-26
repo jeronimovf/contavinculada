@@ -120,9 +120,11 @@ public class JsfUtil {
         root.visitTree(new FullVisitContext(context), new VisitCallback() {
             @Override
             public VisitResult visit(VisitContext context, UIComponent component) {
-                if (component.getId().equals(id)) {
-                    found[0] = component;
-                    return VisitResult.COMPLETE;
+                if (component.getId() != null) {
+                    if (component.getId().equals(id)) {
+                        found[0] = component;
+                        return VisitResult.COMPLETE;
+                    }
                 }
                 return VisitResult.ACCEPT;
             }

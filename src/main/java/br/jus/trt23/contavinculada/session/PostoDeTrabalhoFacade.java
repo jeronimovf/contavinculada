@@ -5,7 +5,7 @@
  */
 package br.jus.trt23.contavinculada.session;
 
-import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
+import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class FaturamentoItemEventoFacade extends AbstractFacade<FaturamentoItemEvento> {
+public class PostoDeTrabalhoFacade extends AbstractFacade<PostoDeTrabalho> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public FaturamentoItemEventoFacade() {
-        super(FaturamentoItemEvento.class);
+    public PostoDeTrabalhoFacade() {
+        super(PostoDeTrabalho.class);
     }
 
     @Override
@@ -36,21 +36,15 @@ public class FaturamentoItemEventoFacade extends AbstractFacade<FaturamentoItemE
     }
 
     @Override
-    public List<FaturamentoItemEvento> complete(String criteria) {
+    public List<PostoDeTrabalho> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
+        Root<PostoDeTrabalho> c = cq.from(PostoDeTrabalho.class);
         cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
         return getEntityManager().createQuery(cq).getResultList();        
     }
 
-    public FaturamentoItemEvento getFaturamentoItemEventoPadrao(){
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
-        cq.select(c).where(cb.like(c.get("nome"),"Efetivamente trabalhado"));
-        return (FaturamentoItemEvento)getEntityManager().createQuery(cq).getSingleResult();                
-    }
+    
     
     
 }

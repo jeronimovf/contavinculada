@@ -57,8 +57,9 @@
                         </div>
                     </f:facet>
                     <p:column width="25%" 
-                              headerText="#{colaboradorController.getMsgFieldLabel('Salario_valor')}">
-                        <h:outputText value="#{item.valor.toString()}"/>
+                              headerText="#{colaboradorController.getMsgFieldLabel('Salario_valor')}"
+                              styleClass="alignRight">
+                        <t:OutputMonetary value="#{item.valor}"/>
                     </p:column>   
                 </t:ListView>
             </p:tab>

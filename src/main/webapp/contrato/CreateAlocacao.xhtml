@@ -14,7 +14,7 @@
         <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
                                autoCompleteValue="#{contratoController.alocacaoNova.titular}"
                                labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
-                               completeMethod="#{colaboradorController.complete}"
+                               completeMethod="#{contratoController.completeColaboradores}"
                                autoCompleteSize="62" 
                                autoCompleteItemValue="#{colaborador}"
                                autoCompleteItem="colaborador"
@@ -28,7 +28,6 @@
                                autoCompleteItemValue="#{colaborador}"
                                autoCompleteItem="colaborador"
                                autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
-                               autoCompleteConverter="#{colaboradorConverter}"/><br/>
-        
+                               autoCompleteConverter="#{colaboradorConverter}"/><br/>       
     </t:FormDlgCreate>
 </ui:composition>

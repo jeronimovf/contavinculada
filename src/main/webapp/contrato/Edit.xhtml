@@ -6,7 +6,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                    
-    <t:FormDlgCreate id="contratoEdit" casePrefix="contratoEdit" entityToUpdate="#{contratoController.selected}" 
+    <t:FormDlgCreate id="contratoEdit" casePrefix="contratoEdit" 
+                     entityToUpdate="#{contratoController.selected}" 
                      actionListener="#{contratoController.saveOrCreate()}"
                      header="#{contratoController.msgPageTitle}"
                      width="1370px">
@@ -91,19 +92,28 @@
                                              value="#{messages.CreateLink}" update="@(.editForm)"/>
                         </div>
                     </f:facet>
-                    <p:column width="25%" 
+                    <p:column width="20%" 
                               headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}">
                         <h:outputText value="#{item.cargoOuFuncao.nome}"/>
                     </p:column>   
+                    <p:column width="20%" 
+                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
+                        <h:outputText value="#{alocacaoController.findVigenteParaOPostoDeTrabalho(item).titular.colaborador.toString()}"/>
+                    </p:column>   
+                    <p:column width="20%" 
+                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
+                        <h:outputText value="#{alocacaoController.findVigenteParaOPostoDeTrabalho(item).substituto.colaborador.toString()}"/>
+                    </p:column>   
+                    
                     <p:column width="10%"  
                               headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}">
                         <h:outputText value="#{item.jornada.nome}"/>
                     </p:column>                                                     
-                    <p:column width="25%"  
+                    <p:column width="15%"  
                               headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}">
                         <h:outputText value="#{item.diasComputados}"/>
                     </p:column>                                                     
-                    <p:column width="20%"  
+                    <p:column width="10%"  
                               headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}">
                         <h:outputText value="#{item.feriadoCalendario.nome}"/>
                     </p:column>                                                     
@@ -150,9 +160,17 @@
                             specificValues="true">
                     <f:facet name="header">
                         <div class="alignRight">
+                            <h:outputLabel for="faturamentoCompetencia" 
+                                           value="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}"/>
+                            <p:inputMask id="faturamentoCompetencia" converter="localDateConverter" 
+                                        value="#{contratoController.faturamentoCompetencia}"
+                                        mask="99/99/9999" title="dd/MM/yyyy" 
+                                        size="7"/>
                             <p:commandButton oncomplete="PF('faturamentoCreateDlg').show();" 
                                              actionListener="#{contratoController.prepareFaturamentoNovo()}"
-                                             value="#{messages.CreateLink}" update="@(.editForm)"/>
+                                             value="#{messages.CreateLink}" 
+                                             update="@(.editForm)" 
+                                             disabled="#{not empty contratoController.faturamentoCompetencia}"/>
                         </div>
                         <p:column width="20%"
                                   headerText="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}">

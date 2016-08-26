@@ -5,7 +5,7 @@
  */
 package br.jus.trt23.contavinculada.converters;
 
-import br.jus.trt23.contavinculada.entities.CargoOuFuncao;
+import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.session.PostoDeTrabalhoFacade;
 import java.util.logging.Level;
@@ -24,9 +24,8 @@ import javax.inject.Named;
  */
 @Named
 @Dependent
-@FacesConverter(forClass = CargoOuFuncao.class)
-public class CargoOuFuncaoConverter implements Converter {
-
+@FacesConverter(forClass = PostoDeTrabalho.class)
+public class PostoDeTrabalhoConverter implements Converter {
     @Inject
     private PostoDeTrabalhoFacade facade;
 
@@ -56,12 +55,13 @@ public class CargoOuFuncaoConverter implements Converter {
                 || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
-        if (object instanceof CargoOuFuncao) {
-            CargoOuFuncao o = (CargoOuFuncao) object;
+        if (object instanceof PostoDeTrabalho) {
+            PostoDeTrabalho o = (PostoDeTrabalho) object;
             return getStringKey(o.getId());
         } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), CargoOuFuncao.class.getName()});
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), PostoDeTrabalho.class.getName()});
             return null;
         }
     }
+    
 }

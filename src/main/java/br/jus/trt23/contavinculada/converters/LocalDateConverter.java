@@ -21,10 +21,31 @@ public class LocalDateConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value == null || value.length() == 0) {
+        if (value.isEmpty()) {
             return null;
         }
-        return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String formato = "";
+        String newValue = value;
+        switch (value.length()){
+            //caso a string tenha 7 caracteres considera-se que
+            //se trata da especificação de um mês, então completa-se
+            //a string com 01 referindo-se ao primeiro dia
+            case 7:
+                newValue = "01/".concat(newValue);
+                formato = "dd/MM/yyyy";                
+                break;
+            //caso a string tenha 10 caracteres considera-se que 
+            //se trata de uma data com o ano especificado com 2 dítigos
+            case 8:
+                formato = "dd/MM/yy";
+                break;                
+            //caso a string tenha 10 caracteres considera-se que 
+            //se trata de uma data em formato completo
+            case 10:
+                formato = "dd/MM/yyyy";
+                break;                
+        }
+        return LocalDate.parse(newValue, DateTimeFormatter.ofPattern(formato));
     }
 
     @Override

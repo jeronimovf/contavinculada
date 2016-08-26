@@ -11,7 +11,7 @@
     <cc:interface>
         <cc:attribute name="controller"/>
         <cc:attribute name="casePrefix" class="String"/> 
-        <cc:facet name="header" />
+        <cc:facet name="header"/>
         <!--
         Para que os parâmetros abaixo sejam processados o parâmetro
         specificValues deve ser TRUE.
@@ -21,23 +21,31 @@
         <cc:attribute name="value"/>
         <cc:attribute name="selection"/>
         <cc:attribute name="actionListener" method-signature="void action()"/>
-        <cc:attribute name="lazy"/>
+        <cc:attribute name="lazy" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="mostrarVigencia" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="scrollable" default="false" type="java.lang.Boolean"/>
+        <cc:attribute name="scrollHeight"/>
+        <cc:attribute name="rows" default="10" type="java.lang.Integer"/>
+        <cc:attribute name="paginator" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="paginatorPosition" default="top" type="java.lang.String"/>        
     </cc:interface>
 
     <cc:implementation>     
         <c:if test="#{cc.attrs.specificValues}">
             <p:dataTable id="#{cc.attrs.casePrefix.concat('DT')}" 
                          value="#{cc.attrs.value}"  
-                         var="item" paginator="true" rows="10" 
-                         paginatorPosition="top" paginatorAlwaysVisible="false" 
+                         var="item" paginator="#{cc.attrs.paginator}" rows="#{cc.attrs.rows}" 
+                         paginatorPosition="#{cc.attrs.paginatorPosition}" paginatorAlwaysVisible="false" 
                          selection="#{cc.attrs.selection}"  
                          lazy="#{cc.attrs.lazy}" filterDelay="600" 
-                         class="listDT">  
+                         class="listDT"
+                         scrollable="#{cc.attrs.scrollable}"
+                         scrollHeight="#{cc.attrs.scrollHeight}">  
                 <cc:insertFacet name="header"/>
-                <p:column width="7%" headerText="#{messages.ActiveSince}">
+                <p:column width="7%" headerText="#{messages.ActiveSince}" rendered="#{cc.attrs.mostrarVigencia}">
                     <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
                 </p:column>  
-                <p:column width="7%" headerText="#{messages.ActiveUntil}">
+                <p:column width="7%" headerText="#{messages.ActiveUntil}" rendered="#{cc.attrs.mostrarVigencia}">
                     <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
                 </p:column>                  
                 <cc:insertChildren/>
@@ -51,18 +59,20 @@
         <c:if test="#{!cc.attrs.specificValues}">
             <p:dataTable id="#{cc.attrs.casePrefix.concat('DT')}" 
                          value="#{cc.attrs.controller.lazyItems}"  
-                         var="item" paginator="true" rows="10" 
-                         paginatorPosition="top" paginatorAlwaysVisible="false" 
+                         var="item" paginator="#{cc.attrs.paginator}" rows="#{cc.attrs.rows}" 
+                         paginatorPosition="#{cc.attrs.paginatorPosition}" paginatorAlwaysVisible="false" 
                          selection="#{cc.attrs.controller.selected}"  
-                         lazy="true" filterDelay="600" 
-                         class="listDT">     
+                         lazy="#{cc.attrs.lazy}" filterDelay="600" 
+                         class="listDT"
+                         scrollable="#{cc.attrs.scrollable}"
+                         scrollHeight="#{cc.attrs.scrollHeight}">       
                 <cc:insertFacet name="header"/>
-                <p:column width="7%" headerText="#{messages.ActiveSince}">
+                <p:column width="7%" headerText="#{messages.ActiveSince}" rendered="#{cc.attrs.mostrarVigencia}">
                     <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
                 </p:column>  
-                <p:column width="7%" headerText="#{messages.ActiveUntil}">
+                <p:column width="7%" headerText="#{messages.ActiveUntil}" rendered="#{cc.attrs.mostrarVigencia}">
                     <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
-                </p:column>                  
+                </p:column>                
                 
                 <cc:insertChildren/>
                 <p:column width="6%" headerText="#{messages.ActionLink}">

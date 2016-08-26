@@ -43,4 +43,7 @@ public class FaturamentoItem extends EntidadeGenerica {
     @ManyToOne
     private Colaborador substituto;
     
+    @ManyToOne
+    private Colaborador titular;    
+    
 }
