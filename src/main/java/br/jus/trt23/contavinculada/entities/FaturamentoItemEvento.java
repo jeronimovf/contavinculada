@@ -18,4 +18,9 @@ public class FaturamentoItemEvento extends EntidadeGenerica {
     @NotNull
     private String nome;
     private Boolean isSubstituicao;
+    
+    @Override
+    public String toString(){
+        return getNome();
+    }
 }

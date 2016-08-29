@@ -30,47 +30,65 @@
         <t:FormRowString id="faturamentoAtestadaPor" 
                          textValue="#{contratoController.faturamentoNovo.atestadaPor}" 
                          labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
-        <p:tabView id="faturamentoTabs">
+        <p:tabView id="faturamentoTabs">  
+            <p:tab title="Itens">
+                <p:dataTable value="#{contratoController.selected.postosDeTrabalho}"
+                             var="item" scrollable="true" scrollHeight="400" editable="true">
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column rowspan="2" headerText="Posto de trabalho"/>
+                            <p:column colspan="4" headerText="Itens"/>
+                        </p:row>
+                        <p:row>
+                            <p:column headerText="Titular"/>
+                            <p:column headerText="Evento"/>                        
+                            <p:column headerText="Substituto"/>
+                            <p:column/>
+                        </p:row>                    
+                    </p:columnGroup>
+                    <p:subTable var="subitem" value="#{contratoController.getFaturamentoItemPorPostoDeTrabalho(item)}" >
+                        <f:facet name="header">
+                            <h:outputText value="#{item.toString()}"/>
+                        </f:facet>
+                        <p:column width="10%">
+                            <h:outputText value="#{subitem.dia}" converter="localDateConverter"/>
+                        </p:column>
+                        <p:column width="20%">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{subitem.titular.colaborador.toString()}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{subitem.titular.colaborador.toString()}"/>
+                                </f:facet>
+                            </p:cellEditor>                                                        
+                        </p:column>
+                        <p:column width="15%">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{subitem.evento.toString()}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:autoComplete var="xupeta" itemLabel="#{xupeta.toString()}" itemValue="#{xupeta}" value="#{subitem.evento}" completeMethod="#{faturamentoItemEventoController.complete}" converter="#{faturamentoItemEventoConverter}"/>                            
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column width="20%">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{subitem.substituto.colaborador.toString()}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <h:inputText value="#{subitem.substituto.colaborador.toString()}" disabled="#{not subitem.evento.isSubstituicao}"/>
+                                </f:facet>
+                            </p:cellEditor>                            
 
-            <p:tab title="#{contratoController.getTabHeader('Faturamento_Item')}">
-                <div class="formRow">
-                    <p:selectOneMenu id="postoSelecionado"  
-                                     value="#{contratoController.postoSelecionado}" 
-                                     styleClass="formRowValue"
-                                     converter="#{postoDeTrabalhoConverter}"> 
-                        <f:selectItems var="item" value="#{contratoController.selected.postosDeTrabalho}" itemLabel="#{item.toString()}" itemValue="#{item}"
-                                       noSelectionValue="null"/>
-                        <p:ajax update="faturamentoItem,postoSelecionado"/>
-                    </p:selectOneMenu>
-                </div>    
-                <t:ListView selection="#{contratoController.faturamentoItemNovo}" 
-                            value="#{contratoController.getFaturamentoPorPostoDeTrabalho()}" 
-                            casePrefix="faturamentoItem" 
-                            controller="#{contratoController}" 
-                            id="faturamentoItem"
-                            specificValues="true"
-                            mostrarVigencia="false"
-                            scrollable="true"
-                            scrollHeight="350"
-                            rows="31">
-                    <p:column width="7%" 
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_dia')}">
-                        <h:outputText value="#{item.dia}" converter="localDateConverter"/>
-                    </p:column>   
-                    <p:column width="25%" 
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_titular')}">
-                        <h:outputText value="#{item.titular.colaborador.toString()}"/>
-                    </p:column>   
-                    <p:column width="15%" 
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_evento')}">
-                        <h:outputText value="#{item.evento.nome}"/>
-                    </p:column>   
-
-                    <p:column width="25%"  
-                              headerText="#{contratoController.getMsgFieldLabel('Faturamento_Item_substituto')}">
-                        <h:outputText value="#{item.substituto.colaborador.toString()}"/>
-                    </p:column>                                                     
-                </t:ListView>                
+                        </p:column>       
+                        <p:column>
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:subTable>
+                </p:dataTable>              
             </p:tab>
         </p:tabView>
     </t:FormDlgCreate>

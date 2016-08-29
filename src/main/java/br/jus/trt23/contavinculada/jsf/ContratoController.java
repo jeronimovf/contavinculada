@@ -24,7 +24,6 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 @Named
 @ViewScoped
@@ -53,7 +52,6 @@ public class ContratoController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
-    private PostoDeTrabalho postoSelecionado;
 
     @Override
     protected void prepareDlg() {
@@ -62,8 +60,6 @@ public class ContratoController extends AbstractController<Contrato> {
         prepareContaNova();
         preparePostoNovo();
         prepareAditivoNovo();
-        setPostoSelecionado(new PostoDeTrabalho());
-        setFaturamentoItemNovo(new FaturamentoItem());
     }
 
     public String prepareFiscalNovo() {
@@ -354,19 +350,12 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public List<FaturamentoItem> getFaturamentoPorPostoDeTrabalho() {
-        Object obj = JsfUtil.findComponent("postoSelecionado");
-        if (obj instanceof SelectOneMenu) {
-            SelectOneMenu som = (SelectOneMenu) obj;
-            if (som.getValue() instanceof PostoDeTrabalho) {
-                setPostoSelecionado((PostoDeTrabalho) som.getValue());
-                return getFaturamentoNovo().getItens().stream().
-                        filter(f -> f.getPostoDeTrabalho() == getPostoSelecionado()).
-                        collect(Collectors.toList());
-            }
-
+    public List<FaturamentoItem> getFaturamentoItemPorPostoDeTrabalho(PostoDeTrabalho postoDeTrabalho) {
+        if (getFaturamentoNovo() != null) {
+            return getFaturamentoNovo().getItens().stream().
+                    filter(f -> f.getPostoDeTrabalho().equals(postoDeTrabalho)).
+                    collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
-
 }
