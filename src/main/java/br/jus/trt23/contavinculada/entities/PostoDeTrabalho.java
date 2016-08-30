@@ -56,6 +56,6 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     
     @Override
     public String toString(){
-        return getCargoOuFuncao().getNome().concat(" - " + getJornada() + " (" + getId() + ")");
+        return getCargoOuFuncao().getNome().concat(" - " + getJornada().getNome() + " (" + getId().toString() + ")");
     }
 }

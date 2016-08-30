@@ -32,64 +32,59 @@
                          labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
         <p:tabView id="faturamentoTabs">  
             <p:tab title="Itens">
-                <p:dataTable value="#{contratoController.selected.postosDeTrabalho}"
-                             var="item" scrollable="true" scrollHeight="400" editable="true">
-                    <p:columnGroup type="header">
-                        <p:row>
-                            <p:column rowspan="2" headerText="Posto de trabalho"/>
-                            <p:column colspan="4" headerText="Itens"/>
-                        </p:row>
-                        <p:row>
-                            <p:column headerText="Titular"/>
-                            <p:column headerText="Evento"/>                        
-                            <p:column headerText="Substituto"/>
-                            <p:column/>
-                        </p:row>                    
-                    </p:columnGroup>
-                    <p:subTable var="subitem" value="#{contratoController.getFaturamentoItemPorPostoDeTrabalho(item)}" >
-                        <f:facet name="header">
-                            <h:outputText value="#{item.toString()}"/>
-                        </f:facet>
-                        <p:column width="10%">
-                            <h:outputText value="#{subitem.dia}" converter="localDateConverter"/>
-                        </p:column>
-                        <p:column width="20%">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{subitem.titular.colaborador.toString()}"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <h:inputText value="#{subitem.titular.colaborador.toString()}"/>
-                                </f:facet>
-                            </p:cellEditor>                                                        
-                        </p:column>
-                        <p:column width="15%">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{subitem.evento.toString()}"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:autoComplete var="xupeta" itemLabel="#{xupeta.toString()}" itemValue="#{xupeta}" value="#{subitem.evento}" completeMethod="#{faturamentoItemEventoController.complete}" converter="#{faturamentoItemEventoConverter}"/>                            
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        <p:column width="20%">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{subitem.substituto.colaborador.toString()}"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <h:inputText value="#{subitem.substituto.colaborador.toString()}" disabled="#{not subitem.evento.isSubstituicao}"/>
-                                </f:facet>
-                            </p:cellEditor>                            
-
-                        </p:column>       
-                        <p:column>
-                            <p:rowEditor/>
-                        </p:column>
-                    </p:subTable>
-                </p:dataTable>              
+             
             </p:tab>
+            <p:tab title="Itens sem subtabel">
+                <p:dataTable value="#{contratoController.faturamentoNovo.itens}"
+                             var="item" scrollable="true" scrollHeight="400" 
+                             editable="true">
+                    <p:column headerText="Posto de trabalho" sortBy="#{item.postoDeTrabalho.toString()}">
+                        <h:outputText value="#{item.postoDeTrabalho.toString()}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.dia}" headerText="Dia">
+                        <h:outputText value="#{item.dia}" converter="localDateConverter"/>
+                    </p:column>
+                    <p:column headerText="Titular" >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.titular.colaborador.toString()}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{item.titular}">
+                                    <f:selectItems var="tit" itemLabel="#{tit.colaborador.toString()}" itemValue="#{tit}" value="#{contratoController.colaboradoresPorContrato}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>                                                        
+                    </p:column>
+                    <p:column headerText="Evento">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.evento.toString()}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu converter="#{faturamentoItemEventoConverter}" value="#{item.evento}">
+                                    <f:selectItems var="evt" itemLabel="#{evt.toString()}" itemValue="#{evt}" value="#{faturamentoItemEventoController.itemsAvailableSelectMany}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Substituto">
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.substituto.colaborador.toString()}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:selectOneMenu value="#{item.substituto}">
+                                    <f:selectItems var="sub" itemLabel="#{sub.colaborador.toString()}" itemValue="#{sub}" value="#{contratoController.colaboradoresPorContrato}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>                            
+                    </p:column>       
+                    <p:column >
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>              
+            </p:tab>            
         </p:tabView>
     </t:FormDlgCreate>
 </ui:composition>

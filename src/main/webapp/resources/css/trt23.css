@@ -84,3 +84,23 @@ and open the template in the editor.
 .formRowLabel{
     margin-right: 10px;
 }
+
+.postoDeTrabalhoHeader{
+    width: 85px;
+}
+
+.titularHeader{
+    width: 454px;
+}
+
+.eventoHeader{
+    width: 302px;
+}
+
+.substitutoHeader{
+    width: 454px;
+}
+
+.editorHeader{
+    width: 70px;
+}

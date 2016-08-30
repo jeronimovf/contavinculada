@@ -52,6 +52,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
+    private List<Colaborador> colaboradoresPorContrato;
 
     @Override
     protected void prepareDlg() {
@@ -316,17 +317,13 @@ public class ContratoController extends AbstractController<Contrato> {
     public List<Colaborador> completeColaboradores(String criteria) throws Exception {
         //TODO: Deve ser configurado para que não se permita selecionar o
         //      mesmo colaborador para titular e substituto.
-        List<Colaborador> colabs;
+
         if (getSelected().getContratado() instanceof PessoaJuridica) {
             PessoaJuridica pj = (PessoaJuridica) getSelected().getContratado();
-            colabs = colaboradorController.complete(criteria, pj);
-            if (getAlocacaoNova().getTitular() != null) {
-                colabs.remove(getAlocacaoNova().getTitular());
-            }
             return colaboradorController.complete(criteria, pj);
         }
         throw new Exception("Contratado não é pessoa jurídica e não suporta colaboradores.");
-    }
+    }    
 
     private void inicializaFaturamento() throws Exception {
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
@@ -357,5 +354,12 @@ public class ContratoController extends AbstractController<Contrato> {
                     collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+    
+    public List<Colaborador> getColaboradoresPorContrato() throws Exception{
+        if(this.colaboradoresPorContrato ==null){
+            setColaboradoresPorContrato(completeColaboradores("")); 
+        }
+        return this.colaboradoresPorContrato;
     }
 }

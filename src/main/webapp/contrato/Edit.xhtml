@@ -154,7 +154,8 @@
                 <t:ListView selection="#{contratoController.faturamentoNovo}" 
                             value="#{contratoController.selected.faturamentos}" 
                             casePrefix="faturamento" 
-                            actionListener="#{contratoController.prepareFaturamentoEdit()}" 
+                            actionListener="#{contratoController.prepareFaturamentoEdit()}"
+                            action="List_1?faces-redirect=true&includeViewParams=true"
                             controller="#{contratoController}" 
                             id="faturamento"
                             specificValues="true">

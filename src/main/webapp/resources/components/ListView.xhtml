@@ -21,6 +21,7 @@
         <cc:attribute name="value"/>
         <cc:attribute name="selection"/>
         <cc:attribute name="actionListener" method-signature="void action()"/>
+        <cc:attribute name="action"/>
         <cc:attribute name="lazy" default="true" type="java.lang.Boolean"/>
         <cc:attribute name="mostrarVigencia" default="true" type="java.lang.Boolean"/>
         <cc:attribute name="scrollable" default="false" type="java.lang.Boolean"/>
@@ -51,7 +52,7 @@
                 <cc:insertChildren/>
                 <p:column width="6%" headerText="#{messages.ActionLink}">
                     <p:commandButton oncomplete="PF('#{cc.attrs.casePrefix.concat('EditDlg')}').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{cc.attrs.actionListener}" update="@(.editForm)"/>                                                                
-
+                    <p:commandButton title="#{messages.EditLink}" icon="ui-icon-pencil" action="#{cc.attrs.action}" update="@(.editForm)"/>                                                                
                 </p:column>
             </p:dataTable>                
         </c:if>
@@ -77,6 +78,7 @@
                 <cc:insertChildren/>
                 <p:column width="6%" headerText="#{messages.ActionLink}">
                     <p:commandButton oncomplete="PF('#{cc.attrs.casePrefix.concat('EditDlg')}').show()" title="#{messages.EditLink}" icon="ui-icon-pencil" actionListener="#{cc.attrs.controller.prepareEdit}" update="@(.editForm)"/>                                                                
+                    <p:commandButton title="#{messages.EditLink}" icon="ui-icon-pencil" action="#{cc.attrs.action}" update="@(.editForm)"/>                                                                                    
                 </p:column>
             </p:dataTable>                
         </c:if>        

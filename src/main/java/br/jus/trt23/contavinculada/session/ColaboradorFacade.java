@@ -26,8 +26,6 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
 
     @Inject
     private EntityManager em;
-    
-
 
     public ColaboradorFacade() {
         super(Colaborador.class);
@@ -43,26 +41,23 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Colaborador> c = cq.from(Colaborador.class);
-        Join<Colaborador,PessoaFisica> p = c.join("colaborador");
-        cq.select(c).where(cb.like(cb.upper(p.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        Join<Colaborador, PessoaFisica> p = c.join("colaborador");
+        cq.select(c).where(cb.like(cb.upper(p.get("nome")), "%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     public List<Colaborador> complete(String criteria, PessoaJuridica contratante) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Colaborador> c = cq.from(Colaborador.class);
-        Join<Colaborador,PessoaFisica> p = c.join("colaborador");
-        cq.select(c).where(
-                cb.like(cb.upper(p.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")),
-                cb.equal(c.get("empregador"), contratante)
-        );
-        return getEntityManager().createQuery(cq).getResultList();        
-
+        Join<Colaborador, PessoaFisica> p = c.join("colaborador");
+        if (criteria != null && !criteria.isEmpty()) {
+            cq.select(c).where(
+                    cb.like(cb.upper(p.get("nome")), "%".concat(criteria.toUpperCase()).concat("%"))
+            );
+        }
+        cq.select(c).where(cb.equal(c.get("empregador"), contratante));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
-
-    
-    
-    
 }
