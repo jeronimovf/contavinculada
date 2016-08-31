@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                    
+    <t:FormDlgCreate id="fiscalEdit" casePrefix="fiscalEdit" entityToUpdate="#{contratoController.fiscalNovo}" 
+                     actionListener="#{contratoController.saveOrCreate()}"
+                     header="#{contratoController.msgPageTitle}"
+                     width="605px">
+        <t:FormRowString id="fiscalAtoDesignacao" 
+                         labelValue="#{contratoController.getMsgFieldLabel('Fiscal_atoDesignacao')}" 
+                         textValue="#{contratoController.fiscalNovo.atoDesignacao}" 
+                         textSize="20"/>
+        <t:FormRowAutoComplete id="fiscalEspecie" autoCompleteItem="especie" 
+                               autoCompleteValue="#{contratoController.fiscalNovo.especie}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('Fiscal_especie')}" 
+                               completeMethod="#{fiscalEspecieController.complete}" 
+                               autoCompleteItemLabel="#{especie.toString()}" 
+                               autoCompleteItemValue="#{especie}"
+                               autoCompleteSize="20"
+                               autoCompleteConverter="#{fiscalEspecieConverter}"/><br/>
+        <t:FormRowAutoComplete id="fiscalServidor" autoCompleteItem="servidor" 
+                               autoCompleteValue="#{contratoController.fiscalNovo.servidor}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('Fiscal_servidor')}" 
+                               completeMethod="#{servidorController.complete}"  
+                               autoCompleteItemLabel="#{servidor.toString()}" 
+                               autoCompleteItemValue="#{servidor}"
+                               autoCompleteSize="30"
+                               autoCompleteConverter="#{servidorConverter}"/>
+    </t:FormDlgCreate>
+</ui:composition>
+

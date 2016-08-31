@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.faces.view.ViewScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -26,7 +26,7 @@ import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
-@ViewScoped
+@FlowScoped("contratoFlow")
 @Getter
 @Setter
 public class ContratoController extends AbstractController<Contrato> {
@@ -54,6 +54,10 @@ public class ContratoController extends AbstractController<Contrato> {
     private LocalDate faturamentoCompetencia;
     private List<Colaborador> colaboradoresPorContrato;
 
+    public String homeAction(){
+        return "index";
+    }
+    
     @Override
     protected void prepareDlg() {
         prepareFiscalNovo();
@@ -158,7 +162,7 @@ public class ContratoController extends AbstractController<Contrato> {
             setFaturamentoNovo((Faturamento) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "faturamentoEdit";
+        return "List_1?faces-redirect=true&amp;includeViewParams=true";
     }
 
     public String prepareAlocacaoEdit() {

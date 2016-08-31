@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:t="http://java.sun.com/jsf/composite/components"      
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <h:form >
+            <t:ContentTop controller="#{contratoController}" casePrefix="#{faturamento}"/>
+            <div class="ui-grid">  
+                <p:panel header="#{messages.Active}">
+                    <t:FormRowDate id="vigenteDesde" calendarValue="#{flowScope.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
+                    <t:FormRowDate id="vigenteAte" calendarValue="#{flowScope.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
+                </p:panel>
+
+                <t:FormRowDate id="faturamentoCompetencia" 
+                               calendarValue="#{faceScope.faturamentoNovo.competencia}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('Faturamento_competencia')}" 
+                               pattern="dd/MM/yyyy"/>                
+                <t:FormRowMonetary id="faturamentoValorBruto" 
+                                   numberValue="#{faceScope.faturamentoNovo.valorBruto}" 
+                                   labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+                <t:FormRowMonetary id="faturamentoValorLiquido" 
+                                   numberValue="#{faceScope.faturamentoNovo.valorLiquido}" 
+                                   labelValue="#{contratoController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+                <t:FormRowString id="faturamentoNfeOuFatura" 
+                                 textValue="#{faceScope.faturamentoNovo.nfeOuFatura}" 
+                                 labelValue="#{contratoController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+                <t:FormRowDate id="faturamentoAtestadaEm" 
+                               calendarValue="#{faceScope.faturamentoNovo.atestadaEm}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+                <t:FormRowString id="faturamentoAtestadaPor" 
+                                 textValue="#{faceScope.faturamentoNovo.atestadaPor}" 
+                                 labelValue="#{contratoController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+                <p:tabView id="faturamentoTabs">  
+                    <p:tab title="Itens sem subtabel">
+                        <p:dataTable value="#{faceScope.faturamentoNovo.itens}"
+                                     var="item" scrollable="true" scrollHeight="400" 
+                                     editable="true">
+                            <p:column headerText="Posto de trabalho" sortBy="#{item.postoDeTrabalho.toString()}">
+                                <h:outputText value="#{item.postoDeTrabalho.toString()}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.dia}" headerText="Dia">
+                                <h:outputText value="#{item.dia}" converter="localDateConverter"/>
+                            </p:column>
+                            <p:column headerText="Titular" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.titular.colaborador.toString()}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{item.titular}">
+                                            <f:selectItems var="tit" itemLabel="#{tit.colaborador.toString()}" itemValue="#{tit}" value="#{contratoController.colaboradoresPorContrato}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>                                                        
+                            </p:column>
+                            <p:column headerText="Evento">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.evento.toString()}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu converter="#{faturamentoItemEventoConverter}" value="#{item.evento}">
+                                            <f:selectItems var="evt" itemLabel="#{evt.toString()}" itemValue="#{evt}" value="#{faturamentoItemEventoController.itemsAvailableSelectMany}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Substituto">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{item.substituto.colaborador.toString()}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu value="#{item.substituto}">
+                                            <f:selectItems var="sub" itemLabel="#{sub.colaborador.toString()}" itemValue="#{sub}" value="#{contratoController.colaboradoresPorContrato}"/>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>                            
+                            </p:column>       
+                            <p:column >
+                                <p:rowEditor/>
+                            </p:column>
+                        </p:dataTable>              
+                    </p:tab>            
+                </p:tabView>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 paddingPlus10 alignCenter">
+                        <p:commandButton value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
+                        <p:commandButton value="#{messages.CancelLink}" type="reset" />
+                    </div>  
+                </div>
+            </div>
+        </h:form>                           
+    </ui:define>
+</ui:composition>  
+

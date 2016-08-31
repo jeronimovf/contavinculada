@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components">                    
+    <t:FormDlgCreate id="postoDeTrabalhoEdit" 
+                     casePrefix="postoDeTrabalhoEdit" 
+                     entityToUpdate="#{contratoController.postoNovo}" 
+                     actionListener="#{contratoController.saveOrCreate()}"
+                     header="#{contratoController.msgPageTitle}"
+                     width="800px">
+        <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
+                               autoCompleteValue="#{contratoController.postoNovo.cargoOuFuncao}" 
+                               autoCompleteItem="cargoOuFuncao" 
+                               autoCompleteItemLabel="#{cargoOuFuncao.toString()}" 
+                               autoCompleteItemValue="#{cargoOuFuncao}" 
+                               completeMethod="#{cargoOuFuncaoController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"
+                               autoCompleteConverter="#{cargoOuFuncaoConverter}"
+                               autoCompleteSize="40"/><br/>
+        <t:FormRowAutoComplete id="postoDeTrabalhoJornada" 
+                               autoCompleteValue="#{contratoController.postoNovo.jornada}" 
+                               autoCompleteItem="jornada" 
+                               autoCompleteItemLabel="#{jornada.toString()}" 
+                               autoCompleteItemValue="#{jornada}" 
+                               completeMethod="#{jornadaController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
+                               autoCompleteConverter="#{jornadaConverter}"
+                               autoCompleteSize="30"/><br/>
+        <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
+                             labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
+                             itemValues="#{calendarioFeriadoController.diasComputados}" 
+                             selectValue="#{contratoController.postoNovo.diasComputados}" 
+                             selectConverter="#{diasComputadosConverter}"/><br/>
+        <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
+                               autoCompleteValue="#{contratoController.postoNovo.feriadoCalendario}" 
+                               autoCompleteItem="feriadoCalendario" 
+                               autoCompleteItemLabel="#{feriadoCalendario.toString()}" 
+                               autoCompleteItemValue="#{feriadoCalendario}" 
+                               completeMethod="#{calendarioFeriadoController.complete}" 
+                               labelValue="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
+                               autoCompleteConverter="#{calendarioFeriadoConverter}"
+                               autoCompleteSize="30"/> 
+        <p:tabView id="alocacaoTabs">
+            <p:tab title="#{contratoController.getTabHeader('PostoDeTrabalho_Alocacao')}">
+                <t:ListView selection="#{contratoController.alocacaoNova}" 
+                            value="#{contratoController.postoNovo.alocacoes}" 
+                            casePrefix="alocacao" 
+                            actionListener="#{contratoController.prepareAlocacaoEdit}" 
+                            controller="#{contratoController}" 
+                            id="alocacao"
+                            specificValues="true">
+                    <f:facet name="header">
+                        <div class="alignRight">
+                            <p:commandButton oncomplete="PF('alocacaoCreateDlg').show();" 
+                                             actionListener="#{contratoController.prepareAlocacaoNova}"
+                                             value="#{messages.CreateLink}" update="@(.editForm)"/>
+                        </div>
+                    </f:facet>
+                    <p:column width="25%" 
+                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
+                        <h:outputText value="#{item.titular.colaborador.toString()}"/>
+                    </p:column>   
+                    <p:column width="25%" 
+                              headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
+                        <h:outputText value="#{item.substituto.colaborador.toString()}"/>
+                    </p:column>                       
+                </t:ListView>
+            </p:tab>
+            <p:tab title="#{contratoController.getTabHeader('PostoDeTrabalho_Remuneracao')}">
+                <t:ListView selection="#{contratoController.remuneracaoNova}" 
+                            value="#{contratoController.postoNovo.remuneracoes}" 
+                            casePrefix="remuneracao" 
+                            actionListener="#{contratoController.prepareRemuneracaoEdit}" 
+                            controller="#{contratoController}" 
+                            id="remuneracao"
+                            specificValues="true">
+                    <f:facet name="header">
+                        <div class="alignRight">
+                            <p:commandButton oncomplete="PF('remuneracaoCreateDlg').show();" 
+                                             actionListener="#{contratoController.prepareRemuneracaoNova}"
+                                             value="#{messages.CreateLink}" update="@(.editForm)"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="#{contratoController.getMsgFieldLabel('PostoDeTrabalho_Remuneracao_valor')}"
+                              styleClass="alignRight">
+                        <t:OutputMonetary value="#{item.valor}"/>
+                    </p:column>   
+                </t:ListView>
+            </p:tab>
+            
+        </p:tabView>        
+        
+    </t:FormDlgCreate>
+</ui:composition>
+
