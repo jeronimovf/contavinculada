@@ -8,7 +8,11 @@
                 template="/template.xhtml">
     <ui:define name="content">
         <h:form>
-
+            <p:panel header="#{messages.Active}">
+                <t:FormRowDate id="vigenteDesde" calendarValue="#{contratoFlowController.selected.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
+                <t:FormRowDate id="vigenteAte" calendarValue="#{contratoFlowController.selected.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
+            </p:panel>
+            
             <t:FormRowString labelValue="#{contratoFlowController.getMsgFieldLabel('numero')}" 
                              textValue="#{contratoFlowController.selected.numero}"/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"

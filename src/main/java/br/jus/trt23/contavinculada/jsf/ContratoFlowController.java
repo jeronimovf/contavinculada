@@ -162,7 +162,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setFaturamentoNovo((Faturamento) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "List_1?faces-redirect=true&amp;includeViewParams=true";
+        return "EditFaturamento";
     }
 
     public String prepareAlocacaoEdit() {
@@ -367,5 +367,11 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         return this.colaboradoresPorContrato;
     }
   
-
+    public void refreshSelect(){
+        Object obj = JsfUtil.findComponent("faturamentoItemDT");
+        if (obj instanceof DataTable) {
+            DataTable dt = (DataTable) obj;
+            setFaturamentoItemNovo((FaturamentoItem) dt.getRowData());
+        }
+    }
 }

@@ -24,7 +24,7 @@ import javax.inject.Named;
  */
 @Named
 @Dependent
-@FacesConverter(forClass = Colaborador.class)
+@FacesConverter(forClass = Colaborador.class, value = "colaboradorConverter")
 public class ColaboradorConverter implements Converter {
     
     @Inject
