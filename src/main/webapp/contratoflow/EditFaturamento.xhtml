@@ -35,8 +35,7 @@
             <p:dataTable value="#{contratoFlowController.selected.postosDeTrabalho}"
                          var="pt" 
                          editable="true"
-                         id="faturamentoItemDT"
-                         editingRow="true">
+                         id="faturamentoItemDT">
                 <p:columnGroup type="header">
                     <p:row>
                         <p:column rowspan="2" headerText="Posto de trabalho"/>
@@ -50,15 +49,11 @@
                     </p:row>                    
                 </p:columnGroup>                
                 <p:subTable value="#{contratoFlowController.getFaturamentoItemPorPostoDeTrabalho(pt)}" var="it">
-                        <f:facet name="header">
-                            <h:outputText value="#{pt.toString()}"/>
-                        </f:facet>                    
+                    <f:facet name="header">
+                        <h:outputText value="#{pt.toString()}"/>
+                    </f:facet>                    
                     <p:column >
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{it.dia}" converter="localDateConverter"/>                                
-                            </f:facet>
-                        </p:cellEditor>
+                        <h:outputText value="#{it.dia}" converter="localDateConverter"/>                                
                     </p:column>
                     <p:column >
                         <p:cellEditor>
@@ -95,7 +90,10 @@
                                 </h:selectOneMenu>
                             </f:facet>
                         </p:cellEditor>                            
-                    </p:column>     
+                    </p:column>   
+                    <p:column>
+                        <p:rowEditor/>
+                    </p:column>
                 </p:subTable>
             </p:dataTable>              
             <p:commandButton action="#{contratoFlowController.saveOrCreateFaturamento()}" value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
