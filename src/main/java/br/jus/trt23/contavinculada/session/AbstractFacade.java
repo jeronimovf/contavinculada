@@ -276,4 +276,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Timestamp ts = (Timestamp) qry.getSingleResult();
         return ts.toLocalDateTime();
     }    
+    
+    public Boolean isEntityManaged(T entidade){
+        return getEntityManager().contains(entidade);
+    }
 }

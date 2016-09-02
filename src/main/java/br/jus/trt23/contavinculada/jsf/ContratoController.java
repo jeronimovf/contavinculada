@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -25,6 +26,7 @@ import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
+@ViewScoped
 @Getter
 @Setter
 public class ContratoController extends AbstractController<Contrato> {

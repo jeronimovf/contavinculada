@@ -23,6 +23,7 @@ import org.primefaces.context.RequestContext;
 @Getter
 @Setter
 public abstract class AbstractController<T extends EntidadeGenerica> implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Inject
     private AbstractFacade<T> facade;
@@ -30,12 +31,12 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     //o escopo original de selected no CRUD PF é private
     protected T selected;
     private Collection<T> items;
-    private CustomLazyDataModel<T> lazyItems = null;    
-    
+    private CustomLazyDataModel<T> lazyItems = null;
+
     //essas listas são utilizadas nas DataTable
     private List<T> selectedItems;
     private List<T> filteredItems;
-    
+
     //o messagePrefix é utilizado para a obtenção de strings de bundle
     protected abstract String getMessagePrefix();
 
@@ -52,32 +53,32 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
 
     public AbstractController() {
         this.activeAction = EActiveAction.VIEW;
-        prepareDlg();        
+        prepareDlg();
     }
 
-    public AbstractController(Class<T> itemClass){
+    public AbstractController(Class<T> itemClass) {
         this();
         this.itemClass = itemClass;
     }
-    
+
     public T getEntity(java.lang.Long id) {
         return (T) getFacade().find(id);
     }
 
-    public Collection<T> getItems(){
+    public Collection<T> getItems() {
         if (items == null) {
             items = this.facade.findAll();
         }
-        return items;        
+        return items;
     }
-    
-    public CustomLazyDataModel<T> getLazyItems(){
+
+    public CustomLazyDataModel<T> getLazyItems() {
         if (lazyItems == null) {
             lazyItems = new CustomLazyDataModel<>(this.facade);
         }
-        return lazyItems;        
+        return lazyItems;
     }
-    
+
     public void setLazyItems(CustomLazyDataModel<T> lazyItems) {
         this.lazyItems = lazyItems;
     }
@@ -89,7 +90,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             lazyItems = new CustomLazyDataModel<>(new ArrayList<>(items));
         }
     }
-    
+
     public String prepareList() {
         activeAction = EActiveAction.VIEW;
         return "List?faces-redirect=true";
@@ -98,12 +99,12 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     public String prepareCreate() {
         setSelected((T) getFacade().newInstance());
         setActiveAction(EActiveAction.NEW);
-        return "Create";        
+        return "Create";
     }
 
     public String create() throws Exception {
         String msg;
-        try {    
+        try {
             getFacade().create(selected);
             msg = messages.getString(getMessagePrefix().concat("_Created"));
             JsfUtil.addSuccessMessage(msg);
@@ -116,13 +117,10 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     }
 
     public String saveOrCreate() throws Exception {
-        switch (activeAction) {
-            case EDIT:
-                return update();
-            case NEW:
-                return create();
-            default:
-                return "";
+        if (getFacade().isEntityManaged(getSelected())) {
+            return update();
+        } else {
+            return create();
         }
     }
 
@@ -166,9 +164,9 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             JsfUtil.addErrorMessage(e, msg);
         }
     }
-    
-    public List<T> complete(String criteria){
-        return getFacade().complete(criteria);        
+
+    public List<T> complete(String criteria) {
+        return getFacade().complete(criteria);
     }
 
     public String getMsgPageTitle() {
@@ -178,9 +176,9 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     public String getMsgEmptyList() {
         return messages.getString(getMessagePrefix().concat("_Empty"));
     }
-    
-    public String getMsgNotFound(){
-        return messages.getString(getMessagePrefix().concat("_NotFound"));        
+
+    public String getMsgNotFound() {
+        return messages.getString(getMessagePrefix().concat("_NotFound"));
     }
 
     public String getMsgFieldLabel(String field) {
@@ -195,20 +193,21 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
         header_.concat(" (").concat(messages.getString("CreateLink")).concat(")");
         return header_;
-    }    
-    
+    }
+
     public String getDlgEditHeader(String header) {
         String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
         header_.concat(" (").concat(messages.getString("EditLink")).concat(")");
         return header_;
-    }    
+    }
+
     public String getResponseCreated(String child) {
         return messages.getString(getMessagePrefix().concat("_Response_").concat(child).concat("_Created"));
     }
-    
+
     public String getTabHeader(String header) {
         return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
-    } 
+    }
 
     public List<SelectItem> getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(getFacade().findAll(), false);
@@ -222,7 +221,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         RequestContext context = RequestContext.getCurrentInstance();
         context.update("formRoot:listItems");
     }
-    
+
     /**
      * Inform the user interface whether any validation error exist on a page.
      *
@@ -231,7 +230,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     public boolean isValidationFailed() {
         return JsfUtil.isValidationFailed();
     }
-    
+
     /**
      * Retrieve all messages as a String to be displayed on the page.
      *
@@ -241,8 +240,8 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
      */
     public String getComponentMessages(String clientComponent, String defaultMessage) {
         return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
-    }    
-    
+    }
+
     /**
      * Retrieve a collection of Entity items for a specific Controller from
      * another JSF page via Request parameters.
@@ -255,8 +254,8 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             setLazyItems((Collection<T>) paramItems);
         }
     }
-    
-    protected void prepareDlg(){
-        
+
+    protected void prepareDlg() {
+
     }
 }

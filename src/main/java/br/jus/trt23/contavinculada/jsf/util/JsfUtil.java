@@ -24,7 +24,9 @@ public class JsfUtil {
         if (selectOne) {
             items.add(new SelectItem("", "---"));
         }
-        entities.forEach(entity -> items.add(new SelectItem(entity, entity.toString())));
+        entities.stream().forEach((o) -> {
+            items.add(new SelectItem(o, o.toString()));
+        });
         return items;
     }
 

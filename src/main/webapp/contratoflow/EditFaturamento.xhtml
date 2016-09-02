@@ -7,7 +7,7 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <h:form>
+        <h:form prependId="false">
             <p:panel header="#{messages.Active}">
                 <t:FormRowDate id="vigenteDesde" calendarValue="#{contratoFlowController.faturamentoNovo.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
                 <t:FormRowDate id="vigenteAte" calendarValue="#{contratoFlowController.faturamentoNovo.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
@@ -32,60 +32,73 @@
                              textValue="#{contratoFlowController.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
 
-            <p:dataTable value="#{contratoFlowController.faturamentoNovo.itens}"
-                         var="item" 
+            <p:dataTable value="#{contratoFlowController.selected.postosDeTrabalho}"
+                         var="pt" 
                          editable="true"
-                         id="faturamentoItemDT">
-                <p:ajax event="rowEditInit" listener="#{contratoFlowController.refreshSelect}" update="evento,colabSub,colabTit"/>
-                <p:column headerText="Posto de trabalho" sortBy="#{item.postoDeTrabalho.toString()}">
-                    <h:outputText value="#{item.postoDeTrabalho.toString()}"/>
-                </p:column>
-                <p:column sortBy="#{item.dia}" headerText="Dia">
-                    <h:outputText value="#{item.dia}" converter="localDateConverter"/>
-                </p:column>
-                <p:column headerText="Titular" >
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{item.titular.colaborador.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="colabTit" value="#{contratoFlowController.faturamentoItemNovo.titular}" converter="colaboradorConverter">
-                                <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>                            
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>                                                        
-                </p:column>
-                <p:column headerText="Evento">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{item.evento.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="evento" value="#{contratoFlowController.faturamentoItemNovo.evento}" style="width:100%" converter="faturamentoItemEventoConverter">
-                                <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectMany}"/>
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Substituto">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{item.substituto.colaborador.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="colabSub" value="#{contratoFlowController.faturamentoItemNovo.substituto}" style="width: 100%" converter="colaboradorConverter">
-                                <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>                            
-                </p:column>     
-                <p:column>
-                    <p:rowEditor/>
-                </p:column>
+                         id="faturamentoItemDT"
+                         editingRow="true">
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column rowspan="2" headerText="Posto de trabalho"/>
+                        <p:column colspan="4" headerText="Itens"/>
+                    </p:row>
+                    <p:row>
+                        <p:column headerText="Titular"/>
+                        <p:column headerText="Evento"/>                        
+                        <p:column headerText="Substituto"/>
+                        <p:column/>
+                    </p:row>                    
+                </p:columnGroup>                
+                <p:subTable value="#{contratoFlowController.getFaturamentoItemPorPostoDeTrabalho(pt)}" var="it">
+                        <f:facet name="header">
+                            <h:outputText value="#{pt.toString()}"/>
+                        </f:facet>                    
+                    <p:column >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{it.dia}" converter="localDateConverter"/>                                
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{it.titular.colaborador.toString()}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu id="colabTit" value="#{it.titular}" converter="#{colaboradorConverter}">
+                                    <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>                            
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>                                                        
+                    </p:column>
+                    <p:column >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{it.evento.toString()}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu id="evento" value="#{it.evento}" style="width:100%" converter="#{faturamentoItemEventoConverter}">
+                                    <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectMany}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{it.substituto.colaborador.toString()}"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu id="colabSub" value="#{it.substituto}" style="width: 100%" converter="#{colaboradorConverter}">
+                                    <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>                            
+                    </p:column>     
+                </p:subTable>
             </p:dataTable>              
-
-
-            <p:commandButton value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
+            <p:commandButton action="#{contratoFlowController.saveOrCreateFaturamento()}" value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
             <p:commandButton value="#{messages.CancelLink}" type="reset" />
 
         </h:form>                           

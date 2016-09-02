@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.GeneratedValue;
@@ -32,20 +33,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public abstract class EntidadeGenerica implements Serializable{   
+public abstract class EntidadeGenerica implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-        
+
     @NotNull
     private LocalDate vigenteDesde;
 
-    private LocalDate vigenteAte;  
-    
+    private LocalDate vigenteAte;
+
     @NotNull
     private LocalDateTime criadoEm;
 
-    private LocalDateTime destruidoEm;  
+    private LocalDateTime destruidoEm;
 
     public static Object getFieldValue(Object bean, String fieldName) {
         try {
@@ -59,5 +61,26 @@ public abstract class EntidadeGenerica implements Serializable{
             Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }    
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (null != obj || obj instanceof EntidadeGenerica) {
+            EntidadeGenerica eg = (EntidadeGenerica) obj;
+            return getId().equals(eg.getId());
+        }
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.vigenteDesde);
+        hash = 53 * hash + Objects.hashCode(this.vigenteAte);
+        return hash;
+    }
+
+
+
 }

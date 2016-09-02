@@ -24,7 +24,7 @@ import javax.inject.Named;
  */
 @Named
 @Dependent
-@FacesConverter(forClass = FaturamentoItemEvento.class, value = "faturamentoItemEventoConverter")
+@FacesConverter(forClass = FaturamentoItemEvento.class)
 public class FaturamentoItemEventoConverter implements Converter {
     @Inject
     private FaturamentoItemEventoFacade facade;

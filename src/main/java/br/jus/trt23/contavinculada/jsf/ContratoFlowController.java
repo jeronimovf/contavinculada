@@ -54,10 +54,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     private LocalDate faturamentoCompetencia;
     private List<Colaborador> colaboradoresPorContrato;
 
-    public String homeAction(){
+    public String homeAction() {
         return "contratoflow";
     }
-    
+
     @Override
     protected void prepareDlg() {
         prepareFiscalNovo();
@@ -198,8 +198,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreatePostoDeTrabalho() throws Exception {
         String msg;
         try {
-            selected.getPostosDeTrabalho().add(postoNovo);
-            postoNovo.setContrato(selected);
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                selected.getPostosDeTrabalho().add(postoNovo);
+                postoNovo.setContrato(selected);
+            }
             saveOrCreate();
             preparePostoNovo();
             msg = getResponseCreated("PostoDeTrabalho");
@@ -215,8 +217,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateEncargoAliquota() throws Exception {
         String msg;
         try {
-            selected.getAliquotas().add(aliquotaNova);
-            aliquotaNova.setContrato(selected);
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                selected.getAliquotas().add(aliquotaNova);
+                aliquotaNova.setContrato(selected);
+            }
             saveOrCreate();
             prepareAliquotaNova();
             msg = getResponseCreated("EncargoAliquota");
@@ -232,8 +236,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateContaVinculada() throws Exception {
         String msg;
         try {
-            selected.getContasVinculadas().add(contaNova);
-            contaNova.setContrato(selected);
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                selected.getContasVinculadas().add(contaNova);
+                contaNova.setContrato(selected);
+            }
             saveOrCreate();
             prepareContaNova();
             msg = getResponseCreated("ContaVinculada");
@@ -249,8 +255,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateFiscal() throws Exception {
         String msg;
         try {
-            selected.getFiscais().add(fiscalNovo);
-            fiscalNovo.setContrato(selected);
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                selected.getFiscais().add(fiscalNovo);
+                fiscalNovo.setContrato(selected);
+            }
             saveOrCreate();
             prepareFiscalNovo();
             msg = getResponseCreated("Fiscal");
@@ -266,13 +274,15 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateFaturamento() throws Exception {
         String msg;
         try {
-            selected.getFaturamentos().add(faturamentoNovo);
-            faturamentoNovo.setContrato(selected);
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                selected.getFaturamentos().add(faturamentoNovo);
+                faturamentoNovo.setContrato(selected);
+            }
             saveOrCreate();
             prepareFaturamentoNovo();
             msg = getResponseCreated("Faturamento");
             JsfUtil.addSuccessMessage(msg);
-            return "Edit";
+            return null;
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -283,8 +293,11 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateAlocacao() throws Exception {
         String msg;
         try {
-            getPostoNovo().getAlocacoes().add(getAlocacaoNova());
-            getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                getPostoNovo().getAlocacoes().add(getAlocacaoNova());
+                getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
+            }
+
             saveOrCreate();
             prepareAlocacaoNova();
             msg = getResponseCreated("PostoDeTrabalho_Alocacao");
@@ -300,7 +313,10 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateRemuneracao() throws Exception {
         String msg;
         try {
-            getPostoNovo().getRemuneracoes().add(getRemuneracaoNova());
+            if (getActiveAction().equals(EActiveAction.NEW)) {
+                getPostoNovo().getRemuneracoes().add(getRemuneracaoNova());
+            }
+
             saveOrCreate();
             prepareRemuneracaoNova();
             msg = getResponseCreated("PostoDeTrabalho_Remuneracao");
@@ -327,7 +343,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             return colaboradorController.complete(criteria, pj);
         }
         throw new Exception("Contratado não é pessoa jurídica e não suporta colaboradores.");
-    }    
+    }
 
     private void inicializaFaturamento() throws Exception {
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
@@ -359,19 +375,12 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         }
         return new ArrayList<>();
     }
-    
-    public List<Colaborador> getColaboradoresPorContrato() throws Exception{
-        if(this.colaboradoresPorContrato ==null){
-            setColaboradoresPorContrato(completeColaboradores("")); 
+
+    public List<Colaborador> getColaboradoresPorContrato() throws Exception {
+        if (this.colaboradoresPorContrato == null) {
+            setColaboradoresPorContrato(completeColaboradores(""));
         }
         return this.colaboradoresPorContrato;
     }
-  
-    public void refreshSelect(){
-        Object obj = JsfUtil.findComponent("faturamentoItemDT");
-        if (obj instanceof DataTable) {
-            DataTable dt = (DataTable) obj;
-            setFaturamentoItemNovo((FaturamentoItem) dt.getRowData());
-        }
-    }
+
 }

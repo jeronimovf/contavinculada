@@ -24,15 +24,18 @@ import javax.inject.Named;
  */
 @Named
 @Dependent
-@FacesConverter(forClass = Colaborador.class, value = "colaboradorConverter")
+@FacesConverter(forClass = Colaborador.class)
 public class ColaboradorConverter implements Converter {
-    
+
     @Inject
     private ColaboradorFacade facade;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-        if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
+        if (facesContext == null || component == null) {
+            throw new NullPointerException();
+        }
+        if (null == value || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
         return this.facade.find(getKey(value));
@@ -52,6 +55,9 @@ public class ColaboradorConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+        if (facesContext == null || component == null) {
+            throw new NullPointerException();
+        }
         if (object == null
                 || (object instanceof String && ((String) object).length() == 0)) {
             return null;
@@ -63,5 +69,5 @@ public class ColaboradorConverter implements Converter {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Colaborador.class.getName()});
             return null;
         }
-    }    
+    }
 }
