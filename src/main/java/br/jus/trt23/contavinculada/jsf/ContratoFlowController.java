@@ -54,9 +54,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     private LocalDate faturamentoCompetencia;
     private List<Colaborador> colaboradoresPorContrato;
 
-    public String homeAction() {
-        return "contratoflow";
-    }
 
     @Override
     protected void prepareDlg() {
@@ -69,50 +66,50 @@ public class ContratoFlowController extends AbstractController<Contrato> {
 
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
-        return "fiscalNovo";
+        return "FiscalNovo";
     }
 
     public String prepareAliquotaNova() {
         setAliquotaNova(new EncargoAliquota());
-        return "aliquotaNova";
+        return "AliquotaNova";
     }
 
     public String prepareFaturamentoNovo() throws Exception {
         setFaturamentoNovo(new Faturamento());
         getFaturamentoNovo().setVigenteDesde(faturamentoCompetencia.withDayOfMonth(1));
         inicializaFaturamento();
-        return "faturamentoNovo";
+        return "FaturamentoNovo";
     }
 
     public String prepareContaNova() {
         setContaNova(new ContaVinculada());
-        return "contaNova";
+        return "ContaNova";
     }
 
     public String preparePostoNovo() {
         setPostoNovo(new PostoDeTrabalho());
-        return "postoNovo";
+        return "PostoNovo";
     }
 
     public String prepareAditivoNovo() {
         setAditivoNovo(new Contrato());
-        return "aditivoNovo";
+        return "AditivoNovo";
     }
 
     public String prepareAlocacaoNova() {
         setAlocacaoNova(new Alocacao());
         getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
-        return "alocacaoNova";
+        return "AlocacaoNova";
     }
 
     public String prepareRemuneracaoNova() {
         setRemuneracaoNova(new Salario());
-        return "remuneracaoNova";
+        return "RemuneracaoNova";
     }
 
     public String prepareAditivoEdit(Contrato aditivo) {
         setSelected(aditivo);
-        return "aditivoEdit";
+        return "AditivoEdit";
     }
 
     public String preparePostoEdit() {
@@ -122,7 +119,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setPostoNovo((PostoDeTrabalho) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "postoEdit";
+        return "PostoEdit";
     }
 
     public String prepareContaEdit() {
@@ -132,7 +129,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setContaNova((ContaVinculada) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "contaEdit";
+        return "ContaEdit";
     }
 
     public String prepareAliquotaEdit() {
@@ -142,7 +139,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setAliquotaNova((EncargoAliquota) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "aliquotaEdit";
+        return "AliquotaEdit";
     }
 
     public String prepareFiscalEdit() {
@@ -152,7 +149,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setFiscalNovo((Fiscal) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "fiscalEdit";
+        return "FiscalEdit";
     }
 
     public String prepareFaturamentoEdit() {
@@ -162,7 +159,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setFaturamentoNovo((Faturamento) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "EditFaturamento";
+        return "FaturamentoEdit";
     }
 
     public String prepareAlocacaoEdit() {
@@ -172,7 +169,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setAlocacaoNova((Alocacao) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "alocacaoEdit";
+        return "AlocacaoEdit";
     }
 
     public String prepareRemuneracaoEdit() {
@@ -182,7 +179,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setRemuneracaoNova((Salario) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "remuneracaoEdit";
+        return "RemuneracaoEdit";
     }
 
     public String prepareFaturamentoItemEdit() {
@@ -192,7 +189,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             setFaturamentoItemNovo((FaturamentoItem) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "faturamentoItemEdit";
+        return "FaturamentoItemEdit";
     }
 
     public String saveOrCreatePostoDeTrabalho() throws Exception {
@@ -279,7 +276,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
                 faturamentoNovo.setContrato(selected);
             }
             saveOrCreate();
-            prepareFaturamentoNovo();
             msg = getResponseCreated("Faturamento");
             JsfUtil.addSuccessMessage(msg);
             return null;
@@ -383,4 +379,20 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         return this.colaboradoresPorContrato;
     }
 
+    public int sortByPostoDeTrabalhoDia(Object o1, Object o2) throws Exception {
+        if (o1 instanceof FaturamentoItem && o2 instanceof FaturamentoItem) {
+            FaturamentoItem fi1, fi2;
+            fi1 = (FaturamentoItem) o1;
+            fi2 = (FaturamentoItem) o2;
+            int compareResult = fi1.getPostoDeTrabalho().toString().compareToIgnoreCase(
+                    fi2.getPostoDeTrabalho().toString());
+            if (compareResult == 0) {
+                return fi1.getDia().compareTo(fi2.getDia());
+            } else {
+                return compareResult;
+            }
+        }
+        throw new Exception("Método destinado a comparações entre FaturamentoItem");
+
+    }
 }

@@ -55,7 +55,7 @@ and open the template in the editor.
 }
 
 .messagePanel{
-    height: 84px;
+    height: 42px;
     overflow: auto;
     font-size: xx-small;
 }

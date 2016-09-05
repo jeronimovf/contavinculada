@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <h:form>
-            <p:panel header="#{messages.Active}">
-                <t:FormRowDate id="vigenteDesde" calendarValue="#{contratoFlowController.selected.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
-                <t:FormRowDate id="vigenteAte" calendarValue="#{contratoFlowController.selected.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
-            </p:panel>
-            
+        <t:FormFlowCreate action="#{contratoFlowController.saveOrCreate()}"
+                          casePrefix="contratoEdit"
+                          controller="#{contratoFlowController}"
+                          entityToUpdate="#{contratoFlowController.selected}">
             <t:FormRowString labelValue="#{contratoFlowController.getMsgFieldLabel('numero')}" 
                              textValue="#{contratoFlowController.selected.numero}"/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"
@@ -31,21 +30,18 @@
                              textValue="#{contratoFlowController.selected.processo}"/>
             <t:FormRowDate labelValue="#{contratoFlowController.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoFlowController.selected.assinaturaData}"/>
-
             <p:tabView id="contratoTabs">
                 <p:tab title="#{contratoFlowController.getTabHeader('PostoDeTrabalho')}">
-                    <t:ListView selection="#{contratoFlowController.postoNovo}" 
+                    <t:ListFlowView selection="#{contratoFlowController.postoNovo}" 
                                 value="#{contratoFlowController.selected.postosDeTrabalho}" 
                                 casePrefix="postoDeTrabalho" 
-                                actionListener="#{contratoFlowController.preparePostoEdit}" 
+                                action="#{contratoFlowController.preparePostoEdit}" 
                                 controller="#{contratoFlowController}" 
                                 id="postoDeTrabalho"
                                 specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton oncomplete="PF('postoDeTrabalhoCreateDlg').show();" 
-                                                 actionListener="#{contratoFlowController.preparePostoNovo}"
-                                                 value="#{messages.CreateLink}" update="@(.editForm)"/>
+                                <p:commandButton action="#{contratoFlowController.preparePostoNovo}"/>
                             </div>
                         </f:facet>
                         <p:column width="20%" 
@@ -73,8 +69,7 @@
                                   headerText="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}">
                             <h:outputText value="#{item.feriadoCalendario.nome}"/>
                         </p:column>                                                     
-
-                    </t:ListView>
+                    </t:ListFlowView>
                 </p:tab>
 
                 <p:tab title="#{contratoFlowController.getTabHeader('EncargoAliquota')}">
@@ -221,13 +216,8 @@
                         </p:column>                            
                     </t:ListView>
                 </p:tab>                            
-            </p:tabView>
+            </p:tabView>        
+        </t:FormFlowCreate>
 
-
-
-            <p:commandButton value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
-            <p:commandButton value="#{messages.CancelLink}" type="reset" />
-
-        </h:form>                           
     </ui:define>
 </ui:composition>

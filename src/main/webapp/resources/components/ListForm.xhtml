@@ -8,17 +8,20 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
-      xmlns:t="http://java.sun.com/jsf/composite/components">
-
+      xmlns:t="http://java.sun.com/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
     <cc:interface>
         <cc:attribute name="controller"/>
         <cc:attribute name="casePrefix"/>        
     </cc:interface>
 
     <cc:implementation>
-        <h:form id="#{cc.attrs.casePrefix.concat('ListForm')}" class="listForm">
+        <h:form id="#{cc.attrs.casePrefix.concat('ListForm')}" class="listForm"
+                prependId="false">
             <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>
             <cc:insertChildren/>
+            <p:commandButton action="Create" value="#{messages.CreateLink}"/>
+            <p:commandButton action="homepage" value="#{messages.GoBack}"/>              
         </h:form>        
     </cc:implementation>
 

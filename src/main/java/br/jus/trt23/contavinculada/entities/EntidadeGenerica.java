@@ -65,9 +65,14 @@ public abstract class EntidadeGenerica implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (null != obj || obj instanceof EntidadeGenerica) {
-            EntidadeGenerica eg = (EntidadeGenerica) obj;
-            return getId().equals(eg.getId());
+        try {
+            if (null != obj || obj instanceof EntidadeGenerica) {
+                EntidadeGenerica eg = (EntidadeGenerica) obj;
+                return getId().equals(eg.getId());
+            }
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, String.format("Error {0} on equals method of {1}", e.getMessage()), new Object[]{obj, obj.getClass().getName()});
         }
         return Boolean.FALSE;
     }
@@ -75,12 +80,14 @@ public abstract class EntidadeGenerica implements Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.vigenteDesde);
-        hash = 53 * hash + Objects.hashCode(this.vigenteAte);
+        try {
+            hash = 53 * hash + Objects.hashCode(this.id);
+            hash = 53 * hash + Objects.hashCode(this.vigenteDesde);
+            hash = 53 * hash + Objects.hashCode(this.vigenteAte);
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, String.format("Error {0} on equals method of {1}", e.getMessage()), new Object[]{this, this.getClass().getName()});
+        }
         return hash;
     }
-
-
 
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:t="http://java.sun.com/jsf/composite/components"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <cc:interface>
+        <cc:attribute name="controller"/>
+        <cc:attribute name="casePrefix" class="String"/> 
+        <cc:facet name="header"/>
+        <!--
+        Para que os parâmetros abaixo sejam processados o parâmetro
+        specificValues deve ser TRUE.
+        -->
+        <cc:attribute name="specificValues" type="java.lang.Boolean" default="false"/>
+        <cc:attribute name="value"/>
+        <cc:attribute name="selection"/>
+        <cc:attribute name="actionListener" method-signature="void action()"/>
+        <cc:attribute name="action" method-signature="java.lang.String action()"/>
+        <cc:attribute name="lazy" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="mostrarVigencia" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="scrollable" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="scrollHeight" default="350" type="java.lang.Integer"/>
+        <cc:attribute name="rows" default="10" type="java.lang.Integer"/>
+        <cc:attribute name="paginator" default="true" type="java.lang.Boolean"/>
+        <cc:attribute name="paginatorPosition" default="top" type="java.lang.String"/>        
+    </cc:interface>
+
+    <cc:implementation>     
+        <c:if test="#{cc.attrs.specificValues}">
+            <p:dataTable id="#{cc.attrs.casePrefix.concat('DT')}" 
+                         value="#{cc.attrs.value}"  
+                         var="item" paginator="#{cc.attrs.paginator}" rows="#{cc.attrs.rows}" 
+                         paginatorPosition="#{cc.attrs.paginatorPosition}" paginatorAlwaysVisible="false" 
+                         selection="#{cc.attrs.selection}"  
+                         lazy="#{cc.attrs.lazy}" filterDelay="600" 
+                         class="listDT"
+                         scrollable="#{cc.attrs.scrollable}"
+                         scrollHeight="#{cc.attrs.scrollHeight}">  
+                <cc:insertFacet name="header"/>
+                <p:column width="7%" headerText="#{messages.ActiveSince}" rendered="#{cc.attrs.mostrarVigencia}">
+                    <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
+                </p:column>  
+                <p:column width="7%" headerText="#{messages.ActiveUntil}" rendered="#{cc.attrs.mostrarVigencia}">
+                    <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
+                </p:column>                  
+                <cc:insertChildren/>
+                <p:column width="6%" headerText="#{messages.ActionLink}">
+                    <p:commandButton title="#{messages.EditLink}" icon="ui-icon-pencil" id="edit" action="#{cc.attrs.action}"/>
+                </p:column>
+            </p:dataTable>                
+        </c:if>
+
+        <c:if test="#{!cc.attrs.specificValues}">
+            <p:dataTable id="#{cc.attrs.casePrefix.concat('DT')}" 
+                         value="#{cc.attrs.controller.lazyItems}"  
+                         var="item" paginator="#{cc.attrs.paginator}" rows="#{cc.attrs.rows}" 
+                         paginatorPosition="#{cc.attrs.paginatorPosition}" paginatorAlwaysVisible="false" 
+                         selection="#{cc.attrs.controller.selected}"  
+                         lazy="#{cc.attrs.lazy}" filterDelay="600" 
+                         class="listDT"
+                         scrollable="#{cc.attrs.scrollable}"
+                         scrollHeight="#{cc.attrs.scrollHeight}">       
+                <cc:insertFacet name="header"/>
+                <p:column width="7%" headerText="#{messages.ActiveSince}" rendered="#{cc.attrs.mostrarVigencia}">
+                    <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
+                </p:column>  
+                <p:column width="7%" headerText="#{messages.ActiveUntil}" rendered="#{cc.attrs.mostrarVigencia}">
+                    <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
+                </p:column>                
+                
+                <cc:insertChildren/>
+                <p:column width="6%" headerText="#{messages.ActionLink}">
+                    <p:commandButton title="#{messages.EditLink}" icon="ui-icon-pencil" id="edit" action="#{cc.attrs.controller.prepareEdit}"/>                    
+                </p:column>
+            </p:dataTable>                
+        </c:if>        
+    </cc:implementation>
+</html>

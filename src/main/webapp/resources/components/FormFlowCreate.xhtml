@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:t="http://java.sun.com/jsf/composite/components">      
+
+    <cc:interface>
+        <cc:attribute name="entityToUpdate" type="br.jus.trt23.contavinculada.entities.EntidadeGenerica"/>
+        <cc:attribute name="action" method-signature="java.lang.String action()"/>  
+        <cc:attribute name="casePrefix" class="java.lang.String"/>       
+        <cc:attribute name="controller"/>
+    </cc:interface>
+
+    <cc:implementation>
+        <h:form id="#{cc.attrs.casePrefix.concat('Form')}" prependId="false">
+            <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>                            
+            <div class="ui-grid">  
+                <p:panel header="#{messages.Active}">
+                    <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
+                    <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
+                </p:panel>
+                <cc:insertChildren/>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 paddingPlus10 alignCenter">
+                        <p:commandButton id="save" value="#{messages.SaveLink}"  action="#{cc.attrs.action}" partialSubmit="true" process="@parent" update="@(.ui-datatable) @(.ui-dialog)" icon="ui-icon-disk"/>                                
+                        <p:commandButton id="goBack" value="#{messages.GoBack}" action="List" immediate="true"/>
+                    </div>  
+                </div>
+            </div>
+        </h:form>
+    </cc:implementation>
+</html>
