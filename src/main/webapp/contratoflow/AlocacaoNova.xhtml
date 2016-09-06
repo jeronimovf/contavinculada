@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
+                template="/template.xhtml">
+    <ui:define name="content">
+
+        <t:FormFlowCreate id="alocacaoCreate" casePrefix="alocacaoCreate" 
+                          entityToUpdate="#{contratoFlowController.alocacaoNova}" 
+                          saveAction="#{contratoFlowController.saveOrCreateAlocacao()}"
+                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}">
+            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
+                                   autoCompleteValue="#{contratoFlowController.alocacaoNova.titular}"
+                                   labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
+                                   completeMethod="#{contratoFlowController.completeColaboradores}"
+                                   autoCompleteSize="62" 
+                                   autoCompleteItemValue="#{colaborador}"
+                                   autoCompleteItem="colaborador"
+                                   autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
+                                   autoCompleteConverter="#{colaboradorConverter}"/><br/>
+            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
+                                   autoCompleteValue="#{contratoFlowController.alocacaoNova.substituto}"
+                                   labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}"
+                                   completeMethod="#{contratoFlowController.completeColaboradores}"
+                                   autoCompleteSize="62" 
+                                   autoCompleteItemValue="#{colaborador}"
+                                   autoCompleteItem="colaborador"
+                                   autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
+                                   autoCompleteConverter="#{colaboradorConverter}"/><br/>       
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

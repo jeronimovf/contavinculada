@@ -5,10 +5,11 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <t:FormFlowCreate action="#{contratoFlowController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{contratoFlowController.saveOrCreate()}"
                           casePrefix="contratoCreate"
                           controller="#{contratoFlowController}"
-                          entityToUpdate="#{contratoFlowController.selected}">
+                          entityToUpdate="#{contratoFlowController.selected}"
+                          goBackToAction="#{contratoFlowController.goBackTo('List')}">
             <t:FormRowString labelValue="#{contratoFlowController.getMsgFieldLabel('numero')}" 
                              textValue="#{contratoFlowController.selected.numero}"/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"

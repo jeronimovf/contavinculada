@@ -8,9 +8,10 @@
 
     <cc:interface>
         <cc:attribute name="entityToUpdate" type="br.jus.trt23.contavinculada.entities.EntidadeGenerica"/>
-        <cc:attribute name="action" method-signature="java.lang.String action()"/>  
+        <cc:attribute name="saveAction" method-signature="java.lang.String action()"/>  
         <cc:attribute name="casePrefix" class="java.lang.String"/>       
         <cc:attribute name="controller"/>
+        <cc:attribute name="goBackToAction" method-signature="java.lang.String action()"/>
     </cc:interface>
 
     <cc:implementation>
@@ -25,8 +26,8 @@
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-12 paddingPlus10 alignCenter">
-                        <p:commandButton id="save" value="#{messages.SaveLink}"  action="#{cc.attrs.action}" partialSubmit="true" process="@parent" update="@(.ui-datatable) @(.ui-dialog)" icon="ui-icon-disk"/>                                
-                        <p:commandButton id="goBack" value="#{messages.GoBack}" action="List" immediate="true"/>
+                        <p:commandButton id="save" value="#{messages.SaveLink}" action="#{cc.attrs.saveAction}" partialSubmit="true"/>                                
+                        <p:commandButton id="goBackTo" value="#{messages.GoBack}" action="#{cc.attrs.goBackToAction}" immediate="true"/>
                     </div>  
                 </div>
             </div>

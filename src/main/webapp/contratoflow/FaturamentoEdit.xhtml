@@ -7,12 +7,10 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <h:form prependId="false">
-            <t:ContentTop controller="#{contratoFlowController}" casePrefix="faturamentoEdit"/>            
-            <p:panel header="#{messages.Active}">
-                <t:FormRowDate id="vigenteDesde" calendarValue="#{contratoFlowController.faturamentoNovo.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
-                <t:FormRowDate id="vigenteAte" calendarValue="#{contratoFlowController.faturamentoNovo.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
-            </p:panel>
+        <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
+                          entityToUpdate="#{contratoFlowController.faturamentoNovo}" 
+                          saveAction="#{contratoFlowController.saveOrCreate()}"
+                          goBackToAction="Edit">
             <t:FormRowDate id="faturamentoCompetencia" 
                            calendarValue="#{contratoFlowController.faturamentoNovo.competencia}" 
                            labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_competencia')}" 
@@ -43,13 +41,6 @@
                          sortFunction="#{contratoFlowController.sortByPostoDeTrabalhoDia}" sortOrder="ascending" sortBy="#{fi}"
                          scrollHeight="350"
                          scrollable="true">
-                <p:ajax event="rowSelect" onstart="alert('rowSelect');"/>
-                <p:ajax event="rowUnselect" onstart="alert('rowUnselect');"/>
-                <p:ajax event="rowEdit" onstart="alert('rowEdit');"/>
-                <p:ajax event="rowEditInit" onstart="alert('rowEditInit');"/>
-                <p:ajax event="rowEditCancel" onstart="alert('rowEditCancel');"/>
-              
-                
                 <p:column headerText="Posto de trabalho" width="25%">
                     <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
                 </p:column>
@@ -98,6 +89,6 @@
             </p:dataTable>              
             <p:commandButton action="#{contratoFlowController.saveOrCreateFaturamento()}" value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
             <p:commandButton value="#{messages.CancelLink}" action="Edit" />
-        </h:form>                           
+        </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

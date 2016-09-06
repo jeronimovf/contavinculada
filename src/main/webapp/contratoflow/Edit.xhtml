@@ -8,10 +8,11 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <t:FormFlowCreate action="#{contratoFlowController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{contratoFlowController.saveOrCreate()}"
                           casePrefix="contratoEdit"
                           controller="#{contratoFlowController}"
-                          entityToUpdate="#{contratoFlowController.selected}">
+                          entityToUpdate="#{contratoFlowController.selected}"
+                          goBackToAction="#{contratoFlowController.goBackTo('List')}">
             <t:FormRowString labelValue="#{contratoFlowController.getMsgFieldLabel('numero')}" 
                              textValue="#{contratoFlowController.selected.numero}"/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"
@@ -33,15 +34,16 @@
             <p:tabView id="contratoTabs">
                 <p:tab title="#{contratoFlowController.getTabHeader('PostoDeTrabalho')}">
                     <t:ListFlowView selection="#{contratoFlowController.postoNovo}" 
-                                value="#{contratoFlowController.selected.postosDeTrabalho}" 
-                                casePrefix="postoDeTrabalho" 
-                                action="#{contratoFlowController.preparePostoEdit}" 
-                                controller="#{contratoFlowController}" 
-                                id="postoDeTrabalho"
-                                specificValues="true">
+                                    value="#{contratoFlowController.selected.postosDeTrabalho}" 
+                                    casePrefix="postoDeTrabalho" 
+                                    action="#{contratoFlowController.preparePostoEdit}" 
+                                    controller="#{contratoFlowController}" 
+                                    id="postoDeTrabalho"
+                                    specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton action="#{contratoFlowController.preparePostoNovo}"/>
+                                <p:commandButton action="#{contratoFlowController.preparePostoNovo}"
+                                                 value="#{messages.CreateLink}" />
                             </div>
                         </f:facet>
                         <p:column width="20%" 
@@ -73,18 +75,17 @@
                 </p:tab>
 
                 <p:tab title="#{contratoFlowController.getTabHeader('EncargoAliquota')}">
-                    <t:ListView selection="#{contratoFlowController.aliquotaNova}" 
-                                value="#{contratoFlowController.selected.aliquotas}" 
-                                casePrefix="encargoAliquota" 
-                                actionListener="#{contratoFlowController.prepareAliquotaEdit}" 
-                                controller="#{contratoFlowController}" 
-                                id="encargoAliquota"
-                                specificValues="true">
+                    <t:ListFlowView selection="#{contratoFlowController.aliquotaNova}" 
+                                    value="#{contratoFlowController.selected.aliquotas}" 
+                                    casePrefix="encargoAliquota" 
+                                    action="#{contratoFlowController.prepareAliquotaEdit}" 
+                                    controller="#{contratoFlowController}" 
+                                    id="encargoAliquota"
+                                    specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton oncomplete="PF('encargoAliquotaCreateDlg').show();" 
-                                                 actionListener="#{contratoFlowController.prepareAliquotaNova()}"
-                                                 value="#{messages.CreateLink}" update="@(.editForm)"/>
+                                <p:commandButton action="#{contratoFlowController.prepareAliquotaNova()}"
+                                                 value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="20%"
@@ -99,17 +100,17 @@
                                   headerText="#{contratoFlowController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}">
                             <p:selectBooleanCheckbox value="#{item.retencaoContaVinculada}" disabled="true"/>
                         </p:column>                                                                       
-                    </t:ListView>
+                    </t:ListFlowView>
                 </p:tab>  
                 <p:tab title="#{contratoFlowController.getTabHeader('Faturamento')}">
-                    <t:ListView selection="#{contratoFlowController.faturamentoNovo}" 
-                                value="#{contratoFlowController.selected.faturamentos}" 
-                                casePrefix="faturamento" 
-                                actionListener="#{contratoFlowController.prepareFaturamentoEdit}"
-                                action="#{contratoFlowController.prepareFaturamentoEdit}"
-                                controller="#{contratoFlowController}" 
-                                id="faturamento"
-                                specificValues="true">
+                    <t:ListFlowView selection="#{contratoFlowController.faturamentoNovo}" 
+                                    value="#{contratoFlowController.selected.faturamentos}" 
+                                    casePrefix="faturamento" 
+                                    action="#{contratoFlowController.prepareFaturamentoEdit}"
+                                    controller="#{contratoFlowController}" 
+                                    id="faturamento"
+                                    specificValues="true"
+                                    mostrarVigencia="false">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <h:outputLabel for="faturamentoCompetencia" 
@@ -124,47 +125,45 @@
                                                  update="@(.editForm)" 
                                                  disabled="#{not empty contratoFlowController.faturamentoCompetencia}"/>
                             </div>
-                            <p:column width="20%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_competencia')}">
-                                <h:outputText value="#{item.competencia}"/>
-                            </p:column>   
-                            <p:column width="10%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorBruto')}">
-                                <h:outputText value="#{item.valorBruto}"/>
-                            </p:column>                           
-                            <p:column width="10%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorLiquido')}">
-                                <h:outputText value="#{item.valorLiquido}"/>
-                            </p:column>          
-                            <p:column width="10%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
-                                <h:outputText value="#{item.nfeOuFatura}"/>
-                            </p:column>                                            
-                            <p:column width="10%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaEm')}">
-                                <h:outputText value="#{item.atestadaEm}"/>
-                            </p:column>                                            
-                            <p:column width="20%"
-                                      headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}">
-                                <h:outputText value="#{item.atestadaPor}"/>
-                            </p:column>                                                                                                                 
-
                         </f:facet>
-                    </t:ListView>
+                        <p:column width="20%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_competencia')}">
+                            <h:outputText value="#{item.competencia}"/>
+                        </p:column>   
+                        <p:column width="10%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorBruto')}">
+                            <h:outputText value="#{item.valorBruto}"/>
+                        </p:column>                           
+                        <p:column width="10%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorLiquido')}">
+                            <h:outputText value="#{item.valorLiquido}"/>
+                        </p:column>          
+                        <p:column width="10%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
+                            <h:outputText value="#{item.nfeOuFatura}"/>
+                        </p:column>                                            
+                        <p:column width="10%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaEm')}">
+                            <h:outputText value="#{item.atestadaEm}"/>
+                        </p:column>                                            
+                        <p:column width="20%"
+                                  headerText="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}">
+                            <h:outputText value="#{item.atestadaPor}"/>
+                        </p:column>                                                                                                                 
+                    </t:ListFlowView>
                 </p:tab>                 
                 <p:tab title="#{contratoFlowController.getTabHeader('Fiscal')}">
-                    <t:ListView selection="#{contratoFlowController.fiscalNovo}" 
+                    <t:ListFlowView selection="#{contratoFlowController.fiscalNovo}" 
                                 value="#{contratoFlowController.selected.fiscais}" 
                                 casePrefix="fiscal" 
-                                actionListener="#{contratoFlowController.prepareFiscalEdit()}" 
+                                action="#{contratoFlowController.prepareFiscalEdit()}" 
                                 controller="#{contratoFlowController}" 
                                 id="fiscal"
                                 specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton oncomplete="PF('fiscalCreateDlg').show();" 
-                                                 actionListener="#{contratoFlowController.prepareFiscalNovo()}"
-                                                 value="#{messages.CreateLink}" update="@(.editForm)"/>
+                                <p:commandButton action="#{contratoFlowController.prepareFiscalNovo()}"
+                                                 value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="15%"
@@ -180,22 +179,21 @@
                             <h:outputText value="#{item.servidor.nome}" />
                         </p:column>                                                                           
 
-                    </t:ListView>
+                    </t:ListFlowView>
                 </p:tab>
 
                 <p:tab title="#{contratoFlowController.getTabHeader('ContaVinculada')}">
-                    <t:ListView selection="#{contratoFlowController.contaNova}" 
+                    <t:ListFlowView selection="#{contratoFlowController.contaNova}" 
                                 value="#{contratoFlowController.selected.contasVinculadas}" 
                                 casePrefix="contaVinculada" 
-                                actionListener="#{contratoFlowController.prepareContaEdit}" 
+                                action="#{contratoFlowController.prepareContaEdit}" 
                                 controller="#{contratoFlowController}" 
                                 id="contaVinculada"
                                 specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton oncomplete="PF('contaVinculadaCreateDlg').show();" 
-                                                 actionListener="#{contratoFlowController.prepareContaNova}"
-                                                 value="#{messages.CreateLink}" update="@(.editForm)"/>
+                                <p:commandButton action="#{contratoFlowController.prepareContaNova}"
+                                                 value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="30%"
@@ -214,7 +212,7 @@
                                   headerText="#{contratoFlowController.getMsgFieldLabel('ContaVinculada_operacao')}">
                             <h:outputText value="#{item.operacao}"/>
                         </p:column>                            
-                    </t:ListView>
+                    </t:ListFlowView>
                 </p:tab>                            
             </p:tabView>        
         </t:FormFlowCreate>
