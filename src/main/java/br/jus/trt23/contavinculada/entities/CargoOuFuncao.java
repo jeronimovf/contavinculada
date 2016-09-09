@@ -3,43 +3,57 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 @Table(
-    uniqueConstraints = 
-            @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
+        uniqueConstraints
+        = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
 )
 public class CargoOuFuncao extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"nome"};
+    @Getter
+    @Setter
     @NotEmpty
     private String nome;
 
-    @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao")
-    private List<PostoDeTrabalho> postosDeTrabalho;
-
+    @Getter
+    @Setter
     @NotEmpty
     private String descricao;
 
+    @Getter
+    @Setter
     @NotEmpty
     private String atribuicoes;
 
+    @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao")
+    private Set<PostoDeTrabalho> postosDeTrabalho;
+
+    public CargoOuFuncao() {
+        this.postosDeTrabalho = new TreeSet<>();
+    }
+
+    public Set<PostoDeTrabalho> getPostosDeTrabalho() {
+        return new TreeSet<>(postosDeTrabalho);
+    }
+    
+    public void addPostosDeTrabalho(PostoDeTrabalho posto){
+        postosDeTrabalho.add(posto);
+        posto.setCargoOuFuncao(this);
+    }
+    
     @Override
     public String toString() {
         return getNome();
     }
-    
-    
 
 }

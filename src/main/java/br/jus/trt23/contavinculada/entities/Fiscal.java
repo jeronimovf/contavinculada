@@ -3,40 +3,59 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class Fiscal extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"especie","servidor"};        
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne(targetEntity = FiscalEspecie.class)
     @JoinColumn(nullable=false)
     private FiscalEspecie especie;
 
+        @Getter
+    @Setter
     @NotEmpty
     private String atoDesignacao;
 
-    @NotNull
+    @Getter
+    @Setter
+        @NotNull
     @ManyToOne
     @JoinColumn(nullable=false)
     private Servidor servidor;
     
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne
     @JoinColumn(nullable=false)
     private Contrato contrato;
     
     @OneToMany(mappedBy = "atestadaPor")
-    private List<Faturamento> faturamentosAtestados;    
+    private Set<Faturamento> faturamentosAtestados;    
+
+    public Fiscal() {
+        this.faturamentosAtestados = new TreeSet<>();
+    }
+
+    public Set<Faturamento> getFaturamentosAtestados() {
+        return new TreeSet<>(faturamentosAtestados);
+    }
+    
+    public void addFaturamentosAtestados(Faturamento faturamento){
+        faturamentosAtestados.add(faturamento);
+    }
+    
 }

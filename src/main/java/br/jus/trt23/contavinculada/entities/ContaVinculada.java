@@ -24,7 +24,8 @@ import org.hibernate.validator.constraints.NotEmpty;
             @UniqueConstraint(columnNames={"banco", "agencia", "conta", "operacao"})            
 )
 public class ContaVinculada extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"contrato", "banco", "agencia", "conta","operacao"};
+    
     @NotNull
     @ManyToOne
     private Contrato contrato;
@@ -41,5 +42,5 @@ public class ContaVinculada extends EntidadeGenerica {
     @Column(nullable = false)
     private String conta;
 
-    private String operacao;
+    private String operacao;    
 }

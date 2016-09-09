@@ -9,7 +9,8 @@
         <t:FormFlowCreate id="contaVinculadaEdit" casePrefix="contaVinculadaEdit" 
                           entityToUpdate="#{contratoFlowController.contaNova}" 
                           saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}">
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}">                           
             <t:FormRowString id="contaBanco" 
                              textValue="#{contratoFlowController.contaNova.banco}" 
                              labelValue="#{contratoFlowController.getMsgFieldLabel('ContaVinculada_banco')}"

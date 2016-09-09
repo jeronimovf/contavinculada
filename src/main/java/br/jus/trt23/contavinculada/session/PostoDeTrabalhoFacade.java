@@ -41,7 +41,7 @@ public class PostoDeTrabalhoFacade extends AbstractFacade<PostoDeTrabalho> {
         CriteriaQuery cq = cb.createQuery();
         Root<PostoDeTrabalho> c = cq.from(PostoDeTrabalho.class);
         cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        return getEntityManager().createQuery(cq).getResultList();     
     }
 
     

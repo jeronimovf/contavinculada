@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FaturamentoItem extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"faturamento","postoDeTrabalho","dia"};    
     @NotNull
     @ManyToOne
     private Faturamento faturamento;

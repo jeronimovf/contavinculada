@@ -17,6 +17,8 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -52,7 +54,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
-    private List<Colaborador> colaboradoresPorContrato;
+    private Set<Colaborador> colaboradoresPorContrato;
 
     @Override
     protected void prepareDlg() {
@@ -279,7 +281,7 @@ public class ContratoController extends AbstractController<Contrato> {
     public String saveOrCreateAlocacao() throws Exception {
         String msg;
         try {
-            getPostoNovo().getAlocacoes().add(getAlocacaoNova());
+            //getPostoNovo().getAlocacoes().add(getAlocacaoNova());
             getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
             saveOrCreate();
             prepareAlocacaoNova();
@@ -296,7 +298,7 @@ public class ContratoController extends AbstractController<Contrato> {
     public String saveOrCreateRemuneracao() throws Exception {
         String msg;
         try {
-            getPostoNovo().getRemuneracoes().add(getRemuneracaoNova());
+//            getPostoNovo().getRemuneracoes().add(getRemuneracaoNova());
             saveOrCreate();
             prepareRemuneracaoNova();
             msg = getResponseCreated("PostoDeTrabalho_Remuneracao");
@@ -327,7 +329,7 @@ public class ContratoController extends AbstractController<Contrato> {
 
     private void inicializaFaturamento() throws Exception {
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
-        getFaturamentoNovo().setItens(new ArrayList<>());
+//        getFaturamentoNovo().setItens(new ArrayList<>());
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
         Alocacao alocacaoAtiva;
@@ -356,9 +358,9 @@ public class ContratoController extends AbstractController<Contrato> {
         return new ArrayList<>();
     }
     
-    public List<Colaborador> getColaboradoresPorContrato() throws Exception{
+    public Set<Colaborador> getColaboradoresPorContrato() throws Exception{
         if(this.colaboradoresPorContrato ==null){
-            setColaboradoresPorContrato(completeColaboradores("")); 
+            setColaboradoresPorContrato(new TreeSet<>(completeColaboradores(""))); 
         }
         return this.colaboradoresPorContrato;
     }

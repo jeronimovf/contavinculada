@@ -4,7 +4,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -14,48 +15,99 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
-public class PostoDeTrabalho extends EntidadeGenerica {   
+public class PostoDeTrabalho extends EntidadeGenerica {
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private Contrato contrato;
-    
+
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne(targetEntity = CargoOuFuncao.class)
     private CargoOuFuncao cargoOuFuncao;
-    
+
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne
     private Jornada jornada;
-    
+
     @OneToMany(mappedBy = "postoDeTrabalho", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Alocacao> alocacoes;
-    
+    private Set<Alocacao> alocacoes;
+
     @OneToMany(mappedBy = "postoDeTrabalho")
-    private List<FaturamentoItem> faturamentoItems;  
-    
+    private Set<FaturamentoItem> faturamentoItens;
+
     @Enumerated
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<EDiasComputados> diasComputados;
-    
+    private Set<EDiasComputados> diasComputados;
+
+    @Getter
+    @Setter
     private String responsavelTecnico;
-    
+
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    private List<Salario> remuneracoes;
-    
+    private Set<Salario> remuneracoes;
+
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados
+    @Getter
+    @Setter
     @ManyToOne
-    private CalendarioFeriado feriadoCalendario;   
+    private CalendarioFeriado feriadoCalendario;
+
+    public PostoDeTrabalho() {
+        this.alocacoes = new TreeSet<>();
+        this.faturamentoItens = new TreeSet<>();
+        this.diasComputados = new TreeSet<>();
+        this.remuneracoes = new TreeSet<>();
+    }
+
+    public Set<Alocacao> getAlocacoes() {
+        return new TreeSet<>(alocacoes);
+    }
+
+    public void addAlocacoes(Alocacao alocacao) {
+        alocacoes.add(alocacao);
+        alocacao.setPostoDeTrabalho(this);
+    }
+
+    public Set<FaturamentoItem> getFaturamentoItems() {
+        return new TreeSet<>(faturamentoItens);
+    }
+
+    public void addFaturamentoItens(FaturamentoItem faturamentoIt) {
+        faturamentoItens.add(faturamentoIt);
+        faturamentoIt.setPostoDeTrabalho(this);
+    }
+
+    public Set<EDiasComputados> getDiasComputados() {
+        return diasComputados;
+    }
+
+    public void addDiasComputados(EDiasComputados eDiasComputados) {
+        diasComputados.add(eDiasComputados);
+    }
+
+    public void setDiasComputados(Set<EDiasComputados> diasComputados){
+        this.diasComputados = diasComputados;
+    }
     
+    public Set<Salario> getRemuneracoes() {
+        return new TreeSet<>(remuneracoes);
+    }
+
+    public void addRemuneracaoes(Salario salario) {
+        remuneracoes.add(salario);
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return getCargoOuFuncao().getNome().concat(" - " + getJornada().getNome() + " (" + getId().toString() + ")");
     }
 }

@@ -5,10 +5,6 @@
  */
 package br.jus.trt23.contavinculada.enums;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.model.SelectItem;
-
 /**
  *
  * @author j129-9

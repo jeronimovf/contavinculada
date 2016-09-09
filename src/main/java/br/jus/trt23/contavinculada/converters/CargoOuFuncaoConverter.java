@@ -7,7 +7,7 @@ package br.jus.trt23.contavinculada.converters;
 
 import br.jus.trt23.contavinculada.entities.CargoOuFuncao;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import br.jus.trt23.contavinculada.session.PostoDeTrabalhoFacade;
+import br.jus.trt23.contavinculada.session.CargoOuFuncaoFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -28,7 +28,7 @@ import javax.inject.Named;
 public class CargoOuFuncaoConverter implements Converter {
 
     @Inject
-    private PostoDeTrabalhoFacade facade;
+    private CargoOuFuncaoFacade facade;
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {

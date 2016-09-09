@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
@@ -18,7 +20,7 @@ import org.primefaces.model.SortOrder;
 public class LazyEntityDataModel<T> extends LazyDataModel<T> {
 
     private final AbstractFacade<T> facade;
-    private List<T> itemList;
+    private Set<T> itemList;
 
     /**
      * Loads data lazily using only one sort field.
@@ -37,12 +39,13 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
             String sortOrderName = sortOrder.toString();
             this.itemList = this.facade.findRange(first, pageSize, sortField, sortOrderName, filters);
             this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
-            return this.itemList;
+            return new ArrayList<>(this.itemList);
 
         } else if (this.itemList != null) { // Handle data that was passed in by application
-
+            
+            
             // filter
-            List<T> filteredItemList = filter(this.itemList, filters);
+            List<T> filteredItemList = new ArrayList<>(filter(this.itemList, filters));
 
             // sort
             if (sortField != null) {
@@ -89,7 +92,7 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
         }
         itemList = this.facade.findRange(first, pageSize, sortFields, filters);
         this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
-        return itemList;
+        return new ArrayList<>(itemList);
     }
 
     /**
@@ -141,15 +144,15 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
         this.itemList = null;
     }
 
-    public LazyEntityDataModel(List<T> itemList) {
+    public LazyEntityDataModel(Set<T> itemList) {
         super();
         this.facade = null;
         this.itemList = itemList;
     }
 
-    private List<T> filter(List<T> itemList, Map<String, Object> filters) {
+    private Set<T> filter(Set<T> itemList, Map<String, Object> filters) {
 
-        List<T> filteredItemList = new ArrayList<>();
+        Set<T> filteredItemList = new TreeSet<>();
 
         // apply filters
         for (T entity : itemList) {

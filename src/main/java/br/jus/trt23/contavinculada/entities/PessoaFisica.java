@@ -4,46 +4,73 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class PessoaFisica extends Pessoa {
+    protected final static String[] uniqueIndex = {"cpf"};        
+
+    @Getter
+    @Setter
+    @NotEmpty
     @CPF
     private String cpf;
 
+    @Getter
+    @Setter
     @NotEmpty
     private String nome;
 
+    @Getter
+    @Setter
     private LocalDate nascimentoData;
 
+    @Getter
+    @Setter
     private String rgNumero;
-    
+
+    @Getter
+    @Setter
     private String rgOrgaoExpedidor;
 
+    @Getter
+    @Setter
     private String rgUF;
 
+    @Getter
+    @Setter
     private String pisPasep;
 
+    @Getter
+    @Setter
     private String ctps;
-    
+
     @OneToMany(mappedBy = "colaborador")
-    private List<Colaborador> colaboradorEm;
+    private Set<Colaborador> colaboradorEm;
+
+    public PessoaFisica() {
+        this.colaboradorEm = new TreeSet<>();
+    }
+
+    public Set<Colaborador> getColaboradorEm() {
+        return new TreeSet<>(colaboradorEm);
+    }
+
+    public void addColaboradorEm(Colaborador colaborador) {
+        colaboradorEm.add(colaborador);
+        colaborador.setColaborador(this);
+    }
 
     @Override
     public String getDescricao() {
         return getNome().concat(" (").concat(getCpf()).concat(")");
     }
-    
-    
 
 }

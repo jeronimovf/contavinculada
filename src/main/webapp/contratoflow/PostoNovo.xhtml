@@ -2,27 +2,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
                 template="/template.xhtml">
-    <ui:define name="content">
+    <ui:define name="content"> 
         <t:FormFlowCreate id="postoDeTrabalhoCreate" casePrefix="postoDeTrabalhoCreate" 
                           entityToUpdate="#{contratoFlowController.postoNovo}" 
                           saveAction="#{contratoFlowController.saveOrCreatePostoDeTrabalho()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}">
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}">
             <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
                                    autoCompleteValue="#{contratoFlowController.postoNovo.cargoOuFuncao}" 
                                    autoCompleteItem="cargoOuFuncao" 
-                                   autoCompleteItemLabel="#{cargoOuFuncao.toString()}" 
+                                   autoCompleteItemLabel="#{cargoOuFuncao}" 
                                    autoCompleteItemValue="#{cargoOuFuncao}" 
                                    completeMethod="#{cargoOuFuncaoController.complete}" 
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"
+                                    labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}" 
                                    autoCompleteConverter="#{cargoOuFuncaoConverter}"
                                    autoCompleteSize="40"/><br/>
             <t:FormRowAutoComplete id="postoDeTrabalhoJornada" 
                                    autoCompleteValue="#{contratoFlowController.postoNovo.jornada}" 
                                    autoCompleteItem="jornada" 
-                                   autoCompleteItemLabel="#{jornada.toString()}" 
+                                   autoCompleteItemLabel="#{jornada}" 
                                    autoCompleteItemValue="#{jornada}" 
                                    completeMethod="#{jornadaController.complete}" 
                                    labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"

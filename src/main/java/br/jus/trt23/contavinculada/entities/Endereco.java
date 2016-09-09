@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Endereco extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"uf","cidade","bairro","logradouro","cep","numero"};    
     private String uf;
 
     private String cidade;
@@ -27,5 +28,5 @@ public class Endereco extends EntidadeGenerica {
 
     private String nome;
 
-    private String cep;
+    private String cep;    
 }

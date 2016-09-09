@@ -17,6 +17,8 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -36,6 +38,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     @Inject
     AlocacaoController alocacaoController;
     @Inject
+    PostoDeTrabalhoController postoController;
+    @Inject
     FaturamentoItemEventoController faturamentoItemEventoController;
 
     public ContratoFlowController() {
@@ -52,8 +56,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
-    private List<Colaborador> colaboradoresPorContrato;
-
+    private Set<Colaborador> colaboradoresPorContrato;
 
     @Override
     protected void prepareDlg() {
@@ -78,7 +81,9 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         setFaturamentoNovo(new Faturamento());
         getFaturamentoNovo().setVigenteDesde(faturamentoCompetencia.withDayOfMonth(1));
         inicializaFaturamento();
-        return "FaturamentoNovo";
+        getSelected().addFaturamentos(getFaturamentoNovo());
+        saveOrCreate();
+        return "FaturamentoEdit";
     }
 
     public String prepareContaNova() {
@@ -98,7 +103,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
 
     public String prepareAlocacaoNova() {
         setAlocacaoNova(new Alocacao());
-        getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
         return "AlocacaoNova";
     }
 
@@ -195,12 +199,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreatePostoDeTrabalho() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                selected.getPostosDeTrabalho().add(postoNovo);
-                postoNovo.setContrato(selected);
-            }
+            selected.addPostosDeTrabalho(postoNovo);
             saveOrCreate();
-            preparePostoNovo();
             msg = getResponseCreated("PostoDeTrabalho");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -214,12 +214,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateEncargoAliquota() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                selected.getAliquotas().add(aliquotaNova);
-                aliquotaNova.setContrato(selected);
-            }
+            selected.addAliquotas(aliquotaNova);
             saveOrCreate();
-            prepareAliquotaNova();
             msg = getResponseCreated("EncargoAliquota");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -233,12 +229,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateContaVinculada() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                selected.getContasVinculadas().add(contaNova);
-                contaNova.setContrato(selected);
-            }
+            selected.AddContasVinculadas(contaNova);
             saveOrCreate();
-            prepareContaNova();
             msg = getResponseCreated("ContaVinculada");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -252,12 +244,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateFiscal() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                selected.getFiscais().add(fiscalNovo);
-                fiscalNovo.setContrato(selected);
-            }
+            selected.addFiscais(fiscalNovo);
             saveOrCreate();
-            prepareFiscalNovo();
             msg = getResponseCreated("Fiscal");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";
@@ -271,10 +259,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateFaturamento() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                selected.getFaturamentos().add(faturamentoNovo);
-                faturamentoNovo.setContrato(selected);
-            }
+            selected.addFaturamentos(faturamentoNovo);
             saveOrCreate();
             msg = getResponseCreated("Faturamento");
             JsfUtil.addSuccessMessage(msg);
@@ -289,19 +274,15 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateAlocacao() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                getPostoNovo().getAlocacoes().add(getAlocacaoNova());
-                getAlocacaoNova().setPostoDeTrabalho(getPostoNovo());
-            }
-
+            getPostoNovo().addAlocacoes(alocacaoNova);
             saveOrCreate();
-            prepareAlocacaoNova();
             msg = getResponseCreated("PostoDeTrabalho_Alocacao");
             JsfUtil.addSuccessMessage(msg);
-            return "Edit";
+            return "PostoEdit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
+            e.printStackTrace();
             return null;
         }
     }
@@ -309,15 +290,11 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public String saveOrCreateRemuneracao() throws Exception {
         String msg;
         try {
-            if (getActiveAction().equals(EActiveAction.NEW)) {
-                getPostoNovo().getRemuneracoes().add(getRemuneracaoNova());
-            }
-
+            getPostoNovo().addRemuneracaoes(remuneracaoNova);
             saveOrCreate();
-            prepareRemuneracaoNova();
             msg = getResponseCreated("PostoDeTrabalho_Remuneracao");
             JsfUtil.addSuccessMessage(msg);
-            return "Edit";
+            return "PostoEdit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -343,7 +320,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
 
     private void inicializaFaturamento() throws Exception {
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
-        getFaturamentoNovo().setItens(new ArrayList<>());
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
         Alocacao alocacaoAtiva;
@@ -358,27 +334,31 @@ public class ContratoFlowController extends AbstractController<Contrato> {
                 faturamentoItem.setSubstituto(alocacaoAtiva.getSubstituto());
                 faturamentoItem.setFaturamento(faturamentoNovo);
                 faturamentoItem.setEvento(eventoPadrao);
-                faturamentoNovo.getItens().add(faturamentoItem);
+                faturamentoNovo.addItens(faturamentoItem);
             }
         }
     }
 
-    public List<FaturamentoItem> getFaturamentoItemPorPostoDeTrabalho(PostoDeTrabalho postoDeTrabalho) {
+    public Set<FaturamentoItem> getFaturamentoItemPorPostoDeTrabalho(PostoDeTrabalho postoDeTrabalho) {
         if (getFaturamentoNovo() != null) {
             return getFaturamentoNovo().getItens().stream().
                     filter(f -> f.getPostoDeTrabalho().equals(postoDeTrabalho)).
-                    collect(Collectors.toList());
+                    collect(Collectors.toSet());
         }
-        return new ArrayList<>();
+        return new TreeSet<>();
     }
 
-    public List<Colaborador> getColaboradoresPorContrato() throws Exception {
+    public Set<Colaborador> getColaboradoresPorContrato() throws Exception {
         if (this.colaboradoresPorContrato == null) {
-            setColaboradoresPorContrato(completeColaboradores(""));
+            setColaboradoresPorContrato(new TreeSet<>(completeColaboradores("")));
         }
         return this.colaboradoresPorContrato;
     }
 
+    public List<FaturamentoItem> faturamentoItemAsList(){
+        return new ArrayList<>(faturamentoNovo.getItens());
+    }
+    
     public int sortByPostoDeTrabalhoDia(Object o1, Object o2) throws Exception {
         if (o1 instanceof FaturamentoItem && o2 instanceof FaturamentoItem) {
             FaturamentoItem fi1, fi2;
@@ -393,6 +373,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             }
         }
         throw new Exception("Método destinado a comparações entre FaturamentoItem");
-
     }
+
 }

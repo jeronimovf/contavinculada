@@ -3,33 +3,45 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
 @Entity
 @Table(
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
 )
 public class FiscalEspecie extends EntidadeGenerica {
-    
-
+    protected final static String[] uniqueIndex = {"nome"};        
+@Getter
+@Setter
     @NotNull
     private String nome;
     
     @OneToMany(targetEntity = Fiscal.class, mappedBy = "especie")
-    private List<Fiscal> fiscais;
+    private Set<Fiscal> fiscais;
 
+    public FiscalEspecie() {
+        this.fiscais = new TreeSet<>();
+    }
+
+    public Set<Fiscal> getFiscais() {
+        return new TreeSet<>(fiscais);
+    }
+
+    public void addFiscais(Fiscal fiscal){
+        fiscais.add(fiscal);
+        fiscal.setEspecie(this);
+    }
+    
+    
     @Override
     public String toString() {
         return getNome(); //To change body of generated methods, choose Tools | Templates.

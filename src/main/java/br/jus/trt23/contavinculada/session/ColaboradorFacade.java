@@ -53,10 +53,13 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
         Join<Colaborador, PessoaFisica> p = c.join("colaborador");
         if (criteria != null && !criteria.isEmpty()) {
             cq.select(c).where(
-                    cb.like(cb.upper(p.get("nome")), "%".concat(criteria.toUpperCase()).concat("%"))
+                    cb.like(cb.upper(p.get("nome")), "%".concat(criteria.toUpperCase()).concat("%")),
+                    cb.equal(c.get("empregador"), contratante)
             );
         }
-        cq.select(c).where(cb.equal(c.get("empregador"), contratante));
+        else{
+            cq.select(c).where(cb.equal(c.get("empregador"), contratante));
+        }
         return getEntityManager().createQuery(cq).getResultList();
     }
 

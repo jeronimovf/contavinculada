@@ -4,7 +4,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -12,44 +13,91 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class Faturamento extends EntidadeGenerica {
-
-    @OneToMany(mappedBy = "faturamento")
-    private List<Retencao> retencoes;
-
+    protected final static String[] uniqueIndex = {"contrato","competencia"};    
+    @Getter
+    @Setter
     @NotNull
     private LocalDate competencia;
 
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne
     private Contrato contrato;
 
+    @Getter
+    @Setter
     @Transient
     private String situacao;
-    
-    @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<FaturamentoItem> itens;
 
-    @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")
-    private List<Glosa> glosas;
-
+    @Getter
+    @Setter
     private String nfeOuFatura;
 
+    @Getter
+    @Setter
     private LocalDate atestadaEm;
-    
+
+    @Getter
+    @Setter
     @ManyToOne
     private Fiscal atestadaPor;
 
+    @Getter
+    @Setter
     @Transient
     private Double valorLiquido;
-    
+
+    @Getter
+    @Setter
     @Transient
     private Double valorBruto;
+
+    @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<FaturamentoItem> itens;
+
+    @OneToMany(mappedBy = "faturamento")
+    private Set<Retencao> retencoes;
+
+    @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")
+    private Set<Glosa> glosas;
+
+    public Faturamento() {
+        this.itens = new TreeSet<>();
+        this.retencoes = new TreeSet<>();
+        this.glosas = new TreeSet<>();
+    }
+
+    public Set<FaturamentoItem> getItens() {
+        return new TreeSet<>(itens);
+    }
+    
+    public void addItens(FaturamentoItem item){
+        itens.add(item);
+        item.setFaturamento(this);
+    }
+
+    public Set<Retencao> getRetencoes() {
+        return new TreeSet<>(retencoes);
+    }
+
+    public void addRetencoes(Retencao retencao){
+        retencoes.add(retencao);
+        retencao.setFaturamento(this);
+    }
+    
+    public Set<Glosa> getGlosas() {
+        return new TreeSet<>(glosas);
+    }
+    
+    public void addGlosas(Glosa glosa){
+        glosas.add(glosa);
+        glosa.setFaturamento(this);
+    }
+
+
 }

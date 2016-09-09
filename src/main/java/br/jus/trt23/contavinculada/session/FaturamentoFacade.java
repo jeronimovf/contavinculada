@@ -41,7 +41,7 @@ public class FaturamentoFacade extends AbstractFacade<Faturamento> {
         CriteriaQuery cq = cb.createQuery();
         Root<Faturamento> c = cq.from(Faturamento.class);
         cq.select(c).where(cb.like(cb.upper(c.get("referencia")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     

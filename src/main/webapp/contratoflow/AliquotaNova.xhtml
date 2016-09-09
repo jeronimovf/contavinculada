@@ -8,7 +8,8 @@
         <t:FormFlowCreate id="encargoAliquotaCreate" casePrefix="encargoAliquotaCreate" 
                           entityToUpdate="#{contratoFlowController.aliquotaNova}" 
                           saveAction="#{contratoFlowController.saveOrCreateEncargoAliquota}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}">
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}"> 
             <t:FormRowAutoComplete id="contratoAliquotaEncargo" 
                                    autoCompleteValue="#{contratoFlowController.aliquotaNova.encargo}" 
                                    autoCompleteItem="encargo" 

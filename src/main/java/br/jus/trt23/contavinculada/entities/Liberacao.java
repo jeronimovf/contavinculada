@@ -15,6 +15,8 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Liberacao extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"retencao"};        
+    
     @Lob
     private Byte[] anexos;
 

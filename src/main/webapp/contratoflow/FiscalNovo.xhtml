@@ -4,12 +4,13 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
                 template="/template.xhtml">
-    <ui:define name="content">
+    <ui:define name="content"> 
 
         <t:FormFlowCreate id="fiscalCreate" casePrefix="fiscalCreate" 
                           entityToUpdate="#{contratoFlowController.fiscalNovo}" 
                           saveAction="#{contratoFlowController.saveOrCreateFiscal()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}">
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}">                           
             <t:FormRowString id="fiscalAtoDesignacao" 
                              labelValue="#{contratoFlowController.getMsgFieldLabel('Fiscal_atoDesignacao')}" 
                              textValue="#{contratoFlowController.fiscalNovo.atoDesignacao}" 

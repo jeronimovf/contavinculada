@@ -16,6 +16,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Alocacao extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"titular", "substituto", "postoDeTrabalho"};
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(nullable = false)
@@ -27,5 +28,8 @@ public class Alocacao extends EntidadeGenerica {
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
     @JoinColumn(nullable = false)    
-    private PostoDeTrabalho postoDeTrabalho;        
+    private PostoDeTrabalho postoDeTrabalho; 
+
+    
+    
 }

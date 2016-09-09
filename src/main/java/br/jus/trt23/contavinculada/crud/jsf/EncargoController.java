@@ -23,7 +23,7 @@ public class EncargoController extends AbstractController<Encargo> {
      */
     public String navigateAliquota() {
         if (this.getSelected() != null) {
-            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("EncargoAliquota_items", this.getSelected().getAliquota());
+            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("EncargoAliquota_items", this.getSelected().getAliquotas());
         }
         return "/crud/encargoAliquota/index";
     }

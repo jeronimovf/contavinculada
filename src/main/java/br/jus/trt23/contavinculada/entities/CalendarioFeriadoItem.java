@@ -23,7 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
 )
 public class CalendarioFeriadoItem extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"nome"};
     @NotEmpty
     private String nome;
 
@@ -35,7 +35,7 @@ public class CalendarioFeriadoItem extends EntidadeGenerica {
     
     //TODO: Aqui talvez fosse interessante uma anotação ScriptAssert
     private String onde;
-
+   
     @Override
     public String toString() {
         return getNome();

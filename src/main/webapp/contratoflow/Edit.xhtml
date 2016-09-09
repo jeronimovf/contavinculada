@@ -119,11 +119,8 @@
                                              value="#{contratoFlowController.faturamentoCompetencia}"
                                              mask="99/99/9999" title="dd/MM/yyyy" 
                                              size="7"/>
-                                <p:commandButton oncomplete="PF('faturamentoCreateDlg').show();" 
-                                                 actionListener="#{contratoFlowController.prepareFaturamentoNovo()}"
-                                                 value="#{messages.CreateLink}" 
-                                                 update="@(.editForm)" 
-                                                 disabled="#{not empty contratoFlowController.faturamentoCompetencia}"/>
+                                <p:commandButton action="#{contratoFlowController.prepareFaturamentoNovo()}"
+                                                 value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="20%"

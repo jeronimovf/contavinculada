@@ -3,40 +3,59 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
-public class PessoaJuridica extends Pessoa  {
+public class PessoaJuridica extends Pessoa {
+    protected final static String[] uniqueIndex = {"cnpj"};        
+    
+    @Getter
+    @Setter
     @CNPJ
     @NotEmpty
     private String cnpj;
-
+    
+    @Getter
+    @Setter
     @NotEmpty
     private String nomeFantasia;
-
+    
+    @Getter
+    @Setter
     private String inscricaoEstadual;
-
+    
+    @Getter
+    @Setter
     @NotEmpty
     private String razaoSocial;
     
     @OneToMany(mappedBy = "empregador", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    private List<Colaborador> contratanteEm;
-
+    private Set<Colaborador> contratanteEm;
+    
+    public PessoaJuridica() {
+        this.contratanteEm = new TreeSet<>();
+    }
+    
+    public Set<Colaborador> getContratanteEm() {
+        return new TreeSet<>(contratanteEm);
+    }
+    
+    public void addContratanteEm(Colaborador colaborador) {
+        contratanteEm.add(colaborador);
+        colaborador.setEmpregador(this);
+    }
+    
     @Override
     public String getDescricao() {
         return getNomeFantasia().concat(" (").concat(getRazaoSocial()).concat(")");
     }
-    
     
 }

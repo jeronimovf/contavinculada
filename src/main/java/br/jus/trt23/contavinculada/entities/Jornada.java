@@ -3,33 +3,47 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class Jornada extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"nome"};        
 
+    @Getter
+    @Setter
     @NotEmpty
     private String nome;
 
+    @Getter
+    @Setter
     @NotEmpty
-    private String descricao;    
+    private String descricao;
 
     @OneToMany(mappedBy = "jornada")
-    private List<PostoDeTrabalho> postosDeTrabalho;
+    private Set<PostoDeTrabalho> postosDeTrabalho;
+
+    public Jornada() {
+        this.postosDeTrabalho = new TreeSet<>();
+    }
+
+    public Set<PostoDeTrabalho> getPostosDeTrabalho() {
+        return new TreeSet<>(postosDeTrabalho);
+    }
+
+    public void addPostosDeTrabalho(PostoDeTrabalho posto) {
+        postosDeTrabalho.add(posto);
+        posto.setJornada(this);
+    }
 
     @Override
     public String toString() {
         return getNome();
     }
-    
-    
+
 }

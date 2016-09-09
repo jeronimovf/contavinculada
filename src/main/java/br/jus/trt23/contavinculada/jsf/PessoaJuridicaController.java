@@ -6,7 +6,6 @@ import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.Salario;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import java.util.ArrayList;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Getter;
@@ -39,8 +38,6 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
     public String prepareColaboradorNovo() {
         setColaboradorNovo(new Colaborador());
         getColaboradorNovo().setColaborador(new PessoaFisica());
-        getColaboradorNovo().getColaborador().
-            setColaboradorEm(new ArrayList<>());
         return "colaboradorNovo";
     }
     
@@ -72,10 +69,8 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
     public String saveOrCreateColaborador() throws Exception {
         String msg;
         try {
-            selected.getContratanteEm().add(colaboradorNovo);
-            colaboradorNovo.setEmpregador(selected);
+            selected.addContratanteEm(colaboradorNovo);
             saveOrCreate();
-            prepareColaboradorNovo();
             msg = getResponseCreated("Colaborador");
             JsfUtil.addSuccessMessage(msg);
             return "Edit";

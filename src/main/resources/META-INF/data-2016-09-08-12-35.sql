@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.1
 -- Dumped by pg_dump version 9.5.1
 
--- Started on 2016-08-24 09:20:36
+-- Started on 2016-09-08 12:35:44
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,24 +18,28 @@ SET row_security = off;
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 2440 (class 0 OID 56738)
+-- TOC entry 2463 (class 0 OID 59775)
 -- Dependencies: 187
 -- Data for Name: alocacao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO alocacao (id, criadoem, destruidoem, vigenteate, vigentedesde, postodetrabalho_id, substituto_id, titular_id) VALUES (1, NULL, NULL, NULL, '2016-07-18', 1, 4, 2);
+INSERT INTO alocacao (id, criadoem, destruidoem, vigenteate, vigentedesde, postodetrabalho_id, substituto_id, titular_id) VALUES (2, NULL, NULL, NULL, '2016-01-01', 2, 4, 3);
+INSERT INTO alocacao (id, criadoem, destruidoem, vigenteate, vigentedesde, postodetrabalho_id, substituto_id, titular_id) VALUES (3, NULL, NULL, NULL, '2016-01-01', 3, 2, 3);
+INSERT INTO alocacao (id, criadoem, destruidoem, vigenteate, vigentedesde, postodetrabalho_id, substituto_id, titular_id) VALUES (4, '2016-09-08 08:45:08.308', NULL, NULL, '2014-07-21', 5, 2, 3);
 
 
 --
--- TOC entry 2526 (class 0 OID 0)
+-- TOC entry 2554 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: alocacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('alocacao_id_seq', 1, false);
+SELECT pg_catalog.setval('alocacao_id_seq', 4, true);
 
 
 --
--- TOC entry 2442 (class 0 OID 56746)
+-- TOC entry 2465 (class 0 OID 59783)
 -- Dependencies: 189
 -- Data for Name: calendarioferiado; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -45,7 +49,7 @@ INSERT INTO calendarioferiado (id, criadoem, destruidoem, vigenteate, vigentedes
 
 
 --
--- TOC entry 2443 (class 0 OID 56755)
+-- TOC entry 2466 (class 0 OID 59792)
 -- Dependencies: 190
 -- Data for Name: calendarioferiado_calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -57,7 +61,7 @@ INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feria
 
 
 --
--- TOC entry 2527 (class 0 OID 0)
+-- TOC entry 2555 (class 0 OID 0)
 -- Dependencies: 188
 -- Name: calendarioferiado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
@@ -66,7 +70,7 @@ SELECT pg_catalog.setval('calendarioferiado_id_seq', 2, true);
 
 
 --
--- TOC entry 2445 (class 0 OID 56760)
+-- TOC entry 2468 (class 0 OID 59797)
 -- Dependencies: 192
 -- Data for Name: calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -78,7 +82,7 @@ INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigent
 
 
 --
--- TOC entry 2528 (class 0 OID 0)
+-- TOC entry 2556 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: calendarioferiadoitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
@@ -87,7 +91,7 @@ SELECT pg_catalog.setval('calendarioferiadoitem_id_seq', 4, true);
 
 
 --
--- TOC entry 2447 (class 0 OID 56771)
+-- TOC entry 2470 (class 0 OID 59808)
 -- Dependencies: 194
 -- Data for Name: cargooufuncao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -99,7 +103,7 @@ INSERT INTO cargooufuncao (id, criadoem, destruidoem, vigenteate, vigentedesde, 
 
 
 --
--- TOC entry 2529 (class 0 OID 0)
+-- TOC entry 2557 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: cargooufuncao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
@@ -108,66 +112,83 @@ SELECT pg_catalog.setval('cargooufuncao_id_seq', 4, true);
 
 
 --
--- TOC entry 2449 (class 0 OID 56782)
+-- TOC entry 2472 (class 0 OID 59819)
 -- Dependencies: 196
 -- Data for Name: colaborador; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (1, NULL, NULL, NULL, '2016-01-10', true, '2016-05-10', NULL, 1120, 1119);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (2, NULL, NULL, NULL, '2016-08-01', false, '2016-03-22', NULL, 1122, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (3, NULL, NULL, NULL, '2016-01-28', false, '2016-04-23', NULL, 1123, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (4, NULL, NULL, NULL, '2015-12-31', false, '2016-05-20', NULL, 1124, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (5, NULL, NULL, NULL, '2016-03-15', false, '2016-08-25', NULL, 1125, 1);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (6, NULL, NULL, NULL, '2016-07-29', false, '2016-08-20', NULL, 1126, 2);
 
 
 --
--- TOC entry 2530 (class 0 OID 0)
+-- TOC entry 2558 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: colaborador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('colaborador_id_seq', 1, false);
+SELECT pg_catalog.setval('colaborador_id_seq', 6, true);
 
 
 --
--- TOC entry 2451 (class 0 OID 56790)
--- Dependencies: 198
+-- TOC entry 2473 (class 0 OID 59825)
+-- Dependencies: 197
+-- Data for Name: colaborador_salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
+--
+
+INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (1, 5);
+INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (2, 7);
+
+
+--
+-- TOC entry 2475 (class 0 OID 59830)
+-- Dependencies: 199
 -- Data for Name: contavinculada; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (1, '2016-07-21 13:04:19.632', NULL, NULL, '2016-01-01', '3499-1 (CPA)', 'Banco do Brasil/SA', '8401-8', '000', 4);
-INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (2, NULL, NULL, NULL, '2016-01-01', '2685', 'CEF', '529-9', '13', 4);
+INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (4, NULL, NULL, NULL, '2016-11-01', '3499-1', 'Banco do Brasil', '8401-8', '001', 4);
+INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (3, NULL, NULL, NULL, '2016-01-01', '2685', 'CAIXA', '529-0', '001', 4);
 
 
 --
--- TOC entry 2531 (class 0 OID 0)
--- Dependencies: 197
+-- TOC entry 2559 (class 0 OID 0)
+-- Dependencies: 198
 -- Name: contavinculada_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('contavinculada_id_seq', 2, true);
+SELECT pg_catalog.setval('contavinculada_id_seq', 4, true);
 
 
 --
--- TOC entry 2453 (class 0 OID 56801)
--- Dependencies: 200
+-- TOC entry 2477 (class 0 OID 59841)
+-- Dependencies: 201
 -- Data for Name: contrato; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (1, '2016-06-22 00:00:00', NULL, '2021-05-31', '2016-06-01', NULL, '2016-05-20', NULL, '14/2016', 'Postos de trabalho para serviços gerais', 'Proad 12/2016', NULL, NULL, NULL, 1);
 INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (2, '2016-03-12 00:00:00', NULL, '2017-03-31', '2016-04-01', NULL, '2016-03-11', NULL, '13/2016', 'Postos de trabalho para vigilância', 'Proad 08/2016', NULL, NULL, NULL, 2);
 INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (3, '2015-09-22 00:00:00', NULL, '2020-09-30', '2015-10-01', NULL, '2015-09-13', NULL, '07/2015', 'Postos de trabalho para copeira', 'Proad 03/2015', NULL, NULL, NULL, 3);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (4, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2013-12-10', NULL, '29.1/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, NULL, 4);
 INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (5, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2014-07-20', NULL, '29.2/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, 4, 4);
 INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (6, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2015-06-13', NULL, '29.3/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, 4, 4);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (4, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2013-12-10', NULL, '29.1/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, NULL, 4);
 
 
 --
--- TOC entry 2454 (class 0 OID 56810)
--- Dependencies: 201
+-- TOC entry 2478 (class 0 OID 59850)
+-- Dependencies: 202
 -- Data for Name: contrato_faturamento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO contrato_faturamento (contrato_id, faturamentos_id) VALUES (4, 4);
 
 
 --
--- TOC entry 2532 (class 0 OID 0)
--- Dependencies: 199
+-- TOC entry 2560 (class 0 OID 0)
+-- Dependencies: 200
 -- Name: contrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -175,7 +196,7 @@ SELECT pg_catalog.setval('contrato_id_seq', 1, false);
 
 
 --
--- TOC entry 2434 (class 0 OID 40601)
+-- TOC entry 2457 (class 0 OID 40601)
 -- Dependencies: 181
 -- Data for Name: contrato_postodetrabalho; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -183,7 +204,7 @@ SELECT pg_catalog.setval('contrato_id_seq', 1, false);
 
 
 --
--- TOC entry 2437 (class 0 OID 55946)
+-- TOC entry 2460 (class 0 OID 55946)
 -- Dependencies: 184
 -- Data for Name: email; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -191,7 +212,7 @@ SELECT pg_catalog.setval('contrato_id_seq', 1, false);
 
 
 --
--- TOC entry 2533 (class 0 OID 0)
+-- TOC entry 2561 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
@@ -200,8 +221,8 @@ SELECT pg_catalog.setval('email_id_seq', 1, false);
 
 
 --
--- TOC entry 2456 (class 0 OID 56815)
--- Dependencies: 203
+-- TOC entry 2480 (class 0 OID 59855)
+-- Dependencies: 204
 -- Data for Name: encargo; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -218,8 +239,8 @@ INSERT INTO encargo (id, criadoem, destruidoem, vigenteate, vigentedesde, isrete
 
 
 --
--- TOC entry 2534 (class 0 OID 0)
--- Dependencies: 202
+-- TOC entry 2562 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: encargo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -227,8 +248,8 @@ SELECT pg_catalog.setval('encargo_id_seq', 11, true);
 
 
 --
--- TOC entry 2458 (class 0 OID 56823)
--- Dependencies: 205
+-- TOC entry 2482 (class 0 OID 59863)
+-- Dependencies: 206
 -- Data for Name: encargoaliquota; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -241,7 +262,7 @@ INSERT INTO encargoaliquota (id, criadoem, destruidoem, vigenteate, vigentedesde
 
 
 --
--- TOC entry 2435 (class 0 OID 41926)
+-- TOC entry 2458 (class 0 OID 41926)
 -- Dependencies: 182
 -- Data for Name: encargoaliquota_contrato; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -249,8 +270,8 @@ INSERT INTO encargoaliquota (id, criadoem, destruidoem, vigenteate, vigentedesde
 
 
 --
--- TOC entry 2535 (class 0 OID 0)
--- Dependencies: 204
+-- TOC entry 2563 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: encargoaliquota_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -258,16 +279,16 @@ SELECT pg_catalog.setval('encargoaliquota_id_seq', 6, true);
 
 
 --
--- TOC entry 2460 (class 0 OID 56831)
--- Dependencies: 207
+-- TOC entry 2484 (class 0 OID 59871)
+-- Dependencies: 208
 -- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2536 (class 0 OID 0)
--- Dependencies: 206
+-- TOC entry 2564 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: endereco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -275,16 +296,16 @@ SELECT pg_catalog.setval('endereco_id_seq', 1, false);
 
 
 --
--- TOC entry 2462 (class 0 OID 56842)
--- Dependencies: 209
+-- TOC entry 2486 (class 0 OID 59882)
+-- Dependencies: 210
 -- Data for Name: enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2537 (class 0 OID 0)
--- Dependencies: 208
+-- TOC entry 2565 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: enderecoeletronico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -292,74 +313,169 @@ SELECT pg_catalog.setval('enderecoeletronico_id_seq', 1, false);
 
 
 --
--- TOC entry 2464 (class 0 OID 56853)
--- Dependencies: 211
+-- TOC entry 2488 (class 0 OID 59893)
+-- Dependencies: 212
 -- Data for Name: faturamento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO faturamento (id, criadoem, destruidoem, vigenteate, vigentedesde, atestadaem, competencia, nfeoufatura, atestadapor_id, contrato_id) VALUES (4, NULL, NULL, NULL, '2016-08-01', NULL, '2016-08-01', '', NULL, 4);
 
 
 --
--- TOC entry 2538 (class 0 OID 0)
--- Dependencies: 210
+-- TOC entry 2566 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: faturamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('faturamento_id_seq', 1, false);
+SELECT pg_catalog.setval('faturamento_id_seq', 4, true);
 
 
 --
--- TOC entry 2466 (class 0 OID 56861)
--- Dependencies: 213
+-- TOC entry 2490 (class 0 OID 59901)
+-- Dependencies: 214
 -- Data for Name: faturamentoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (181, NULL, NULL, NULL, '2016-08-01', '2016-08-01', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (182, NULL, NULL, NULL, '2016-08-02', '2016-08-02', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (184, NULL, NULL, NULL, '2016-08-04', '2016-08-04', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (187, NULL, NULL, NULL, '2016-08-07', '2016-08-07', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (193, NULL, NULL, NULL, '2016-08-13', '2016-08-13', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (194, NULL, NULL, NULL, '2016-08-14', '2016-08-14', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (196, NULL, NULL, NULL, '2016-08-16', '2016-08-16', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (199, NULL, NULL, NULL, '2016-08-19', '2016-08-19', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (200, NULL, NULL, NULL, '2016-08-20', '2016-08-20', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (201, NULL, NULL, NULL, '2016-08-21', '2016-08-21', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (202, NULL, NULL, NULL, '2016-08-22', '2016-08-22', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (203, NULL, NULL, NULL, '2016-08-23', '2016-08-23', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (204, NULL, NULL, NULL, '2016-08-24', '2016-08-24', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (205, NULL, NULL, NULL, '2016-08-25', '2016-08-25', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (206, NULL, NULL, NULL, '2016-08-26', '2016-08-26', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (207, NULL, NULL, NULL, '2016-08-27', '2016-08-27', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (208, NULL, NULL, NULL, '2016-08-28', '2016-08-28', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (209, NULL, NULL, NULL, '2016-08-29', '2016-08-29', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (210, NULL, NULL, NULL, '2016-08-30', '2016-08-30', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (211, NULL, NULL, NULL, '2016-08-31', '2016-08-31', 6, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (212, NULL, NULL, NULL, '2016-08-01', '2016-08-01', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (214, NULL, NULL, NULL, '2016-08-03', '2016-08-03', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (215, NULL, NULL, NULL, '2016-08-04', '2016-08-04', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (216, NULL, NULL, NULL, '2016-08-05', '2016-08-05', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (217, NULL, NULL, NULL, '2016-08-06', '2016-08-06', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (219, NULL, NULL, NULL, '2016-08-08', '2016-08-08', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (220, NULL, NULL, NULL, '2016-08-09', '2016-08-09', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (222, NULL, NULL, NULL, '2016-08-11', '2016-08-11', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (223, NULL, NULL, NULL, '2016-08-12', '2016-08-12', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (225, NULL, NULL, NULL, '2016-08-14', '2016-08-14', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (226, NULL, NULL, NULL, '2016-08-15', '2016-08-15', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (227, NULL, NULL, NULL, '2016-08-16', '2016-08-16', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (228, NULL, NULL, NULL, '2016-08-17', '2016-08-17', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (229, NULL, NULL, NULL, '2016-08-18', '2016-08-18', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (230, NULL, NULL, NULL, '2016-08-19', '2016-08-19', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (231, NULL, NULL, NULL, '2016-08-20', '2016-08-20', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (232, NULL, NULL, NULL, '2016-08-21', '2016-08-21', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (233, NULL, NULL, NULL, '2016-08-22', '2016-08-22', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (234, NULL, NULL, NULL, '2016-08-23', '2016-08-23', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (235, NULL, NULL, NULL, '2016-08-24', '2016-08-24', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (236, NULL, NULL, NULL, '2016-08-25', '2016-08-25', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (237, NULL, NULL, NULL, '2016-08-26', '2016-08-26', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (238, NULL, NULL, NULL, '2016-08-27', '2016-08-27', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (239, NULL, NULL, NULL, '2016-08-28', '2016-08-28', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (240, NULL, NULL, NULL, '2016-08-29', '2016-08-29', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (241, NULL, NULL, NULL, '2016-08-30', '2016-08-30', 6, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (243, NULL, NULL, NULL, '2016-08-01', '2016-08-01', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (244, NULL, NULL, NULL, '2016-08-02', '2016-08-02', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (245, NULL, NULL, NULL, '2016-08-03', '2016-08-03', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (246, NULL, NULL, NULL, '2016-08-04', '2016-08-04', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (247, NULL, NULL, NULL, '2016-08-05', '2016-08-05', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (248, NULL, NULL, NULL, '2016-08-06', '2016-08-06', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (249, NULL, NULL, NULL, '2016-08-07', '2016-08-07', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (250, NULL, NULL, NULL, '2016-08-08', '2016-08-08', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (251, NULL, NULL, NULL, '2016-08-09', '2016-08-09', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (252, NULL, NULL, NULL, '2016-08-10', '2016-08-10', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (253, NULL, NULL, NULL, '2016-08-11', '2016-08-11', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (254, NULL, NULL, NULL, '2016-08-12', '2016-08-12', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (255, NULL, NULL, NULL, '2016-08-13', '2016-08-13', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (256, NULL, NULL, NULL, '2016-08-14', '2016-08-14', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (257, NULL, NULL, NULL, '2016-08-15', '2016-08-15', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (258, NULL, NULL, NULL, '2016-08-16', '2016-08-16', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (259, NULL, NULL, NULL, '2016-08-17', '2016-08-17', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (260, NULL, NULL, NULL, '2016-08-18', '2016-08-18', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (261, NULL, NULL, NULL, '2016-08-19', '2016-08-19', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (262, NULL, NULL, NULL, '2016-08-20', '2016-08-20', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (263, NULL, NULL, NULL, '2016-08-21', '2016-08-21', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (264, NULL, NULL, NULL, '2016-08-22', '2016-08-22', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (265, NULL, NULL, NULL, '2016-08-23', '2016-08-23', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (266, NULL, NULL, NULL, '2016-08-24', '2016-08-24', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (267, NULL, NULL, NULL, '2016-08-25', '2016-08-25', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (268, NULL, NULL, NULL, '2016-08-26', '2016-08-26', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (192, NULL, NULL, NULL, '2016-08-12', '2016-08-12', 1, 4, NULL, 1, 2, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (190, NULL, NULL, NULL, '2016-08-10', '2016-08-10', 4, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (197, NULL, NULL, NULL, '2016-08-17', '2016-08-17', 3, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (189, NULL, NULL, NULL, '2016-08-09', '2016-08-09', 3, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (191, NULL, NULL, NULL, '2016-08-11', '2016-08-11', 1, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (242, NULL, NULL, NULL, '2016-08-31', '2016-08-31', 1, 4, NULL, 2, 3, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (186, NULL, NULL, NULL, '2016-08-06', '2016-08-06', 1, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (198, NULL, NULL, NULL, '2016-08-18', '2016-08-18', 3, 4, NULL, 1, 3, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (185, NULL, NULL, NULL, '2016-08-05', '2016-08-05', 3, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (188, NULL, NULL, NULL, '2016-08-08', '2016-08-08', 5, 4, NULL, 1, 4, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (218, NULL, NULL, NULL, '2016-08-07', '2016-08-07', 3, 4, NULL, 2, 3, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (221, NULL, NULL, NULL, '2016-08-10', '2016-08-10', 5, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (213, NULL, NULL, NULL, '2016-08-02', '2016-08-02', 3, 4, NULL, 2, 3, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (224, NULL, NULL, NULL, '2016-08-13', '2016-08-13', 5, 4, NULL, 2, 4, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (269, NULL, NULL, NULL, '2016-08-27', '2016-08-27', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (270, NULL, NULL, NULL, '2016-08-28', '2016-08-28', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (271, NULL, NULL, NULL, '2016-08-29', '2016-08-29', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (272, NULL, NULL, NULL, '2016-08-30', '2016-08-30', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (273, NULL, NULL, NULL, '2016-08-31', '2016-08-31', 6, 4, NULL, 3, 2, 3);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (183, NULL, NULL, NULL, '2016-08-03', '2016-08-03', 1, 4, NULL, 1, 2, 2);
+INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, dia, evento_id, faturamento_id, glosa_id, postodetrabalho_id, substituto_id, titular_id) VALUES (195, NULL, NULL, NULL, '2016-08-15', '2016-08-15', 4, 4, NULL, 1, 3, 2);
 
 
 --
--- TOC entry 2539 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2567 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: faturamentoitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('faturamentoitem_id_seq', 1, false);
+SELECT pg_catalog.setval('faturamentoitem_id_seq', 273, true);
 
 
 --
--- TOC entry 2468 (class 0 OID 56869)
--- Dependencies: 215
+-- TOC entry 2492 (class 0 OID 59909)
+-- Dependencies: 216
 -- Data for Name: faturamentoitemevento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (3, '2016-07-21 08:54:07.84', NULL, NULL, NULL, false, 'Falta sem substituição');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (1, '2016-07-21 11:39:25.151', NULL, NULL, NULL, true, 'Férias');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (4, '2016-07-22 12:02:39.313', NULL, NULL, NULL, true, 'Licença médica');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (5, '2016-07-22 12:34:43.804072', NULL, NULL, NULL, true, 'Licença odontológica');
+INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (1, '2016-07-21 11:39:25.151', NULL, NULL, '2016-01-01', true, 'Férias');
+INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (5, '2016-07-22 12:34:43.804072', NULL, NULL, '2016-01-01', true, 'Licença odontológica');
+INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (4, '2016-07-22 12:02:39.313', NULL, NULL, '2016-01-01', true, 'Licença médica');
+INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (3, '2016-07-21 08:54:07.84', NULL, NULL, '2016-01-01', false, 'Falta sem substituição');
+INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, issubstituicao, nome) VALUES (6, '2016-08-25 14:56:49.593', NULL, NULL, '2016-08-25', false, 'Efetivamente trabalhado');
 
 
 --
--- TOC entry 2540 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2568 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: faturamentoitemevento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('faturamentoitemevento_id_seq', 5, true);
+SELECT pg_catalog.setval('faturamentoitemevento_id_seq', 6, true);
 
 
 --
--- TOC entry 2470 (class 0 OID 56877)
--- Dependencies: 217
+-- TOC entry 2494 (class 0 OID 59917)
+-- Dependencies: 218
 -- Data for Name: fiscal; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 INSERT INTO fiscal (id, criadoem, destruidoem, vigenteate, vigentedesde, atodesignacao, contrato_id, especie_id, servidor_id) VALUES (1, '2016-07-21 13:45:52.235', NULL, NULL, '2016-01-01', 'Portaria DG 123/2016', 4, 1, 966);
-INSERT INTO fiscal (id, criadoem, destruidoem, vigenteate, vigentedesde, atodesignacao, contrato_id, especie_id, servidor_id) VALUES (2, '2016-07-21 13:46:16.054', NULL, NULL, '2016-01-01', 'Portaria DG 123/2016', 4, 2, 50);
 INSERT INTO fiscal (id, criadoem, destruidoem, vigenteate, vigentedesde, atodesignacao, contrato_id, especie_id, servidor_id) VALUES (3, NULL, NULL, NULL, '2016-08-01', 'Portaria SGP 123/2016', 4, 5, 1021);
+INSERT INTO fiscal (id, criadoem, destruidoem, vigenteate, vigentedesde, atodesignacao, contrato_id, especie_id, servidor_id) VALUES (2, '2016-07-21 13:46:16.054', NULL, NULL, '2016-01-01', 'Portaria DG 123/2016', 4, 2, 913);
 
 
 --
--- TOC entry 2541 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2569 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: fiscal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -367,8 +483,8 @@ SELECT pg_catalog.setval('fiscal_id_seq', 3, true);
 
 
 --
--- TOC entry 2472 (class 0 OID 56885)
--- Dependencies: 219
+-- TOC entry 2496 (class 0 OID 59925)
+-- Dependencies: 220
 -- Data for Name: fiscalespecie; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -380,8 +496,8 @@ INSERT INTO fiscalespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, 
 
 
 --
--- TOC entry 2542 (class 0 OID 0)
--- Dependencies: 218
+-- TOC entry 2570 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: fiscalespecie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -389,16 +505,16 @@ SELECT pg_catalog.setval('fiscalespecie_id_seq', 5, true);
 
 
 --
--- TOC entry 2474 (class 0 OID 56893)
--- Dependencies: 221
+-- TOC entry 2498 (class 0 OID 59933)
+-- Dependencies: 222
 -- Data for Name: glosa; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2543 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2571 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: glosa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -406,8 +522,8 @@ SELECT pg_catalog.setval('glosa_id_seq', 1, false);
 
 
 --
--- TOC entry 2476 (class 0 OID 56904)
--- Dependencies: 223
+-- TOC entry 2500 (class 0 OID 59944)
+-- Dependencies: 224
 -- Data for Name: glosaespecie; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -415,8 +531,8 @@ INSERT INTO glosaespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, n
 
 
 --
--- TOC entry 2544 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 2572 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: glosaespecie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -424,8 +540,8 @@ SELECT pg_catalog.setval('glosaespecie_id_seq', 1, true);
 
 
 --
--- TOC entry 2478 (class 0 OID 56912)
--- Dependencies: 225
+-- TOC entry 2502 (class 0 OID 59952)
+-- Dependencies: 226
 -- Data for Name: jornada; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -435,8 +551,8 @@ INSERT INTO jornada (id, criadoem, destruidoem, vigenteate, vigentedesde, descri
 
 
 --
--- TOC entry 2545 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 2573 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: jornada_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -444,16 +560,16 @@ SELECT pg_catalog.setval('jornada_id_seq', 3, true);
 
 
 --
--- TOC entry 2480 (class 0 OID 56923)
--- Dependencies: 227
+-- TOC entry 2504 (class 0 OID 59963)
+-- Dependencies: 228
 -- Data for Name: liberacao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2546 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2574 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: liberacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -461,14 +577,12 @@ SELECT pg_catalog.setval('liberacao_id_seq', 1, false);
 
 
 --
--- TOC entry 2482 (class 0 OID 56934)
--- Dependencies: 229
+-- TOC entry 2506 (class 0 OID 59974)
+-- Dependencies: 230
 -- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 2, '2016-06-28 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '09576957000155', 'NÃO INFORMADA', 'Dicentro', 'Raquel Rockengach ME');
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 3, '2016-06-28 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '08830513000132', 'NÃO INFORMADA', 'Universal Segurança', 'Universal Segurança LTDA - EPP');
-INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 1, '2016-06-28 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '00081160000102', 'NÃO INFORMADA', 'Luppa', 'Luppa Administradora de Serviços e Representações Comerciais Ltda');
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 6, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00004799003', NULL, '1982-04-14', 'JACQUELINE BLANK DE CAMPOS', NULL, NULL, NULL, NULL, 'J157-4', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 7, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00005067103', NULL, '1983-08-11', 'MARIA CAROLINA BANA DE CARVALHO PETERLINI', NULL, NULL, NULL, NULL, 'M214-3', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 8, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00005067103', NULL, '1983-08-11', 'MARIA CAROLINA BANA DE CARVALHO PETERLINI', NULL, NULL, NULL, NULL, 'M303-4', NULL, NULL, NULL, NULL);
@@ -529,6 +643,7 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 63, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00597130116', NULL, '1985-01-11', 'BRUNO DE SOUZA PORTO', NULL, NULL, NULL, NULL, 'B029-9', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 64, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00606196196', NULL, '1986-09-20', 'ANDRESSA AUXILIADORA BATISTA DE OLIVEIRA', NULL, NULL, NULL, NULL, 'A235-1', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 65, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00611082195', NULL, '1985-01-26', 'ITALO RODRIGO STOCHI LIMA', NULL, NULL, NULL, NULL, 'I030-1', NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 2, '2016-06-28 00:00:00', NULL, NULL, '2016-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '09576957000155', 'NÃO INFORMADA', 'Dicentro', 'Raquel Rockengach ME');
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 66, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00612611140', NULL, '1984-07-31', 'SANDI CRISTINA FERNANDES MOREIRA SENNA', NULL, NULL, NULL, NULL, 'S103-4', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 67, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00625134001', NULL, '1986-05-27', 'SAMUEL FRANCKLIN KERBER', NULL, NULL, NULL, NULL, 'S084-4', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 68, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '00626369100', NULL, '1983-11-13', 'NAILA NORD PORTELLA ALVES', NULL, NULL, NULL, NULL, 'N040-5', NULL, NULL, NULL, NULL);
@@ -593,6 +708,7 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 126, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '01154022170', NULL, '1985-05-24', 'NATÁLIA PANSONATO SCHNEIDER', NULL, NULL, NULL, NULL, 'N031-6', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 127, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '01162317183', NULL, '1985-02-10', 'FLÁVIA FÁTIMA BATTISTETTI BALDO', NULL, NULL, NULL, NULL, 'F090-8', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 193, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02214726144', NULL, '1986-03-03', 'SUZANA DOS SANTOS ZECZKOSKI', NULL, NULL, NULL, NULL, 'S074-7', NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 194, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02232490173', NULL, '1987-04-11', 'GRASCIELLY VIECELI MAIA', NULL, NULL, NULL, NULL, 'G061-0', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 128, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '01167174160', NULL, '1987-08-24', 'NIVEA MONTELARES DE CARVALHO KAISER NAGASAWA', NULL, NULL, NULL, NULL, 'N052-9', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 129, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '01178328040', NULL, '1986-05-20', 'LAURA KIRCH DA SILVEIRA', NULL, NULL, NULL, NULL, 'L185-1', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 130, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '01180849175', NULL, '1985-04-27', 'NATÉRCIA MALHEIROS RIBEIRO', NULL, NULL, NULL, NULL, 'N038-3', NULL, NULL, NULL, NULL);
@@ -657,7 +773,6 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 190, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02174200104', NULL, '1937-05-14', 'NEODIR MARQUES DE CAMPOS', NULL, NULL, NULL, NULL, 'N016-2', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 191, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02183876956', NULL, '1977-05-07', 'CASSIO ARIEL MORO', NULL, NULL, NULL, NULL, 'C076-6', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 192, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02191224156', NULL, '1987-09-23', 'OLIVAL RODRIGUES GONÇALVES FILHO', NULL, NULL, NULL, NULL, 'O022-2', NULL, NULL, NULL, NULL);
-INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 194, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02232490173', NULL, '1987-04-11', 'GRASCIELLY VIECELI MAIA', NULL, NULL, NULL, NULL, 'G061-0', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 195, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02274763100', NULL, '1988-03-01', 'LUIS HENRIQUE BOCCHI', NULL, NULL, NULL, NULL, 'L181-8', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 196, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02304956130', NULL, '1987-07-15', 'CAMILA NUNES PALMEIRA', NULL, NULL, NULL, NULL, 'C138-0', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 197, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '02306461902', NULL, '1977-10-09', 'SANDRO LUIZ RODA GNOATTO', NULL, NULL, NULL, NULL, 'S068-2', NULL, NULL, NULL, NULL);
@@ -1584,10 +1699,17 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('Servidor', 1118, '2016-07-08 00:00:00', NULL, NULL, '2000-01-01', '99991063153', NULL, '1983-05-01', 'ANA FLÁVIA CARVALHO ROCHA', NULL, NULL, NULL, NULL, 'A131-1', NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 4, '2016-06-28 00:00:00', NULL, NULL, '2016-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '09576957000155', 'NÃO INFORMADA', 'Presta Serviços Técnicos', 'Presta Serviços Técnicos LTDA - EPP');
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 1119, '2016-08-22 08:36:28.497245', NULL, NULL, '2016-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '00000000000000', '12345', 'Não Presta Serviços', 'Não Presta Serviços');
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1120, NULL, NULL, NULL, NULL, '531.729.626-95', '123456', '1998-02-10', 'Miguel de Cervantes', '132456', '123456', 'SJ/MT', 'MT', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1122, NULL, NULL, NULL, NULL, '577.228.355-38', '219745', '1991-03-15', 'Onofre Cardoso', '246987', '21546', 'SJ', 'MT', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1123, NULL, NULL, NULL, NULL, '226.429.527-97', '45976', '1989-11-28', 'Eleonora Vilagra', '954123', '96547', 'SSP', 'PR', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1124, NULL, NULL, NULL, NULL, '374.527.668-06', '256974', '1990-08-09', 'Vanessa Tosetti', '984136', '345987', 'SSP', 'SP', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1125, NULL, NULL, NULL, NULL, '431.083.226-13', '84167', '1984-07-29', 'Juliano Taveira', '58746', '26413', 'SSP', 'TO', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaJuridica', 1, '2016-06-28 00:00:00', NULL, NULL, '2016-02-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '00081160000102', 'NÃO INFORMADA', 'Luppa', 'Luppa Administradora de Serviços e Representações Comerciais Ltda');
+INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1126, NULL, NULL, NULL, NULL, '182.393.180-45', '6794', '1988-11-30', 'Talita Castelo', '24678', '96487', 'SSP', 'PI', NULL, NULL, NULL, NULL, NULL);
 
 
 --
--- TOC entry 2438 (class 0 OID 56074)
+-- TOC entry 2461 (class 0 OID 56074)
 -- Dependencies: 185
 -- Data for Name: pessoa_email; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1595,52 +1717,53 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 
 
 --
--- TOC entry 2483 (class 0 OID 56943)
--- Dependencies: 230
+-- TOC entry 2507 (class 0 OID 59983)
+-- Dependencies: 231
 -- Data for Name: pessoa_endereco; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2484 (class 0 OID 56946)
--- Dependencies: 231
+-- TOC entry 2508 (class 0 OID 59986)
+-- Dependencies: 232
 -- Data for Name: pessoa_enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2547 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 2575 (class 0 OID 0)
+-- Dependencies: 229
 -- Name: pessoa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('pessoa_id_seq', 1119, true);
+SELECT pg_catalog.setval('pessoa_id_seq', 1126, true);
 
 
 --
--- TOC entry 2485 (class 0 OID 56949)
--- Dependencies: 232
+-- TOC entry 2509 (class 0 OID 59989)
+-- Dependencies: 233
 -- Data for Name: pessoa_telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2487 (class 0 OID 56954)
--- Dependencies: 234
+-- TOC entry 2511 (class 0 OID 59994)
+-- Dependencies: 235
 -- Data for Name: postodetrabalho; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (1, '2016-07-21 13:22:58.038', NULL, NULL, '2016-01-01', 4, 4, 1, 1);
-INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (2, '2016-07-21 13:42:44.284', NULL, NULL, '2016-01-01', 2, 4, 2, 2);
-INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (3, NULL, NULL, NULL, '2016-01-10', 1, 4, 1, 2);
+INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, responsaveltecnico, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (1, '2016-09-08 08:13:36.403', NULL, NULL, '2016-01-01', NULL, 4, 4, 1, 1);
+INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, responsaveltecnico, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (2, '2016-09-08 08:21:15.58', NULL, NULL, '2016-01-01', NULL, 2, 4, 2, 2);
+INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, responsaveltecnico, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (3, '2016-09-08 08:24:30.418', NULL, NULL, '2016-01-10', NULL, 1, 4, 1, 2);
+INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde, responsaveltecnico, cargooufuncao_id, contrato_id, feriadocalendario_id, jornada_id) VALUES (5, '2016-09-08 08:45:02.159', NULL, NULL, '2016-01-01', NULL, 3, 4, 2, 3);
 
 
 --
--- TOC entry 2488 (class 0 OID 56960)
--- Dependencies: 235
+-- TOC entry 2512 (class 0 OID 60000)
+-- Dependencies: 236
 -- Data for Name: postodetrabalho_diascomputados; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
@@ -1651,28 +1774,38 @@ INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) 
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (2, 3);
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (3, 1);
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (3, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (5, 2);
 
 
 --
--- TOC entry 2548 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 2576 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: postodetrabalho_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('postodetrabalho_id_seq', 3, true);
+SELECT pg_catalog.setval('postodetrabalho_id_seq', 5, true);
 
 
 --
--- TOC entry 2490 (class 0 OID 56965)
+-- TOC entry 2513 (class 0 OID 60003)
 -- Dependencies: 237
+-- Data for Name: postodetrabalho_salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
+--
+
+INSERT INTO postodetrabalho_salario (postodetrabalho_id, remuneracoes_id) VALUES (1, 6);
+
+
+--
+-- TOC entry 2515 (class 0 OID 60008)
+-- Dependencies: 239
 -- Data for Name: retencao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2549 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 2577 (class 0 OID 0)
+-- Dependencies: 238
 -- Name: retencao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
@@ -1680,23 +1813,43 @@ SELECT pg_catalog.setval('retencao_id_seq', 1, false);
 
 
 --
--- TOC entry 2492 (class 0 OID 56973)
--- Dependencies: 239
+-- TOC entry 2517 (class 0 OID 60016)
+-- Dependencies: 241
+-- Data for Name: salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
+--
+
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (5, NULL, NULL, NULL, '2016-08-01', 985.99000000000001);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (6, NULL, NULL, NULL, '2016-12-24', 980);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (7, NULL, NULL, NULL, '2016-05-16', 1247.8800000000001);
+
+
+--
+-- TOC entry 2578 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: salario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
+--
+
+SELECT pg_catalog.setval('salario_id_seq', 7, true);
+
+
+--
+-- TOC entry 2519 (class 0 OID 60024)
+-- Dependencies: 243
 -- Data for Name: telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
 
 
 --
--- TOC entry 2550 (class 0 OID 0)
--- Dependencies: 238
+-- TOC entry 2579 (class 0 OID 0)
+-- Dependencies: 242
 -- Name: telefone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
 SELECT pg_catalog.setval('telefone_id_seq', 1, false);
 
 
--- Completed on 2016-08-24 09:20:47
+-- Completed on 2016-09-08 12:35:51
 
 --
 -- PostgreSQL database dump complete

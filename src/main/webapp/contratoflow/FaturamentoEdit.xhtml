@@ -6,11 +6,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
-    <ui:define name="content">
+    <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
                           entityToUpdate="#{contratoFlowController.faturamentoNovo}" 
                           saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="Edit">
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}">                           
             <t:FormRowDate id="faturamentoCompetencia" 
                            calendarValue="#{contratoFlowController.faturamentoNovo.competencia}" 
                            labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_competencia')}" 
@@ -31,7 +32,7 @@
                              textValue="#{contratoFlowController.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
 
-            <p:dataTable value="#{contratoFlowController.faturamentoNovo.itens}"
+            <p:dataTable value="#{contratoFlowController.faturamentoItemAsList()}"
                          var="fi" 
                          editable="true"
                          paginator="true"
@@ -87,8 +88,6 @@
                     <p:rowEditor/>
                 </p:column>
             </p:dataTable>              
-            <p:commandButton action="#{contratoFlowController.saveOrCreateFaturamento()}" value="#{messages.SaveLink}"   icon="ui-icon-disk"/>                                
-            <p:commandButton value="#{messages.CancelLink}" action="Edit" />
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

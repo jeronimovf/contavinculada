@@ -1,9 +1,10 @@
 package br.jus.trt23.contavinculada.jsf.util;
 
 import com.sun.faces.component.visit.FullVisitContext;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -19,8 +20,8 @@ import javax.faces.model.SelectItem;
 
 public class JsfUtil {
 
-    public static List<SelectItem> getSelectItems(List<?> entities, boolean selectOne) {
-        ArrayList<SelectItem> items = new ArrayList<>();
+    public static Set<SelectItem> getSelectItems(List<?> entities, boolean selectOne) {
+        Set<SelectItem> items = new HashSet<>();
         if (selectOne) {
             items.add(new SelectItem("", "---"));
         }

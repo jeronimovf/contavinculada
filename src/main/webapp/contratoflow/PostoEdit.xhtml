@@ -7,12 +7,13 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
                 template="/template.xhtml">
-    <ui:define name="content">    
+    <ui:define name="content">     
         <t:FormFlowCreate id="postoDeTrabalhoEdit" 
                           casePrefix="postoDeTrabalhoEdit" 
                           entityToUpdate="#{contratoFlowController.postoNovo}" 
-                          saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}">
+                          saveAction="#{contratoFlowController.saveOrCreate}"
+                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
+                          controller="#{contratoFlowController}">
             <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
                                    autoCompleteValue="#{contratoFlowController.postoNovo.cargoOuFuncao}" 
                                    autoCompleteItem="cargoOuFuncao" 
@@ -90,9 +91,7 @@
                         </p:column>   
                     </t:ListFlowView>
                 </p:tab>
-
             </p:tabView>        
-
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

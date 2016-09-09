@@ -3,31 +3,52 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class EncargoAliquota extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"contrato","encargo","aliquota"};
+    @Getter
+    @Setter
     @ManyToOne
     private Encargo encargo;
-   
+
+    @Getter
+    @Setter
     private double aliquota;
-    
+
+    @Getter
+    @Setter
     @ManyToOne
     private Contrato contrato;
-    
+
+    @Getter
+    @Setter
     private Boolean retencaoContaVinculada;
-    
+
     @OneToMany(mappedBy = "aliquota")
-    private List<Retencao> retencoes;    
+    private Set<Retencao> retencoes;
+
+    public EncargoAliquota() {
+        this.retencoes = new TreeSet<>();
+    }
+
+    public Set<Retencao> getRetencoes() {
+        return new TreeSet<>(retencoes);
+    }
+    
+    public void addRetencoes(Retencao retencao){
+        retencoes.add(retencao);
+        retencao.setAliquota(this);
+    }
+    
+    
+    
 
 }

@@ -10,6 +10,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +36,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public abstract class EntidadeGenerica implements Serializable {
+public abstract class EntidadeGenerica implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +51,8 @@ public abstract class EntidadeGenerica implements Serializable {
     private LocalDateTime criadoEm;
 
     private LocalDateTime destruidoEm;
+
+    protected static String[] uniqueIndex;
 
     public static Object getFieldValue(Object bean, String fieldName) {
         try {
@@ -65,16 +70,37 @@ public abstract class EntidadeGenerica implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        try {
-            if (null != obj || obj instanceof EntidadeGenerica) {
-                EntidadeGenerica eg = (EntidadeGenerica) obj;
-                return getId().equals(eg.getId());
-            }
-            return Boolean.FALSE;
-        } catch (Exception e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, String.format("Error {0} on equals method of {1}", e.getMessage()), new Object[]{obj, obj.getClass().getName()});
+        //uma instância não pode ser igual a nulo
+        if (obj == null) {
+            return false;
         }
-        return Boolean.FALSE;
+
+        //a mesma instância com dois ponteiros é igual
+        if (this == obj) {
+            return true;
+        }
+
+        //se os objetos não são da mesma classe não são iguais
+        if (!obj.getClass().equals(this.getClass())) {
+            return false;
+        }
+
+        EntidadeGenerica eg = (EntidadeGenerica) obj;
+
+        //se ambos os objetos são persistentes a igualdade pode ser testada
+        //pelos ids
+        if (null != getId()) {
+            return getId().equals(eg.getId());
+        }
+
+        //o objeto corrente não é persistente, mas o testado é.  não são iguais.
+        if (null != eg.getId()) {
+            return false;
+        }
+
+        //ambos os objetos não são persistentes.  igualdade verificada
+        //pelos campos de indice unico.
+        return compareByIndex(eg);
     }
 
     @Override
@@ -85,9 +111,56 @@ public abstract class EntidadeGenerica implements Serializable {
             hash = 53 * hash + Objects.hashCode(this.vigenteDesde);
             hash = 53 * hash + Objects.hashCode(this.vigenteAte);
         } catch (Exception e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, String.format("Error {0} on equals method of {1}", e.getMessage()), new Object[]{this, this.getClass().getName()});
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, String.format("Error {0} on hashCode method of {1}", e.getMessage()), new Object[]{this, this.getClass().getName()});
         }
         return hash;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void setCriadoEm() {
+        this.criadoEm = LocalDateTime.now();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        try {
+            if (null == o) {
+                return -1;
+            }
+            if (o instanceof EntidadeGenerica) {
+                EntidadeGenerica eg = (EntidadeGenerica) o;
+                if (null == getId()) {
+                    return -1;
+                }
+                return getId().compareTo(eg.getId());
+            } 
+            return -1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private boolean compareByIndex(EntidadeGenerica eg) {
+        Class c = this.getClass();
+        Field f1;
+        Object o1, o2;
+        for (String fieldName : uniqueIndex) {
+            try {
+                f1 = c.getField(fieldName);
+                o1 = f1.get(this);
+                o2 = f1.get(eg);
+                if (!o1.equals(o2)) {
+                    return false;
+                }
+
+            } catch (NoSuchFieldException | SecurityException |
+                    IllegalArgumentException | IllegalAccessException ex) {
+                Logger.getLogger(EntidadeGenerica.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
     }
 
 }

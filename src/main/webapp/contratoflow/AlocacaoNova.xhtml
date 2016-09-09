@@ -9,8 +9,9 @@
         <t:FormFlowCreate id="alocacaoCreate" casePrefix="alocacaoCreate" 
                           entityToUpdate="#{contratoFlowController.alocacaoNova}" 
                           saveAction="#{contratoFlowController.saveOrCreateAlocacao()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}">
-            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
+                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}"
+                          controller="#{contratoFlowController}">                           
+            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador}"
                                    autoCompleteValue="#{contratoFlowController.alocacaoNova.titular}"
                                    labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
                                    completeMethod="#{contratoFlowController.completeColaboradores}"

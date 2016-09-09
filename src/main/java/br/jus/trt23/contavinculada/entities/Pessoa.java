@@ -3,42 +3,77 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Entity;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMappings;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 @NamedNativeQueries({
-    @NamedNativeQuery(name="getPessoaPorNomeOuRazaoSocial", query ="SELECT * FROM pessoa WHERE upper(nome) like '%:nome'% OR upper(razaoSocial) like '%:razaoSocial%'")
+    @NamedNativeQuery(name = "getPessoaPorNomeOuRazaoSocial", query = "SELECT * FROM pessoa WHERE upper(nome) like '%:nome'% OR upper(razaoSocial) like '%:razaoSocial%'")
 })
-@SqlResultSetMappings({
-})
+@SqlResultSetMappings({})
 public abstract class Pessoa extends EntidadeGenerica {
+
     @OneToMany(targetEntity = EnderecoEletronico.class)
-    private List<EnderecoEletronico> emails;
+    private Set<EnderecoEletronico> emails;
 
     @OneToMany(targetEntity = Endereco.class)
-    private List<Endereco> enderecos;
+    private Set<Endereco> enderecos;
 
     @OneToMany(targetEntity = Contrato.class, mappedBy = "contratado")
-    private List<Contrato> contratos;
+    private Set<Contrato> contratos;
 
     @OneToMany(targetEntity = Telefone.class)
-    private List<Telefone> telefones;
-    
+    private Set<Telefone> telefones;
+
     public abstract String getDescricao();
-    
-   @Override
-   public String toString(){
-       return getDescricao();
-   } 
+
+    public Pessoa() {
+        this.emails = new TreeSet<>();
+        this.enderecos = new TreeSet<>();
+        this.contratos = new TreeSet<>();
+        this.telefones = new TreeSet<>();
+    }
+
+    public Set<EnderecoEletronico> getEmails() {
+        return new TreeSet<>(emails);
+    }
+
+    public void addEmails(EnderecoEletronico email) {
+        emails.add(email);
+    }
+
+    public Set<Endereco> getEnderecos() {
+        return new TreeSet<>();
+    }
+
+    public void addEnderecos(Endereco endereco) {
+        enderecos.add(endereco);
+    }
+
+    public Set<Contrato> getContratos() {
+        return new TreeSet<>(contratos);
+    }
+
+    public void addContratos(Contrato contrato) {
+        contratos.add(contrato);
+        contrato.setContratado(this);
+    }
+
+    public Set<Telefone> getTelefones() {
+        return new TreeSet<>(telefones);
+    }
+
+    public void addTelefones(Telefone telefone) {
+        telefones.add(telefone);
+    }
+
+    @Override
+    public String toString() {
+        return getDescricao();
+    }
 }

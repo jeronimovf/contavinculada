@@ -12,7 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Salario extends EntidadeGenerica{  
+public class Salario extends EntidadeGenerica{
+    protected final static String[] uniqueIndex = {"valor"};        
     private Double valor;
     
     @Override

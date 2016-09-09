@@ -9,7 +9,8 @@
         <t:FormFlowCreate id="remuneracaoCreate" casePrefix="remuneracaoCreate" 
                           entityToUpdate="#{contratoFlowController.remuneracaoNova}" 
                           saveAction="#{contratoFlowController.saveOrCreateRemuneracao()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}">
+                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}"
+                          controller="#{contratoFlowController}">                                                     
             <t:FormRowMonetary labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Remuneracao_valor')}"
                                numberValue="#{contratoFlowController.remuneracaoNova.valor}"/>
         </t:FormFlowCreate>

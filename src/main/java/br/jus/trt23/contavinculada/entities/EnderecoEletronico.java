@@ -15,11 +15,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Setter
 @RequiredArgsConstructor
 public class EnderecoEletronico extends EntidadeGenerica {
-
+    protected final static String[] uniqueIndex = {"mail"};    
    @Email
     private String email;
 
    @NotEmpty
    private String descricao;
-
 }

@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class Glosa extends EntidadeGenerica{
-
+    protected final static String[] uniqueIndex = {"glosa"};    
     private Integer qtd;
 
     @ManyToOne(targetEntity = GlosaEspecie.class)

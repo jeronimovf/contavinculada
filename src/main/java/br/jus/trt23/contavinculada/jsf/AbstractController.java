@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -93,7 +94,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
 
     public String prepareList() {
         activeAction = EActiveAction.VIEW;
-        return "List?faces-redirect=true";
+        return "List";
     }
 
     public String prepareCreate() {
@@ -115,15 +116,38 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return null;
         }
     }
+    
+
+    public String create(T obj) throws Exception {
+        String msg;
+        try {
+            getFacade().create(obj);
+            msg = messages.getString(getMessagePrefix().concat("_Created"));
+            JsfUtil.addSuccessMessage(msg);
+            return prepareList();
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            return null;
+        }
+    }    
 
     public String saveOrCreate() throws Exception {
-        if (getFacade().isEntityManaged(getSelected())) {
+        if (getSelected().getId() != null) {
             return update();
         } else {
             return create();
         }
     }
 
+    public String saveOrCreate(T obj) throws Exception {
+        if (obj.getId() != null) {
+            return update(obj);
+        } else {
+            return create(obj);
+        }
+    }
+    
     public String prepareEdit() {
         setSelected((T) getLazyItems().getRowData());
         setActiveAction(EActiveAction.EDIT);
@@ -143,6 +167,22 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return null;
         }
     }
+    
+    public String update(T obj) {
+        String msg;
+        try {
+            getFacade().edit(obj);
+            msg = messages.getString(getMessagePrefix().concat("_Updated"));
+            JsfUtil.addSuccessMessage(msg);
+            return prepareList();
+        } catch (Exception e) {
+            msg = messages.getString("PersistenceErrorOccured");
+            JsfUtil.addErrorMessage(e, msg);
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());            
+            return null;
+        }
+    }    
 
     public String destroy() {
         String msg;
@@ -209,11 +249,11 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
     }
 
-    public List<SelectItem> getItemsAvailableSelectMany() {
+    public Set<SelectItem> getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(getFacade().findAll(), false);
     }
 
-    public List<SelectItem> getItemsAvailableSelectOne() {
+    public Set<SelectItem> getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(getFacade().findAll(), true);
     }
 
@@ -257,5 +297,12 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
 
     protected void prepareDlg() {
 
+    }
+    
+    //Essa função é necessária porque para os composite componets
+    //não é aceito passar uma String diretamente para um atributo que
+    //será associado a um action internamente. 
+    public String goBackTo(String str){
+        return str;
     }
 }

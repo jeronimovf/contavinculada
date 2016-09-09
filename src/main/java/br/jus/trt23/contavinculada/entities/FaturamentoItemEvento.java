@@ -15,6 +15,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FaturamentoItemEvento extends EntidadeGenerica {
+    protected final static String[] uniqueIndex = {"nome"};        
     @NotNull
     private String nome;
     private Boolean isSubstituicao;
