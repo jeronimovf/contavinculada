@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -20,15 +20,13 @@ public class Servidor extends PessoaFisica {
     @Setter
     @NotEmpty
     private String matricula;
+
+    @Getter
     @OneToMany(mappedBy = "servidor")
-    private Set<Fiscal> fiscais;
+    private List<Fiscal> fiscais;
 
     public Servidor() {
-        this.fiscais = new TreeSet<>();
-    }
-
-    public Set<Fiscal> getFiscais() {
-        return new TreeSet<>(fiscais);
+        this.fiscais = new ArrayList<>();
     }
 
     public void addFiscais(Fiscal fiscal) {

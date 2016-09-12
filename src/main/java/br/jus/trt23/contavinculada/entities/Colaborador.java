@@ -1,8 +1,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -41,81 +41,63 @@ public class Colaborador extends EntidadeGenerica {
     @Setter
     private String responsavelTecnico;
 
+    @Getter
     @OneToMany(mappedBy = "titular")
-    private Set<Alocacao> titularEm;
+    private List<Alocacao> titularEm;
     
+    @Getter
     @OneToMany(mappedBy = "substituto")
-    private Set<Alocacao> substitutoEm;
+    private List<Alocacao> substitutoEm;
 
+    @Getter
     @OneToMany(mappedBy = "substituto")
-    private Set<FaturamentoItem> substituicoes;   
+    private List<FaturamentoItem> substituicoes;   
 
+    @Getter
     @OneToMany(mappedBy = "titular")
-    private Set<FaturamentoItem> titularidades;     
+    private List<FaturamentoItem> titularidades;     
 
+    @Getter
     @OneToMany(mappedBy = "colaborador")
-    private Set<Retencao> retencoes; 
+    private List<Retencao> retencoes; 
     
+    @Getter
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    private Set<Salario> salarios;
+    private List<Salario> salarios;
 
     public Colaborador() {
-        this.substitutoEm = new TreeSet<>();
-        this.titularEm = new TreeSet<>();
-        this.titularidades = new TreeSet<>();
-        this. substituicoes = new TreeSet<>();
-        this.retencoes = new TreeSet<>();
-        this.salarios = new TreeSet<>();
+        this.substitutoEm = new ArrayList<>();
+        this.titularEm = new ArrayList<>();
+        this.titularidades = new ArrayList<>();
+        this. substituicoes = new ArrayList<>();
+        this.retencoes = new ArrayList<>();
+        this.salarios = new ArrayList<>();
     }
 
-    
-    public Set<Alocacao> getTitularEm() {
-        return new TreeSet<>(titularEm);
-    }
     
     public void AddTitularEm(Alocacao alocacao){
             titularEm.add(alocacao);
             alocacao.setTitular(this);
     }
 
-    public Set<Alocacao> getSubstitutoEm() {
-        return new TreeSet<>(substitutoEm);       
-    }
-    
     public void AddSubstitutoEm(Alocacao alocacao){
             substitutoEm.add(alocacao);
             alocacao.setSubstituto(this);
     }    
 
-    public Set<FaturamentoItem> getSubstituicoes() {
-        return new TreeSet<>(substituicoes);               
-    }
-
     public void AddSubstituicoes(FaturamentoItem faturamentoIt){
             substituicoes.add(faturamentoIt);
             faturamentoIt.setSubstituto(this);
     }    
-    
-    public Set<FaturamentoItem> getTitularidades() {
-        return new TreeSet<>(titularidades);               
-    }
 
     public void AddTitularidades(FaturamentoItem faturamentoIt){
             titularidades.add(faturamentoIt);
             faturamentoIt.setTitular(this);
     }       
-    
-    public Set<Retencao> getRetencoes() {
-        return new TreeSet<>(retencoes);          
-    }
 
     public void AddRetencoes(Retencao retencao){
             retencoes.add(retencao);
             retencao.setColaborador(this);
-    }    
-    
-    public Set<Salario> getSalarios() {
-        return new TreeSet<>(salarios);          
     }    
     
     public void AddSalarios(Salario salario){

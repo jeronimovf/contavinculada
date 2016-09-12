@@ -4,8 +4,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -57,41 +57,32 @@ public class Faturamento extends EntidadeGenerica {
     @Transient
     private Double valorBruto;
 
+    @Getter
     @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<FaturamentoItem> itens;
+    private List<FaturamentoItem> itens;
 
+    @Getter
     @OneToMany(mappedBy = "faturamento")
-    private Set<Retencao> retencoes;
+    private List<Retencao> retencoes;
 
+    @Getter
     @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")
-    private Set<Glosa> glosas;
+    private List<Glosa> glosas;
 
     public Faturamento() {
-        this.itens = new TreeSet<>();
-        this.retencoes = new TreeSet<>();
-        this.glosas = new TreeSet<>();
+        this.itens = new ArrayList<>();
+        this.retencoes = new ArrayList<>();
+        this.glosas = new ArrayList<>();
     }
 
-    public Set<FaturamentoItem> getItens() {
-        return new TreeSet<>(itens);
-    }
-    
     public void addItens(FaturamentoItem item){
         itens.add(item);
         item.setFaturamento(this);
     }
 
-    public Set<Retencao> getRetencoes() {
-        return new TreeSet<>(retencoes);
-    }
-
     public void addRetencoes(Retencao retencao){
         retencoes.add(retencao);
         retencao.setFaturamento(this);
-    }
-    
-    public Set<Glosa> getGlosas() {
-        return new TreeSet<>(glosas);
     }
     
     public void addGlosas(Glosa glosa){

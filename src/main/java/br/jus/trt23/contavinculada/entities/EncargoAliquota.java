@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -32,15 +32,12 @@ public class EncargoAliquota extends EntidadeGenerica {
     @Setter
     private Boolean retencaoContaVinculada;
 
+    @Getter
     @OneToMany(mappedBy = "aliquota")
-    private Set<Retencao> retencoes;
+    private List<Retencao> retencoes;
 
     public EncargoAliquota() {
-        this.retencoes = new TreeSet<>();
-    }
-
-    public Set<Retencao> getRetencoes() {
-        return new TreeSet<>(retencoes);
+        this.retencoes = new ArrayList<>();
     }
     
     public void addRetencoes(Retencao retencao){

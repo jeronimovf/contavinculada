@@ -3,9 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -22,16 +21,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 )
 public class CalendarioFeriado extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};
+
+    @Getter
     @OneToMany(mappedBy = "feriadoCalendario")
-    private Set<PostoDeTrabalho> postosDeTrabalho;
+    private List<PostoDeTrabalho> postosDeTrabalho;
 
     @Getter
     @Setter
     @NotEmpty
     private String nome;
 
+    @Getter
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-    private Set<CalendarioFeriadoItem> feriados;
+    private List<CalendarioFeriadoItem> feriados;
 
     @Getter
     @Setter
@@ -39,22 +41,14 @@ public class CalendarioFeriado extends EntidadeGenerica {
     private String descricao;
 
     public CalendarioFeriado() {
-        this.feriados = new TreeSet<>();
-        this.postosDeTrabalho = new TreeSet<>();
-    }
-
-    public Collection<CalendarioFeriadoItem> getFeriados() {
-        return new TreeSet<>(feriados);
+        this.feriados = new ArrayList<>();
+        this.postosDeTrabalho = new ArrayList<>();
     }
 
     public void addFeriados(CalendarioFeriadoItem item){
         feriados.add(item);
     }
 
-    public Collection<PostoDeTrabalho> getPostosDeTrabalho() {
-        return new TreeSet<>(postosDeTrabalho);
-    }
-    
     public void AddPostosDeTrabalho(PostoDeTrabalho posto) {
             postosDeTrabalho.add(posto);
             posto.setFeriadoCalendario(this);

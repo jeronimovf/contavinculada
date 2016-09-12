@@ -32,7 +32,7 @@
                              textValue="#{contratoFlowController.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
 
-            <p:dataTable value="#{contratoFlowController.faturamentoItemAsList()}"
+            <p:dataTable value="#{contratoFlowController.faturamentoNovo.itens}"
                          var="fi" 
                          editable="true"
                          paginator="true"

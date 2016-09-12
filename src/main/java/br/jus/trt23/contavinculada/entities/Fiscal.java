@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -43,17 +43,14 @@ public class Fiscal extends EntidadeGenerica {
     @JoinColumn(nullable=false)
     private Contrato contrato;
     
+    @Getter
     @OneToMany(mappedBy = "atestadaPor")
-    private Set<Faturamento> faturamentosAtestados;    
+    private List<Faturamento> faturamentosAtestados;    
 
     public Fiscal() {
-        this.faturamentosAtestados = new TreeSet<>();
+        this.faturamentosAtestados = new ArrayList<>();
     }
 
-    public Set<Faturamento> getFaturamentosAtestados() {
-        return new TreeSet<>(faturamentosAtestados);
-    }
-    
     public void addFaturamentosAtestados(Faturamento faturamento){
         faturamentosAtestados.add(faturamento);
     }

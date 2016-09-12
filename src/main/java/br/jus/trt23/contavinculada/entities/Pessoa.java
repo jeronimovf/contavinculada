@@ -3,13 +3,14 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMappings;
+import lombok.Getter;
 
 @Entity
 @NamedNativeQueries({
@@ -18,54 +19,42 @@ import javax.persistence.SqlResultSetMappings;
 @SqlResultSetMappings({})
 public abstract class Pessoa extends EntidadeGenerica {
 
+    @Getter
     @OneToMany(targetEntity = EnderecoEletronico.class)
-    private Set<EnderecoEletronico> emails;
+    private List<EnderecoEletronico> emails;
 
+    @Getter
     @OneToMany(targetEntity = Endereco.class)
-    private Set<Endereco> enderecos;
+    private List<Endereco> enderecos;
 
+    @Getter
     @OneToMany(targetEntity = Contrato.class, mappedBy = "contratado")
-    private Set<Contrato> contratos;
+    private List<Contrato> contratos;
 
+    @Getter
     @OneToMany(targetEntity = Telefone.class)
-    private Set<Telefone> telefones;
+    private List<Telefone> telefones;
 
     public abstract String getDescricao();
 
     public Pessoa() {
-        this.emails = new TreeSet<>();
-        this.enderecos = new TreeSet<>();
-        this.contratos = new TreeSet<>();
-        this.telefones = new TreeSet<>();
-    }
-
-    public Set<EnderecoEletronico> getEmails() {
-        return new TreeSet<>(emails);
+        this.emails = new ArrayList<>();
+        this.enderecos = new ArrayList<>();
+        this.contratos = new ArrayList<>();
+        this.telefones = new ArrayList<>();
     }
 
     public void addEmails(EnderecoEletronico email) {
         emails.add(email);
     }
 
-    public Set<Endereco> getEnderecos() {
-        return new TreeSet<>();
-    }
-
     public void addEnderecos(Endereco endereco) {
         enderecos.add(endereco);
-    }
-
-    public Set<Contrato> getContratos() {
-        return new TreeSet<>(contratos);
     }
 
     public void addContratos(Contrato contrato) {
         contratos.add(contrato);
         contrato.setContratado(this);
-    }
-
-    public Set<Telefone> getTelefones() {
-        return new TreeSet<>(telefones);
     }
 
     public void addTelefones(Telefone telefone) {

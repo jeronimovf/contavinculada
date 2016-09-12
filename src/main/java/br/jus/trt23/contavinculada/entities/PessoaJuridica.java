@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -37,15 +37,12 @@ public class PessoaJuridica extends Pessoa {
     @NotEmpty
     private String razaoSocial;
     
+    @Getter
     @OneToMany(mappedBy = "empregador", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    private Set<Colaborador> contratanteEm;
+    private List<Colaborador> contratanteEm;
     
     public PessoaJuridica() {
-        this.contratanteEm = new TreeSet<>();
-    }
-    
-    public Set<Colaborador> getContratanteEm() {
-        return new TreeSet<>(contratanteEm);
+        this.contratanteEm = new ArrayList<>();
     }
     
     public void addContratanteEm(Colaborador colaborador) {

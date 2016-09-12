@@ -1,11 +1,11 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Encargo;
-import javax.faces.view.ViewScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@FlowScoped("encargoflow")
 public class EncargoController extends AbstractController<Encargo> {
 
     public EncargoController() {

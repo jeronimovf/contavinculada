@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -25,15 +25,12 @@ public class Jornada extends EntidadeGenerica {
     @NotEmpty
     private String descricao;
 
+    @Getter
     @OneToMany(mappedBy = "jornada")
-    private Set<PostoDeTrabalho> postosDeTrabalho;
+    private List<PostoDeTrabalho> postosDeTrabalho;
 
     public Jornada() {
-        this.postosDeTrabalho = new TreeSet<>();
-    }
-
-    public Set<PostoDeTrabalho> getPostosDeTrabalho() {
-        return new TreeSet<>(postosDeTrabalho);
+        this.postosDeTrabalho = new ArrayList<>();
     }
 
     public void addPostosDeTrabalho(PostoDeTrabalho posto) {

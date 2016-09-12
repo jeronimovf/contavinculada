@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -20,15 +20,12 @@ public class GlosaEspecie extends EntidadeGenerica {
     @Setter
     private String nome;
 
+    @Getter
     @OneToMany(targetEntity = Glosa.class, mappedBy = "especie")
-    private Set<Glosa> glosas;
+    private List<Glosa> glosas;
 
     public GlosaEspecie() {
-        this.glosas = new TreeSet<>();
-    }
-
-    public Set<Glosa> getGlosas() {
-        return new TreeSet<>(glosas);
+        this.glosas = new ArrayList<>();
     }
 
     public void addGlosas(Glosa glosa) {

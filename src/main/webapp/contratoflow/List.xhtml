@@ -9,18 +9,18 @@
     <ui:define name="content">
         <t:ListForm casePrefix="contrato" controller="#{contratoFlowController}">
             <t:ListFlowView controller="#{contratoFlowController}" casePrefix="contrato">
-            <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoFlowController.getMsgFieldLabel('numero')}" >
-                <h:outputText value="#{item.numero}"/>
-            </p:column>
-            <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoFlowController.getMsgFieldLabel('contratado')}" >
-                <h:outputText value="#{item.contratado.descricao}"/>
-            </p:column>
-            <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoFlowController.getMsgFieldLabel('objeto')}">
-                <h:outputText value="#{item.objeto}"/>
-            </p:column>      
-            <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoFlowController.getMsgFieldLabel('processo')}">
-                <h:outputText value="#{item.processo}"/>
-            </p:column>                  
+                <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoFlowController.getMsgFieldLabel('numero')}" >
+                    <h:outputText value="#{item.numero}"/>
+                </p:column>
+                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoFlowController.getMsgFieldLabel('contratado')}" >
+                    <h:outputText value="#{item.contratado.descricao}"/>
+                </p:column>
+                <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoFlowController.getMsgFieldLabel('objeto')}">
+                    <h:outputText value="#{item.objeto}"/>
+                </p:column>      
+                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoFlowController.getMsgFieldLabel('processo')}">
+                    <h:outputText value="#{item.processo}"/>
+                </p:column>                  
             </t:ListFlowView>
         </t:ListForm>
     </ui:define>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://java.sun.com/jsf/composite/components"                      
+                template="/template.xhtml">
+    <ui:define name="content">
+        <t:FormFlowCreate saveAction="#{calendarioFeriadoController.saveOrCreate()}"
+                          casePrefix="calendarioFeriadoEdit"
+                          controller="#{calendarioFeriadoController}"
+                          entityToUpdate="#{calendarioFeriadoController.selected}"
+                          goBackToAction="#{calendarioFeriadoController.goBackTo('List')}">
+            <p:panel header="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_calendario')}">
+                <t:FormRowString id="nome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('nome')}"
+                                 textSize="30" textValue="#{calendarioFeriadoController.selected.nome}"/>
+                <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}"
+                                 textSize="50" textValue="#{calendarioFeriadoController.selected.descricao}"/>    
+            </p:panel>
+            <t:ListFlowView selection="#{calendarioFeriadoController.calendarioFeriadoItem}" 
+                            value="#{calendarioFeriadoController.selected.feriados}" 
+                            casePrefix="calendarioFeriadoItem"
+                            action="#{calendarioFeriadoController.prepareCalendarioFeriadoItemEdit()}" 
+                            controller="#{calendarioFeriadoController}" 
+                            id="calendarioFeriadoItem"
+                            specificValues="true">
+                <f:facet name="header">
+                    <div class="alignRight">
+                        <p:commandButton action="#{calendarioFeriadoController.prepareCalendarioFeriadoItemNovo()}"
+                                         value="#{messages.CreateLink}" />
+                    </div>
+                </f:facet>
+                <p:column width="30%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}"
+                          sortBy="#{item.nome}">
+                    <h:outputText value="#{item.nome}"/>
+                </p:column>   
+                <p:column width="10%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}"
+                          sortBy="#{item.quando}">
+                    <h:outputText value="#{item.quando}" converter="localDateConverter"/>
+                </p:column>                                                     
+                <p:column width="15%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}"
+                          sortBy="#{item.escopo}">
+                    <h:outputText value="#{item.escopo}" />
+                </p:column>                                                                             
+                <p:column width="20%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"
+                          sortBy="#{item.onde}">
+                    <h:outputText value="#{item.onde}" />
+                </p:column>             
+            </t:ListFlowView>            
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

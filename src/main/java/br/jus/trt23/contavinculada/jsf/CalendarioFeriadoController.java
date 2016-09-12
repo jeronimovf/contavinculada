@@ -9,24 +9,24 @@ import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import javax.faces.flow.FlowScoped;
 import javax.faces.model.SelectItem;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
-@ViewScoped
+@FlowScoped("calendarioferiadoflow")
 @Getter
 @Setter
 public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado>{
 
     private CalendarioFeriadoItem calendarioFeriadoItem;    
 
-    public String prepareCalendarioFeriadoItemCreate() {
+    public String prepareCalendarioFeriadoItemNovo() {
         setCalendarioFeriadoItem(new CalendarioFeriadoItem());
-        return "CalendarioFeriadoItemCreate";
+        return "ItemNovo";
     }
 
     public String prepareCalendarioFeriadoItemEdit() {
@@ -36,7 +36,7 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
             calendarioFeriadoItem = (CalendarioFeriadoItem) dt.getRowData();
         }
         setActiveAction(EActiveAction.EDIT);
-        return "Edit";
+        return "ItemEdit";
     }
 
     public String saveOrCreateCalendarioFeriadoItem() throws Exception {

@@ -4,8 +4,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,22 +37,26 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     @ManyToOne
     private Jornada jornada;
 
+    @Getter
     @OneToMany(mappedBy = "postoDeTrabalho", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Alocacao> alocacoes;
+    private List<Alocacao> alocacoes;
 
+    @Getter
     @OneToMany(mappedBy = "postoDeTrabalho")
-    private Set<FaturamentoItem> faturamentoItens;
+    private List<FaturamentoItem> faturamentoItens;
 
+    @Getter
     @Enumerated
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<EDiasComputados> diasComputados;
+    private List<EDiasComputados> diasComputados;
 
     @Getter
     @Setter
     private String responsavelTecnico;
 
+    @Getter
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
-    private Set<Salario> remuneracoes;
+    private List<Salario> remuneracoes;
 
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario
     //se o item não estiver em diasComputados
@@ -62,14 +66,10 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     private CalendarioFeriado feriadoCalendario;
 
     public PostoDeTrabalho() {
-        this.alocacoes = new TreeSet<>();
-        this.faturamentoItens = new TreeSet<>();
-        this.diasComputados = new TreeSet<>();
-        this.remuneracoes = new TreeSet<>();
-    }
-
-    public Set<Alocacao> getAlocacoes() {
-        return new TreeSet<>(alocacoes);
+        this.alocacoes = new ArrayList<>();
+        this.faturamentoItens = new ArrayList<>();
+        this.diasComputados = new ArrayList<>();
+        this.remuneracoes = new ArrayList<>();
     }
 
     public void addAlocacoes(Alocacao alocacao) {
@@ -77,29 +77,17 @@ public class PostoDeTrabalho extends EntidadeGenerica {
         alocacao.setPostoDeTrabalho(this);
     }
 
-    public Set<FaturamentoItem> getFaturamentoItems() {
-        return new TreeSet<>(faturamentoItens);
-    }
-
     public void addFaturamentoItens(FaturamentoItem faturamentoIt) {
         faturamentoItens.add(faturamentoIt);
         faturamentoIt.setPostoDeTrabalho(this);
-    }
-
-    public Set<EDiasComputados> getDiasComputados() {
-        return diasComputados;
     }
 
     public void addDiasComputados(EDiasComputados eDiasComputados) {
         diasComputados.add(eDiasComputados);
     }
 
-    public void setDiasComputados(Set<EDiasComputados> diasComputados){
+    public void setDiasComputados(List<EDiasComputados> diasComputados){
         this.diasComputados = diasComputados;
-    }
-    
-    public Set<Salario> getRemuneracoes() {
-        return new TreeSet<>(remuneracoes);
     }
 
     public void addRemuneracaoes(Salario salario) {

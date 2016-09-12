@@ -2,11 +2,11 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 import br.jus.trt23.contavinculada.session.FaturamentoItemEventoFacade;
-import javax.faces.view.ViewScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@FlowScoped("faturamentoitemeventoflow")
 public class FaturamentoItemEventoController extends AbstractController<FaturamentoItemEvento> {
 
     public FaturamentoItemEventoController() {
@@ -15,7 +15,7 @@ public class FaturamentoItemEventoController extends AbstractController<Faturame
 
     @Override
     protected String getMessagePrefix() {
-        return "FaturamentoItemEvento";
+        return "FaturamentoItemEvento"; 
     }
     
     public FaturamentoItemEvento getFaturamentoItemEventoPadrao(){

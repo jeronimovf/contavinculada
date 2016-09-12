@@ -3,8 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,17 +35,14 @@ public class CargoOuFuncao extends EntidadeGenerica {
     @NotEmpty
     private String atribuicoes;
 
+    @Getter
     @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao")
-    private Set<PostoDeTrabalho> postosDeTrabalho;
+    private List<PostoDeTrabalho> postosDeTrabalho;
 
     public CargoOuFuncao() {
-        this.postosDeTrabalho = new TreeSet<>();
+        this.postosDeTrabalho = new ArrayList<>();
     }
 
-    public Set<PostoDeTrabalho> getPostosDeTrabalho() {
-        return new TreeSet<>(postosDeTrabalho);
-    }
-    
     public void addPostosDeTrabalho(PostoDeTrabalho posto){
         postosDeTrabalho.add(posto);
         posto.setCargoOuFuncao(this);

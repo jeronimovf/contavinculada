@@ -4,8 +4,8 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import lombok.Getter;
@@ -52,15 +52,12 @@ public class PessoaFisica extends Pessoa {
     @Setter
     private String ctps;
 
+    @Getter
     @OneToMany(mappedBy = "colaborador")
-    private Set<Colaborador> colaboradorEm;
+    private List<Colaborador> colaboradorEm;
 
     public PessoaFisica() {
-        this.colaboradorEm = new TreeSet<>();
-    }
-
-    public Set<Colaborador> getColaboradorEm() {
-        return new TreeSet<>(colaboradorEm);
+        this.colaboradorEm = new ArrayList<>();
     }
 
     public void addColaboradorEm(Colaborador colaborador) {
