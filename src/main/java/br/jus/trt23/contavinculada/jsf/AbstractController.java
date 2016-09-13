@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -92,11 +91,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         }
     }
 
-    public String prepareList() {
-        activeAction = EActiveAction.VIEW;
-        return "List";
-    }
-
     public String prepareCreate() {
         setSelected((T) getFacade().newInstance());
         setActiveAction(EActiveAction.NEW);
@@ -109,7 +103,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().create(selected);
             msg = messages.getString(getMessagePrefix().concat("_Created"));
             JsfUtil.addSuccessMessage(msg);
-            return prepareList();
+            return "List";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -124,7 +118,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().create(obj);
             msg = messages.getString(getMessagePrefix().concat("_Created"));
             JsfUtil.addSuccessMessage(msg);
-            return prepareList();
+            return "List";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -160,7 +154,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().edit(selected);
             msg = messages.getString(getMessagePrefix().concat("_Updated"));
             JsfUtil.addSuccessMessage(msg);
-            return prepareList();
+            return "Edit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -174,7 +168,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().edit(obj);
             msg = messages.getString(getMessagePrefix().concat("_Updated"));
             JsfUtil.addSuccessMessage(msg);
-            return prepareList();
+            return "Edit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -192,7 +186,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         msg = MessageFormat.format(messages.getString(getMessagePrefix().concat("_Deleted")), getSelectedItems().size());
         JsfUtil.addSuccessMessage(msg);
         refreshList();
-        return prepareList();
+        return "List";
     }
 
     private void performDestroy(T item) {
@@ -249,11 +243,11 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         return messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
     }
 
-    public Set<SelectItem> getItemsAvailableSelectMany() {
+    public List<SelectItem> getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(getFacade().findAll(), false);
     }
 
-    public Set<SelectItem> getItemsAvailableSelectOne() {
+    public List<SelectItem> getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(getFacade().findAll(), true);
     }
 

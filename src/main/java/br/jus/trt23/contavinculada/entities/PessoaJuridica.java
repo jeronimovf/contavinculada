@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,11 @@ public class PessoaJuridica extends Pessoa {
     @Setter
     @NotEmpty
     private String razaoSocial;
+            
+    @Getter
+    @Setter
+    @ManyToOne
+    private RAT rat;
     
     @Getter
     @OneToMany(mappedBy = "empregador", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})

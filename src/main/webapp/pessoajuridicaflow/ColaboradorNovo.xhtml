@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
+                template="/template.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+
+        <t:FormFlowCreate id="colaboradorCreate" casePrefix="colaboradorCreate" 
+                          entityToUpdate="#{pessoaJuridicaController.colaboradorNovo}" 
+                          saveAction="#{pessoaJuridicaController.saveOrCreateColaborador()}"
+                          goBackToAction="#{pessoaJuridicaController.goBackTo('Edit')}"
+                          controller="#{pessoaJuridicaController}">                      
+            <p:panel header="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_colaborador')}">
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.nome}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('nome')}"
+                                 textSize="30"/><br/>
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.cpf}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('cpf')}"
+                                 textSize="11"/>
+                <t:FormRowDate calendarValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.nascimentoData}"
+                               labelValue="#{pessoaFisicaController.getMsgFieldLabel('nascimentoData')}"/><br/>
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.rgNumero}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('rgNumero')}"
+                                 textSize="10"/>
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.rgUF}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('rgUF')}"
+                                 textSize="2"/>
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.rgOrgaoExpedidor}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('rgOrgaoExpedidor')}"
+                                 textSize="2"/>            
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.pisPasep}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('pisPasep')}"
+                                 textSize="10"/><br/>
+                <t:FormRowString textValue="#{pessoaJuridicaController.colaboradorNovo.colaborador.ctps}"
+                                 labelValue="#{pessoaFisicaController.getMsgFieldLabel('ctps')}"
+                                 textSize="10"/>                                         
+            </p:panel>
+            <t:FormRowDate calendarValue="#{pessoaJuridicaController.colaboradorNovo.recebeuManualEm}"
+                           labelValue="#{colaboradorController.getMsgFieldLabel('recebeuManualEm')}"/><br/>
+            <t:FormRowCheck checkValue="#{pessoaJuridicaController.colaboradorNovo.isDesligamentoPorJustaCausa}"
+                            labelValue="#{colaboradorController.getMsgFieldLabel('isDesligamentoPorJustaCausa')}"/>
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

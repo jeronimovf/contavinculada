@@ -6,14 +6,14 @@ import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.Salario;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import javax.faces.view.ViewScoped;
+import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
-@ViewScoped
+@FlowScoped("pessoajuridicaflow")
 @Getter
 @Setter
 public class PessoaJuridicaController extends AbstractController<PessoaJuridica> {
@@ -38,12 +38,12 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
     public String prepareColaboradorNovo() {
         setColaboradorNovo(new Colaborador());
         getColaboradorNovo().setColaborador(new PessoaFisica());
-        return "colaboradorNovo";
+        return "ColaboradorNovo";
     }
     
     public String prepareSalarioNovo(){
         setSalarioNovo(new Salario());
-        return "salarioNovo";
+        return "SalarioNovo";
     }
     
     public String prepareColaboradorEdit(){
@@ -53,7 +53,7 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
             setColaboradorNovo((Colaborador) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "colaboradorEdit";
+        return "ColaboradorEdit";
     }    
 
     public String prepareSalarioEdit(){
@@ -63,7 +63,7 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
             setSalarioNovo((Salario) dt.getRowData());
         }
         setActiveAction(EActiveAction.EDIT);
-        return "salarioEdit";
+        return "SalarioEdit";
     }       
 
     public String saveOrCreateColaborador() throws Exception {

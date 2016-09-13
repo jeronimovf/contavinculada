@@ -8,22 +8,22 @@
         <h:form id="mainMenu">
             <p:menu toggleable="true" >
                 <p:submenu label="Tabelas básicas">
-                    <p:menuitem action="faturamentoitemeventoflow" value="Evento de faturamento"/>                                    
-                    <p:menuitem action="calendarioferiadoflow" value="Calendario feriados"/>                                    
-                    <p:menuitem action="cargooufuncaoflow" value="Cargo/função"/>
-                    <p:menuitem action="encargoflow" value="Encargo"/>
-                    <p:menuitem action="fiscalespecieflow" value="Espécie de fiscal"/>                           
+                    <p:menuitem action="#{flowController.flow('faturamentoitemeventoflow')}" value="Evento de faturamento"/>                                    
+                    <p:menuitem action="#{flowController.flow('calendarioferiadoflow')}" value="Calendario feriados"/>                                    
+                    <p:menuitem action="#{flowController.flow('cargooufuncaoflow')}" value="Cargo/função"/>
+                    <p:menuitem action="#{flowController.flow('encargoflow')}" value="Encargo"/>
+                    <p:menuitem action="#{flowController.flow('fiscalespecieflow')}" value="Espécie de fiscal"/>                           
                 </p:submenu>
                 <p:submenu label="Pessoa">
                     <p:menuitem  value="Pessoa física"/>                        
-                    <p:menuitem outcome="/pessoajuridica/index" value="Pessoa jurídica"/>
+                    <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
                 </p:submenu>
                 <p:submenu label="Fiscal técnico">
                     <p:menuitem value="Lançamentos ponto"/>                        
                     <p:menuitem value="Manutenção colaboradores"/>                                      
                 </p:submenu>
                 <p:submenu label="Fiscal administrativo">
-                    <p:menuitem action="contratoflow" value="Contrato"/>                                            
+                    <p:menuitem action="#{flowController.flow('contratoflow')}" value="Contrato"/>                                            
                     <p:menuitem value="Liquidações"/>                                                            
                 </p:submenu>                                
                 <p:submenu label="Consultas e relatórios">

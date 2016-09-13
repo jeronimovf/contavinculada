@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://java.sun.com/jsf/composite/components"                      
+                template="/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">          
+        <t:FormFlowCreate saveAction="#{pessoaJuridicaController.saveOrCreate()}"
+                          casePrefix="pessoaJuridicaEdit"
+                          controller="#{pessoaJuridicaController}"
+                          entityToUpdate="#{pessoaJuridicaController.selected}"
+                          goBackToAction="#{pessoaJuridicaController.goBackTo('List')}">  
+            <t:FormRowString textValue="#{pessoaJuridicaController.selected.cnpj}" 
+                             labelValue="#{pessoaJuridicaController.getMsgFieldLabel('cnpj')}" 
+                             id="nome" 
+                             textSize="20"/>
+            <t:FormRowString textValue="#{pessoaJuridicaController.selected.nomeFantasia}" 
+                             labelValue="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" 
+                             id="nomeFantasia" 
+                             textSize="50"/><br/>
+            <t:FormRowString textValue="#{pessoaJuridicaController.selected.razaoSocial}" 
+                             labelValue="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}" 
+                             id="razaoSocial" 
+                             textSize="50"/>
+            <t:FormRowString textValue="#{pessoaJuridicaController.selected.inscricaoEstadual}" 
+                             labelValue="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}" 
+                             id="inscricaoEstadual" 
+                             textSize="20"/><br/>                         
+            <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 
+                                    labelValue="#{pessoaJuridicaController.getMsgFieldLabel('rat')}" 
+                                    selectValue="#{pessoaJuridicaController.selected.rat}"
+                                    converter="#{ratConverter}"/>
+            <p:tabView id="pjTabs">
+                <p:tab title="#{pessoaJuridicaController.getTabHeader('Colaborador')}">
+                    <t:ListFlowView selection="#{pessoaJuridicaController.colaboradorNovo}" 
+                                    value="#{pessoaJuridicaController.selected.contratanteEm}" 
+                                    casePrefix="colaborador" 
+                                    action="#{pessoaJuridicaController.prepareColaboradorEdit}" 
+                                    controller="#{pessoaJuridicaController}" 
+                                    id="colaborador"
+                                    specificValues="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{pessoaJuridicaController.prepareColaboradorNovo()}"
+                                                 value="#{messages.CreateLink}"/>
+                            </div>
+                        </f:facet>
+                        <p:column width="25%" 
+                                  headerText="#{colaboradorController.getMsgFieldLabel('colaborador')}">
+                            <h:outputText value="#{item.colaborador.toString()}"/>
+                        </p:column>   
+                        <p:column width="10%"  
+                                  headerText="#{colaboradorController.getMsgFieldLabel('isDesligamentoPorJustaCausa')}">
+                            <p:selectBooleanCheckbox value="#{item.isDesligamentoPorJustaCausa}" disabled="true"/>
+                        </p:column>                                                     
+                        <p:column width="25%"  
+                                  headerText="#{colaboradorController.getMsgFieldLabel('recebeuManualEm')}">
+                            <h:outputText value="#{item.recebeuManualEm}" converter="localDateConverter"/>
+                        </p:column>                                                     
+                    </t:ListFlowView>
+                </p:tab>
+            </p:tabView>        
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>
