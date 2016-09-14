@@ -40,10 +40,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     //o messagePrefix é utilizado para a obtenção de strings de bundle
     protected abstract String getMessagePrefix();
 
-    //a enumeração é utilizada para determinar qual o estado de persistência
-    //vigente
-    private EActiveAction activeAction;
-
     @Inject
     @MessageBundle
     //o messages é utilizado para obtenção de propriedades do bundle
@@ -52,8 +48,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     protected transient ResourceBundle messages;
 
     public AbstractController() {
-        this.activeAction = EActiveAction.VIEW;
-        prepareDlg();
     }
 
     public AbstractController(Class<T> itemClass) {
@@ -93,7 +87,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
 
     public String prepareCreate() {
         setSelected((T) getFacade().newInstance());
-        setActiveAction(EActiveAction.NEW);
         return "Create";
     }
 
@@ -144,7 +137,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     
     public String prepareEdit() {
         setSelected((T) getLazyItems().getRowData());
-        setActiveAction(EActiveAction.EDIT);
         return "Edit";
     }
 
@@ -204,7 +196,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     }
 
     public String getMsgPageTitle() {
-        return messages.getString(getMessagePrefix().concat("_Title_").concat(activeAction.toString()));
+        return messages.getString(getMessagePrefix().concat("_Title_").concat(EActiveAction.VIEW.toString()));
     }
 
     public String getMsgEmptyList() {
@@ -287,10 +279,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             setItems((Collection<T>) paramItems);
             setLazyItems((Collection<T>) paramItems);
         }
-    }
-
-    protected void prepareDlg() {
-
     }
     
     //Essa função é necessária porque para os composite componets

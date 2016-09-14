@@ -5,10 +5,9 @@
  */
 package br.jus.trt23.contavinculada.crud.session;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
@@ -21,7 +20,7 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractFacade<T> {
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -45,19 +44,19 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().find(entityClass, id);
     }
 
-    public Set<T> findAll() {
+    public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
-        return new TreeSet<>(getEntityManager().createQuery(cq).getResultList());
+        return new ArrayList<>(getEntityManager().createQuery(cq).getResultList());
     }
 
-    public Set<T> findRange(int[] range) {
+    public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
-        return new TreeSet<>(q.getResultList());
+        return new ArrayList<>(q.getResultList());
     }
 
     public int count() {
@@ -68,7 +67,7 @@ public abstract class AbstractFacade<T> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
-    public Set<T> findRange(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
+    public List<T> findRange(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
         javax.persistence.criteria.Root<T> entityRoot = cq.from(entityClass);
@@ -90,10 +89,10 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(pageSize);
         q.setFirstResult(first);
-        return new TreeSet<>(q.getResultList());
+        return new ArrayList<>(q.getResultList());
     }
 
-    public Set<T> findRange(int first, int pageSize, Map<String, String> sortFields, Map<String, Object> filters) {
+    public List<T> findRange(int first, int pageSize, Map<String, String> sortFields, Map<String, Object> filters) {
         javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
         javax.persistence.criteria.Root<T> entityRoot = cq.from(entityClass);
@@ -118,7 +117,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(pageSize);
         q.setFirstResult(first);
-        return new TreeSet<>(q.getResultList());
+        return new ArrayList<>(q.getResultList());
     }
 
     public int count(Map<String, Object> filters) {
@@ -137,7 +136,7 @@ public abstract class AbstractFacade<T> {
     private List<Predicate> getPredicates(CriteriaBuilder cb, Root<T> entityRoot, Map<String, Object> filters) {
         javax.persistence.metamodel.Metamodel entityModel = this.getEntityManager().getMetamodel();
         javax.persistence.metamodel.ManagedType<T> entityType = entityModel.managedType(entityClass);
-        java.util.Set<javax.persistence.metamodel.EmbeddableType<?>> embeddables = entityModel.getEmbeddables();
+        java.util.Collection<javax.persistence.metamodel.EmbeddableType<?>> embeddables = entityModel.getEmbeddables();
         String fieldTypeName = null;
         // Add predicates (WHERE clauses) based on filters map
         List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();

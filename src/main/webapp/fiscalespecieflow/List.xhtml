@@ -7,11 +7,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">  
     <ui:define name="content"> 
-        <t:ListForm controller="#{fiscalEspecieController}" 
+        <t:ListForm controller="#{fiscalEspecieFlow.controller}" 
                     casePrefix="fiscalEspecie">
-            <t:ListFlowView controller="#{fiscalEspecieController}" 
+            <t:ListFlowView controller="#{fiscalEspecieFlow.controller}" 
                             casePrefix="fiscalEspecie">
-                <p:column width="30%" headerText="#{fiscalEspecieController.getMsgFieldLabel('nome')}">
+                <p:column width="30%" headerText="#{fiscalEspecieFlow.controller.getMsgFieldLabel('nome')}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>
             </t:ListFlowView>

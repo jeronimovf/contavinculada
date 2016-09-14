@@ -7,15 +7,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">  
     <ui:define name="content"> 
-        <t:ListForm controller="#{faturamentoItemEventoController}" 
+        <t:ListForm controller="#{faturamentoItemEventoFlow.controller}" 
                     casePrefix="faturamentoItemEvento">
-            <t:ListFlowView controller="#{faturamentoItemEventoController}" 
+            <t:ListFlowView controller="#{faturamentoItemEventoFlow.controller}" 
                             casePrefix="faturamentoItemEvento">
                 <p:column width="70%" filterBy="#{item.nome}" 
-                          headerText="#{faturamentoItemEventoController.getMsgFieldLabel('nome')}">
+                          headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('nome')}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>
-                <p:column width="9%" headerText="#{faturamentoItemEventoController.getMsgFieldLabel('isSubstituicao')}">
+                <p:column width="9%" headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('isSubstituicao')}">
                     <h:selectBooleanCheckbox value="#{item.isSubstituicao}"/>
                 </p:column>
             </t:ListFlowView>

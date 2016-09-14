@@ -8,43 +8,43 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <t:FormFlowCreate saveAction="#{calendarioFeriadoController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{calendarioFeriadoFlow.controller.saveOrCreate()}"
                           casePrefix="calendarioFeriadoEdit"
-                          controller="#{calendarioFeriadoController}"
-                          entityToUpdate="#{calendarioFeriadoController.selected}"
-                          goBackToAction="#{calendarioFeriadoController.goBackTo('List')}">
-            <p:panel header="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_calendario')}">
-                <t:FormRowString id="nome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('nome')}"
-                                 textSize="30" textValue="#{calendarioFeriadoController.selected.nome}"/>
-                <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}"
-                                 textSize="50" textValue="#{calendarioFeriadoController.selected.descricao}"/>    
+                          controller="#{calendarioFeriadoFlow.controller}"
+                          entityToUpdate="#{calendarioFeriadoFlow.controller.selected}"
+                          goBackToAction="#{calendarioFeriadoFlow.controller.goBackTo('List')}">
+            <p:panel header="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_calendario')}">
+                <t:FormRowString id="nome" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('nome')}"
+                                 textSize="30" textValue="#{calendarioFeriadoFlow.controller.selected.nome}"/>
+                <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('descricao')}"
+                                 textSize="50" textValue="#{calendarioFeriadoFlow.controller.selected.descricao}"/>    
             </p:panel>
-            <t:ListFlowView selection="#{calendarioFeriadoController.calendarioFeriadoItem}" 
-                            value="#{calendarioFeriadoController.selected.feriados}" 
+            <t:ListFlowView selection="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem}" 
+                            value="#{calendarioFeriadoFlow.controller.selected.feriados}" 
                             casePrefix="calendarioFeriadoItem"
-                            action="#{calendarioFeriadoController.prepareCalendarioFeriadoItemEdit()}" 
-                            controller="#{calendarioFeriadoController}" 
+                            action="#{calendarioFeriadoFlow.controller.prepareCalendarioFeriadoItemEdit()}" 
+                            controller="#{calendarioFeriadoFlow.controller}" 
                             id="calendarioFeriadoItem"
                             specificValues="true">
                 <f:facet name="header">
                     <div class="alignRight">
-                        <p:commandButton action="#{calendarioFeriadoController.prepareCalendarioFeriadoItemNovo()}"
+                        <p:commandButton action="#{calendarioFeriadoFlow.controller.prepareCalendarioFeriadoItemNovo()}"
                                          value="#{messages.CreateLink}" />
                     </div>
                 </f:facet>
-                <p:column width="30%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}"
+                <p:column width="30%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_nome')}"
                           sortBy="#{item.nome}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>   
-                <p:column width="10%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}"
+                <p:column width="10%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_quando')}"
                           sortBy="#{item.quando}">
                     <h:outputText value="#{item.quando}" converter="localDateConverter"/>
                 </p:column>                                                     
-                <p:column width="15%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}"
+                <p:column width="15%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_escopo')}"
                           sortBy="#{item.escopo}">
                     <h:outputText value="#{item.escopo}" />
                 </p:column>                                                                             
-                <p:column width="20%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"
+                <p:column width="20%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_onde')}"
                           sortBy="#{item.onde}">
                     <h:outputText value="#{item.onde}" />
                 </p:column>             

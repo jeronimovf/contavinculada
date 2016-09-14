@@ -7,6 +7,10 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
                 template="/template.xhtml">
+    <ui:define name="header">
+        <p:importEnum type="br.jus.trt23.contavinculada.enums.EDiasComputados"
+                      allSuffix="ALL_DIAS" var="DC"/>
+    </ui:define>
     <ui:define name="content">     
         <t:FormFlowCreate id="postoDeTrabalhoEdit" 
                           casePrefix="postoDeTrabalhoEdit" 
@@ -32,11 +36,12 @@
                                    labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
                                    autoCompleteConverter="#{jornadaConverter}"
                                    autoCompleteSize="30"/><br/>
+
             <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
                                  labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
-                                 itemValues="#{calendarioFeriadoController.diasComputados}" 
+                                 itemValues="#{contratoFlowController.diasComputados}" 
                                  selectValue="#{contratoFlowController.postoNovo.diasComputados}" 
-                                 selectConverter="#{diasComputadosConverter}"/>
+                                 selectConverter="#{diasComputadosConverter}"/>         
             <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
                                    autoCompleteValue="#{contratoFlowController.postoNovo.feriadoCalendario}" 
                                    autoCompleteItem="feriadoCalendario" 

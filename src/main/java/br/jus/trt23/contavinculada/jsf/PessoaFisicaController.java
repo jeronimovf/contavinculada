@@ -1,11 +1,11 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.PessoaFisica;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@Dependent
 public class PessoaFisicaController extends AbstractController<PessoaFisica> {
 
     public PessoaFisicaController() {

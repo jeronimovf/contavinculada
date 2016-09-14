@@ -2,14 +2,13 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.CalendarioFeriado;
 import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
-import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.faces.flow.FlowScoped;
+import javax.enterprise.context.Dependent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
-@FlowScoped("calendarioferiadoflow")
+@Dependent
 @Getter
 @Setter
 public class CalendarioFeriadoController extends AbstractController<CalendarioFeriado>{
@@ -35,7 +34,6 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
             DataTable dt = (DataTable)obj;  
             calendarioFeriadoItem = (CalendarioFeriadoItem) dt.getRowData();
         }
-        setActiveAction(EActiveAction.EDIT);
         return "ItemEdit";
     }
 
@@ -64,16 +62,11 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
     }
 
     public List<SelectItem> getDiasComputados() {
-        List<SelectItem> si = new ArrayList<>();
-        for (EDiasComputados edc : EDiasComputados.values()) {
-            si.add(new SelectItem(edc, edc.getNome()));
+        List<SelectItem> diasComputadosList = new ArrayList<>();
+        for(EDiasComputados dia: EDiasComputados.values()){
+            diasComputadosList.add(new SelectItem(dia,dia.getNome()));
         }
-        return si;
-    }
-
-    @Override
-    protected void prepareDlg() {
-
+        return diasComputadosList;
     }
 
     @Override

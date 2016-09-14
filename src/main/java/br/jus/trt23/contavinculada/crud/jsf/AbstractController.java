@@ -4,10 +4,10 @@ import br.jus.trt23.contavinculada.crud.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.crud.session.AbstractFacade;
 import br.jus.trt23.contavinculada.crud.session.LazyEntityDataModel;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -124,10 +124,10 @@ public abstract class AbstractController<T> implements Serializable {
     }
 
     public void setLazyItems(Collection<T> items) {
-        if (items instanceof Set) {
-            lazyItems = new LazyEntityDataModel<>((Set<T>) items);
+        if (items instanceof List) {
+            lazyItems = new LazyEntityDataModel<>((List<T>) items);
         } else {
-            lazyItems = new LazyEntityDataModel<>(new TreeSet<>(items));
+            lazyItems = new LazyEntityDataModel<>(new ArrayList<>(items));
         }
     }
 

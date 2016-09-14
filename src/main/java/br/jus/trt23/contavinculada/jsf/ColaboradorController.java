@@ -5,11 +5,11 @@ import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.session.ColaboradorFacade;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@Dependent
 public class ColaboradorController extends AbstractController<Colaborador> {
 
     public ColaboradorController() {

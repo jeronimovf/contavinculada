@@ -38,14 +38,17 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     private Jornada jornada;
 
     @Getter
+    @Setter
     @OneToMany(mappedBy = "postoDeTrabalho", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Alocacao> alocacoes;
 
     @Getter
+    @Setter
     @OneToMany(mappedBy = "postoDeTrabalho")
     private List<FaturamentoItem> faturamentoItens;
 
     @Getter
+    @Setter
     @Enumerated
     @ElementCollection(fetch = FetchType.EAGER)
     private List<EDiasComputados> diasComputados;
@@ -55,6 +58,7 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     private String responsavelTecnico;
 
     @Getter
+    @Setter
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<Salario> remuneracoes;
 
@@ -84,10 +88,6 @@ public class PostoDeTrabalho extends EntidadeGenerica {
 
     public void addDiasComputados(EDiasComputados eDiasComputados) {
         diasComputados.add(eDiasComputados);
-    }
-
-    public void setDiasComputados(List<EDiasComputados> diasComputados){
-        this.diasComputados = diasComputados;
     }
 
     public void addRemuneracaoes(Salario salario) {

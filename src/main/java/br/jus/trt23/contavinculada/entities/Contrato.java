@@ -99,6 +99,12 @@ public class Contrato extends EntidadeGenerica {
     @Getter
     @Setter
     private String situacao;
+    
+            
+    @Getter
+    @Setter
+    @ManyToOne
+    private RAT rat;    
 
     public Contrato() {
         this.contasVinculadas = new ArrayList<>();

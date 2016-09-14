@@ -12,36 +12,23 @@ import br.jus.trt23.contavinculada.entities.Fiscal;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.entities.Salario;
-import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
-import javax.faces.flow.FlowScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.Dependent;
+import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
 
 @Named
-@FlowScoped("contratoflow")
+@Dependent
 @Getter
 @Setter
 public class ContratoFlowController extends AbstractController<Contrato> {
-
-    @Inject
-    ColaboradorController colaboradorController;
-    @Inject
-    AlocacaoController alocacaoController;
-    @Inject
-    PostoDeTrabalhoController postoController;
-    @Inject
-    FaturamentoItemEventoController faturamentoItemEventoController;
-
     public ContratoFlowController() {
         super(Contrato.class);
     }
@@ -56,16 +43,7 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
-    private Set<Colaborador> colaboradoresPorContrato;
-
-    @Override
-    protected void prepareDlg() {
-        prepareFiscalNovo();
-        prepareAliquotaNova();
-        prepareContaNova();
-        preparePostoNovo();
-        prepareAditivoNovo();
-    }
+    private List<Colaborador> colaboradoresPorContrato;
 
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
@@ -122,7 +100,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setPostoNovo((PostoDeTrabalho) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "PostoEdit";
     }
 
@@ -132,7 +109,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setContaNova((ContaVinculada) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "ContaEdit";
     }
 
@@ -142,7 +118,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setAliquotaNova((EncargoAliquota) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "AliquotaEdit";
     }
 
@@ -152,7 +127,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setFiscalNovo((Fiscal) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "FiscalEdit";
     }
 
@@ -162,7 +136,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setFaturamentoNovo((Faturamento) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "FaturamentoEdit";
     }
 
@@ -172,7 +145,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setAlocacaoNova((Alocacao) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "AlocacaoEdit";
     }
 
@@ -182,7 +154,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setRemuneracaoNova((Salario) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "RemuneracaoEdit";
     }
 
@@ -192,7 +163,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             DataTable dt = (DataTable) obj;
             setFaturamentoItemNovo((FaturamentoItem) dt.getRowData());
         }
-        setActiveAction(EActiveAction.EDIT);
         return "FaturamentoItemEdit";
     }
 
@@ -310,6 +280,8 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     public List<Colaborador> completeColaboradores(String criteria) throws Exception {
         //TODO: Deve ser configurado para que não se permita selecionar o
         //      mesmo colaborador para titular e substituto.
+        ColaboradorController colaboradorController = 
+                new ColaboradorController();
 
         if (getSelected().getContratado() instanceof PessoaJuridica) {
             PessoaJuridica pj = (PessoaJuridica) getSelected().getContratado();
@@ -319,6 +291,9 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     }
 
     private void inicializaFaturamento() throws Exception {
+        FaturamentoItemEventoController faturamentoItemEventoController = 
+                new FaturamentoItemEventoController();
+        AlocacaoController alocacaoController = new AlocacaoController();
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
@@ -339,18 +314,18 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         }
     }
 
-    public Set<FaturamentoItem> getFaturamentoItemPorPostoDeTrabalho(PostoDeTrabalho postoDeTrabalho) {
+    public List<FaturamentoItem> getFaturamentoItemPorPostoDeTrabalho(PostoDeTrabalho postoDeTrabalho) {
         if (getFaturamentoNovo() != null) {
             return getFaturamentoNovo().getItens().stream().
                     filter(f -> f.getPostoDeTrabalho().equals(postoDeTrabalho)).
-                    collect(Collectors.toSet());
+                    collect(Collectors.toList());
         }
-        return new TreeSet<>();
+        return new ArrayList<>();
     }
 
-    public Set<Colaborador> getColaboradoresPorContrato() throws Exception {
+    public List<Colaborador> getColaboradoresPorContrato() throws Exception {
         if (this.colaboradoresPorContrato == null) {
-            setColaboradoresPorContrato(new TreeSet<>(completeColaboradores("")));
+            setColaboradoresPorContrato(new ArrayList<>(completeColaboradores("")));
         }
         return this.colaboradoresPorContrato;
     }
@@ -375,4 +350,16 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         throw new Exception("Método destinado a comparações entre FaturamentoItem");
     }
 
+    public List<SelectItem> getDiasComputados(){
+        CalendarioFeriadoController calendarioFeriadoController = 
+                new CalendarioFeriadoController();
+        
+        return calendarioFeriadoController.getDiasComputados();
+    }
+    
+    public List<SelectItem> getFaturamentoItemEvento(){
+        FaturamentoItemEventoController faturamentoItemEventoController = 
+                new FaturamentoItemEventoController();
+        return faturamentoItemEventoController.getItemsAvailableSelectOne();
+    }
 }

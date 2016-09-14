@@ -5,14 +5,14 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">  
-        <t:FormFlowCreate saveAction="#{cargoOuFuncaoController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{cargoOuFuncaoFlow.controller.saveOrCreate()}"
                           casePrefix="cargoOuFuncaoCreate"
-                          controller="#{cargoOuFuncaoController}"
-                          entityToUpdate="#{cargoOuFuncaoController.selected}"
-                          goBackToAction="#{cargoOuFuncaoController.goBackTo('List')}">  
-            <t:FormRowString id="nome" textSize="40" textValue="#{cargoOuFuncaoController.selected.nome}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('nome')}"/>
-            <t:FormRowString id="descricao" textSize="40" textValue="#{cargoOuFuncaoController.selected.descricao}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('descricao')}"/>
-            <t:FormRowString id="atribuicoes" textSize="40" textValue="#{cargoOuFuncaoController.selected.atribuicoes}" labelValue="#{cargoOuFuncaoController.getMsgFieldLabel('atribuicoes')}"/>        
+                          controller="#{cargoOuFuncaoFlow.controller}"
+                          entityToUpdate="#{cargoOuFuncaoFlow.controller.selected}"
+                          goBackToAction="#{cargoOuFuncaoFlow.controller.goBackTo('List')}">  
+            <t:FormRowString id="nome" textSize="40" textValue="#{cargoOuFuncaoFlow.controller.selected.nome}" labelValue="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('nome')}"/>
+            <t:FormRowString id="descricao" textSize="40" textValue="#{cargoOuFuncaoFlow.controller.selected.descricao}" labelValue="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('descricao')}"/>
+            <t:FormRowString id="atribuicoes" textSize="40" textValue="#{cargoOuFuncaoFlow.controller.selected.atribuicoes}" labelValue="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('atribuicoes')}"/>        
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

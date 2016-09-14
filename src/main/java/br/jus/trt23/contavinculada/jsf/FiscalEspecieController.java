@@ -1,11 +1,11 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.FiscalEspecie;
-import javax.faces.flow.FlowScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 @Named
-@FlowScoped("fiscalespecieflow")
+@Dependent
 public class FiscalEspecieController extends AbstractController<FiscalEspecie> {
 
     public FiscalEspecieController() {

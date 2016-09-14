@@ -22,9 +22,9 @@ import javax.inject.Named;
  *
  * @author j129-9
  */
-@Named
+@Named("ratConverter")
 @Dependent
-@FacesConverter(value = "ratConverter")
+@FacesConverter(forClass = RAT.class)
 public class RATConverter implements Converter {
 
     @Inject

@@ -204,7 +204,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     private List<Predicate> getPredicates(CriteriaBuilder cb, Root<T> entityRoot, Map<String, Object> filters) {
         javax.persistence.metamodel.Metamodel entityModel = this.getEntityManager().getMetamodel();
         javax.persistence.metamodel.ManagedType<T> entityType = entityModel.managedType(entityClass);
-        java.util.Set<javax.persistence.metamodel.EmbeddableType<?>> embeddables = entityModel.getEmbeddables();
+        java.util.Collection<javax.persistence.metamodel.EmbeddableType<?>> embeddables = entityModel.getEmbeddables();
         String fieldTypeName;
         // Add predicates (WHERE clauses) based on filters map
         List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();

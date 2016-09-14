@@ -6,20 +6,20 @@
                 template="/template.xhtml">
     <ui:define name="content">                                
         <t:FormFlowCreate id="calendarioFeriadoItemEdit" casePrefix="calendarioFeriadoItemEdit" 
-                          entityToUpdate="#{calendarioFeriadoController.calendarioFeriadoItem}" 
-                          saveAction="#{calendarioFeriadoController.saveOrCreate()}"
-                          goBackToAction="#{calendarioFeriadoController.goBackTo('Edit')}"
-                          controller="#{calendarioFeriadoController}">                     
-            <t:FormRowString id="feriadoNome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_nome')}" 
-                             textValue="#{calendarioFeriadoController.calendarioFeriadoItem.nome}" />
-            <t:FormRowDate id="feriadoQuando" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_quando')}" 
-                           calendarValue="#{calendarioFeriadoController.calendarioFeriadoItem.quando}"/>                
+                          entityToUpdate="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem}" 
+                          saveAction="#{calendarioFeriadoFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{calendarioFeriadoFlow.controller.goBackTo('Edit')}"
+                          controller="#{calendarioFeriadoFlow.controller}">                     
+            <t:FormRowString id="feriadoNome" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_nome')}" 
+                             textValue="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem.nome}" />
+            <t:FormRowDate id="feriadoQuando" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_quando')}" 
+                           calendarValue="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem.quando}"/>                
             <t:FormRowSelectOneMenu id="feriadoEscopo" 
-                                    labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_escopo')}" 
-                                    selectValue="#{calendarioFeriadoController.calendarioFeriadoItem.escopo}" 
-                                    itemValues="#{calendarioFeriadoController.feriadoEscopo}"/>              
-            <t:FormRowString id="feriadoOnde" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('Feriado_onde')}"                                  
-                             textValue="#{calendarioFeriadoController.calendarioFeriadoItem.onde}"/>        
+                                    labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_escopo')}" 
+                                    selectValue="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem.escopo}" 
+                                    itemValues="#{calendarioFeriadoFlow.controller.feriadoEscopo}"/>              
+            <t:FormRowString id="feriadoOnde" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('Feriado_onde')}"                                  
+                             textValue="#{calendarioFeriadoFlow.controller.calendarioFeriadoItem.onde}"/>        
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

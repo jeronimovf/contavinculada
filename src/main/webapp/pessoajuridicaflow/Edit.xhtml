@@ -29,10 +29,6 @@
                              labelValue="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}" 
                              id="inscricaoEstadual" 
                              textSize="20"/><br/>                         
-            <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 
-                                    labelValue="#{pessoaJuridicaController.getMsgFieldLabel('rat')}" 
-                                    selectValue="#{pessoaJuridicaController.selected.rat}"
-                                    converter="#{ratConverter}"/>
             <p:tabView id="pjTabs">
                 <p:tab title="#{pessoaJuridicaController.getTabHeader('Colaborador')}">
                     <t:ListFlowView selection="#{pessoaJuridicaController.colaboradorNovo}" 

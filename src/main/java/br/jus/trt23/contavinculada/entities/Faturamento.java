@@ -58,14 +58,17 @@ public class Faturamento extends EntidadeGenerica {
     private Double valorBruto;
 
     @Getter
+    @Setter
     @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<FaturamentoItem> itens;
 
     @Getter
+    @Setter
     @OneToMany(mappedBy = "faturamento")
     private List<Retencao> retencoes;
 
     @Getter
+    @Setter
     @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")
     private List<Glosa> glosas;
 

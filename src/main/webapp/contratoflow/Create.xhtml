@@ -28,7 +28,10 @@
                              textValue="#{contratoFlowController.selected.processo}"/>
             <t:FormRowDate labelValue="#{contratoFlowController.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoFlowController.selected.assinaturaData}"/>
-        
+            <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 
+                                    labelValue="#{contratoFlowController.getMsgFieldLabel('rat')}" 
+                                    selectValue="#{contratoFlowController.selected.rat}"
+                                    converter="#{ratConverter}"/>                    
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

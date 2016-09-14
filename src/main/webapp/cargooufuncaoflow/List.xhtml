@@ -7,20 +7,20 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">  
     <ui:define name="content"> 
-        <t:ListForm controller="#{cargoOuFuncaoController}" 
+        <t:ListForm controller="#{cargoOuFuncaoFlow.controller}" 
                     casePrefix="cargoOuFuncao">
-            <t:ListFlowView controller="#{cargoOuFuncaoController}" 
+            <t:ListFlowView controller="#{cargoOuFuncaoFlow.controller}" 
                             casePrefix="cargoOuFuncao">
                 <p:column width="20%" filterBy="#{item.nome}" filterMatchMode="contains" 
-                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('nome')}">
+                          headerText="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('nome')}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>
                 <p:column width="30%" filterBy="#{item.nome}" filterMatchMode="contains" 
-                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('descricao')}">
+                          headerText="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('descricao')}">
                     <h:outputText value="#{item.descricao}"/>
                 </p:column>
                 <p:column width="39%" filterBy="#{item.nome}" filterMatchMode="contains" 
-                          headerText="#{cargoOuFuncaoController.getMsgFieldLabel('atribuicoes')}">
+                          headerText="#{cargoOuFuncaoFlow.controller.getMsgFieldLabel('atribuicoes')}">
                     <h:outputText value="#{item.atribuicoes}"/>
                 </p:column>
             </t:ListFlowView>

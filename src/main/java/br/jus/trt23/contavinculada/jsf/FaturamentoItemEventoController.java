@@ -2,11 +2,11 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 import br.jus.trt23.contavinculada.session.FaturamentoItemEventoFacade;
-import javax.faces.flow.FlowScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 @Named
-@FlowScoped("faturamentoitemeventoflow")
+@Dependent
 public class FaturamentoItemEventoController extends AbstractController<FaturamentoItemEvento> {
 
     public FaturamentoItemEventoController() {

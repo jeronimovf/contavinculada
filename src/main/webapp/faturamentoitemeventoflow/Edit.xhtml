@@ -5,16 +5,16 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">  
-        <t:FormFlowCreate saveAction="#{faturamentoItemEventoController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{faturamentoItemEventoFlow.controller.saveOrCreate()}"
                           casePrefix="faturamentoItemEdit"
-                          controller="#{faturamentoItemEventoController}"
-                          entityToUpdate="#{faturamentoItemEventoController.selected}"
-                          goBackToAction="#{faturamentoItemEventoController.goBackTo('List')}">  
-            <t:FormRowString textValue="#{faturamentoItemEventoController.selected.nome}" 
-                             labelValue="#{faturamentoItemEventoController.getMsgFieldLabel('nome')}"
+                          controller="#{faturamentoItemEventoFlow.controller}"
+                          entityToUpdate="#{faturamentoItemEventoFlow.controller.selected}"
+                          goBackToAction="#{faturamentoItemEventoFlow.controller.goBackTo('List')}">  
+            <t:FormRowString textValue="#{faturamentoItemEventoFlow.controller.selected.nome}" 
+                             labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('nome')}"
                              textSize="30"/><br/>
-            <t:FormRowCheck checkValue="#{faturamentoItemEventoController.selected.isSubstituicao}" 
-                            labelValue="#{faturamentoItemEventoController.getMsgFieldLabel('isSubstituicao')}"/>
+            <t:FormRowCheck checkValue="#{faturamentoItemEventoFlow.controller.selected.isSubstituicao}" 
+                            labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('isSubstituicao')}"/>
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

@@ -39,7 +39,9 @@
                          paginatorAlwaysVisible="false"
                          rows="#{contratoFlowController.faturamentoNovo.competencia.lengthOfMonth()}"
                          id="faturamentoItemDT"
-                         sortFunction="#{contratoFlowController.sortByPostoDeTrabalhoDia}" sortOrder="ascending" sortBy="#{fi}"
+                         sortFunction="#{contratoFlowController.sortByPostoDeTrabalhoDia}" 
+                         sortOrder="ascending" 
+                         sortBy="#{fi}"
                          scrollHeight="350"
                          scrollable="true">
                 <p:column headerText="Posto de trabalho" width="25%">
@@ -54,7 +56,9 @@
                             <h:outputText value="#{fi.titular.colaborador.toString()}"/>
                         </f:facet>
                         <f:facet name="input">
-                            <h:selectOneMenu id="colabTit" value="#{fi.titular}" converter="#{colaboradorConverter}" style="width: 100%">
+                            <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
+                                             converter="#{colaboradorConverter}" 
+                                             style="width: 100%">
                                 <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>                            
                             </h:selectOneMenu>
                         </f:facet>
@@ -66,8 +70,10 @@
                             <h:outputText value="#{fi.evento.toString()}"/>
                         </f:facet>
                         <f:facet name="input">
-                            <h:selectOneMenu id="evento" value="#{fi.evento}" style="width:100%" converter="#{faturamentoItemEventoConverter}">
-                                <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectMany}"/>
+                            <h:selectOneMenu id="evento" value="#{fi.evento}" 
+                                             style="width:100%" 
+                                             converter="#{faturamentoItemEventoConverter}">
+                                <f:selectItems value="#{contratoFlowController.faturamentoItemEvento}"/>
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>
@@ -78,7 +84,10 @@
                             <h:outputText value="#{fi.substituto.colaborador.toString()}"/>
                         </f:facet>
                         <f:facet name="input">
-                            <h:selectOneMenu id="colabSub" value="#{fi.substituto}" style="width: 100%" converter="#{colaboradorConverter}">
+                            <h:selectOneMenu id="colabSub" 
+                                             value="#{fi.substituto}" 
+                                             style="width: 100%" 
+                                             converter="#{colaboradorConverter}">
                                 <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>
                             </h:selectOneMenu>
                         </f:facet>

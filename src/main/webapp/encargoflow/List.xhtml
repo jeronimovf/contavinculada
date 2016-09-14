@@ -7,12 +7,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">  
     <ui:define name="content"> 
-        <t:ListForm controller="#{encargoController}" 
+        <t:ListForm controller="#{encargoFlow.controller}" 
                     casePrefix="encargo">
-            <t:ListFlowView controller="#{encargoController}" 
+            <t:ListFlowView controller="#{encargoFlow.controller}" 
                             casePrefix="encargo">
                 <p:column width="89%" filterBy="#{item.nome}" 
-                          headerText="#{encargoController.getMsgFieldLabel('nome')}"
+                          headerText="#{encargoFlow.controller.getMsgFieldLabel('nome')}"
                           sortBy="#{item.nome}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>

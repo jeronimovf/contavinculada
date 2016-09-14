@@ -1,11 +1,11 @@
 package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Jornada;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@Dependent
 public class JornadaController extends AbstractController<Jornada> {
 
     public JornadaController() {

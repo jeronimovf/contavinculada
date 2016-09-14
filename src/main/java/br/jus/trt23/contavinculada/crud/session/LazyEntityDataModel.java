@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
@@ -20,7 +18,7 @@ import org.primefaces.model.SortOrder;
 public class LazyEntityDataModel<T> extends LazyDataModel<T> {
 
     private final AbstractFacade<T> facade;
-    private Set<T> itemList;
+    private List<T> itemList;
 
     /**
      * Loads data lazily using only one sort field.
@@ -144,15 +142,15 @@ public class LazyEntityDataModel<T> extends LazyDataModel<T> {
         this.itemList = null;
     }
 
-    public LazyEntityDataModel(Set<T> itemList) {
+    public LazyEntityDataModel(List<T> itemList) {
         super();
         this.facade = null;
         this.itemList = itemList;
     }
 
-    private Set<T> filter(Set<T> itemList, Map<String, Object> filters) {
+    private List<T> filter(List<T> itemList, Map<String, Object> filters) {
 
-        Set<T> filteredItemList = new TreeSet<>();
+        List<T> filteredItemList = new ArrayList<>();
 
         // apply filters
         for (T entity : itemList) {

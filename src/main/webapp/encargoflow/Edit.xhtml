@@ -5,12 +5,12 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">  
-        <t:FormFlowCreate saveAction="#{encargoController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{encargoFlow.controller.saveOrCreate()}"
                           casePrefix="encargoEdit"
-                          controller="#{encargoController}"
-                          entityToUpdate="#{encargoController.selected}"
-                          goBackToAction="#{encargoController.goBackTo('List')}">        
-            <t:FormRowString textSize="30" textValue="#{encargoController.selected.nome}" labelValue="#{encargoController.getMsgFieldLabel('nome')}" id="nome"/>
+                          controller="#{encargoFlow.controller}"
+                          entityToUpdate="#{encargoFlow.controller.selected}"
+                          goBackToAction="#{encargoFlow.controller.goBackTo('List')}">        
+            <t:FormRowString textSize="30" textValue="#{encargoFlow.controller.selected.nome}" labelValue="#{encargoFlow.controller.getMsgFieldLabel('nome')}" id="nome"/>
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

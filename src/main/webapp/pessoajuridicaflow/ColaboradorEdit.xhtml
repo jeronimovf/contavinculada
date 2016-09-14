@@ -44,10 +44,10 @@
                             labelValue="#{colaboradorController.getMsgFieldLabel('isDesligamentoPorJustaCausa')}"/>
             <p:tabView id="colaboradorTabs">
                 <p:tab title="#{colaboradorController.getTabHeader('Salario')}">
-                    <t:ListView selection="#{pessoaJuridicaController.salarioNovo}" 
+                    <t:ListFlowView selection="#{pessoaJuridicaController.salarioNovo}" 
                                 value="#{pessoaJuridicaController.colaboradorNovo.salarios}" 
                                 casePrefix="salario" 
-                                actionListener="#{pessoaJuridicaController.prepareSalarioEdit}" 
+                                action="#{pessoaJuridicaController.prepareSalarioEdit}" 
                                 controller="#{pessoaJuridicaController}" 
                                 id="salario"
                                 specificValues="true">
@@ -62,7 +62,7 @@
                                   styleClass="alignRight">
                             <t:OutputMonetary value="#{item.valor}"/>
                         </p:column>   
-                    </t:ListView>
+                    </t:ListFlowView>
                 </p:tab>
             </p:tabView>        
         </t:FormFlowCreate>

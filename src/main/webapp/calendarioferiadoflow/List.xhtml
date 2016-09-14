@@ -7,12 +7,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">              
     <ui:define name="content">
-        <t:ListForm casePrefix="calendarioFeriado" controller="#{calendarioFeriadoController}">
-            <t:ListFlowView controller="#{calendarioFeriadoController}" casePrefix="calendarioFeriado">
-                <p:column width="30%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('nome')}">
+        <t:ListForm casePrefix="calendarioFeriado" controller="#{calendarioFeriadoFlow.controller}">
+            <t:ListFlowView controller="#{calendarioFeriadoFlow.controller}" casePrefix="calendarioFeriado">
+                <p:column width="30%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('nome')}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>
-                <p:column width="50%" headerText="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}">
+                <p:column width="50%" headerText="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('descricao')}">
                     <h:outputText value="#{item.descricao}"/>
                 </p:column>                    
             </t:ListFlowView>

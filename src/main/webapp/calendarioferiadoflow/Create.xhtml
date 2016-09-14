@@ -5,15 +5,15 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content"> 
-        <t:FormFlowCreate saveAction="#{calendarioFeriadoController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{calendarioFeriadoFlow.controller.saveOrCreate()}"
                           casePrefix="calendarioFeriadoCreate"
-                          controller="#{calendarioFeriadoController}"
-                          entityToUpdate="#{calendarioFeriadoController.selected}"
-                          goBackToAction="#{calendarioFeriadoController.goBackTo('List')}">
-            <t:FormRowString id="nome" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('nome')}" 
-                             textValue="#{calendarioFeriadoController.selected.nome}" />
-            <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoController.getMsgFieldLabel('descricao')}" 
-                             textValue="#{calendarioFeriadoController.selected.descricao}" />
+                          controller="#{calendarioFeriadoFlow.controller}"
+                          entityToUpdate="#{calendarioFeriadoFlow.controller.selected}"
+                          goBackToAction="#{calendarioFeriadoFlow.controller.goBackTo('List')}">
+            <t:FormRowString id="nome" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('nome')}" 
+                             textValue="#{calendarioFeriadoFlow.controller.selected.nome}" />
+            <t:FormRowString id="descricao" labelValue="#{calendarioFeriadoFlow.controller.getMsgFieldLabel('descricao')}" 
+                             textValue="#{calendarioFeriadoFlow.controller.selected.descricao}" />
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

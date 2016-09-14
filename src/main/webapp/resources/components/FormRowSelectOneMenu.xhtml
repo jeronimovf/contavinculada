@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-      <cc:interface>
+    <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="selectValue"/>     
         <cc:attribute name="itemValues"/>
@@ -14,15 +14,16 @@
 
     <cc:implementation>
         <div class="formRow">
-                <p:outputLabel for="#{cc.id}:#{'Input'}" 
-                               value="#{cc.attrs.labelValue}" 
-                               styleClass="formRowLabel"/>
-                <p:selectOneMenu id="Input"  
-                                 value="#{cc.attrs.selectValue}" 
-                                 styleClass="formRowValue" 
-                                 converter="#{cc.attrs.converter}">  
-                    <f:selectItems value="#{cc.attrs.itemValues}"/>
-                </p:selectOneMenu>
+            <p:outputLabel for="#{cc.id}:#{'Input'}" 
+                           value="#{cc.attrs.labelValue}" 
+                           styleClass="formRowLabel"/>
+            <p:selectOneMenu id="Input"  
+                             value="#{cc.attrs.selectValue}" 
+                             styleClass="formRowValue" 
+                             converter="#{cc.attrs.converter}">  
+                <f:selectItems value="#{cc.attrs.itemValues}"/>
+                <f:attribute name="collectionType" value="java.util.ArrayList" />                                        
+            </p:selectOneMenu>
         </div>
     </cc:implementation>
 </html>
