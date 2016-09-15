@@ -1,6 +1,6 @@
 package br.jus.trt23.contavinculada.handlers;
 
-import br.jus.trt23.contavinculada.crud.session.*;
+import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import java.util.Comparator;
 import org.primefaces.model.SortOrder;
 
@@ -26,8 +26,8 @@ public class CustomLazyEntitySorter<T> implements Comparator<T> {
     @Override
     public int compare(T entity1, T entity2) {
         try {
-            Object value1 = EntityUtility.getFieldValue(entity1, sortField);
-            Object value2 = EntityUtility.getFieldValue(entity2, sortField);
+            Object value1 = EntidadeGenerica.getFieldValue(entity1, sortField);
+            Object value2 = EntidadeGenerica.getFieldValue(entity2, sortField);
 
             int value = ((Comparable) value1).compareTo(value2);
 

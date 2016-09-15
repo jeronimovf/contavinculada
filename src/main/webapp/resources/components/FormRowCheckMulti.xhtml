@@ -10,6 +10,7 @@
         <cc:attribute name="selectValue"/>     
         <cc:attribute name="itemValues"/>        
         <cc:attribute name="selectConverter"/>
+        <cc:attribute name="collectionType" default="java.util.ArrayList"/>
     </cc:interface>
 
     <cc:implementation>
@@ -23,7 +24,7 @@
                 styleClass="formRowLabel"
                 converter="#{cc.attrs.selectConverter}"> 
                 <f:selectItems value="#{cc.attrs.itemValues}"/>
-                <f:attribute name="collectionType" value="java.util.ArrayList" />                    
+                <f:attribute name="collectionType" value="#{cc.attrs.collectionType}" />                    
             </p:selectManyCheckbox>
         </div>
     </cc:implementation>

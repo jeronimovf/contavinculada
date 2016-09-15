@@ -11,13 +11,16 @@
                     casePrefix="faturamentoItemEvento">
             <t:ListFlowView controller="#{faturamentoItemEventoFlow.controller}" 
                             casePrefix="faturamentoItemEvento">
-                <p:column width="70%" filterBy="#{item.nome}" 
+                <p:column width="64%" filterBy="#{item.nome}" 
                           headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('nome')}">
                     <h:outputText value="#{item.nome}"/>
                 </p:column>
-                <p:column width="9%" headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('isSubstituicao')}">
-                    <h:selectBooleanCheckbox value="#{item.isSubstituicao}"/>
+                <p:column width="18%" headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('consideraTrabalhadoParaTitular')}">
+                    <h:selectBooleanCheckbox value="#{item.consideraTrabalhadoParaTitular}"/>
                 </p:column>
+                <p:column width="18%" headerText="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('consideraTrabalhadoParaSubstituto')}">
+                    <h:selectBooleanCheckbox value="#{item.consideraTrabalhadoParaSubstituto}"/>
+                </p:column>                
             </t:ListFlowView>
         </t:ListForm>
     </ui:define>

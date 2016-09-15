@@ -7,23 +7,23 @@
     <ui:define name="content">
 
         <t:FormFlowCreate id="alocacaoEdit" casePrefix="alocacaoEdit" 
-                          entityToUpdate="#{contratoFlowController.alocacaoNova}" 
-                          saveAction="#{contratoFlowController.saveOrCreateAlocacao()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('PostoEdit')}"
-                          controller="#{contratoFlowController}">                           
+                          entityToUpdate="#{contratoFlow.controller.alocacaoNova}" 
+                          saveAction="#{contratoFlow.controller.saveOrCreateAlocacao()}"
+                          goBackToAction="#{contratoFlow.controller.goBackTo('PostoEdit')}"
+                          controller="#{contratoFlow.controller}">                           
             <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
-                                   autoCompleteValue="#{contratoFlowController.alocacaoNova.titular}"
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
-                                   completeMethod="#{contratoFlowController.completeColaboradores}"
+                                   autoCompleteValue="#{contratoFlow.controller.alocacaoNova.titular}"
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
+                                   completeMethod="#{contratoFlow.controller.completeColaboradores}"
                                    autoCompleteSize="62" 
                                    autoCompleteItemValue="#{colaborador}"
                                    autoCompleteItem="colaborador"
                                    autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
                                    autoCompleteConverter="#{colaboradorConverter}"/><br/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
-                                   autoCompleteValue="#{contratoFlowController.alocacaoNova.substituto}"
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}"
-                                   completeMethod="#{contratoFlowController.completeColaboradores}"
+                                   autoCompleteValue="#{contratoFlow.controller.alocacaoNova.substituto}"
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}"
+                                   completeMethod="#{contratoFlow.controller.completeColaboradores}"
                                    autoCompleteSize="62" 
                                    autoCompleteItemValue="#{colaborador}"
                                    autoCompleteItem="colaborador"

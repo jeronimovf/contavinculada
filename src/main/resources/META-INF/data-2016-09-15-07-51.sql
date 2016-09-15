@@ -5,7 +5,7 @@
 -- Dumped from database version 9.5.1
 -- Dumped by pg_dump version 9.5.1
 
--- Started on 2016-09-14 11:43:07
+-- Started on 2016-09-15 07:51:57
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,7 +18,7 @@ SET row_security = off;
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 2473 (class 0 OID 71104)
+-- TOC entry 2473 (class 0 OID 71636)
 -- Dependencies: 187
 -- Data for Name: alocacao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -40,7 +40,7 @@ SELECT pg_catalog.setval('alocacao_id_seq', 16, true);
 
 
 --
--- TOC entry 2475 (class 0 OID 71112)
+-- TOC entry 2475 (class 0 OID 71644)
 -- Dependencies: 189
 -- Data for Name: calendarioferiado; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -50,7 +50,7 @@ INSERT INTO calendarioferiado (id, criadoem, destruidoem, vigenteate, vigentedes
 
 
 --
--- TOC entry 2476 (class 0 OID 71121)
+-- TOC entry 2476 (class 0 OID 71653)
 -- Dependencies: 190
 -- Data for Name: calendarioferiado_calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -72,7 +72,7 @@ SELECT pg_catalog.setval('calendarioferiado_id_seq', 2, true);
 
 
 --
--- TOC entry 2478 (class 0 OID 71126)
+-- TOC entry 2478 (class 0 OID 71658)
 -- Dependencies: 192
 -- Data for Name: calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -94,7 +94,7 @@ SELECT pg_catalog.setval('calendarioferiadoitem_id_seq', 5, true);
 
 
 --
--- TOC entry 2480 (class 0 OID 71137)
+-- TOC entry 2480 (class 0 OID 71669)
 -- Dependencies: 194
 -- Data for Name: cargooufuncao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -115,7 +115,7 @@ SELECT pg_catalog.setval('cargooufuncao_id_seq', 4, true);
 
 
 --
--- TOC entry 2482 (class 0 OID 71148)
+-- TOC entry 2482 (class 0 OID 71680)
 -- Dependencies: 196
 -- Data for Name: colaborador; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -142,7 +142,7 @@ SELECT pg_catalog.setval('colaborador_id_seq', 10, true);
 
 
 --
--- TOC entry 2483 (class 0 OID 71154)
+-- TOC entry 2483 (class 0 OID 71686)
 -- Dependencies: 197
 -- Data for Name: colaborador_salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -150,15 +150,15 @@ SELECT pg_catalog.setval('colaborador_id_seq', 10, true);
 INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (1, 5);
 INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (2, 7);
 INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (10, 8);
+INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (6, 9);
 
 
 --
--- TOC entry 2485 (class 0 OID 71159)
+-- TOC entry 2485 (class 0 OID 71691)
 -- Dependencies: 199
 -- Data for Name: contavinculada; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (5, '2016-09-09 08:29:13.184', NULL, NULL, '2016-09-09', 'Centro', 'Banco Bradesco', '5123-9', '001');
 INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (4, NULL, NULL, NULL, '2016-11-01', '3499-1', 'Banco do Brasil', '8401-8', '001', 4);
 INSERT INTO contavinculada (id, criadoem, destruidoem, vigenteate, vigentedesde, agencia, banco, conta, operacao, contrato_id) VALUES (3, NULL, NULL, NULL, '2016-01-01', '2685', 'CAIXA', '529-0', '001', 4);
 
@@ -173,21 +173,21 @@ SELECT pg_catalog.setval('contavinculada_id_seq', 5, true);
 
 
 --
--- TOC entry 2487 (class 0 OID 71170)
+-- TOC entry 2487 (class 0 OID 71702)
 -- Dependencies: 201
 -- Data for Name: contrato; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (1, '2016-06-22 00:00:00', NULL, '2021-05-31', '2016-06-01', NULL, '2016-05-20', NULL, '14/2016', 'Postos de trabalho para serviços gerais', 'Proad 12/2016', NULL, NULL, NULL, 1);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (2, '2016-03-12 00:00:00', NULL, '2017-03-31', '2016-04-01', NULL, '2016-03-11', NULL, '13/2016', 'Postos de trabalho para vigilância', 'Proad 08/2016', NULL, NULL, NULL, 2);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (3, '2015-09-22 00:00:00', NULL, '2020-09-30', '2015-10-01', NULL, '2015-09-13', NULL, '07/2015', 'Postos de trabalho para copeira', 'Proad 03/2015', NULL, NULL, NULL, 3);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (4, '2016-09-12 09:19:51.945', NULL, '2019-12-31', '2014-01-01', NULL, '2013-12-10', NULL, '29.1/2013', 'Postos de trabalho para motoristas habilitação E', 'Proad 42/2013', NULL, NULL, NULL, 4);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (5, '2016-09-12 09:35:43.587', NULL, '2019-12-31', '2014-01-01', NULL, '2014-07-20', NULL, '29.2/2013', 'Postos de trabalho para motoristas retenção de férias e seu 1/3 constitucional', 'Proad 42/2013', NULL, NULL, 4, 4);
-INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id) VALUES (6, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2015-06-13', NULL, '29.3/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, 4, 4);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (1, '2016-06-22 00:00:00', NULL, '2021-05-31', '2016-06-01', NULL, '2016-05-20', NULL, '14/2016', 'Postos de trabalho para serviços gerais', 'Proad 12/2016', NULL, NULL, NULL, 1, NULL);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (2, '2016-03-12 00:00:00', NULL, '2017-03-31', '2016-04-01', NULL, '2016-03-11', NULL, '13/2016', 'Postos de trabalho para vigilância', 'Proad 08/2016', NULL, NULL, NULL, 2, NULL);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (3, '2015-09-22 00:00:00', NULL, '2020-09-30', '2015-10-01', NULL, '2015-09-13', NULL, '07/2015', 'Postos de trabalho para copeira', 'Proad 03/2015', NULL, NULL, NULL, 3, NULL);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (5, '2016-09-12 09:35:43.587', NULL, '2019-12-31', '2014-01-01', NULL, '2014-07-20', NULL, '29.2/2013', 'Postos de trabalho para motoristas retenção de férias e seu 1/3 constitucional', 'Proad 42/2013', NULL, NULL, 4, 4, NULL);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (6, '2014-06-14 00:00:00', NULL, '2019-12-31', '2014-01-01', NULL, '2015-06-13', NULL, '29.3/2013', 'Postos de trabalho para motoristas', 'Proad 42/2013', NULL, NULL, 4, 4, NULL);
+INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, assinaturadata, inteiroteor, numero, objeto, processo, regimetributacao, situacao, aditivode_id, contratado_id, rat_id) VALUES (4, '2016-09-14 12:07:52.154', NULL, '2019-12-31', '2014-01-01', NULL, '2013-12-10', NULL, '29.1/2013', 'Postos de trabalho para motoristas habilitação E', 'Proad 42/2013', NULL, NULL, NULL, 4, 1);
 
 
 --
--- TOC entry 2488 (class 0 OID 71179)
+-- TOC entry 2488 (class 0 OID 71711)
 -- Dependencies: 202
 -- Data for Name: contrato_faturamento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -230,7 +230,7 @@ SELECT pg_catalog.setval('email_id_seq', 1, false);
 
 
 --
--- TOC entry 2490 (class 0 OID 71184)
+-- TOC entry 2490 (class 0 OID 71716)
 -- Dependencies: 204
 -- Data for Name: encargo; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -257,7 +257,7 @@ SELECT pg_catalog.setval('encargo_id_seq', 11, true);
 
 
 --
--- TOC entry 2492 (class 0 OID 71192)
+-- TOC entry 2492 (class 0 OID 71724)
 -- Dependencies: 206
 -- Data for Name: encargoaliquota; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -289,7 +289,7 @@ SELECT pg_catalog.setval('encargoaliquota_id_seq', 7, true);
 
 
 --
--- TOC entry 2494 (class 0 OID 71200)
+-- TOC entry 2494 (class 0 OID 71732)
 -- Dependencies: 208
 -- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -306,7 +306,7 @@ SELECT pg_catalog.setval('endereco_id_seq', 1, false);
 
 
 --
--- TOC entry 2496 (class 0 OID 71211)
+-- TOC entry 2496 (class 0 OID 71743)
 -- Dependencies: 210
 -- Data for Name: enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -323,7 +323,7 @@ SELECT pg_catalog.setval('enderecoeletronico_id_seq', 1, false);
 
 
 --
--- TOC entry 2498 (class 0 OID 71222)
+-- TOC entry 2498 (class 0 OID 71754)
 -- Dependencies: 212
 -- Data for Name: faturamento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -341,7 +341,7 @@ SELECT pg_catalog.setval('faturamento_id_seq', 5, true);
 
 
 --
--- TOC entry 2500 (class 0 OID 71230)
+-- TOC entry 2500 (class 0 OID 71762)
 -- Dependencies: 214
 -- Data for Name: faturamentoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -451,7 +451,7 @@ SELECT pg_catalog.setval('faturamentoitem_id_seq', 366, true);
 
 
 --
--- TOC entry 2502 (class 0 OID 71238)
+-- TOC entry 2502 (class 0 OID 71770)
 -- Dependencies: 216
 -- Data for Name: faturamentoitemevento; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -473,7 +473,7 @@ SELECT pg_catalog.setval('faturamentoitemevento_id_seq', 6, true);
 
 
 --
--- TOC entry 2504 (class 0 OID 71246)
+-- TOC entry 2504 (class 0 OID 71778)
 -- Dependencies: 218
 -- Data for Name: fiscal; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -494,7 +494,7 @@ SELECT pg_catalog.setval('fiscal_id_seq', 4, true);
 
 
 --
--- TOC entry 2506 (class 0 OID 71254)
+-- TOC entry 2506 (class 0 OID 71786)
 -- Dependencies: 220
 -- Data for Name: fiscalespecie; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -516,7 +516,7 @@ SELECT pg_catalog.setval('fiscalespecie_id_seq', 5, true);
 
 
 --
--- TOC entry 2508 (class 0 OID 71262)
+-- TOC entry 2508 (class 0 OID 71794)
 -- Dependencies: 222
 -- Data for Name: glosa; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -533,7 +533,7 @@ SELECT pg_catalog.setval('glosa_id_seq', 1, false);
 
 
 --
--- TOC entry 2510 (class 0 OID 71273)
+-- TOC entry 2510 (class 0 OID 71805)
 -- Dependencies: 224
 -- Data for Name: glosaespecie; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -551,7 +551,7 @@ SELECT pg_catalog.setval('glosaespecie_id_seq', 1, true);
 
 
 --
--- TOC entry 2512 (class 0 OID 71281)
+-- TOC entry 2512 (class 0 OID 71813)
 -- Dependencies: 226
 -- Data for Name: jornada; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -571,7 +571,7 @@ SELECT pg_catalog.setval('jornada_id_seq', 3, true);
 
 
 --
--- TOC entry 2514 (class 0 OID 71292)
+-- TOC entry 2514 (class 0 OID 71824)
 -- Dependencies: 228
 -- Data for Name: liberacao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -588,7 +588,7 @@ SELECT pg_catalog.setval('liberacao_id_seq', 1, false);
 
 
 --
--- TOC entry 2516 (class 0 OID 71303)
+-- TOC entry 2516 (class 0 OID 71835)
 -- Dependencies: 230
 -- Data for Name: pessoa; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1732,7 +1732,7 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 
 
 --
--- TOC entry 2517 (class 0 OID 71312)
+-- TOC entry 2517 (class 0 OID 71844)
 -- Dependencies: 231
 -- Data for Name: pessoa_endereco; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1740,7 +1740,7 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 
 
 --
--- TOC entry 2518 (class 0 OID 71315)
+-- TOC entry 2518 (class 0 OID 71847)
 -- Dependencies: 232
 -- Data for Name: pessoa_enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1757,7 +1757,7 @@ SELECT pg_catalog.setval('pessoa_id_seq', 1130, true);
 
 
 --
--- TOC entry 2519 (class 0 OID 71318)
+-- TOC entry 2519 (class 0 OID 71850)
 -- Dependencies: 233
 -- Data for Name: pessoa_telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1765,7 +1765,7 @@ SELECT pg_catalog.setval('pessoa_id_seq', 1130, true);
 
 
 --
--- TOC entry 2521 (class 0 OID 71323)
+-- TOC entry 2521 (class 0 OID 71855)
 -- Dependencies: 235
 -- Data for Name: postodetrabalho; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1776,11 +1776,95 @@ INSERT INTO postodetrabalho (id, criadoem, destruidoem, vigenteate, vigentedesde
 
 
 --
--- TOC entry 2522 (class 0 OID 71329)
+-- TOC entry 2522 (class 0 OID 71861)
 -- Dependencies: 236
 -- Data for Name: postodetrabalho_diascomputados; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (13, 0);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (13, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 1);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (13, 0);
+INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (13, 2);
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 2);
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (12, 1);
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (14, 2);
@@ -1835,7 +1919,7 @@ SELECT pg_catalog.setval('postodetrabalho_id_seq', 14, true);
 
 
 --
--- TOC entry 2523 (class 0 OID 71332)
+-- TOC entry 2523 (class 0 OID 71864)
 -- Dependencies: 237
 -- Data for Name: postodetrabalho_salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1843,7 +1927,7 @@ SELECT pg_catalog.setval('postodetrabalho_id_seq', 14, true);
 
 
 --
--- TOC entry 2525 (class 0 OID 71337)
+-- TOC entry 2525 (class 0 OID 71869)
 -- Dependencies: 239
 -- Data for Name: rat; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1864,7 +1948,7 @@ SELECT pg_catalog.setval('rat_id_seq', 4, true);
 
 
 --
--- TOC entry 2527 (class 0 OID 71345)
+-- TOC entry 2527 (class 0 OID 71877)
 -- Dependencies: 241
 -- Data for Name: retencao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1881,7 +1965,7 @@ SELECT pg_catalog.setval('retencao_id_seq', 1, false);
 
 
 --
--- TOC entry 2529 (class 0 OID 71353)
+-- TOC entry 2529 (class 0 OID 71885)
 -- Dependencies: 243
 -- Data for Name: salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1890,6 +1974,7 @@ INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor)
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (6, NULL, NULL, NULL, '2016-12-24', 980);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (7, NULL, NULL, NULL, '2016-05-16', 1247.8800000000001);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (8, '2016-09-13 08:52:31.842', NULL, NULL, '2016-09-01', 985.44000000000005);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (9, '2016-09-15 07:37:01.802', NULL, NULL, '2014-09-01', 1500);
 
 
 --
@@ -1898,11 +1983,11 @@ INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor)
 -- Name: salario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
 --
 
-SELECT pg_catalog.setval('salario_id_seq', 8, true);
+SELECT pg_catalog.setval('salario_id_seq', 9, true);
 
 
 --
--- TOC entry 2531 (class 0 OID 71361)
+-- TOC entry 2531 (class 0 OID 71893)
 -- Dependencies: 245
 -- Data for Name: telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
@@ -1918,7 +2003,7 @@ SELECT pg_catalog.setval('salario_id_seq', 8, true);
 SELECT pg_catalog.setval('telefone_id_seq', 1, false);
 
 
--- Completed on 2016-09-14 11:43:12
+-- Completed on 2016-09-15 07:52:02
 
 --
 -- PostgreSQL database dump complete

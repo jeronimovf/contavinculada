@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.Dependent;
-import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +28,9 @@ import org.primefaces.component.datatable.DataTable;
 @Dependent
 @Getter
 @Setter
-public class ContratoFlowController extends AbstractController<Contrato> {
-    public ContratoFlowController() {
+public class ContratoController extends AbstractController<Contrato> {
+
+    public ContratoController() {
         super(Contrato.class);
     }
 
@@ -44,6 +45,13 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     private Salario remuneracaoNova;
     private LocalDate faturamentoCompetencia;
     private List<Colaborador> colaboradoresPorContrato;
+
+    @Inject
+    ColaboradorController colaboradorController;
+    @Inject
+    FaturamentoItemEventoController faturamentoItemEventoController;
+    @Inject
+    AlocacaoController alocacaoController;
 
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
@@ -252,7 +260,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
-            e.printStackTrace();
             return null;
         }
     }
@@ -277,13 +284,11 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         return "Contrato";
     }
 
-    public List<Colaborador> completeColaboradores(String criteria) throws Exception {
+    public List<Colaborador> completeColaboradoresParaOContrato(String criteria, 
+            Contrato contrato) throws Exception {
         //TODO: Deve ser configurado para que não se permita selecionar o
         //      mesmo colaborador para titular e substituto.
-        ColaboradorController colaboradorController = 
-                new ColaboradorController();
-
-        if (getSelected().getContratado() instanceof PessoaJuridica) {
+        if (contrato.getContratado() instanceof PessoaJuridica) {
             PessoaJuridica pj = (PessoaJuridica) getSelected().getContratado();
             return colaboradorController.complete(criteria, pj);
         }
@@ -291,9 +296,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
     }
 
     private void inicializaFaturamento() throws Exception {
-        FaturamentoItemEventoController faturamentoItemEventoController = 
-                new FaturamentoItemEventoController();
-        AlocacaoController alocacaoController = new AlocacaoController();
         getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
@@ -323,17 +325,6 @@ public class ContratoFlowController extends AbstractController<Contrato> {
         return new ArrayList<>();
     }
 
-    public List<Colaborador> getColaboradoresPorContrato() throws Exception {
-        if (this.colaboradoresPorContrato == null) {
-            setColaboradoresPorContrato(new ArrayList<>(completeColaboradores("")));
-        }
-        return this.colaboradoresPorContrato;
-    }
-
-    public List<FaturamentoItem> faturamentoItemAsList(){
-        return new ArrayList<>(faturamentoNovo.getItens());
-    }
-    
     public int sortByPostoDeTrabalhoDia(Object o1, Object o2) throws Exception {
         if (o1 instanceof FaturamentoItem && o2 instanceof FaturamentoItem) {
             FaturamentoItem fi1, fi2;
@@ -348,18 +339,5 @@ public class ContratoFlowController extends AbstractController<Contrato> {
             }
         }
         throw new Exception("Método destinado a comparações entre FaturamentoItem");
-    }
-
-    public List<SelectItem> getDiasComputados(){
-        CalendarioFeriadoController calendarioFeriadoController = 
-                new CalendarioFeriadoController();
-        
-        return calendarioFeriadoController.getDiasComputados();
-    }
-    
-    public List<SelectItem> getFaturamentoItemEvento(){
-        FaturamentoItemEventoController faturamentoItemEventoController = 
-                new FaturamentoItemEventoController();
-        return faturamentoItemEventoController.getItemsAvailableSelectOne();
     }
 }

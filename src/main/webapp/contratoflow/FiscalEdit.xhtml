@@ -7,25 +7,25 @@
     <ui:define name="content"> 
 
         <t:FormFlowCreate id="fiscalEdit" casePrefix="fiscalEdit" 
-                          entityToUpdate="#{contratoFlowController.fiscalNovo}" 
-                          saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
-                          controller="#{contratoFlowController}">                           
+                          entityToUpdate="#{contratoFlow.controller.fiscalNovo}" 
+                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoFlow.controller}">                           
             <t:FormRowString id="fiscalAtoDesignacao" 
-                             labelValue="#{contratoFlowController.getMsgFieldLabel('Fiscal_atoDesignacao')}" 
-                             textValue="#{contratoFlowController.fiscalNovo.atoDesignacao}" 
+                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Fiscal_atoDesignacao')}" 
+                             textValue="#{contratoFlow.controller.fiscalNovo.atoDesignacao}" 
                              textSize="20"/>
             <t:FormRowAutoComplete id="fiscalEspecie" autoCompleteItem="especie" 
-                                   autoCompleteValue="#{contratoFlowController.fiscalNovo.especie}" 
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('Fiscal_especie')}" 
+                                   autoCompleteValue="#{contratoFlow.controller.fiscalNovo.especie}" 
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('Fiscal_especie')}" 
                                    completeMethod="#{fiscalEspecieController.complete}" 
                                    autoCompleteItemLabel="#{especie.toString()}" 
                                    autoCompleteItemValue="#{especie}"
                                    autoCompleteSize="20"
                                    autoCompleteConverter="#{fiscalEspecieConverter}"/><br/>
             <t:FormRowAutoComplete id="fiscalServidor" autoCompleteItem="servidor" 
-                                   autoCompleteValue="#{contratoFlowController.fiscalNovo.servidor}" 
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('Fiscal_servidor')}" 
+                                   autoCompleteValue="#{contratoFlow.controller.fiscalNovo.servidor}" 
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('Fiscal_servidor')}" 
                                    completeMethod="#{servidorController.complete}"  
                                    autoCompleteItemLabel="#{servidor.toString()}" 
                                    autoCompleteItemValue="#{servidor}"

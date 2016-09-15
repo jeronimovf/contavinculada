@@ -21,8 +21,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -116,12 +114,6 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
         return hash;
     }
 
-    @PreUpdate
-    @PrePersist
-    public void setCriadoEm() {
-        this.criadoEm = LocalDateTime.now();
-    }
-
     @Override
     public int compareTo(Object o) {
         try {
@@ -137,7 +129,6 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
             } 
             return -1;
         } catch (Exception e) {
-            e.printStackTrace();
             return -1;
         }
     }
@@ -162,5 +153,16 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
         }
         return true;
     }
+    
+    public Boolean isVigentePlenamenteEntre(LocalDate inicio, LocalDate fim){
+        //TODO: IMPLEMENTAR
+        return Boolean.TRUE;
+    }
+    
+    public Boolean isVigenteParcialmenteEntre(LocalDate inicio, LocalDate fim){
+        //TODO: IMPLEMENTAR
+        return Boolean.TRUE;
+    }
+    
 
 }

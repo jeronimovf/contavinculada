@@ -5,14 +5,14 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content"> 
-        <t:FormFlowCreate saveAction="#{pessoaJuridicaController.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{pessoaJuridicaFlow.controller.saveOrCreate()}"
                           casePrefix="contratoCreate"
-                          controller="#{pessoaJuridicaController}"
-                          entityToUpdate="#{pessoaJuridicaController.selected}"
-                          goBackToAction="#{pessoaJuridicaController.goBackTo('List')}">
-            <t:FormRowString textValue="#{pessoaJuridicaController.selected.cnpj}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('cnpj')}" id="nome" textSize="20"/>
-            <t:FormRowString textValue="#{pessoaJuridicaController.selected.nomeFantasia}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" id="nomeFantasia" textSize="50"/>
-            <t:FormRowString textValue="#{pessoaJuridicaController.selected.razaoSocial}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}" id="razaoSocial" textSize="50"/>
-            <t:FormRowString textValue="#{pessoaJuridicaController.selected.inscricaoEstadual}" labelValue="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}" id="inscricaoEstadual" textSize="20"/>                    
+                          controller="#{pessoaJuridicaFlow.controller}"
+                          entityToUpdate="#{pessoaJuridicaFlow.controller.selected}"
+                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('List')}">
+            <t:FormRowString textValue="#{pessoaJuridicaFlow.controller.selected.cnpj}" labelValue="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('cnpj')}" id="nome" textSize="20"/>
+            <t:FormRowString textValue="#{pessoaJuridicaFlow.controller.selected.nomeFantasia}" labelValue="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('nomeFantasia')}" id="nomeFantasia" textSize="50"/>
+            <t:FormRowString textValue="#{pessoaJuridicaFlow.controller.selected.razaoSocial}" labelValue="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('razaoSocial')}" id="razaoSocial" textSize="50"/>
+            <t:FormRowString textValue="#{pessoaJuridicaFlow.controller.selected.inscricaoEstadual}" labelValue="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('inscricaoEstadual')}" id="inscricaoEstadual" textSize="20"/>                    
         </t:FormFlowCreate>
 </ui:composition>

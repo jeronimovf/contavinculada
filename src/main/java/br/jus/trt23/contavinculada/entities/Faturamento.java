@@ -62,10 +62,6 @@ public class Faturamento extends EntidadeGenerica {
     @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<FaturamentoItem> itens;
 
-    @Getter
-    @Setter
-    @OneToMany(mappedBy = "faturamento")
-    private List<Retencao> retencoes;
 
     @Getter
     @Setter
@@ -74,18 +70,12 @@ public class Faturamento extends EntidadeGenerica {
 
     public Faturamento() {
         this.itens = new ArrayList<>();
-        this.retencoes = new ArrayList<>();
         this.glosas = new ArrayList<>();
     }
 
     public void addItens(FaturamentoItem item){
         itens.add(item);
         item.setFaturamento(this);
-    }
-
-    public void addRetencoes(Retencao retencao){
-        retencoes.add(retencao);
-        retencao.setFaturamento(this);
     }
     
     public void addGlosas(Glosa glosa){

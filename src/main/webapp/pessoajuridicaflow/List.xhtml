@@ -7,24 +7,24 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">  
     <ui:define name="content"> 
-        <t:ListForm controller="#{pessoaJuridicaController}" 
+        <t:ListForm controller="#{pessoaJuridicaFlow.controller}" 
                     casePrefix="pessoaJuridica">
-            <t:ListFlowView controller="#{pessoaJuridicaController}" 
+            <t:ListFlowView controller="#{pessoaJuridicaFlow.controller}" 
                             casePrefix="pessoaJuridica">
                 <p:column width="8%" filterBy="#{item.cnpj}" 
-                          headerText="#{pessoaJuridicaController.getMsgFieldLabel('cnpj')}" >
+                          headerText="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('cnpj')}" >
                     <h:outputText value="#{item.cnpj}"/>
                 </p:column>
                 <p:column width="22%" filterBy="#{item.nomeFantasia}" 
-                          headerText="#{pessoaJuridicaController.getMsgFieldLabel('nomeFantasia')}" >
+                          headerText="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('nomeFantasia')}" >
                     <h:outputText value="#{item.nomeFantasia}"/>
                 </p:column>
                 <p:column width="35%" filterBy="#{item.razaoSocial}" 
-                          headerText="#{pessoaJuridicaController.getMsgFieldLabel('razaoSocial')}">
+                          headerText="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('razaoSocial')}">
                     <h:outputText value="#{item.razaoSocial}"/>
                 </p:column>                        
                 <p:column width="15%" filterBy="#{item.inscricaoEstadual}" 
-                          headerText="#{pessoaJuridicaController.getMsgFieldLabel('inscricaoEstadual')}">
+                          headerText="#{pessoaJuridicaFlow.controller.getMsgFieldLabel('inscricaoEstadual')}">
                     <h:outputText value="#{item.inscricaoEstadual}"/>
                 </p:column>                        
             </t:ListFlowView>

@@ -3,31 +3,62 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@RequiredArgsConstructor
 public class Retencao extends EntidadeGenerica {
-    protected final static String[] uniqueIndex = {"faturamento","colaborador","aliquota"};    
-    @ManyToOne
-    private Faturamento faturamento;
-    
-    @ManyToOne
-    private Colaborador colaborador;
-    
-    @ManyToOne
-    private EncargoAliquota aliquota;
-    
-    private Double valor;
+
+    protected final static String[] uniqueIndex = {"faturamento", "colaborador", "aliquota"};
+
+    public Retencao() {
+        this.faturamentoItens = new ArrayList<>();
+    }
     
 
+    @Getter
+    @Setter
+    @NotNull
+    @OneToMany(mappedBy = "retencao",
+            cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<FaturamentoItem> faturamentoItens;
+
+    @Getter
+    @Setter
+    @NotNull    
+    @ManyToOne
+    private Colaborador colaborador;
+
+    @Getter
+    @Setter
+    @NotNull    
+    @ManyToOne
+    private EncargoAliquota aliquota;
+
+    //salario
+    @Getter
+    @Setter
+    @NotNull    
+    private Double valor;
+
+    @Transient
+    private Double retido;
+
+    @Getter
+    @Setter
     @OneToOne(mappedBy = "retencao")
-    private Liberacao liberacao;    
+    private Liberacao liberacao;
+
+    public Double getRetido() {
+        return aliquota.getAliquota() * valor;
+    }
 }

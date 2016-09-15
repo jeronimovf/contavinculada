@@ -5,10 +5,13 @@ package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -49,9 +52,9 @@ public class PostoDeTrabalho extends EntidadeGenerica {
 
     @Getter
     @Setter
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<EDiasComputados> diasComputados;
+    private Set<EDiasComputados> diasComputados;
 
     @Getter
     @Setter
@@ -72,7 +75,7 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     public PostoDeTrabalho() {
         this.alocacoes = new ArrayList<>();
         this.faturamentoItens = new ArrayList<>();
-        this.diasComputados = new ArrayList<>();
+        this.diasComputados = new HashSet<>();
         this.remuneracoes = new ArrayList<>();
     }
 

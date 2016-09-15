@@ -22,6 +22,9 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 public class FaturamentoItem extends EntidadeGenerica {
+
+    @ManyToOne
+    private Retencao retencao;
     protected final static String[] uniqueIndex = {"faturamento","postoDeTrabalho","dia"};    
     @NotNull
     @ManyToOne

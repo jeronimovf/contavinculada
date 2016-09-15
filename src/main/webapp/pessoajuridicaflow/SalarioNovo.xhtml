@@ -7,12 +7,12 @@
     <ui:define name="content">
 
         <t:FormFlowCreate id="salarioCreate" casePrefix="salarioCreate" 
-                          entityToUpdate="#{pessoaJuridicaController.salarioNovo}" 
-                          saveAction="#{pessoaJuridicaController.saveOrCreateSalario()}"
-                          goBackToAction="#{pessoaJuridicaController.goBackTo('Edit')}"
-                          controller="#{pessoaJuridicaController}">                      
+                          entityToUpdate="#{pessoaJuridicaFlow.controller.salarioNovo}" 
+                          saveAction="#{pessoaJuridicaFlow.controller.saveOrCreateSalario()}"
+                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('Edit')}"
+                          controller="#{pessoaJuridicaFlow.controller}">                      
             <t:FormRowMonetary labelValue="#{salarioController.getMsgFieldLabel('Salario_valor')}" 
-                               numberValue="#{pessoaJuridicaController.salarioNovo.valor}" />        
+                               numberValue="#{pessoaJuridicaFlow.controller.salarioNovo.valor}" />        
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

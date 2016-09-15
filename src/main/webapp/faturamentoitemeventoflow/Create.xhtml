@@ -13,8 +13,11 @@
             <t:FormRowString textValue="#{faturamentoItemEventoFlow.controller.selected.nome}" 
                              labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('nome')}"
                              textSize="30"/><br/>                         
-            <t:FormRowCheck checkValue="#{faturamentoItemEventoFlow.controller.selected.isSubstituicao}" 
-                            labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('isSubstituicao')}"/>
+            <t:FormRowCheck checkValue="#{faturamentoItemEventoFlow.controller.selected.consideraTrabalhadoParaTitular}" 
+                            labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('consideraTrabalhadoParaTitular')}"/>
+            <t:FormRowCheck checkValue="#{faturamentoItemEventoFlow.controller.selected.consideraTrabalhadoParaSubstituto}" 
+                            labelValue="#{faturamentoItemEventoFlow.controller.getMsgFieldLabel('consideraTrabalhadoParaSubstituto')}"/>
+
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

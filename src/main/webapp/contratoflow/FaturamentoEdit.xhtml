@@ -8,38 +8,38 @@
                 template="/template.xhtml">
     <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
-                          entityToUpdate="#{contratoFlowController.faturamentoNovo}" 
-                          saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
-                          controller="#{contratoFlowController}">                           
+                          entityToUpdate="#{contratoFlow.controller.faturamentoNovo}" 
+                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoFlow.controller}">                           
             <t:FormRowDate id="faturamentoCompetencia" 
-                           calendarValue="#{contratoFlowController.faturamentoNovo.competencia}" 
-                           labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_competencia')}" 
+                           calendarValue="#{contratoFlow.controller.faturamentoNovo.competencia}" 
+                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_competencia')}" 
                            pattern="dd/MM/yyyy"/>                
             <t:FormRowMonetary id="faturamentoValorBruto" 
-                               numberValue="#{contratoFlowController.faturamentoNovo.valorBruto}" 
-                               labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+                               numberValue="#{contratoFlow.controller.faturamentoNovo.valorBruto}" 
+                               labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
             <t:FormRowMonetary id="faturamentoValorLiquido" 
-                               numberValue="#{contratoFlowController.faturamentoNovo.valorLiquido}" 
-                               labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+                               numberValue="#{contratoFlow.controller.faturamentoNovo.valorLiquido}" 
+                               labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
             <t:FormRowString id="faturamentoNfeOuFatura" 
-                             textValue="#{contratoFlowController.faturamentoNovo.nfeOuFatura}" 
-                             labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+                             textValue="#{contratoFlow.controller.faturamentoNovo.nfeOuFatura}" 
+                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
             <t:FormRowDate id="faturamentoAtestadaEm" 
-                           calendarValue="#{contratoFlowController.faturamentoNovo.atestadaEm}" 
-                           labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+                           calendarValue="#{contratoFlow.controller.faturamentoNovo.atestadaEm}" 
+                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
             <t:FormRowString id="faturamentoAtestadaPor" 
-                             textValue="#{contratoFlowController.faturamentoNovo.atestadaPor}" 
-                             labelValue="#{contratoFlowController.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+                             textValue="#{contratoFlow.controller.faturamentoNovo.atestadaPor}" 
+                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
 
-            <p:dataTable value="#{contratoFlowController.faturamentoNovo.itens}"
+            <p:dataTable value="#{contratoFlow.controller.faturamentoNovo.itens}"
                          var="fi" 
                          editable="true"
                          paginator="true"
                          paginatorAlwaysVisible="false"
-                         rows="#{contratoFlowController.faturamentoNovo.competencia.lengthOfMonth()}"
+                         rows="#{contratoFlow.controller.faturamentoNovo.competencia.lengthOfMonth()}"
                          id="faturamentoItemDT"
-                         sortFunction="#{contratoFlowController.sortByPostoDeTrabalhoDia}" 
+                         sortFunction="#{contratoFlow.controller.sortByPostoDeTrabalhoDia}" 
                          sortOrder="ascending" 
                          sortBy="#{fi}"
                          scrollHeight="350"
@@ -59,7 +59,7 @@
                             <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
                                              converter="#{colaboradorConverter}" 
                                              style="width: 100%">
-                                <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>                            
+                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>                            
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>                                                        
@@ -73,7 +73,7 @@
                             <h:selectOneMenu id="evento" value="#{fi.evento}" 
                                              style="width:100%" 
                                              converter="#{faturamentoItemEventoConverter}">
-                                <f:selectItems value="#{contratoFlowController.faturamentoItemEvento}"/>
+                                <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectOne}"/>
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>
@@ -88,7 +88,7 @@
                                              value="#{fi.substituto}" 
                                              style="width: 100%" 
                                              converter="#{colaboradorConverter}">
-                                <f:selectItems value="#{contratoFlowController.colaboradoresPorContrato}"/>
+                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>                            

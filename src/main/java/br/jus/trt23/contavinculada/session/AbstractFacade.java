@@ -12,8 +12,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -70,7 +73,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         return q.getResultList();
     }
 
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
+    //o método findRange retorna apenas os registros que não tenham sido 
+    //destruídos paginados entre range[0] e range[1]
     public List<T> findRange(int[] range) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -90,17 +94,21 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Root<T> c = cq.from(entityClass);
         cq.select(c).where(
                 cb.and(
-                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
-                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
-                    cb.isNull(c.get("destruidoEm"))
+                        cb.lessThanOrEqualTo(c.get("vigenteDesde"), vigenteDesde),
+                        cb.or(
+                                cb.isNull(c.get("vigenteDesde")),
+                                cb.greaterThanOrEqualTo(c.get("vigenteDesde"), vigenteAte)
+                        ),
+                        cb.isNull(c.get("destruidoEm"))
                 ));
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
 
     //o método findAll retorna apenas os registros que não tenham sido destruídos
-    //o método findAll retorna apenas os registros que não tenham sido destruídos
-    // e que estejam vigentes em todo o período informado
+    //o método findRange retorna apenas os registros que não tenham sido 
+    //destruídos e que estejam vigentes em todo o período informado paginados
+    //entre range[0] e range[1]
     public List<T> findRange(int[] range, LocalDate vigenteDesde,
             LocalDate vigenteAte) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -108,9 +116,12 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Root<T> c = cq.from(entityClass);
         cq.select(c).where(
                 cb.and(
-                    cb.lessThanOrEqualTo(c.get("vigenteDesde"),vigenteDesde),
-                    cb.greaterThanOrEqualTo(c.get("vigenteDesde"),vigenteAte),
-                    cb.isNull(c.get("destruidoEm"))
+                        cb.lessThanOrEqualTo(c.get("vigenteDesde"), vigenteDesde),
+                        cb.or(
+                                cb.isNull(c.get("vigenteDesde")),
+                                cb.greaterThanOrEqualTo(c.get("vigenteDesde"), vigenteAte)
+                        ),
+                        cb.isNull(c.get("destruidoEm"))
                 ));
         Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
@@ -134,12 +145,12 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
             return null;
         }
     }
-    
+
     public List<T> findRange(int first, int pageSize, String sortField, String sortOrder, Map<String, Object> filters) {
         javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.criteria.CriteriaQuery cq = cb.createQuery();
         javax.persistence.criteria.Root<T> entityRoot = cq.from(entityClass);
-        cq.select(entityRoot);    
+        cq.select(entityRoot);
         List<javax.persistence.criteria.Predicate> predicates = getPredicates(cb, entityRoot, filters);
         if (predicates.size() > 0) {
             cq.where(predicates.toArray(new javax.persistence.criteria.Predicate[]{}));
@@ -269,11 +280,40 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
                 break;
         }
         return expression;
-    }    
-    
+    }
+
     public LocalDateTime getTimestampOnServer() {
         Query qry = getEntityManager().createNativeQuery("SELECT localtimestamp");
         Timestamp ts = (Timestamp) qry.getSingleResult();
         return ts.toLocalDateTime();
-    }    
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void setMandatoryFields(EntidadeGenerica entity) {
+        entity.setCriadoEm(getTimestampOnServer());
+    }
+
+    //retorna entidades cujas vigencias coincidam, ainda que parcialmente
+    //no intervalo especificado
+    public Set<T> vigentesParcialmenteEntre(LocalDate inicio, LocalDate fim) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<T> c = cq.from(entityClass);
+        cq.select(c).where(
+                cb.and(
+                        cb.lessThanOrEqualTo(c.get("vigenteDesde"), inicio),
+                        cb.greaterThanOrEqualTo(c.get("vigenteDesde"), fim),
+                        cb.isNull(c.get("destruidoEm"))
+                ));
+        Query q = getEntityManager().createQuery(cq);
+        //return q.getResultList();
+        return null;
+    }
+
+    //retorna entidades cujas vigencias coincidam plenamente com o intervalo
+    // especificado
+    public Set<T> vigentesPlenamenteEntre(LocalDate inicio, LocalDate fim) {
+        return null;
+    }
 }

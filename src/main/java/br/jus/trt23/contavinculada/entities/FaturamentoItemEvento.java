@@ -18,7 +18,10 @@ public class FaturamentoItemEvento extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};        
     @NotNull
     private String nome;
-    private Boolean isSubstituicao;
+    @NotNull
+    private Boolean consideraTrabalhadoParaTitular;
+    @NotNull
+    private Boolean consideraTrabalhadoParaSubstituto;
     
     @Override
     public String toString(){

@@ -5,9 +5,10 @@ import br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.enterprise.context.Dependent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
@@ -61,8 +62,8 @@ public class CalendarioFeriadoController extends AbstractController<CalendarioFe
         return JsfUtil.getSelectItems(Arrays.asList(EFeriadoEscopo.values()), true);
     }
 
-    public List<SelectItem> getDiasComputados() {
-        List<SelectItem> diasComputadosList = new ArrayList<>();
+    public Set<SelectItem> getDiasComputados() {
+        Set<SelectItem> diasComputadosList = new HashSet<>();
         for(EDiasComputados dia: EDiasComputados.values()){
             diasComputadosList.add(new SelectItem(dia,dia.getNome()));
         }

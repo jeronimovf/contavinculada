@@ -6,24 +6,24 @@
                 template="/template.xhtml">
     <ui:define name="content">                                
         <t:FormFlowCreate id="encargoAliquotaEdit" casePrefix="encargoAliquotaEdit" 
-                          entityToUpdate="#{contratoFlowController.aliquotaNova}" 
-                          saveAction="#{contratoFlowController.saveOrCreate()}"
-                          goBackToAction="#{contratoFlowController.goBackTo('Edit')}"
-                          controller="#{contratoFlowController}">            
+                          entityToUpdate="#{contratoFlow.controller.aliquotaNova}" 
+                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoFlow.controller}">            
             <t:FormRowAutoComplete id="contratoAliquotaEncargo" 
-                                   autoCompleteValue="#{contratoFlowController.aliquotaNova.encargo}" 
+                                   autoCompleteValue="#{contratoFlow.controller.aliquotaNova.encargo}" 
                                    autoCompleteItem="encargo" 
                                    autoCompleteItemLabel="#{encargo}" 
                                    autoCompleteItemValue="#{encargo}" 
                                    completeMethod="#{encargoController.complete}" 
-                                   labelValue="#{contratoFlowController.getMsgFieldLabel('EncargoAliquota_encargo')}"
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('EncargoAliquota_encargo')}"
                                    autoCompleteConverter="#{encargoConverter}"
                                    autoCompleteSize="30"/>                
-            <t:FormRowPercent id="contratoAliquotaAliquota" numberValue="#{contratoFlowController.aliquotaNova.aliquota}" 
-                              labelValue="#{contratoFlowController.getMsgFieldLabel('EncargoAliquota_aliquota')}" />
+            <t:FormRowPercent id="contratoAliquotaAliquota" numberValue="#{contratoFlow.controller.aliquotaNova.aliquota}" 
+                              labelValue="#{contratoFlow.controller.getMsgFieldLabel('EncargoAliquota_aliquota')}" />
             <t:FormRowCheck id="contratoRetencaoContaVinculada" 
-                            checkValue="#{contratoFlowController.aliquotaNova.retencaoContaVinculada}" 
-                            labelValue="#{contratoFlowController.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}" />    
+                            checkValue="#{contratoFlow.controller.aliquotaNova.retencaoContaVinculada}" 
+                            labelValue="#{contratoFlow.controller.getMsgFieldLabel('EncargoAliquota_isRetencaoContaVinculada')}" />    
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>
