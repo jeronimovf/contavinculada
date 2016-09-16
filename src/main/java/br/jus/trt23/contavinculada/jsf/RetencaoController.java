@@ -44,7 +44,6 @@ public class RetencaoController extends AbstractController<Retencao> {
                     = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
             Set<Colaborador> colaboradoresNoFaturamento = new HashSet<>();
             Set<FaturamentoItem> faturamentoItens = new HashSet<>();
-            Integer diasNoMes = faturamento.getCompetencia().lengthOfMonth();
             Integer diasTitularidade;
             Integer diasSubstituicao;
             Integer diasTrabalhados;
@@ -86,7 +85,7 @@ public class RetencaoController extends AbstractController<Retencao> {
                 for(EncargoAliquota aliquota : faturamento.getContrato().getAliquotas()){
                     retencao = new Retencao();                    
                     retencao.setAliquota(aliquota);
-                    retencao.setValor(col.getSalarioVigente());
+
                 }
                 
             }

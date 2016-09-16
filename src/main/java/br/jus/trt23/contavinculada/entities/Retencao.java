@@ -44,11 +44,16 @@ public class Retencao extends EntidadeGenerica {
     @ManyToOne
     private EncargoAliquota aliquota;
 
-    //salario
     @Getter
     @Setter
     @NotNull    
-    private Double valor;
+    private Double aliquotaFator;
+
+
+    @Getter
+    @Setter
+    @NotNull    
+    private Double salario;
 
     @Transient
     private Double retido;
@@ -59,6 +64,6 @@ public class Retencao extends EntidadeGenerica {
     private Liberacao liberacao;
 
     public Double getRetido() {
-        return aliquota.getAliquota() * valor;
+        return aliquotaFator * salario;
     }
 }

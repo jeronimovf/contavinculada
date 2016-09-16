@@ -43,7 +43,8 @@ public class ContratoController extends AbstractController<Contrato> {
     private Contrato aditivoNovo;
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
-    private LocalDate faturamentoCompetencia;
+    private LocalDate referenciaInicio;
+    private LocalDate referenciaFim;    
     private List<Colaborador> colaboradoresPorContrato;
 
     @Inject
@@ -65,7 +66,7 @@ public class ContratoController extends AbstractController<Contrato> {
 
     public String prepareFaturamentoNovo() throws Exception {
         setFaturamentoNovo(new Faturamento());
-        getFaturamentoNovo().setVigenteDesde(faturamentoCompetencia.withDayOfMonth(1));
+        getFaturamentoNovo().setVigenteDesde(referenciaInicio);
         inicializaFaturamento();
         getSelected().addFaturamentos(getFaturamentoNovo());
         saveOrCreate();
@@ -296,16 +297,17 @@ public class ContratoController extends AbstractController<Contrato> {
     }
 
     private void inicializaFaturamento() throws Exception {
-        getFaturamentoNovo().setCompetencia(faturamentoCompetencia);
+        getFaturamentoNovo().setReferenciaInicio(referenciaInicio);
+        getFaturamentoNovo().setReferenciaFim(referenciaFim);        
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
         Alocacao alocacaoAtiva;
         for (PostoDeTrabalho posto : getSelected().getPostosDeTrabalho()) {
             alocacaoAtiva = alocacaoController.findVigenteParaOPostoDeTrabalho(posto);
-            for (int i = 1; i <= getFaturamentoCompetencia().lengthOfMonth(); i++) {
+            for (int i = 0; i < getFaturamentoNovo().getDiasEntreReferencias(); i++) {
                 faturamentoItem = new FaturamentoItem();
-                faturamentoItem.setVigenteDesde(faturamentoCompetencia.withDayOfMonth(i));
-                faturamentoItem.setDia(faturamentoCompetencia.withDayOfMonth(i));
+                faturamentoItem.setVigenteDesde(referenciaInicio.plusDays(i));
+                faturamentoItem.setDia(referenciaInicio.plusDays(i));
                 faturamentoItem.setPostoDeTrabalho(posto);
                 faturamentoItem.setTitular(alocacaoAtiva.getTitular());
                 faturamentoItem.setSubstituto(alocacaoAtiva.getSubstituto());

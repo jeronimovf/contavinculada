@@ -12,10 +12,14 @@
                           saveAction="#{contratoFlow.controller.saveOrCreate()}"
                           goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
                           controller="#{contratoFlow.controller}">                           
-            <t:FormRowDate id="faturamentoCompetencia" 
-                           calendarValue="#{contratoFlow.controller.faturamentoNovo.competencia}" 
-                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_competencia')}" 
-                           pattern="dd/MM/yyyy"/>                
+            <t:FormRowDate id="faturamentoReferenciaInicio" 
+                           calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaInicio}" 
+                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
+                           pattern="dd/MM/yyyy"/>
+            <t:FormRowDate id="faturamentoReferenciaFim" 
+                           calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaFim}" 
+                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
+                           pattern="dd/MM/yyyy"/>            
             <t:FormRowMonetary id="faturamentoValorBruto" 
                                numberValue="#{contratoFlow.controller.faturamentoNovo.valorBruto}" 
                                labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
@@ -37,7 +41,7 @@
                          editable="true"
                          paginator="true"
                          paginatorAlwaysVisible="false"
-                         rows="#{contratoFlow.controller.faturamentoNovo.competencia.lengthOfMonth()}"
+                         rows="#{contratoFlow.controller.faturamentoNovo.diasEntreReferencias}"
                          id="faturamentoItemDT"
                          sortFunction="#{contratoFlow.controller.sortByPostoDeTrabalhoDia}" 
                          sortOrder="ascending" 

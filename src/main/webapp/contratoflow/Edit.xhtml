@@ -117,20 +117,32 @@
                                     mostrarVigencia="false">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <h:outputLabel for="faturamentoCompetencia" 
-                                               value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_competencia')}"/>
-                                <p:inputMask id="faturamentoCompetencia" converter="localDateConverter" 
-                                             value="#{contratoFlow.controller.faturamentoCompetencia}"
+                                <h:outputLabel for="faturamentoReferenciaInicio" 
+                                               value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}"/>
+                                <p:inputMask id="faturamentoReferenciaInicio" 
+                                             converter="localDateConverter" 
+                                             value="#{contratoFlow.controller.referenciaInicio}"
                                              mask="99/99/9999" title="dd/MM/yyyy" 
                                              size="7"/>
+                                <h:outputLabel for="faturamentoReferenciaFim" 
+                                               value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"/>
+                                <p:inputMask id="faturamentoCompetencia" 
+                                             converter="localDateConverter" 
+                                             value="#{contratoFlow.controller.referenciaFim}"
+                                             mask="99/99/9999" title="dd/MM/yyyy" 
+                                             size="7"/>                                
                                 <p:commandButton action="#{contratoFlow.controller.prepareFaturamentoNovo()}"
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
-                        <p:column width="20%"
-                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_competencia')}">
-                            <h:outputText value="#{item.competencia}"/>
+                        <p:column width="10%"
+                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
+                            <h:outputText value="#{item.referenciaInicio}"/>
                         </p:column>   
+                        <p:column width="10%"
+                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
+                            <h:outputText value="#{item.referenciaFim}"/>
+                        </p:column>                           
                         <p:column width="10%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
                             <h:outputText value="#{item.valorBruto}"/>

@@ -4,6 +4,7 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -17,11 +18,19 @@ import lombok.Setter;
 
 @Entity
 public class Faturamento extends EntidadeGenerica {
-    protected final static String[] uniqueIndex = {"contrato","competencia"};    
+    protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim"};    
     @Getter
     @Setter
     @NotNull
-    private LocalDate competencia;
+    private LocalDate referenciaInicio;
+
+    @Getter
+    @Setter
+    @NotNull
+    private LocalDate referenciaFim;
+    
+    @Transient
+    private Integer diasEntreReferencias;
 
     @Getter
     @Setter
@@ -84,4 +93,10 @@ public class Faturamento extends EntidadeGenerica {
     }
 
 
+    public Integer getDiasEntreReferencias() {
+        if(null == diasEntreReferencias){
+            diasEntreReferencias = Period.between(referenciaInicio, referenciaFim).getDays()+1;
+        }
+        return diasEntreReferencias;
+    }
 }
