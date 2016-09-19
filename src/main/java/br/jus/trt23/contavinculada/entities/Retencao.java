@@ -23,37 +23,44 @@ public class Retencao extends EntidadeGenerica {
     public Retencao() {
         this.faturamentoItens = new ArrayList<>();
     }
-    
 
     @Getter
     @Setter
     @NotNull
     @OneToMany(mappedBy = "retencao",
-            cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<FaturamentoItem> faturamentoItens;
 
     @Getter
     @Setter
-    @NotNull    
+    @NotNull
     @ManyToOne
     private Colaborador colaborador;
 
     @Getter
     @Setter
-    @NotNull    
-    @ManyToOne
-    private EncargoAliquota aliquota;
+    @NotNull
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private RATItem ratItem;
 
     @Getter
     @Setter
-    @NotNull    
-    private Double aliquotaFator;
-
-
-    @Getter
-    @Setter
-    @NotNull    
+    @NotNull
     private Double salario;
+
+    @Getter
+    @Setter
+    private Integer diasSubstituicao;
+
+    @Getter
+    @Setter
+    private Integer diasTitularidade;
+
+    @Transient
+    private Double fatorTrabalhadoNoPeriodo;
+
+    @Transient
+    private Integer diasNoPeriodo;
 
     @Transient
     private Double retido;
@@ -63,7 +70,25 @@ public class Retencao extends EntidadeGenerica {
     @OneToOne(mappedBy = "retencao")
     private Liberacao liberacao;
 
-    public Double getRetido() {
-        return aliquotaFator * salario;
+    public Double getRetido() throws Exception {
+        return ratItem.getAliquota() * salario * getFatorTrabalhadoNoPeriodo();
+    }
+
+    public Integer getDiasNoPeriodo() throws Exception {
+        if (null == diasNoPeriodo) {
+            if (faturamentoItens.size() > 0) {
+                diasNoPeriodo = faturamentoItens.get(0).getFaturamento().getDiasEntreReferencias();
+            } else {
+                throw new Exception("Não há faturamento associado à retenção.");
+            }
+        }
+        return diasNoPeriodo;
+    }
+
+    public Double getFatorTrabalhadoNoPeriodo() throws Exception {
+        if (null == fatorTrabalhadoNoPeriodo) {
+            fatorTrabalhadoNoPeriodo = (diasSubstituicao.doubleValue() + diasTitularidade.doubleValue()) / getDiasNoPeriodo().doubleValue();
+        }
+        return fatorTrabalhadoNoPeriodo;
     }
 }

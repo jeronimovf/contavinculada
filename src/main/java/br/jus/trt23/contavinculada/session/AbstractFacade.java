@@ -316,4 +316,9 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     public Set<T> vigentesPlenamenteEntre(LocalDate inicio, LocalDate fim) {
         return null;
     }
+    
+    public Boolean isVigente(EntidadeGenerica entidade){
+        return  entidade.isVigenteParcialmente(
+                getTimestampOnServer().toLocalDate());
+    }
 }

@@ -35,7 +35,8 @@
             <t:FormRowString id="faturamentoAtestadaPor" 
                              textValue="#{contratoFlow.controller.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
-
+            <p:commandButton action="#{retencaoController.processaFaturamento(contratoFlow.controller.faturamentoNovo)}"
+                             value="Processa retenções"/>
             <p:dataTable value="#{contratoFlow.controller.faturamentoNovo.itens}"
                          var="fi" 
                          editable="true"
@@ -63,7 +64,7 @@
                             <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
                                              converter="#{colaboradorConverter}" 
                                              style="width: 100%">
-                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>                            
+                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>                          
                             </h:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>                                                        

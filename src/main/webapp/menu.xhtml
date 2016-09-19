@@ -8,6 +8,7 @@
         <h:form id="mainMenu">
             <p:menu toggleable="true" >
                 <p:submenu label="Tabelas básicas">
+                    <p:menuitem action="#{flowController.flow('ratflow')}" value="RAT"/>                    
                     <p:menuitem action="#{flowController.flow('faturamentoitemeventoflow')}" value="Evento de faturamento"/>                    
                     <p:menuitem action="#{flowController.flow('calendarioferiadoflow')}" value="Calendario feriados"/>      
                     <p:menuitem action="#{flowController.flow('cargooufuncaoflow')}" value="Cargo/função"/> 

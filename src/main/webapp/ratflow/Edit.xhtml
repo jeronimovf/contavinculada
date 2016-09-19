@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://java.sun.com/jsf/composite/components"                      
+                template="/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="content">  
+        <t:FormFlowCreate saveAction="#{ratFlow.controller.saveOrCreate()}"
+                          casePrefix="ratEdit"
+                          controller="#{ratFlow.controller}"
+                          entityToUpdate="#{ratFlow.controller.selected}"
+                          goBackToAction="#{ratFlow.controller.goBackTo('List')}">  
+            <t:FormRowString id="nome" textSize="40" textValue="#{ratFlow.controller.selected.percentual}" labelValue="#{ratFlow.controller.getMsgFieldLabel('percentual')}"/>
+            <p:tabView id="ratTabs">
+                <p:tab title="#{ratFlow.controller.getTabHeader('Item')}">
+                    <t:ListFlowView selection="#{ratFlow.controller.itemNovo}" 
+                                    value="#{ratFlow.controller.selected.itens}" 
+                                    casePrefix="item" 
+                                    action="#{ratFlow.controller.prepareItemEdit}" 
+                                    controller="#{ratFlow.controller}" 
+                                    id="item"
+                                    specificValues="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{ratFlow.controller.prepareItemNovo}"
+                                                 value="#{messages.CreateLink}" />
+                            </div>
+                        </f:facet>
+                        <p:column width="60%" 
+                                  headerText="#{ratFlow.controller.getMsgFieldLabel('Item_encargo')}">
+                            <h:outputText value="#{item.encargo.toString()}"/>
+                        </p:column>   
+                        <p:column width="20%" 
+                                  headerText="#{ratFlow.controller.getMsgFieldLabel('Item_aliquota')}">
+                            <h:outputText value="#{item.aliquota}"/>
+                        </p:column>   
+                    </t:ListFlowView>
+                </p:tab>
+            </p:tabView>
+
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>
+
+

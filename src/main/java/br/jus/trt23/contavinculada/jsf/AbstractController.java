@@ -146,7 +146,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().edit(selected);
             msg = messages.getString(getMessagePrefix().concat("_Updated"));
             JsfUtil.addSuccessMessage(msg);
-            return "Edit";
+            return "Edit"; 
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);

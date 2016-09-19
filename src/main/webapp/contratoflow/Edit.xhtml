@@ -137,11 +137,11 @@
                         </f:facet>
                         <p:column width="10%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
-                            <h:outputText value="#{item.referenciaInicio}"/>
+                            <h:outputText value="#{item.referenciaInicio}" converter="localDateConverter"/>
                         </p:column>   
                         <p:column width="10%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
-                            <h:outputText value="#{item.referenciaFim}"/>
+                            <h:outputText value="#{item.referenciaFim}" converter="localDateConverter"/>
                         </p:column>                           
                         <p:column width="10%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">

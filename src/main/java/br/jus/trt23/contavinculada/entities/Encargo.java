@@ -16,10 +16,6 @@ public class Encargo extends EntidadeGenerica{
     @Getter
     @Setter
     private String nome;
-            
-    @Getter
-    @Setter    
-    private Boolean isRetencaoContaVinculada;
     
     @Getter
     @OneToMany(mappedBy = "encargo")

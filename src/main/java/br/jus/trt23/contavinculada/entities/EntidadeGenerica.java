@@ -154,15 +154,16 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
         return true;
     }
     
+    //retorna verdadeiro se a entidade tiver vigencia em todo o período
+    //informado
     public Boolean isVigentePlenamenteEntre(LocalDate inicio, LocalDate fim){
-        //TODO: IMPLEMENTAR
-        return Boolean.TRUE;
+        return (vigenteDesde.compareTo(inicio)<=0 && vigenteAte.compareTo(fim)>=0);
     }
     
-    public Boolean isVigenteParcialmenteEntre(LocalDate inicio, LocalDate fim){
-        //TODO: IMPLEMENTAR
-        return Boolean.TRUE;
+    //retorna verdadeiro se a entidade tiver vigencia que abranja a data 
+    //informada
+    public Boolean isVigenteParcialmente(LocalDate quando){
+        return  vigenteDesde.compareTo(quando)<=0 && (
+                vigenteAte == null || vigenteAte.isAfter(quando));
     }
-    
-
 }

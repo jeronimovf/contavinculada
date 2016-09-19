@@ -3,11 +3,8 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,24 +25,7 @@ public class EncargoAliquota extends EntidadeGenerica {
     @ManyToOne
     private Contrato contrato;
 
-    @Getter
-    @Setter
-    private Boolean retencaoContaVinculada;
-
-    @Getter
-    @OneToMany(mappedBy = "aliquota")
-    private List<Retencao> retencoes;
-
     public EncargoAliquota() {
-        this.retencoes = new ArrayList<>();
-    }
-    
-    public void addRetencoes(Retencao retencao){
-        retencoes.add(retencao);
-        retencao.setAliquota(this);
-    }
-    
-    
-    
 
+    }
 }

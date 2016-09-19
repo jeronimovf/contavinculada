@@ -63,4 +63,5 @@ public class ColaboradorFacade extends AbstractFacade<Colaborador> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
+
 }

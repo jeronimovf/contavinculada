@@ -3,8 +3,11 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -19,12 +22,22 @@ public class RAT extends EntidadeGenerica {
 
     @Getter
     @Setter
-    @NotNull
-    private Double aliquotaRetencao;
-   
+    @OneToMany(mappedBy = "rat",cascade = {CascadeType.PERSIST, CascadeType.REFRESH,CascadeType.MERGE})
+    private List<RATItem> itens;
+
+    public RAT() {
+        itens=new ArrayList<>();
+    }
+    
+    public void addItem(RATItem item){
+        itens.add(item);
+        item.setRat(this);        
+    }
+    
     @Override
     public String toString() {
         return getPercentual();
     }
 
+    
 }
