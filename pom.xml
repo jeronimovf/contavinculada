@@ -136,6 +136,8 @@
                     <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
+            <version>5.2.4.Final</version>
+            <type>jar</type>
         </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included in 

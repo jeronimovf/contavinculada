@@ -71,7 +71,10 @@ public class Retencao extends EntidadeGenerica {
     private Liberacao liberacao;
 
     public Double getRetido() throws Exception {
-        return ratItem.getAliquota() * salario * getFatorTrabalhadoNoPeriodo();
+        if(null == retido){
+            retido = (ratItem.getAliquota()/100) * salario * getFatorTrabalhadoNoPeriodo();
+        }
+        return retido;
     }
 
     public Integer getDiasNoPeriodo() throws Exception {

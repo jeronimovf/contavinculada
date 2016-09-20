@@ -9,7 +9,7 @@
                           entityToUpdate="#{contratoFlow.controller.aliquotaNova}" 
                           saveAction="#{contratoFlow.controller.saveOrCreateEncargoAliquota}"
                           goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}"> 
+                          controller="#{contratoFlow.controller}" mostrarVigencia="false"> 
             <t:FormRowAutoComplete id="contratoAliquotaEncargo" 
                                    autoCompleteValue="#{contratoFlow.controller.aliquotaNova.encargo}" 
                                    autoCompleteItem="encargo" 

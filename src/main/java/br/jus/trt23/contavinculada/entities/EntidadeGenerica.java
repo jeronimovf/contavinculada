@@ -5,6 +5,7 @@
  */
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaValida;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -34,6 +35,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@VigenciaValida
 public abstract class EntidadeGenerica implements Serializable, Comparable {
 
     @Id
@@ -157,7 +159,7 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
     //retorna verdadeiro se a entidade tiver vigencia em todo o período
     //informado
     public Boolean isVigentePlenamenteEntre(LocalDate inicio, LocalDate fim){
-        return (vigenteDesde.compareTo(inicio)<=0 && vigenteAte.compareTo(fim)>=0);
+        return (vigenteDesde.compareTo(inicio)<=0 && (null == vigenteAte || vigenteAte.compareTo(fim)>=0));
     }
     
     //retorna verdadeiro se a entidade tiver vigencia que abranja a data 
@@ -165,5 +167,10 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
     public Boolean isVigenteParcialmente(LocalDate quando){
         return  vigenteDesde.compareTo(quando)<=0 && (
                 vigenteAte == null || vigenteAte.isAfter(quando));
+    }
+    
+    public void setVigenciaIgual(EntidadeGenerica eg){
+        setVigenteDesde(eg.getVigenteDesde());
+        setVigenteAte(eg.vigenteAte);
     }
 }

@@ -10,7 +10,7 @@
                           entityToUpdate="#{contratoFlow.controller.alocacaoNova}" 
                           saveAction="#{contratoFlow.controller.saveOrCreateAlocacao()}"
                           goBackToAction="#{contratoFlow.controller.goBackTo('PostoEdit')}"
-                          controller="#{contratoFlow.controller}">                           
+                          controller="#{contratoFlow.controller}" >                           
             <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador}"
                                    autoCompleteValue="#{contratoFlow.controller.alocacaoNova.titular}"
                                    labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"

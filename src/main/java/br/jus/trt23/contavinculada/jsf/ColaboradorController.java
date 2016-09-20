@@ -52,7 +52,7 @@ public class ColaboradorController extends AbstractController<Colaborador> {
         List<Salario> salarios;
         Stream<Salario> sSalarios = colaborador.getSalarios().stream();
         salarios = sSalarios.filter(s -> s.isVigenteParcialmente(inicio)).collect(Collectors.toList());
-        if (salarios.size() > 0) {
+        if (salarios.size() <= 0) {
             throw new Exception("Não há salário vigente para o período.");
         }
 

@@ -43,7 +43,7 @@
                                     action="#{contratoFlow.controller.preparePostoEdit}" 
                                     controller="#{contratoFlow.controller}" 
                                     id="postoDeTrabalho"
-                                    specificValues="true">
+                                    specificValues="true" mostrarVigencia="false">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <p:commandButton action="#{contratoFlow.controller.preparePostoNovo}"
@@ -85,7 +85,7 @@
                                     action="#{contratoFlow.controller.prepareAliquotaEdit}" 
                                     controller="#{contratoFlow.controller}" 
                                     id="encargoAliquota"
-                                    specificValues="true">
+                                    specificValues="true" mostrarVigencia="false">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <p:commandButton action="#{contratoFlow.controller.prepareAliquotaNova()}"
@@ -126,7 +126,7 @@
                                              size="7"/>
                                 <h:outputLabel for="faturamentoReferenciaFim" 
                                                value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"/>
-                                <p:inputMask id="faturamentoCompetencia" 
+                                <p:inputMask id="faturamentoReferenciaFim" 
                                              converter="localDateConverter" 
                                              value="#{contratoFlow.controller.referenciaFim}"
                                              mask="99/99/9999" title="dd/MM/yyyy" 

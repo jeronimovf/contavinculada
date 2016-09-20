@@ -12,13 +12,14 @@
         <cc:attribute name="casePrefix" class="java.lang.String"/>       
         <cc:attribute name="controller"/>
         <cc:attribute name="goBackToAction" method-signature="java.lang.String action()"/>
+        <cc:attribute name="mostrarVigencia" class="java.lang.Boolean" default="true"/>
     </cc:interface>
 
     <cc:implementation>
         <h:form id="#{cc.attrs.casePrefix.concat('Form')}" prependId="false">
             <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>                            
             <div class="ui-grid">  
-                <p:panel header="#{messages.Active}">
+                <p:panel header="#{messages.Active}" rendered="#{cc.attrs.mostrarVigencia}">
                     <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
                     <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
                 </p:panel>

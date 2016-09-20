@@ -106,10 +106,12 @@ public class RetencaoController extends AbstractController<Retencao> {
                         retencao.setDiasSubstituicao(diasSubstituicao);
                         retencao.setDiasTitularidade(diasTitularidade);
                         retencao.setFaturamentoItens(faturamentoItensNaRetencao);
-                        create(retencao);
+                        retencao.setColaborador(col);
+                        update(retencao);
                     }
                 }
             }
+            return "retencaoflow";
         }
         throw new Exception("Faturamento nulo.");
     }
