@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaValida;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
 )
+@VigenciaValida
 public class CargoOuFuncao extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};
     @Getter

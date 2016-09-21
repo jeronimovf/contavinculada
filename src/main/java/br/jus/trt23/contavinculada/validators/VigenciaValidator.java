@@ -14,28 +14,21 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author j129-9
  */
-public class VigenciaValidator implements ConstraintValidator<VigenciaValida, EntidadeGenerica> {
+
+public class VigenciaValidator implements ConstraintValidator<VigenciaValida, EntidadeGenerica>{
+
+    private VigenciaValida constraintAnnotation;
 
     @Override
     public void initialize(VigenciaValida constraintAnnotation) {
-        
+        this.constraintAnnotation = constraintAnnotation;
     }
 
     @Override
     public boolean isValid(EntidadeGenerica value, ConstraintValidatorContext context) {
-        if(null == value) return true;
-        if(null == value.getVigenteDesde()){
-            return false;
-        }
-        else{
-            if(null == value.getVigenteAte()){
-                return true;
-            }
-            else{
-                return value.getVigenteAte().compareTo(value.getVigenteDesde())>0;
-            }
-        }
+        return true;
     }
 
-    
+
+
 }

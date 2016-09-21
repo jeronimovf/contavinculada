@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaValida;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "numero"})
 )
+@VigenciaValida
 public class Contrato extends EntidadeGenerica {
 
     protected final static String[] uniqueIndex = {"numero"};
