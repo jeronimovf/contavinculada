@@ -15,10 +15,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Setter
 @RequiredArgsConstructor
 public class EnderecoEletronico extends EntidadeGenerica {
-    protected final static String[] uniqueIndex = {"mail"};    
-   @Email
+
+    protected final static String[] uniqueIndex = {"mail"};
+    @Email
     private String email;
 
-   @NotEmpty
-   private String descricao;
+    @NotEmpty
+    private String descricao;
+
+    @Override
+    public String getNomeNatural() {
+        return "Endereço eletrônico";
+    }
 }

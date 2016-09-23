@@ -28,5 +28,12 @@ public class Endereco extends EntidadeGenerica {
 
     private String nome;
 
-    private String cep;    
+    private String cep;  
+
+    @Override
+    public String getNomeNatural() {
+        return "Endereço";
+    }
+    
+    
 }

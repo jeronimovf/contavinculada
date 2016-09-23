@@ -43,4 +43,9 @@ public class Jornada extends EntidadeGenerica {
         return getNome();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Jornada";
+    }
+
 }

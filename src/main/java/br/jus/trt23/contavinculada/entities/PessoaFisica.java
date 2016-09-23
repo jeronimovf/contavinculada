@@ -70,4 +70,9 @@ public class PessoaFisica extends Pessoa {
         return getNome().concat(" (").concat(getCpf()).concat(")");
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Pessoa física";
+    }
+
 }

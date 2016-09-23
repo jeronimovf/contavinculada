@@ -3,13 +3,15 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class EncargoAliquota extends EntidadeGenerica {
+@VigenciaEstritaAoContrato
+public class EncargoAliquota extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"contrato","encargo","aliquota"};
     @Getter
     @Setter
@@ -27,5 +29,10 @@ public class EncargoAliquota extends EntidadeGenerica {
 
     public EncargoAliquota() {
 
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Alíquota";
     }
 }

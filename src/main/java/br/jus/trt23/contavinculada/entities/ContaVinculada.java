@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,8 @@ import org.hibernate.validator.constraints.NotEmpty;
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"banco", "agencia", "conta", "operacao"})            
 )
-public class ContaVinculada extends EntidadeGenerica {
+@VigenciaEstritaAoContrato
+public class ContaVinculada extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"contrato", "banco", "agencia", "conta","operacao"};
     
     @NotNull
@@ -43,4 +45,9 @@ public class ContaVinculada extends EntidadeGenerica {
     private String conta;
 
     private String operacao;    
+
+    @Override
+    public String getNomeNatural() {
+        return "Conta vinculada";
+    }
 }

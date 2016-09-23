@@ -27,4 +27,9 @@ public class Liberacao extends EntidadeGenerica {
 
     private String parecerLiberacao;
 
+    @Override
+    public String getNomeNatural() {
+        return "Liberação";
+    }
+
 }

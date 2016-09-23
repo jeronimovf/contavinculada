@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -15,7 +16,8 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Fiscal extends EntidadeGenerica {
+@VigenciaEstritaAoContrato
+public class Fiscal extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"especie","servidor"};        
     @Getter
     @Setter
@@ -53,6 +55,11 @@ public class Fiscal extends EntidadeGenerica {
 
     public void addFaturamentosAtestados(Faturamento faturamento){
         faturamentosAtestados.add(faturamento);
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Fiscal";
     }
     
 }

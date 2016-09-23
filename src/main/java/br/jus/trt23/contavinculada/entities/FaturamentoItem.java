@@ -48,5 +48,10 @@ public class FaturamentoItem extends EntidadeGenerica {
     
     @ManyToOne
     private Colaborador titular;    
+
+    @Override
+    public String getNomeNatural() {
+        return "Item de faturamento";
+    }
     
 }

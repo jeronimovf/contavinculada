@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,7 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class PostoDeTrabalho extends EntidadeGenerica {
+@VigenciaEstritaAoContrato
+public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     @Getter
     @Setter
     @NotNull
@@ -100,5 +102,10 @@ public class PostoDeTrabalho extends EntidadeGenerica {
     @Override
     public String toString() {
         return getCargoOuFuncao().getNome().concat(" - " + getJornada().getNome() + " (" + getId().toString() + ")");
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Posto de trabalho";
     }
 }

@@ -5,7 +5,6 @@
     <jta-data-source>java:/ContaVinculadaXADS</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
-    <validation-mode>NONE</validation-mode>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <property name="hibernate.format_sql" value="true"/>

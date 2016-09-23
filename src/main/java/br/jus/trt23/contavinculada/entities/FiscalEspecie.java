@@ -44,4 +44,9 @@ public class FiscalEspecie extends EntidadeGenerica {
         return getNome(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Espécie de fiscal";
+    }
+
 }

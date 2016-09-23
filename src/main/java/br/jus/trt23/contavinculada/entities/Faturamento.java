@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Faturamento extends EntidadeGenerica {
+@VigenciaEstritaAoContrato
+public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim"};    
     @Getter
     @Setter
@@ -98,5 +100,10 @@ public class Faturamento extends EntidadeGenerica {
             diasEntreReferencias = Period.between(referenciaInicio, referenciaFim).getDays()+1;
         }
         return diasEntreReferencias;
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Faturamento";
     }
 }

@@ -34,5 +34,10 @@ public class Encargo extends EntidadeGenerica{
         return getNome();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Encargo";
+    }
+
     
 }

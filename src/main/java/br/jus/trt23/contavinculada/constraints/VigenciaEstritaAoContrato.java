@@ -5,7 +5,7 @@
  */
 package br.jus.trt23.contavinculada.constraints;
 
-import br.jus.trt23.contavinculada.validators.VigenciaValidator;
+import br.jus.trt23.contavinculada.validators.VigenciaEstritaAoContratoValidator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,15 +14,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ElementType.ANNOTATION_TYPE,ElementType.TYPE, ElementType.METHOD, 
-    ElementType.FIELD,ElementType.CONSTRUCTOR,ElementType.PARAMETER})
+@Target({ElementType.ANNOTATION_TYPE,ElementType.TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = { VigenciaValidator.class })
+@Constraint(validatedBy = { VigenciaEstritaAoContratoValidator.class })
 @Documented
-public @interface VigenciaValida {
+public @interface VigenciaEstritaAoContrato {
 
-	String message() default "Uma vigência válida deve ter data de início "
-                + "preenchida e uma data final nula ou superior à data de início.";
+	String message() default "O período de vigência de %s deve estar contido no período de vigência do contrato.";
 
 	Class<?>[] groups() default { };
 

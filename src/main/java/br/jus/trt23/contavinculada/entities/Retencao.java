@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Retencao extends EntidadeGenerica {
+public class Retencao extends EntidadeGenerica{
 
     protected final static String[] uniqueIndex = {"faturamento", "colaborador", "aliquota"};
 
@@ -93,5 +93,10 @@ public class Retencao extends EntidadeGenerica {
             fatorTrabalhadoNoPeriodo = (diasSubstituicao.doubleValue() + diasTitularidade.doubleValue()) / getDiasNoPeriodo().doubleValue();
         }
         return fatorTrabalhadoNoPeriodo;
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Retenção";
     }
 }

@@ -42,4 +42,9 @@ public class RATItem extends EntidadeGenerica {
         return getEncargo().toString() + " ("+ getAliquota().toString() + ")";
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Item RAT";
+    }
+
 }

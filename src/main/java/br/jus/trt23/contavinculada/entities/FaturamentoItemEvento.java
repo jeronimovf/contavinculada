@@ -27,4 +27,9 @@ public class FaturamentoItemEvento extends EntidadeGenerica {
     public String toString(){
         return getNome();
     }
+
+    @Override
+    public String getNomeNatural() {
+        return "Evento de faturamento";
+    }
 }

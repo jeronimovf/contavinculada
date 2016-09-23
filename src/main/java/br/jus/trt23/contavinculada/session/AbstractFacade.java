@@ -318,7 +318,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     }
     
     public Boolean isVigente(EntidadeGenerica entidade){
-        return  entidade.isVigenteParcialmente(
-                getTimestampOnServer().toLocalDate());
+        LocalDate hoje =getTimestampOnServer().toLocalDate();
+        return  entidade.isVigenteParcialmente(hoje,hoje);
     }
 }

@@ -32,4 +32,9 @@ public class GlosaEspecie extends EntidadeGenerica {
         glosas.add(glosa);
         glosa.setEspecie(this);
     }
+
+    @Override
+    public String getNomeNatural() {
+        return "Espécie de glosa";
+    }
 }

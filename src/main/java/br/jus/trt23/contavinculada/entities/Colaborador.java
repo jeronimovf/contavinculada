@@ -108,5 +108,10 @@ public class Colaborador extends EntidadeGenerica {
     public String toString(){
         return getColaborador().toString();
     }
+
+    @Override
+    public String getNomeNatural() {
+        return "Colaborador";
+    }
     
 }

@@ -54,5 +54,10 @@ public class PessoaJuridica extends Pessoa {
     public String getDescricao() {
         return getNomeFantasia().concat(" (").concat(getRazaoSocial()).concat(")");
     }
+
+    @Override
+    public String getNomeNatural() {
+        return "Pessoa jurídica";
+    }
     
 }

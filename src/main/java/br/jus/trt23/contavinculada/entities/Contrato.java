@@ -75,7 +75,7 @@ public class Contrato extends EntidadeGenerica {
     private String regimeTributacao;
 
     @Getter
-    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<ContaVinculada> contasVinculadas;
 
     @Getter
@@ -83,7 +83,7 @@ public class Contrato extends EntidadeGenerica {
     private List<PostoDeTrabalho> postosDeTrabalho;
 
     @Getter
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Faturamento> faturamentos;
 
     @Getter
@@ -119,6 +119,7 @@ public class Contrato extends EntidadeGenerica {
 
     public void AddContasVinculadas(ContaVinculada conta) {
         contasVinculadas.add(conta);
+        conta.setContrato(this);
     }
 
     public void addPostosDeTrabalho(PostoDeTrabalho posto) {
@@ -153,5 +154,10 @@ public class Contrato extends EntidadeGenerica {
         } else {
             return getNumero();
         }
+    }
+
+    @Override
+    public String getNomeNatural() {
+        return "Contrato";
     }
 }

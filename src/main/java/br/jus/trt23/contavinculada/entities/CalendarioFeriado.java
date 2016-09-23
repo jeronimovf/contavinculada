@@ -59,4 +59,9 @@ public class CalendarioFeriado extends EntidadeGenerica {
         return getNome();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Calendário de feriados";
+    }
+
 }

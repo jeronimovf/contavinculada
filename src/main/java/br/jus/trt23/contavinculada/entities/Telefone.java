@@ -26,4 +26,9 @@ public class Telefone extends EntidadeGenerica {
     @NotEmpty    
     @Pattern(regexp = "\\d{2,3})([-\\s]?\\d{4}){2}")
     private String numero;
+
+    @Override
+    public String getNomeNatural() {
+        return "Telefone";
+    }
 }

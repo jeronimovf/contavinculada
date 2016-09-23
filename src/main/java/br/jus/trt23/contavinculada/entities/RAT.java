@@ -39,5 +39,10 @@ public class RAT extends EntidadeGenerica {
         return getPercentual();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "RAT";
+    }
+
     
 }

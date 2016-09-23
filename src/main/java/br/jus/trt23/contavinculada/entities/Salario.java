@@ -21,5 +21,10 @@ public class Salario extends EntidadeGenerica{
         return getValor().toString();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Salário";
+    }
+
     
 }

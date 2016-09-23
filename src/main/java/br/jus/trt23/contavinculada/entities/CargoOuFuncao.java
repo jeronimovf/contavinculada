@@ -55,4 +55,9 @@ public class CargoOuFuncao extends EntidadeGenerica {
         return getNome();
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Cargo/Função";
+    }
+
 }

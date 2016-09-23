@@ -28,4 +28,9 @@ public class Glosa extends EntidadeGenerica{
     private String descricao;
 
     private Double valorUnitario;
+
+    @Override
+    public String getNomeNatural() {
+        return "Glosa";
+    }
 }

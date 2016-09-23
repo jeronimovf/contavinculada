@@ -40,6 +40,11 @@ public class CalendarioFeriadoItem extends EntidadeGenerica {
     public String toString() {
         return getNome();
     }
+
+    @Override
+    public String getNomeNatural() {
+        return "Feriado";
+    }
     
     
 

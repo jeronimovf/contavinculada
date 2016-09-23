@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-
 public class Servidor extends PessoaFisica {
     protected final static String[] uniqueIndex = {"matricula"};    
     
@@ -34,4 +33,10 @@ public class Servidor extends PessoaFisica {
         fiscal.setServidor(this);
     }
 
+    @Override
+    public String getNomeNatural() {
+        return "Servidor";
+    }
+
+    
 }

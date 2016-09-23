@@ -30,6 +30,11 @@ public class Alocacao extends EntidadeGenerica {
     @JoinColumn(nullable = false)    
     private PostoDeTrabalho postoDeTrabalho; 
 
+    @Override
+    public String getNomeNatural() {
+        return "Alocação";
+    }
+
     
     
 }
