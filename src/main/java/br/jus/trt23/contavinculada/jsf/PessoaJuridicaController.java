@@ -34,29 +34,29 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
         getColaboradorNovo().setColaborador(new PessoaFisica());
         return "ColaboradorNovo";
     }
-    
-    public String prepareSalarioNovo(){
+
+    public String prepareSalarioNovo() {
         setSalarioNovo(new Salario());
         return "SalarioNovo";
     }
-    
-    public String prepareColaboradorEdit(){
+
+    public String prepareColaboradorEdit() {
         Object obj = JsfUtil.findComponent("colaboradorDT");
-        if(obj instanceof DataTable){
-            DataTable dt = (DataTable)obj;  
+        if (obj instanceof DataTable) {
+            DataTable dt = (DataTable) obj;
             setColaboradorNovo((Colaborador) dt.getRowData());
         }
         return "ColaboradorEdit";
-    }    
+    }
 
-    public String prepareSalarioEdit(){
+    public String prepareSalarioEdit() {
         Object obj = JsfUtil.findComponent("salarioDT");
-        if(obj instanceof DataTable){
-            DataTable dt = (DataTable)obj;  
+        if (obj instanceof DataTable) {
+            DataTable dt = (DataTable) obj;
             setSalarioNovo((Salario) dt.getRowData());
         }
         return "SalarioEdit";
-    }       
+    }
 
     public String saveOrCreateColaborador() throws Exception {
         String msg;
@@ -71,22 +71,26 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
-    }    
-    
+    }
+
     public String saveOrCreateSalario() throws Exception {
         String msg;
         try {
-            getColaboradorNovo().getSalarios().add(getSalarioNovo());            
-            saveOrCreate();
-            prepareSalarioNovo();
+            if (null == getSalarioNovo().getId()) {
+                getColaboradorNovo().getSalarios().add(getSalarioNovo());
+                saveOrCreate();
+                prepareSalarioNovo();
+            } else {
+                saveOrCreate();
+            }
             msg = getResponseCreated("Salario");
             JsfUtil.addSuccessMessage(msg);
-            return "Edit";
+            return "ColaboradorEdit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
-    }    
-    
+    }
+
 }

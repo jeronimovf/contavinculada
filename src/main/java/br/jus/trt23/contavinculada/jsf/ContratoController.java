@@ -13,6 +13,7 @@ import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import br.jus.trt23.contavinculada.entities.Salario;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
+import br.jus.trt23.contavinculada.validators.ValidadorUtil;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private Alocacao alocacaoNova;
     private Salario remuneracaoNova;
     private LocalDate referenciaInicio;
-    private LocalDate referenciaFim;    
+    private LocalDate referenciaFim;
     private List<Colaborador> colaboradoresPorContrato;
 
     @Inject
@@ -61,12 +62,20 @@ public class ContratoController extends AbstractController<Contrato> {
 
     public String prepareAliquotaNova() {
         setAliquotaNova(new EncargoAliquota());
+        getAliquotaNova().setVigenciaIgual(getSelected());
         return "AliquotaNova";
     }
 
     public String prepareFaturamentoNovo() throws Exception {
         setFaturamentoNovo(new Faturamento());
         getFaturamentoNovo().setVigenteDesde(referenciaInicio);
+        getFaturamentoNovo().setVigenteAte(referenciaFim);
+        getFaturamentoNovo().setReferenciaInicio(referenciaInicio);
+        getFaturamentoNovo().setReferenciaFim(referenciaFim);
+        getFaturamentoNovo().setContrato(getSelected());
+        if (!ValidadorUtil.validate(getFaturamentoNovo())) {
+            return "Edit";
+        }
         inicializaFaturamento();
         getSelected().addFaturamentos(getFaturamentoNovo());
         saveOrCreate();
@@ -80,6 +89,7 @@ public class ContratoController extends AbstractController<Contrato> {
 
     public String preparePostoNovo() {
         setPostoNovo(new PostoDeTrabalho());
+        getPostoNovo().setVigenciaIgual(getSelected());
         return "PostoNovo";
     }
 
@@ -285,7 +295,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "Contrato";
     }
 
-    public List<Colaborador> completeColaboradoresParaOContrato(String criteria, 
+    public List<Colaborador> completeColaboradoresParaOContrato(String criteria,
             Contrato contrato) throws Exception {
         //TODO: Deve ser configurado para que não se permita selecionar o
         //      mesmo colaborador para titular e substituto.
@@ -297,8 +307,6 @@ public class ContratoController extends AbstractController<Contrato> {
     }
 
     private void inicializaFaturamento() throws Exception {
-        getFaturamentoNovo().setReferenciaInicio(referenciaInicio);
-        getFaturamentoNovo().setReferenciaFim(referenciaFim);        
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
         Alocacao alocacaoAtiva;

@@ -16,6 +16,9 @@
         <flow-return id="homepage">
             <from-outcome>/index.xhtml</from-outcome>
         </flow-return>
-        
+        <inbound-parameter>
+            <name>faturamento</name>
+            <value>#{retencaoFlow.controller.faturamento}</value>
+        </inbound-parameter>
     </flow-definition>
 </faces-config>

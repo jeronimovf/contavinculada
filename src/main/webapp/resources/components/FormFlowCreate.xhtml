@@ -13,6 +13,10 @@
         <cc:attribute name="controller"/>
         <cc:attribute name="goBackToAction" method-signature="java.lang.String action()"/>
         <cc:attribute name="mostrarVigencia" class="java.lang.Boolean" default="true"/>
+        <cc:attribute name="desdeMinDate"/>
+        <cc:attribute name="desdeMaxDate"/>
+        <cc:attribute name="ateMinDate"/>
+        <cc:attribute name="ateMaxDate"/>        
     </cc:interface>
 
     <cc:implementation>
@@ -20,8 +24,8 @@
             <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>                            
             <div class="ui-grid">  
                 <p:panel header="#{messages.Active}" rendered="#{cc.attrs.mostrarVigencia}">
-                    <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}"/>
-                    <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"/>                
+                    <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}" mindate="#{cc.attrs.desdeMinDate}" maxdate="#{cc.attrs.desdeMaxDate}"/>
+                    <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"  mindate="#{cc.attrs.ateMinDate}" maxdate="#{cc.attrs.ateMaxDate}"/>                
                 </p:panel>
                 <cc:insertChildren/>
 

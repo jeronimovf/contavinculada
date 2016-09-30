@@ -8,6 +8,8 @@
         <cc:attribute name="labelValue"/>
         <cc:attribute name="calendarValue"/>        
         <cc:attribute name="pattern" default="dd/MM/yyyy"/>             
+        <cc:attribute name="mindate"/>         
+        <cc:attribute name="maxdate"/>        
     </cc:interface>
 
     <cc:implementation>
@@ -15,7 +17,7 @@
             <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
             <p:calendar id="Input" value="#{cc.attrs.calendarValue}" 
                         mask="true" converter="localDateConverter" mode="popup" showOn="button" locale="pt_BR" 
-                        size="8" pattern="#{cc.attrs.pattern}" styleClass="formRowValue"/>                            
+                        size="8" pattern="#{cc.attrs.pattern}" styleClass="formRowValue" mindate="#{cc.attrs.mindate}" maxdate="#{cc.attrs.maxdate}"/>                            
 
         </div>        
     </cc:implementation>

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -27,8 +27,7 @@ public class Retencao extends EntidadeGenerica{
     @Getter
     @Setter
     @NotNull
-    @OneToMany(mappedBy = "retencao",
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<FaturamentoItem> faturamentoItens;
 
     @Getter
@@ -64,11 +63,27 @@ public class Retencao extends EntidadeGenerica{
 
     @Transient
     private Double retido;
+    
+    @Transient
+    private Faturamento faturamento;
 
     @Getter
     @Setter
     @OneToOne(mappedBy = "retencao")
     private Liberacao liberacao;
+
+    public Faturamento getFaturamento() {
+        if(null == faturamento){
+            if(null != faturamentoItens){
+                if(faturamentoItens.size()>0){
+                    this.faturamento = faturamentoItens.get(0).getFaturamento();
+                }
+            }
+        }
+        return faturamento;
+    }
+    
+    
 
     public Double getRetido() throws Exception {
         if(null == retido){

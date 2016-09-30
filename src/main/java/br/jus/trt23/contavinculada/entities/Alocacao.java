@@ -3,7 +3,6 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,15 +17,15 @@ import lombok.Setter;
 public class Alocacao extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"titular", "substituto", "postoDeTrabalho"};
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Colaborador titular;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Colaborador substituto;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(nullable = false)    
     private PostoDeTrabalho postoDeTrabalho; 
 

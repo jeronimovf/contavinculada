@@ -135,27 +135,32 @@
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
-                        <p:column width="10%"
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
                             <h:outputText value="#{item.referenciaInicio}" converter="localDateConverter"/>
                         </p:column>   
-                        <p:column width="10%"
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
                             <h:outputText value="#{item.referenciaFim}" converter="localDateConverter"/>
+                        </p:column>           
+                        <p:column width="12%"
+                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_notas')}">
+                            <h:outputText value="#{item.notas}"/>
                         </p:column>                           
-                        <p:column width="10%"
+                        
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
                             <h:outputText value="#{item.valorBruto}"/>
                         </p:column>                           
-                        <p:column width="10%"
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}">
                             <h:outputText value="#{item.valorLiquido}"/>
                         </p:column>          
-                        <p:column width="10%"
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
                             <h:outputText value="#{item.nfeOuFatura}"/>
                         </p:column>                                            
-                        <p:column width="10%"
+                        <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}">
                             <h:outputText value="#{item.atestadaEm}"/>
                         </p:column>                                            

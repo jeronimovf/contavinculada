@@ -163,9 +163,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return "Edit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
-            JsfUtil.addErrorMessage(e, msg);
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());            
+            JsfUtil.addErrorMessage(e, msg);           
             return null;
         }
     }    

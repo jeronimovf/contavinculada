@@ -2,6 +2,7 @@ package br.jus.trt23.contavinculada.jsf.util;
 
 import com.sun.faces.component.visit.FullVisitContext;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -16,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import javax.validation.ConstraintViolation;
 
 public class JsfUtil {
 
@@ -39,11 +41,23 @@ public class JsfUtil {
         }
     }
 
-    public static void addErrorMessages(List<String> messages) {
+    public static void addErrorMessages(Collection<String> messages) {
         messages.stream().forEach((message) -> {
             addErrorMessage(message);
         });
     }
+    
+    public static void addErrorMessagesFromExceptions(Collection<Exception> exceptions) {
+        exceptions.stream().forEach((exception) -> {
+            addErrorMessage(exception.getMessage());
+        });
+    }    
+    
+    public static <T> void addErrorMessagesFromConstraintViolations(Collection<ConstraintViolation<T>> cvs) {
+        cvs.stream().forEach((cv) -> {
+            addErrorMessage(cv.getMessage());
+        });
+    }       
 
     public static void addErrorMessage(String msg) {
         FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);

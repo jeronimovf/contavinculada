@@ -5,7 +5,9 @@
  */
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constraints.Diferida;
 import br.jus.trt23.contavinculada.constraints.VigenciaValida;
+import br.jus.trt23.contavinculada.listeners.EntidadeListener;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,18 +39,19 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @VigenciaValida
+@EntityListeners(EntidadeListener.class)
 public abstract class EntidadeGenerica implements Serializable, Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @NotNull
+    @NotNull(message = "Início da vigência não pode ser nulo.")
     private LocalDate vigenteDesde;
 
     private LocalDate vigenteAte;
 
-    @NotNull
+    @NotNull(message = "Criação não pode ser nula.", groups = Diferida.class)
     private LocalDateTime criadoEm;
 
     private LocalDateTime destruidoEm;
@@ -215,6 +219,6 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
 
     public void setVigenciaIgual(EntidadeGenerica eg) {
         setVigenteDesde(eg.getVigenteDesde());
-        setVigenteAte(eg.vigenteAte);
+        setVigenteAte(eg.getVigenteAte());
     }
 }

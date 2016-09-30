@@ -5,10 +5,10 @@
  */
 package br.jus.trt23.contavinculada.validators;
 
+import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.entities.IEscopoRestritoAoContrato;
-import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 
 /**
  *
@@ -23,7 +23,8 @@ public class VigenciaEstritaAoContratoValidator extends ValidadorGenerico<Vigenc
         IEscopoRestritoAoContrato iEscopoRestritoAoContrato = 
                 (IEscopoRestritoAoContrato) value;
         Contrato contrato = iEscopoRestritoAoContrato.getContrato();
-         return value.isVigenteEstritamenteEntre(contrato.getVigenteDesde(), contrato.getVigenteAte());
+        if(null == contrato) return true;
+        return value.isVigenteEstritamenteEntre(contrato.getVigenteDesde(), contrato.getVigenteAte());
     }
 
     

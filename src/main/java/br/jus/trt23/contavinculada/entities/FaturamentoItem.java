@@ -6,11 +6,13 @@
 package br.jus.trt23.contavinculada.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -20,11 +22,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class FaturamentoItem extends EntidadeGenerica {
 
-    @ManyToOne
-    private Retencao retencao;
     protected final static String[] uniqueIndex = {"faturamento","postoDeTrabalho","dia"};    
     @NotNull
     @ManyToOne
@@ -48,6 +47,15 @@ public class FaturamentoItem extends EntidadeGenerica {
     
     @ManyToOne
     private Colaborador titular;    
+    
+    @ManyToMany(mappedBy = "faturamentoItens")
+    private List<Retencao> retencoes;
+
+    public FaturamentoItem() {
+        this.retencoes = new ArrayList<>();
+    }
+    
+    
 
     @Override
     public String getNomeNatural() {

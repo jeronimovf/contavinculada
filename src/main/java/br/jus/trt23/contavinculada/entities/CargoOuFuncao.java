@@ -6,6 +6,7 @@ package br.jus.trt23.contavinculada.entities;
 import br.jus.trt23.contavinculada.constraints.VigenciaValida;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,7 +39,7 @@ public class CargoOuFuncao extends EntidadeGenerica {
     private String atribuicoes;
 
     @Getter
-    @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao")
+    @OneToMany(targetEntity = PostoDeTrabalho.class, mappedBy = "cargoOuFuncao", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
     private List<PostoDeTrabalho> postosDeTrabalho;
 
     public CargoOuFuncao() {

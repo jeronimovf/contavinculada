@@ -15,8 +15,6 @@ import java.util.Map;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -52,7 +50,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        entity = getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {
@@ -286,12 +284,6 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query qry = getEntityManager().createNativeQuery("SELECT localtimestamp");
         Timestamp ts = (Timestamp) qry.getSingleResult();
         return ts.toLocalDateTime();
-    }
-
-    @PrePersist
-    @PreUpdate
-    public void setMandatoryFields(EntidadeGenerica entity) {
-        entity.setCriadoEm(getTimestampOnServer());
     }
 
     //retorna entidades cujas vigencias coincidam, ainda que parcialmente

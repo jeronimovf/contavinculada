@@ -8,12 +8,10 @@
                 template="/template.xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">              
     <ui:define name="content">
-        <t:ListForm casePrefix="retencao" controller="#{retencaoFlow.controller}">
-            <t:ListFlowView casePrefix="retencaoList"
-                            controller="#{retencaoFlow.controller}" 
-                            mostrarVigencia="false" lazy="false" 
-                            specificValues="true"
-                            value="#{retencaoFlow.controller.findRetencaoPorFaturamento()}">
+        <t:ListForm casePrefix="retencao" controller="#{retencaoFlow.controller}"
+                    goBackToAction="FaturamentoEdit">
+            <t:ListFlowView controller="#{retencaoFlow.controller}" 
+                            casePrefix="retencao" mostrarVigencia="false">
                 <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoFlow.controller.getMsgFieldLabel('colaborador')}" >
                     <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
                 </p:column>

@@ -8,8 +8,8 @@
 
         <t:FormFlowCreate id="salarioEdit" casePrefix="salarioEdit" 
                           entityToUpdate="#{pessoaJuridicaFlow.controller.salarioNovo}" 
-                          saveAction="#{pessoaJuridicaFlow.controller.saveOrCreate()}"
-                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('Edit')}"
+                          saveAction="#{pessoaJuridicaFlow.controller.saveOrCreateSalario()}"
+                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('ColaboradorEdit')}"
                           controller="#{pessoaJuridicaFlow.controller}">                     
             <t:FormRowMonetary labelValue="#{colaboradorController.getMsgFieldLabel('Salario_valor')}" 
                                numberValue="#{pessoaJuridicaFlow.controller.salarioNovo.valor}" />

@@ -83,19 +83,19 @@ public class Contrato extends EntidadeGenerica {
     private List<PostoDeTrabalho> postosDeTrabalho;
 
     @Getter
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "contrato",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private List<Faturamento> faturamentos;
 
     @Getter
-    @OneToMany(mappedBy = "aditivoDe", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "aditivoDe", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private List<Contrato> aditivos;
 
     @Getter
-    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private List<Fiscal> fiscais;
 
     @Getter
-    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private List<EncargoAliquota> aliquotas;
 
     @Getter

@@ -23,12 +23,12 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
     protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim"};    
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Início da referência não pode ser nulo")
     private LocalDate referenciaInicio;
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Fim da referência não pode ser nulo")
     private LocalDate referenciaFim;
     
     @Transient
@@ -36,9 +36,13 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message="Contrato não pode ser nulo")
     @ManyToOne
     private Contrato contrato;
+    
+    @Getter
+    @Setter
+    private String notas;
 
     @Getter
     @Setter

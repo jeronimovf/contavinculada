@@ -27,13 +27,13 @@ public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestrito
     @Getter
     @Setter
     @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne
     private Contrato contrato;
 
     @Getter
     @Setter
     @NotNull
-    @ManyToOne(targetEntity = CargoOuFuncao.class)
+    @ManyToOne
     private CargoOuFuncao cargoOuFuncao;
 
     @Getter
@@ -71,7 +71,7 @@ public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestrito
     //se o item não estiver em diasComputados
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private CalendarioFeriado feriadoCalendario;
 
     public PostoDeTrabalho() {
@@ -82,11 +82,13 @@ public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestrito
     }
 
     public void addAlocacoes(Alocacao alocacao) {
+        if(alocacoes.contains(alocacao)) return;
         alocacoes.add(alocacao);
         alocacao.setPostoDeTrabalho(this);
     }
 
     public void addFaturamentoItens(FaturamentoItem faturamentoIt) {
+        if(alocacoes.contains(faturamentoIt)) return;        
         faturamentoItens.add(faturamentoIt);
         faturamentoIt.setPostoDeTrabalho(this);
     }

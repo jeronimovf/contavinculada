@@ -12,7 +12,8 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
     <cc:interface>
         <cc:attribute name="controller"/>
-        <cc:attribute name="casePrefix"/>        
+        <cc:attribute name="casePrefix"/>
+        <cc:attribute name="goBackToAction" class="java.lang.String" default="homepage"/>        
     </cc:interface>
 
     <cc:implementation>
@@ -20,7 +21,7 @@ and open the template in the editor.
                 prependId="false">
             <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>
             <cc:insertChildren/>
-            <p:commandButton action="homepage" value="#{messages.GoBack}"/>              
+            <p:commandButton id="goBackTo" value="#{messages.GoBack}" action="#{cc.attrs.goBackToAction}" immediate="true"/>
             <p:commandButton action="#{cc.attrs.controller.prepareCreate()}" value="#{messages.CreateLink}"/>            
         </h:form>        
     </cc:implementation>

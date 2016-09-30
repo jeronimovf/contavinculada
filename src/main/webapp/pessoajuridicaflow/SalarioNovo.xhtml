@@ -9,7 +9,7 @@
         <t:FormFlowCreate id="salarioCreate" casePrefix="salarioCreate" 
                           entityToUpdate="#{pessoaJuridicaFlow.controller.salarioNovo}" 
                           saveAction="#{pessoaJuridicaFlow.controller.saveOrCreateSalario()}"
-                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('Edit')}"
+                          goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('ColaboradorEdit')}"
                           controller="#{pessoaJuridicaFlow.controller}">                      
             <t:FormRowMonetary labelValue="#{salarioController.getMsgFieldLabel('Salario_valor')}" 
                                numberValue="#{pessoaJuridicaFlow.controller.salarioNovo.valor}" />        

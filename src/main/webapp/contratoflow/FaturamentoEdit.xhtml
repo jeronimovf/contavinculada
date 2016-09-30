@@ -19,7 +19,10 @@
             <t:FormRowDate id="faturamentoReferenciaFim" 
                            calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaFim}" 
                            labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
-                           pattern="dd/MM/yyyy"/>            
+                           pattern="dd/MM/yyyy"/>     
+            <t:FormRowString id="faturamentoNotas" 
+                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
+                             textSize="30" textValue="#{contratoFlow.controller.faturamentoNovo.notas}"/>
             <t:FormRowMonetary id="faturamentoValorBruto" 
                                numberValue="#{contratoFlow.controller.faturamentoNovo.valorBruto}" 
                                labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
