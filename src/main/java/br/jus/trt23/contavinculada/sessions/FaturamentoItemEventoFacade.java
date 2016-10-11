@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.CargoOuFuncao;
+import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class CargoOuFuncaoFacade extends AbstractFacade<CargoOuFuncao> {
+public class FaturamentoItemEventoFacade extends AbstractFacade<FaturamentoItemEvento> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public CargoOuFuncaoFacade() {
-        super(CargoOuFuncao.class);
+    public FaturamentoItemEventoFacade() {
+        super(FaturamentoItemEvento.class);
     }
 
     @Override
@@ -36,15 +36,21 @@ public class CargoOuFuncaoFacade extends AbstractFacade<CargoOuFuncao> {
     }
 
     @Override
-    public List<CargoOuFuncao> complete(String criteria) {
+    public List<FaturamentoItemEvento> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<CargoOuFuncao> c = cq.from(CargoOuFuncao.class);
+        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
         cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
         return getEntityManager().createQuery(cq).getResultList();        
     }
 
-    
+    public FaturamentoItemEvento getFaturamentoItemEventoPadrao(){
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
+        cq.select(c).where(cb.like(c.get("nome"),"Efetivamente trabalhado"));
+        return (FaturamentoItemEvento)getEntityManager().createQuery(cq).getSingleResult();                
+    }
     
     
 }

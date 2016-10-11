@@ -6,7 +6,7 @@
 package br.jus.trt23.contavinculada.handlers;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
-import br.jus.trt23.contavinculada.session.AbstractFacade;
+import br.jus.trt23.contavinculada.sessions.AbstractFacade;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

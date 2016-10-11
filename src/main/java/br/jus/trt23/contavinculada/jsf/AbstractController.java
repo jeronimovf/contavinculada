@@ -5,7 +5,7 @@ import br.jus.trt23.contavinculada.enums.EActiveAction;
 import br.jus.trt23.contavinculada.handlers.CustomLazyDataModel;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.qualifiers.MessageBundle;
-import br.jus.trt23.contavinculada.session.AbstractFacade;
+import br.jus.trt23.contavinculada.sessions.AbstractFacade;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.Encargo;
+import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -18,15 +18,16 @@ import javax.persistence.criteria.Root;
  *
  * @author j129-9
  */
-
 @Stateless
-public class EncargoFacade extends AbstractFacade<Encargo> {
+public class PostoDeTrabalhoFacade extends AbstractFacade<PostoDeTrabalho> {
 
     @Inject
     private EntityManager em;
+    
 
-    public EncargoFacade() {
-        super(Encargo.class);
+
+    public PostoDeTrabalhoFacade() {
+        super(PostoDeTrabalho.class);
     }
 
     @Override
@@ -35,13 +36,15 @@ public class EncargoFacade extends AbstractFacade<Encargo> {
     }
 
     @Override
-    public List<Encargo> complete(String criteria) {
+    public List<PostoDeTrabalho> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<Encargo> c = cq.from(Encargo.class);
-        cq.select(c).where(cb.like(cb.upper(c.get("nome")), "%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();
-
+        Root<PostoDeTrabalho> c = cq.from(PostoDeTrabalho.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();     
     }
 
+    
+    
+    
 }

@@ -21,10 +21,8 @@
             <var>myBundle2</var>
         </resource-bundle>
     </application>
-<!--    <lifecycle>
-        <phase-listener>br.jus.trt23.contavinculada.listeners.ContratosPhaseListener</phase-listener>
-    </lifecycle>-->
-    
+
+<!-- FIM da Configuração TRT23 -->        
 <!--
     interceptação de exception extraída do JSF 2.0 do Ed Burns
     <factory>

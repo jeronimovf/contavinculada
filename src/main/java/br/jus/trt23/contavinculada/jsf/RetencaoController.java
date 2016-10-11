@@ -11,7 +11,7 @@ import br.jus.trt23.contavinculada.entities.FaturamentoItem;
 import br.jus.trt23.contavinculada.entities.RATItem;
 import br.jus.trt23.contavinculada.entities.Retencao;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import br.jus.trt23.contavinculada.session.RetencaoFacade;
+import br.jus.trt23.contavinculada.sessions.RetencaoFacade;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

@@ -5,12 +5,14 @@
  */
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,7 @@ import lombok.Setter;
  * @author j129-9
  */
 @Entity
+@Table(schema = Constantes.SCHEMA)
 @Getter
 @Setter
 public class FaturamentoItem extends EntidadeGenerica {

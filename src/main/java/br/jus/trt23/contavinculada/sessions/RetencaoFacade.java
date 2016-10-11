@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.RAT;
+import br.jus.trt23.contavinculada.entities.Faturamento;
+import br.jus.trt23.contavinculada.entities.Retencao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -19,15 +21,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class RATFacade extends AbstractFacade<RAT> {
+public class RetencaoFacade extends AbstractFacade<Retencao> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public RATFacade() {
-        super(RAT.class);
+    public RetencaoFacade() {
+        super(Retencao.class);
     }
 
     @Override
@@ -36,12 +38,18 @@ public class RATFacade extends AbstractFacade<RAT> {
     }
 
     @Override
-    public List<RAT> complete(String criteria) {
+    public List<Retencao> complete(String criteria) {
+        return null;       
+    }
+
+    public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<RAT> c = cq.from(RAT.class);
-        cq.select(c).where(cb.like(cb.upper(c.get("percentual")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        Root<Retencao> c = cq.from(Retencao.class);
+        cq.select(c).where(cb.equal(c.get("faturamento"),faturamento)).
+                distinct(true).orderBy(cb.asc(c.get("colaborador")),cb.asc(c.get("ratItem")));
+        Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();        
     }
 
     

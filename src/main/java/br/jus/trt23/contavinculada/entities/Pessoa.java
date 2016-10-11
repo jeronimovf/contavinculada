@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -10,9 +11,11 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMappings;
+import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 @NamedNativeQueries({
     @NamedNativeQuery(name = "getPessoaPorNomeOuRazaoSocial", query = "SELECT * FROM pessoa WHERE upper(nome) like '%:nome'% OR upper(razaoSocial) like '%:razaoSocial%'")
 })

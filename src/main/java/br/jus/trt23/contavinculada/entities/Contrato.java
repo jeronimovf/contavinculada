@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.constraints.VigenciaValida;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(
+@Table(schema = Constantes.SCHEMA,
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "numero"})
 )

@@ -2,7 +2,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Alocacao;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
-import br.jus.trt23.contavinculada.session.AlocacaoFacade;
+import br.jus.trt23.contavinculada.sessions.AlocacaoFacade;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 

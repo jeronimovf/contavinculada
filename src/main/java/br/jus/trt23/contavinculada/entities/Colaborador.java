@@ -1,5 +1,6 @@
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 public class Colaborador extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"empregador", "colaborador"};
 

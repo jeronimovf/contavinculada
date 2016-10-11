@@ -7,7 +7,7 @@ package br.jus.trt23.contavinculada.converters;
 
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
-import br.jus.trt23.contavinculada.session.FaturamentoItemEventoFacade;
+import br.jus.trt23.contavinculada.sessions.FaturamentoItemEventoFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;

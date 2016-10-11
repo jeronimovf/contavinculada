@@ -3,16 +3,19 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 public class RATItem extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"rat, encargo"};
     @Getter

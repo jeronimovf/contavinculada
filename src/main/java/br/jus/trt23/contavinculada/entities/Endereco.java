@@ -3,12 +3,15 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 @Getter
 @Setter
 @RequiredArgsConstructor

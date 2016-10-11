@@ -3,7 +3,7 @@ package br.jus.trt23.contavinculada.jsf;
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.Salario;
-import br.jus.trt23.contavinculada.session.ColaboradorFacade;
+import br.jus.trt23.contavinculada.sessions.ColaboradorFacade;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

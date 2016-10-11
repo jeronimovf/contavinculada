@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
 public class Fiscal extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"especie","servidor"};        

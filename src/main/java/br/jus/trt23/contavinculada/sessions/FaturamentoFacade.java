@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.Jornada;
+import br.jus.trt23.contavinculada.entities.Faturamento;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class JornadaFacade extends AbstractFacade<Jornada> {
+public class FaturamentoFacade extends AbstractFacade<Faturamento> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public JornadaFacade() {
-        super(Jornada.class);
+    public FaturamentoFacade() {
+        super(Faturamento.class);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class JornadaFacade extends AbstractFacade<Jornada> {
     }
 
     @Override
-    public List<Jornada> complete(String criteria) {
+    public List<Faturamento> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<Jornada> c = cq.from(Jornada.class);
-        cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
-        return getEntityManager().createQuery(cq).getResultList();        
+        Root<Faturamento> c = cq.from(Faturamento.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("referencia")),"%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     

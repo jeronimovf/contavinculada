@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import br.jus.trt23.contavinculada.enums.EDiasComputados;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(schema = Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
 public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     @Getter

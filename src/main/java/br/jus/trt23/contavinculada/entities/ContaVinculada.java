@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(
+@Table(schema = Constantes.SCHEMA,
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"banco", "agencia", "conta", "operacao"})            
 )

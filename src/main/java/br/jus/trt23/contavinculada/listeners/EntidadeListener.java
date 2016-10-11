@@ -2,7 +2,7 @@ package br.jus.trt23.contavinculada.listeners;
 
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
-import br.jus.trt23.contavinculada.session.ImplementacaoBasicaFacade;
+import br.jus.trt23.contavinculada.sessions.ImplementacaoBasicaFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;

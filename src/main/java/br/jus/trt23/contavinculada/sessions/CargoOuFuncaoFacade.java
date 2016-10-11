@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.Servidor;
+import br.jus.trt23.contavinculada.entities.CargoOuFuncao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class ServidorFacade extends AbstractFacade<Servidor> {
+public class CargoOuFuncaoFacade extends AbstractFacade<CargoOuFuncao> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public ServidorFacade() {
-        super(Servidor.class);
+    public CargoOuFuncaoFacade() {
+        super(CargoOuFuncao.class);
     }
 
     @Override
@@ -36,18 +36,12 @@ public class ServidorFacade extends AbstractFacade<Servidor> {
     }
 
     @Override
-    public List<Servidor> complete(String criteria) {
+    public List<CargoOuFuncao> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<Servidor> c = cq.from(Servidor.class);
-        cq.select(c).where(
-                cb.or(
-                        cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")),
-                        cb.like(c.get("cpf"),"%".concat(criteria).concat("%")),
-                        cb.like(c.get("matricula"),"%".concat(criteria).concat("%"))
-                )
-        );
-        return getEntityManager().createQuery(cq).getResultList();  
+        Root<CargoOuFuncao> c = cq.from(CargoOuFuncao.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
+        return getEntityManager().createQuery(cq).getResultList();        
     }
 
     

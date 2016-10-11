@@ -14,8 +14,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Target({ElementType.ANNOTATION_TYPE,ElementType.TYPE, ElementType.METHOD, 
-    ElementType.FIELD,ElementType.CONSTRUCTOR,ElementType.PARAMETER})
+@Target({ElementType.ANNOTATION_TYPE,ElementType.TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = { VigenciaValidator.class })
 @Documented

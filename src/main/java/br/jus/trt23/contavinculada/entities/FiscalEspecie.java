@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(
+@Table(schema = Constantes.SCHEMA,
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
 )

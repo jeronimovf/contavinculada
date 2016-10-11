@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
+import br.jus.trt23.contavinculada.entities.CalendarioFeriado;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class FaturamentoItemEventoFacade extends AbstractFacade<FaturamentoItemEvento> {
+public class CalendarioFeriadoFacade extends AbstractFacade<CalendarioFeriado> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public FaturamentoItemEventoFacade() {
-        super(FaturamentoItemEvento.class);
+    public CalendarioFeriadoFacade() {
+        super(CalendarioFeriado.class);
     }
 
     @Override
@@ -36,21 +36,15 @@ public class FaturamentoItemEventoFacade extends AbstractFacade<FaturamentoItemE
     }
 
     @Override
-    public List<FaturamentoItemEvento> complete(String criteria) {
+    public List<CalendarioFeriado> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
+        Root<CalendarioFeriado> c = cq.from(CalendarioFeriado.class);
         cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
         return getEntityManager().createQuery(cq).getResultList();        
     }
 
-    public FaturamentoItemEvento getFaturamentoItemEventoPadrao(){
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<FaturamentoItemEvento> c = cq.from(FaturamentoItemEvento.class);
-        cq.select(c).where(cb.like(c.get("nome"),"Efetivamente trabalhado"));
-        return (FaturamentoItemEvento)getEntityManager().createQuery(cq).getSingleResult();                
-    }
+    
     
     
 }

@@ -3,6 +3,7 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
+import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(
+@Table(schema = Constantes.SCHEMA,
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
 )

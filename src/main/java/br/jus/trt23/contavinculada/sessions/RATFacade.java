@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.FiscalEspecie;
+import br.jus.trt23.contavinculada.entities.RAT;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class FiscalEspecieFacade extends AbstractFacade<FiscalEspecie> {
+public class RATFacade extends AbstractFacade<RAT> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public FiscalEspecieFacade() {
-        super(FiscalEspecie.class);
+    public RATFacade() {
+        super(RAT.class);
     }
 
     @Override
@@ -36,13 +36,12 @@ public class FiscalEspecieFacade extends AbstractFacade<FiscalEspecie> {
     }
 
     @Override
-    public List<FiscalEspecie> complete(String criteria) {
+    public List<RAT> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<FiscalEspecie> c = cq.from(FiscalEspecie.class);
-        cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
+        Root<RAT> c = cq.from(RAT.class);
+        cq.select(c).where(cb.like(cb.upper(c.get("percentual")),"%".concat(criteria.toUpperCase()).concat("%")));
         return getEntityManager().createQuery(cq).getResultList();        
-
     }
 
     

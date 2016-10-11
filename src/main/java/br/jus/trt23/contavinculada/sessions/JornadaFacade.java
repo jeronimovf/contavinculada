@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.jus.trt23.contavinculada.session;
+package br.jus.trt23.contavinculada.sessions;
 
-import br.jus.trt23.contavinculada.entities.CalendarioFeriado;
+import br.jus.trt23.contavinculada.entities.Jornada;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,15 +19,15 @@ import javax.persistence.criteria.Root;
  * @author j129-9
  */
 @Stateless
-public class CalendarioFeriadoFacade extends AbstractFacade<CalendarioFeriado> {
+public class JornadaFacade extends AbstractFacade<Jornada> {
 
     @Inject
     private EntityManager em;
     
 
 
-    public CalendarioFeriadoFacade() {
-        super(CalendarioFeriado.class);
+    public JornadaFacade() {
+        super(Jornada.class);
     }
 
     @Override
@@ -36,10 +36,10 @@ public class CalendarioFeriadoFacade extends AbstractFacade<CalendarioFeriado> {
     }
 
     @Override
-    public List<CalendarioFeriado> complete(String criteria) {
+    public List<Jornada> complete(String criteria) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<CalendarioFeriado> c = cq.from(CalendarioFeriado.class);
+        Root<Jornada> c = cq.from(Jornada.class);
         cq.select(c).where(cb.like(cb.upper(c.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")));
         return getEntityManager().createQuery(cq).getResultList();        
     }
