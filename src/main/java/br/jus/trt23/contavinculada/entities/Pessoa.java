@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.SqlResultSetMappings;
 import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "PESSOA_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @NamedNativeQueries({
     @NamedNativeQuery(name = "getPessoaPorNomeOuRazaoSocial", query = "SELECT * FROM pessoa WHERE upper(nome) like '%:nome'% OR upper(razaoSocial) like '%:razaoSocial%'")
 })

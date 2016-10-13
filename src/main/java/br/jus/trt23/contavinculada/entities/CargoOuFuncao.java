@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Getter;
@@ -21,6 +22,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
 )
+@SequenceGenerator(name = "ID", sequenceName = "CARGOOUFUNCAO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @VigenciaValida
 public class CargoOuFuncao extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};

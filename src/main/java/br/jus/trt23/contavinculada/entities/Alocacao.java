@@ -7,6 +7,7 @@ import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "ALOCACAO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @Getter
 @Setter
 @RequiredArgsConstructor

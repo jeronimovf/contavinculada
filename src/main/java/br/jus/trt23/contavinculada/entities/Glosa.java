@@ -6,6 +6,7 @@ package br.jus.trt23.contavinculada.entities;
 import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@SequenceGenerator(name = "ID", sequenceName = "GLOSA_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class Glosa extends EntidadeGenerica{
     protected final static String[] uniqueIndex = {"glosa"};    
     private Integer qtd;

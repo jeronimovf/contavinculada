@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Getter;
@@ -16,10 +17,11 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(schema = Constantes.SCHEMA,
+@Table(schema = Constantes.SCHEMA,name="CALFERIADO",
         uniqueConstraints
-        = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
+        = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})        
 )
+@SequenceGenerator(name = "ID", sequenceName = "CALFERIADO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class CalendarioFeriado extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};
 

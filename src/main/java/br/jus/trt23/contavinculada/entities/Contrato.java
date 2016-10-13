@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "numero"})
 )
+@SequenceGenerator(name = "ID", sequenceName = "CONTRATO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @VigenciaValida
 public class Contrato extends EntidadeGenerica {
 

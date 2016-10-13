@@ -3,20 +3,17 @@
 //
 package br.jus.trt23.contavinculada.entities;
 
-import br.jus.trt23.contavinculada.constants.Constantes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-@Table(schema = Constantes.SCHEMA)
 public class PessoaFisica extends Pessoa {
     protected final static String[] uniqueIndex = {"cpf"};        
 

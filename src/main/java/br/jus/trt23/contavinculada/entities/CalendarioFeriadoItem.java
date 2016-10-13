@@ -7,6 +7,7 @@ import br.jus.trt23.contavinculada.constants.Constantes;
 import br.jus.trt23.contavinculada.enums.EFeriadoEscopo;
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -19,10 +20,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(schema = Constantes.SCHEMA,
+@Table(schema = Constantes.SCHEMA,name = "CALFERIADOIT",
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"vigenteDesde", "vigenteAte", "nome"})            
 )
+@SequenceGenerator(name = "ID", sequenceName = "CALFERIADOIT_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class CalendarioFeriadoItem extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};
     @NotEmpty

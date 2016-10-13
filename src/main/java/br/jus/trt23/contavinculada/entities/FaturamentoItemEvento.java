@@ -4,7 +4,9 @@
 package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constants.Constantes;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -12,17 +14,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(schema = Constantes.SCHEMA)
+@Table(schema = Constantes.SCHEMA, name = "FATURAMENTOITEVT")
 @Getter
 @Setter
 @RequiredArgsConstructor
+@SequenceGenerator(name = "ID", sequenceName = "FATURAMENTOITEVT_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class FaturamentoItemEvento extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"nome"};        
     @NotNull
     private String nome;
     @NotNull
+    @Column(name="trabalhadoTitular")
     private Boolean consideraTrabalhadoParaTitular;
     @NotNull
+    @Column(name="trabalhadoSubstituto")    
     private Boolean consideraTrabalhadoParaSubstituto;
     
     @Override

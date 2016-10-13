@@ -13,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ import lombok.Setter;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "FATURAMENTO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
 public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim"};    

@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "GLOSAESPECIE_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class GlosaEspecie extends EntidadeGenerica {
 
     protected final static String[] uniqueIndex = {"nome"};

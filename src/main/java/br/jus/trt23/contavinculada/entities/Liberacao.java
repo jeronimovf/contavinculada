@@ -7,6 +7,7 @@ import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@SequenceGenerator(name = "ID", sequenceName = "LIBERACAO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class Liberacao extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"retencao"};        
     

@@ -2,7 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="contaVinculadaPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:/ContaVinculadaXADS</jta-data-source>
+    <jta-data-source>java:/contaVinculadaDS</jta-data-source>
     <class>br.jus.trt23.contavinculada.entities.Alocacao</class>
     <class>br.jus.trt23.contavinculada.entities.CalendarioFeriado</class>
     <class>br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem</class>
@@ -33,6 +33,8 @@
     <class>br.jus.trt23.contavinculada.entities.Salario</class>
     <class>br.jus.trt23.contavinculada.entities.Servidor</class>
     <class>br.jus.trt23.contavinculada.entities.Telefone</class>
+    <class>br.jus.trt23.webacesso.entities.Acesso</class>
+    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
     <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
     <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
     <class>br.jus.trt23.webacesso.entities.Perfil</class>
@@ -45,12 +47,10 @@
     <class>br.jus.trt23.webacesso.entities.Usuario</class>
     <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
     <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
-    <class>br.jus.trt23.webacesso.entities.Acesso</class>
-    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <!--Essa propriedade corrige um bug relacionado a persistir duas

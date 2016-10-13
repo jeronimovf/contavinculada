@@ -43,7 +43,7 @@ import lombok.Setter;
 public abstract class EntidadeGenerica implements Serializable, Comparable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ID" )      
     protected Long id;
 
     @NotNull(message = "Início da vigência não pode ser nulo.")

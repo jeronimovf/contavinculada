@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -22,9 +23,10 @@ import lombok.Setter;
  * @author j129-9
  */
 @Entity
-@Table(schema = Constantes.SCHEMA)
+@Table(schema = Constantes.SCHEMA,name="FATURAMENTOIT")
 @Getter
 @Setter
+@SequenceGenerator(name = "ID", sequenceName = "FATURAMENTOIT_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class FaturamentoItem extends EntidadeGenerica {
 
     protected final static String[] uniqueIndex = {"faturamento","postoDeTrabalho","dia"};    

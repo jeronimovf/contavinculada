@@ -5,6 +5,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @Table(schema = Constantes.SCHEMA)
 @Getter
 @Setter
+@SequenceGenerator(name = "ID", sequenceName = "ENDERECO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @RequiredArgsConstructor
 public class Endereco extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"uf","cidade","bairro","logradouro","cep","numero"};    

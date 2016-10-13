@@ -18,6 +18,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -26,6 +27,7 @@ import lombok.Setter;
 @Entity
 @Table(schema = Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
+@SequenceGenerator(name = "ID", sequenceName = "POSTODETRABALHO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     @Getter
     @Setter

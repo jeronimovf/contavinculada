@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "COLABORADOR_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class Colaborador extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"empregador", "colaborador"};
 

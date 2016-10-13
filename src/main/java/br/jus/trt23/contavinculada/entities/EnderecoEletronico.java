@@ -5,6 +5,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constants.Constantes;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@SequenceGenerator(name = "ID", sequenceName = "ENDERECOELETRONICO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class EnderecoEletronico extends EntidadeGenerica {
 
     protected final static String[] uniqueIndex = {"mail"};

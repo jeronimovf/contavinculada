@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import lombok.Setter;
         uniqueConstraints
         = @UniqueConstraint(columnNames = {"vigenteDesde", "vigenteAte", "nome"})
 )
+@SequenceGenerator(name = "ID", sequenceName = "FISCALESPECIE_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class FiscalEspecie extends EntidadeGenerica {
 
     protected final static String[] uniqueIndex = {"nome"};

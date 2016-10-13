@@ -14,7 +14,7 @@
             <from-outcome>/contratoflow/FaturamentoEdit.xhtml</from-outcome>
         </flow-return>
         <flow-return id="homepage">
-            <from-outcome>/index.xhtml</from-outcome>
+            <from-outcome>/contavinculada.xhtml</from-outcome>
         </flow-return>
         <inbound-parameter>
             <name>faturamento</name>

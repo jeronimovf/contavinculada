@@ -8,6 +8,7 @@ import br.jus.trt23.contavinculada.constraints.VigenciaEstritaAoContrato;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
     uniqueConstraints = 
             @UniqueConstraint(columnNames={"banco", "agencia", "conta", "operacao"})            
 )
+@SequenceGenerator(name = "ID", sequenceName = "CONTAVINCULADA_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
 public class ContaVinculada extends EntidadeGenerica implements IEscopoRestritoAoContrato{
     protected final static String[] uniqueIndex = {"contrato", "banco", "agencia", "conta","operacao"};
