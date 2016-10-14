@@ -40,7 +40,7 @@
                                                             <h:outputLabel value="Usuário"/>
                                                         </div>
                                                         <div class="ui-grid-col-7 alignRight">
-                                                            <h:outputText value="j129-9"/>
+                                                            <h:outputText value="#{usuarioSessao.login}"/>
                                                         </div>
                                                     </div>
                                                     <div class="ui-grid-row">
@@ -48,16 +48,26 @@
                                                             <h:outputLabel value="Nome"/>
                                                         </div>
                                                         <div class="ui-grid-col-7 alignRight">
-                                                            <h:outputText styleClass="alignRight" value="Jeronimo Vicente Farias"/>
+                                                            <h:outputText styleClass="alignRight" value="#{usuarioSessao.nome}"/>
                                                         </div>
                                                     </div>
                                                     <div class="ui-grid-row">
                                                         <div class="ui-grid-col-5">
-                                                            <h:outputLabel value="Último acesso"/>
+                                                            <h:outputLabel value="Perfil"/>
                                                         </div>
                                                         <div class="ui-grid-col-7 alignRight">
-                                                            <h:outputText value="30/03/2016 14h32"/>
+                                                            <h:selectOneMenu value="#{usuarioSessao.perfil}">
+                                                                <f:selectItems value="#{selecionarPerfilController.listaAcesso}" var="p" itemLabel="#{p.perfil.descricao}" itemValue="#{p}"/>
+                                                            </h:selectOneMenu>
                                                         </div>
+                                                    </div>                                                    
+                                                    <div class="ui-grid-row">
+                                                        <div class="ui-grid-col-5">
+                                                            <h:outputLabel value="Unidade"/>
+                                                        </div>
+                                                        <div class="ui-grid-col-7 alignRight">
+                                                            <h:outputText value="#{usuarioSessao.unidade}"/>
+                                                        </div>                                                        
                                                     </div>
                                                 </div>
                                             </div>
