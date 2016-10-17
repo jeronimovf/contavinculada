@@ -9,7 +9,7 @@
         <h:form id="mainMenu">
             <f:event type="preRenderView" listener="#{autenticacaoController.autenticarCAS()}" />
             <p:menu toggleable="true" >
-                <p:submenu label="Tabelas básicas" rendered="#{utilController.contemFuncionalidade('tabelasbasicas')}">
+                <p:submenu label="Tabelas básicas" rendered="#{utilController.contemFuncionalidade('TABELAS BÁSICAS')}">
                     <p:menuitem action="#{flowController.flow('ratflow')}" value="RAT"/>                    
                     <p:menuitem action="#{flowController.flow('faturamentoitemeventoflow')}" value="Evento de faturamento"/>                    
                     <p:menuitem action="#{flowController.flow('calendarioferiadoflow')}" value="Calendario feriados"/>      
@@ -21,11 +21,11 @@
                     <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
                 </p:submenu>
 
-                <p:submenu label="Fiscal técnico" rendered="#{utilController.contemFuncionalidade('fiscal técnico')}">
+                <p:submenu label="Fiscal técnico" rendered="#{utilController.contemFuncionalidade('FISCAL TÉCNICO')}">
                     <p:menuitem value="Lançamentos ponto"/>                        
                     <p:menuitem value="Manutenção colaboradores"/>                                      
                 </p:submenu>
-                <p:submenu label="Fiscal administrativo" rendered="#{utilController.contemFuncionalidade('fiscal administrativo')}">
+                <p:submenu label="Fiscal administrativo" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
                     <p:menuitem action="#{flowController.flow('contratoflow')}" value="Contrato"/>                    
                     <p:menuitem value="Liquidações"/>                                                            
                 </p:submenu>                                

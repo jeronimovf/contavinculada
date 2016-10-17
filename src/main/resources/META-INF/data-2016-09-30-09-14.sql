@@ -1,22 +1,10 @@
---
--- PostgreSQL database dump
---
+alter session set nls_timestamp_format = 'YYYY-MM-DD HH24:MI:SS.FF';
+alter session set nls_date_format = 'YYYY-MM-DD';
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+select current_date from dual;
 
--- Started on 2016-09-30 09:14:28
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET search_path = public, pg_catalog;
-
+SELECT value FROM v$nls_parameters WHERE parameter ='NLS_DATE_FORMAT';
+SELECT value FROM v$nls_parameters WHERE parameter ='NLS_TIMESTAMP_FORMAT';
 --
 -- TOC entry 2485 (class 0 OID 78687)
 -- Dependencies: 187
@@ -28,67 +16,37 @@ INSERT INTO alocacao (id, criadoem, destruidoem, vigenteate, vigentedesde, posto
 
 
 --
--- TOC entry 2582 (class 0 OID 0)
--- Dependencies: 186
--- Name: alocacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('alocacao_id_seq', 18, true);
-
-
---
 -- TOC entry 2487 (class 0 OID 78695)
 -- Dependencies: 189
--- Data for Name: calendarioferiado; Type: TABLE DATA; Schema: public; Owner: contavinculada
+-- Data for Name: calferiado; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO calendarioferiado (id, criadoem, destruidoem, vigenteate, vigentedesde, descricao, nome) VALUES (1, '2016-07-21 11:39:51.643', NULL, NULL, '2015-04-15', 'Feriados nacionais, estaduais, municipais e regimentais', 'Padrão 2016');
-INSERT INTO calendarioferiado (id, criadoem, destruidoem, vigenteate, vigentedesde, descricao, nome) VALUES (2, '2016-08-18 11:59:12.543825', NULL, NULL, '2014-08-06', 'Feriados nacionais, estaduais, municipais e regimentais', 'Padrão 2017');
+INSERT INTO calferiado (id, criadoem, destruidoem, vigenteate, vigentedesde, descricao, nome) VALUES (1, '2016-07-21 11:39:51.643', NULL, NULL, '2015-04-15', 'Feriados nacionais, estaduais, municipais e regimentais', 'Padrão 2016');
+INSERT INTO calferiado (id, criadoem, destruidoem, vigenteate, vigentedesde, descricao, nome) VALUES (2, '2016-08-18 11:59:12.543825', NULL, NULL, '2014-08-06', 'Feriados nacionais, estaduais, municipais e regimentais', 'Padrão 2017');
 
 
 --
 -- TOC entry 2488 (class 0 OID 78704)
 -- Dependencies: 190
--- Data for Name: calendarioferiado_calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
+-- Data for Name: calferiado_calferiadoit; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feriados_id) VALUES (1, 4);
-INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feriados_id) VALUES (1, 1);
-INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feriados_id) VALUES (1, 3);
-INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feriados_id) VALUES (1, 2);
-INSERT INTO calendarioferiado_calendarioferiadoitem (calendarioferiado_id, feriados_id) VALUES (2, 5);
-
-
---
--- TOC entry 2583 (class 0 OID 0)
--- Dependencies: 188
--- Name: calendarioferiado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('calendarioferiado_id_seq', 2, true);
+INSERT INTO calferiado_calferiadoit (calendarioferiado_id, feriados_id) VALUES (1, 1);
+INSERT INTO calferiado_calferiadoit (calendarioferiado_id, feriados_id) VALUES (1, 3);
+INSERT INTO calferiado_calferiadoit (calendarioferiado_id, feriados_id) VALUES (1, 2);
+INSERT INTO calferiado_calferiadoit (calendarioferiado_id, feriados_id) VALUES (2, 5);
 
 
 --
 -- TOC entry 2490 (class 0 OID 78709)
 -- Dependencies: 192
--- Data for Name: calendarioferiadoitem; Type: TABLE DATA; Schema: public; Owner: contavinculada
+-- Data for Name: calferiadoit; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (2, '2016-07-21 11:45:23.646', NULL, NULL, '2016-01-01', 2, 'Aniversário de Cuiabá', 'Cuiabá/MT', '2016-04-08');
-INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (3, '2016-07-21 11:45:39.17', NULL, NULL, '2016-01-01', 0, 'Tiradentes', '', '2016-04-21');
-INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (1, '2016-07-21 11:45:00.766', NULL, NULL, '2016-01-01', 0, 'Natal Papai Noel', '', '2016-12-25');
-INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (4, NULL, NULL, NULL, '2016-06-05', 0, 'Independência do Brasil', '', '2016-09-07');
-INSERT INTO calendarioferiadoitem (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (5, '2016-09-09 08:27:18.33', NULL, NULL, '2017-01-25', 0, 'Natal Papai Noel', '', '2017-01-25');
-
-
---
--- TOC entry 2584 (class 0 OID 0)
--- Dependencies: 191
--- Name: calendarioferiadoitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('calendarioferiadoitem_id_seq', 5, true);
-
+INSERT INTO calferiadoit (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (2, '2016-07-21 11:45:23.646', NULL, NULL, '2016-01-01', 2, 'Aniversário de Cuiabá', 'Cuiabá/MT', '2016-04-08');
+INSERT INTO calferiadoit (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (3, '2016-07-21 11:45:39.17', NULL, NULL, '2016-01-01', 0, 'Tiradentes', '', '2016-04-21');
+INSERT INTO calferiadoit (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (1, '2016-07-21 11:45:00.766', NULL, NULL, '2016-01-01', 0, 'Natal Papai Noel', '', '2016-12-25');
+INSERT INTO calferiadoit (id, criadoem, destruidoem, vigenteate, vigentedesde, escopo, nome, onde, quando) VALUES (5, '2016-09-09 08:27:18.33', NULL, NULL, '2017-01-25', 0, 'Natal Papai Noel', '', '2017-01-25');
 
 --
 -- TOC entry 2492 (class 0 OID 78720)
@@ -103,42 +61,22 @@ INSERT INTO cargooufuncao (id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO cargooufuncao (id, criadoem, destruidoem, vigenteate, vigentedesde, atribuicoes, descricao, nome) VALUES (3, '2016-06-24 00:00:00', NULL, '1999-01-01', '2000-01-01', 'Limpeza e conservação predial.', 'Cargo de nível fundamental', 'Serviços gerais');
 INSERT INTO cargooufuncao (id, criadoem, destruidoem, vigenteate, vigentedesde, atribuicoes, descricao, nome) VALUES (6, '2016-09-28 08:10:13.672501', NULL, NULL, '2016-08-01', 'Prevenção e combate a incêndio', 'Cargo de nível médio', 'Bombeiro civil');
 
-
---
--- TOC entry 2585 (class 0 OID 0)
--- Dependencies: 193
--- Name: cargooufuncao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('cargooufuncao_id_seq', 6, true);
-
-
 --
 -- TOC entry 2494 (class 0 OID 78731)
 -- Dependencies: 196
 -- Data for Name: colaborador; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (1, NULL, NULL, NULL, '2016-01-10', true, '2016-05-10', NULL, 1120, 1119);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (2, NULL, NULL, NULL, '2016-08-01', false, '2016-03-22', NULL, 1122, 4);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (3, NULL, NULL, NULL, '2016-01-28', false, '2016-04-23', NULL, 1123, 4);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (4, NULL, NULL, NULL, '2015-12-31', false, '2016-05-20', NULL, 1124, 4);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (5, NULL, NULL, NULL, '2016-03-15', false, '2016-08-25', NULL, 1125, 1);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (6, NULL, NULL, NULL, '2016-07-29', false, '2016-08-20', NULL, 1126, 2);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (7, '2016-09-09 12:07:57.126', NULL, NULL, '2016-03-26', false, NULL, NULL, 1127, 1119);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (8, '2016-09-09 12:10:08.942', NULL, NULL, '2016-07-29', false, NULL, NULL, 1128, 1119);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (9, '2016-09-09 12:12:03.974', NULL, NULL, '2016-09-30', false, NULL, NULL, 1129, 1119);
-INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (10, '2016-09-13 08:52:45.445', NULL, NULL, '2016-09-01', false, '2016-09-22', NULL, 1130, 4);
-
-
---
--- TOC entry 2586 (class 0 OID 0)
--- Dependencies: 195
--- Name: colaborador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('colaborador_id_seq', 10, true);
-
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (1, '2016-09-09 12:07:57.126', NULL, NULL, '2016-01-10', 1, '2016-05-10', NULL, 1120, 1119);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (2, '2016-09-09 12:07:57.126', NULL, NULL, '2016-08-01', 0, '2016-03-22', NULL, 1122, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (3, '2016-09-09 12:07:57.126', NULL, NULL, '2016-01-28', 0, '2016-04-23', NULL, 1123, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (4, '2016-09-09 12:07:57.126', NULL, NULL, '2015-12-31', 0, '2016-05-20', NULL, 1124, 4);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (5, '2016-09-09 12:07:57.126', NULL, NULL, '2016-03-15', 0, '2016-08-25', NULL, 1125, 1);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (6, '2016-09-09 12:07:57.126', NULL, NULL, '2016-07-29', 0, '2016-08-20', NULL, 1126, 2);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (7, '2016-09-09 12:07:57.126', NULL, NULL, '2016-03-26', 0, NULL, NULL, 1127, 1119);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (8, '2016-09-09 12:10:08.942', NULL, NULL, '2016-07-29', 0, NULL, NULL, 1128, 1119);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (9, '2016-09-09 12:12:03.974', NULL, NULL, '2016-09-30', 0, NULL, NULL, 1129, 1119);
+INSERT INTO colaborador (id, criadoem, destruidoem, vigenteate, vigentedesde, isdesligamentoporjustacausa, recebeumanualem, responsaveltecnico, colaborador_id, empregador_id) VALUES (10, '2016-09-13 08:52:45.445', NULL, NULL, '2016-09-01', 0, '2016-09-22', NULL, 1130, 4);
 
 --
 -- TOC entry 2495 (class 0 OID 78737)
@@ -158,23 +96,6 @@ INSERT INTO colaborador_salario (colaborador_id, salarios_id) VALUES (9, 14);
 
 
 --
--- TOC entry 2497 (class 0 OID 78742)
--- Dependencies: 199
--- Data for Name: contavinculada; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2587 (class 0 OID 0)
--- Dependencies: 198
--- Name: contavinculada_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('contavinculada_id_seq', 5, true);
-
-
---
 -- TOC entry 2499 (class 0 OID 78753)
 -- Dependencies: 201
 -- Data for Name: contrato; Type: TABLE DATA; Schema: public; Owner: contavinculada
@@ -190,41 +111,6 @@ INSERT INTO contrato (id, criadoem, destruidoem, vigenteate, vigentedesde, arp, 
 --
 
 INSERT INTO contrato_faturamento (contrato_id, faturamentos_id) VALUES (8, 13);
-
-
---
--- TOC entry 2588 (class 0 OID 0)
--- Dependencies: 200
--- Name: contrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('contrato_id_seq', 8, true);
-
-
---
--- TOC entry 2479 (class 0 OID 40601)
--- Dependencies: 181
--- Data for Name: contrato_postodetrabalho; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2482 (class 0 OID 55946)
--- Dependencies: 184
--- Data for Name: email; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2589 (class 0 OID 0)
--- Dependencies: 183
--- Name: email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('email_id_seq', 1, false);
-
 
 --
 -- TOC entry 2502 (class 0 OID 78767)
@@ -244,16 +130,6 @@ INSERT INTO encargo (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) 
 INSERT INTO encargo (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) VALUES (11, '2016-09-13 12:35:32.71', NULL, NULL, '2011-08-01', 'Multa do FGTS por dispensa sem justa causa');
 INSERT INTO encargo (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) VALUES (12, '2016-09-22 10:57:16.782828', NULL, NULL, '2016-08-01', 'TESTE DE VALIDAÇÃO DE VIGÊNCIA');
 
-
---
--- TOC entry 2590 (class 0 OID 0)
--- Dependencies: 203
--- Name: encargo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('encargo_id_seq', 12, true);
-
-
 --
 -- TOC entry 2504 (class 0 OID 78775)
 -- Dependencies: 206
@@ -269,16 +145,6 @@ SELECT pg_catalog.setval('encargo_id_seq', 12, true);
 --
 
 
-
---
--- TOC entry 2591 (class 0 OID 0)
--- Dependencies: 205
--- Name: encargoaliquota_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('encargoaliquota_id_seq', 7, true);
-
-
 --
 -- TOC entry 2506 (class 0 OID 78783)
 -- Dependencies: 208
@@ -288,29 +154,10 @@ SELECT pg_catalog.setval('encargoaliquota_id_seq', 7, true);
 
 
 --
--- TOC entry 2592 (class 0 OID 0)
--- Dependencies: 207
--- Name: endereco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('endereco_id_seq', 1, false);
-
-
---
 -- TOC entry 2508 (class 0 OID 78794)
 -- Dependencies: 210
 -- Data for Name: enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
-
-
-
---
--- TOC entry 2593 (class 0 OID 0)
--- Dependencies: 209
--- Name: enderecoeletronico_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('enderecoeletronico_id_seq', 1, false);
 
 
 --
@@ -321,14 +168,6 @@ SELECT pg_catalog.setval('enderecoeletronico_id_seq', 1, false);
 
 INSERT INTO faturamento (id, criadoem, destruidoem, vigenteate, vigentedesde, atestadaem, nfeoufatura, notas, referenciafim, referenciainicio, atestadapor_id, contrato_id) VALUES (13, '2016-09-30 09:10:32.34382', NULL, '2016-08-30', '2016-08-01', NULL, '', '', '2016-08-30', '2016-08-01', NULL, 8);
 
-
---
--- TOC entry 2594 (class 0 OID 0)
--- Dependencies: 211
--- Name: faturamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('faturamento_id_seq', 13, true);
 
 
 --
@@ -400,54 +239,23 @@ INSERT INTO faturamentoitem (id, criadoem, destruidoem, vigenteate, vigentedesde
 
 
 --
--- TOC entry 2595 (class 0 OID 0)
--- Dependencies: 213
--- Name: faturamentoitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('faturamentoitem_id_seq', 828, true);
-
-
---
 -- TOC entry 2514 (class 0 OID 78824)
 -- Dependencies: 216
--- Data for Name: faturamentoitemevento; Type: TABLE DATA; Schema: public; Owner: contavinculada
+-- Data for Name: faturamentoitevt; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (1, '2016-07-21 11:39:25.151', NULL, NULL, '2016-01-01', true, true, 'Férias');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (5, '2016-07-22 12:34:43.804072', NULL, NULL, '2016-01-01', true, true, 'Licença odontológica');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (4, '2016-07-22 12:02:39.313', NULL, NULL, '2016-01-01', true, true, 'Licença médica');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (3, '2016-07-21 08:54:07.84', NULL, NULL, '2016-01-01', false, false, 'Falta injustificada sem substituição');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (7, '2016-07-21 08:54:07.84', NULL, NULL, '2016-01-01', true, false, 'Falta injustificada com substituição');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (6, '2016-08-25 14:56:49.593', NULL, NULL, '2016-08-25', false, true, 'Efetivamente trabalhado');
-INSERT INTO faturamentoitemevento (id, criadoem, destruidoem, vigenteate, vigentedesde, consideratrabalhadoparasubstituto, consideratrabalhadoparatitular, nome) VALUES (8, '2016-09-28 08:10:40.957243', NULL, NULL, '2016-06-01', true, true, 'Acompanhamento de pessoa da família');
-
-
---
--- TOC entry 2596 (class 0 OID 0)
--- Dependencies: 215
--- Name: faturamentoitemevento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('faturamentoitemevento_id_seq', 8, true);
-
-
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (1, '2016-07-21 11:39:25.151', NULL, NULL, '2016-01-01', 1, 1, 'Férias');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (5, '2016-07-22 12:34:43.804072', NULL, NULL, '2016-01-01', 1, 1, 'Licença odontológica');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (4, '2016-07-22 12:02:39.313', NULL, NULL, '2016-01-01', 1, 1, 'Licença médica');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (3, '2016-07-21 08:54:07.84', NULL, NULL, '2016-01-01', 0, 0, 'Falta injustificada sem substituição');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (7, '2016-07-21 08:54:07.84', NULL, NULL, '2016-01-01', 1, 0, 'Falta injustificada com substituição');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (6, '2016-08-25 14:56:49.593', NULL, NULL, '2016-08-25', 0, 1, 'Efetivamente trabalhado');
+INSERT INTO faturamentoitevt (id, criadoem, destruidoem, vigenteate, vigentedesde, trabalhadosubstituto, trabalhadotitular, nome) VALUES (8, '2016-09-28 08:10:40.957243', NULL, NULL, '2016-06-01', 1, 1, 'Acompanhamento de pessoa da família');
 --
 -- TOC entry 2516 (class 0 OID 78832)
 -- Dependencies: 218
 -- Data for Name: fiscal; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
-
-
-
---
--- TOC entry 2597 (class 0 OID 0)
--- Dependencies: 217
--- Name: fiscal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('fiscal_id_seq', 4, true);
-
 
 --
 -- TOC entry 2518 (class 0 OID 78840)
@@ -461,33 +269,6 @@ INSERT INTO fiscalespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO fiscalespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) VALUES (4, '2016-06-24 00:00:00', NULL, NULL, '2000-01-01', 'Fiscal do demandante');
 INSERT INTO fiscalespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) VALUES (5, '2016-08-22 08:08:34.330008', NULL, NULL, '2016-09-01', 'Fiscal de Teste');
 
-
---
--- TOC entry 2598 (class 0 OID 0)
--- Dependencies: 219
--- Name: fiscalespecie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('fiscalespecie_id_seq', 5, true);
-
-
---
--- TOC entry 2520 (class 0 OID 78848)
--- Dependencies: 222
--- Data for Name: glosa; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2599 (class 0 OID 0)
--- Dependencies: 221
--- Name: glosa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('glosa_id_seq', 1, false);
-
-
 --
 -- TOC entry 2522 (class 0 OID 78859)
 -- Dependencies: 224
@@ -495,15 +276,6 @@ SELECT pg_catalog.setval('glosa_id_seq', 1, false);
 --
 
 INSERT INTO glosaespecie (id, criadoem, destruidoem, vigenteate, vigentedesde, nome) VALUES (1, '2016-06-24 00:00:00', NULL, NULL, '2000-01-01', 'Posto de trabalho vago');
-
-
---
--- TOC entry 2600 (class 0 OID 0)
--- Dependencies: 223
--- Name: glosaespecie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('glosaespecie_id_seq', 1, true);
 
 
 --
@@ -518,30 +290,10 @@ INSERT INTO jornada (id, criadoem, destruidoem, vigenteate, vigentedesde, descri
 
 
 --
--- TOC entry 2601 (class 0 OID 0)
--- Dependencies: 225
--- Name: jornada_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('jornada_id_seq', 3, true);
-
-
---
 -- TOC entry 2526 (class 0 OID 78878)
 -- Dependencies: 228
 -- Data for Name: liberacao; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
-
-
-
---
--- TOC entry 2602 (class 0 OID 0)
--- Dependencies: 227
--- Name: liberacao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('liberacao_id_seq', 1, false);
-
 
 --
 -- TOC entry 2528 (class 0 OID 78889)
@@ -1677,46 +1429,11 @@ INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, 
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1129, '2016-09-09 12:12:03.955', NULL, NULL, '2016-01-01', '033.466.410-15', '12154', '1993-12-31', 'Daniela Silva', '7841', '3187', 'ssp', 'mt', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO pessoa (dtype, id, criadoem, destruidoem, vigenteate, vigentedesde, cpf, ctps, nascimentodata, nome, pispasep, rgnumero, rgorgaoexpedidor, rguf, matricula, cnpj, inscricaoestadual, nomefantasia, razaosocial) VALUES ('PessoaFisica', 1130, '2016-09-13 08:51:12.387', NULL, NULL, '2016-01-01', '625.777.740-28', '896778969', '1997-04-28', 'Telma Lamarca', '08097', '86478', 'SSP', 'MT', NULL, NULL, NULL, NULL, NULL);
 
-
---
--- TOC entry 2483 (class 0 OID 56074)
--- Dependencies: 185
--- Data for Name: pessoa_email; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2529 (class 0 OID 78898)
--- Dependencies: 231
--- Data for Name: pessoa_endereco; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2530 (class 0 OID 78901)
--- Dependencies: 232
--- Data for Name: pessoa_enderecoeletronico; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
---
--- TOC entry 2603 (class 0 OID 0)
--- Dependencies: 229
--- Name: pessoa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('pessoa_id_seq', 1130, true);
-
-
 --
 -- TOC entry 2531 (class 0 OID 78904)
 -- Dependencies: 233
 -- Data for Name: pessoa_telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
-
 
 
 --
@@ -1748,24 +1465,6 @@ INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) 
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (16, 'SABADOS');
 INSERT INTO postodetrabalho_diascomputados (postodetrabalho_id, diascomputados) VALUES (16, 'SEGUNDAS_SEXTAS');
 
-
---
--- TOC entry 2604 (class 0 OID 0)
--- Dependencies: 234
--- Name: postodetrabalho_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('postodetrabalho_id_seq', 16, true);
-
-
---
--- TOC entry 2535 (class 0 OID 78918)
--- Dependencies: 237
--- Data for Name: postodetrabalho_salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
---
-
-
-
 --
 -- TOC entry 2537 (class 0 OID 78923)
 -- Dependencies: 239
@@ -1776,15 +1475,6 @@ INSERT INTO rat (id, criadoem, destruidoem, vigenteate, vigentedesde, percentual
 INSERT INTO rat (id, criadoem, destruidoem, vigenteate, vigentedesde, percentual) VALUES (2, '2016-09-13 13:40:01.745', NULL, NULL, '2016-09-13', '2%');
 INSERT INTO rat (id, criadoem, destruidoem, vigenteate, vigentedesde, percentual) VALUES (3, '2016-09-13 13:40:11.977', NULL, NULL, '2016-09-13', '3%');
 INSERT INTO rat (id, criadoem, destruidoem, vigenteate, vigentedesde, percentual) VALUES (4, '2016-09-13 13:42:42.731635', NULL, NULL, '2016-09-13', 'Optante pelo simples');
-
-
---
--- TOC entry 2605 (class 0 OID 0)
--- Dependencies: 238
--- Name: rat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('rat_id_seq', 4, true);
 
 
 --
@@ -1810,16 +1500,6 @@ INSERT INTO ratitem (id, criadoem, destruidoem, vigenteate, vigentedesde, aliquo
 INSERT INTO ratitem (id, criadoem, destruidoem, vigenteate, vigentedesde, aliquota, encargo_id, rat_id) VALUES (15, NULL, NULL, NULL, '2016-01-01', 11.109999999999999, 7, 4);
 INSERT INTO ratitem (id, criadoem, destruidoem, vigenteate, vigentedesde, aliquota, encargo_id, rat_id) VALUES (16, NULL, NULL, NULL, '2016-01-01', 4.2999999999999998, 11, 4);
 
-
---
--- TOC entry 2606 (class 0 OID 0)
--- Dependencies: 240
--- Name: ratitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('ratitem_id_seq', 16, true);
-
-
 --
 -- TOC entry 2541 (class 0 OID 78939)
 -- Dependencies: 243
@@ -1837,26 +1517,17 @@ INSERT INTO retencao (id, criadoem, destruidoem, vigenteate, vigentedesde, diass
 
 
 --
--- TOC entry 2607 (class 0 OID 0)
--- Dependencies: 242
--- Name: retencao_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('retencao_id_seq', 180, true);
-
-
---
 -- TOC entry 2543 (class 0 OID 78947)
 -- Dependencies: 245
 -- Data for Name: salario; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (5, NULL, NULL, NULL, '2016-08-01', 985.99000000000001);
-INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (6, NULL, NULL, NULL, '2016-12-24', 980);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (5,  '2016-09-13 08:52:31.842', NULL, NULL, '2016-08-01', 985.99000000000001);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (6,  '2016-09-13 08:52:31.842', NULL, NULL, '2016-12-24', 980);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (9, '2016-09-15 07:37:01.802', NULL, NULL, '2014-09-01', 1500);
-INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (10, NULL, NULL, NULL, '2016-01-01', 985);
-INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (7, NULL, NULL, NULL, '2016-01-01', 1247.8800000000001);
-INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (11, NULL, NULL, NULL, '2016-01-01', 1350);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (10,  '2016-09-13 08:52:31.842', NULL, NULL, '2016-01-01', 985);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (7,  '2016-09-13 08:52:31.842', NULL, NULL, '2016-01-01', 1247.8800000000001);
+INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (11,  '2016-09-13 08:52:31.842', NULL, NULL, '2016-01-01', 1350);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (8, '2016-09-13 08:52:31.842', NULL, NULL, '2016-01-01', 985.44000000000005);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (12, '2016-09-28 14:47:09.023666', NULL, NULL, '2016-07-01', 1180);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (16, '2016-09-29 14:22:06.299738', NULL, NULL, '2016-08-01', 1400);
@@ -1864,36 +1535,10 @@ INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor)
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (14, '2016-09-30 09:05:25.577147', NULL, NULL, '2016-01-01', 1304);
 INSERT INTO salario (id, criadoem, destruidoem, vigenteate, vigentedesde, valor) VALUES (15, '2016-09-29 14:19:40.922201', NULL, NULL, '2016-08-01', 1308);
 
-
---
--- TOC entry 2608 (class 0 OID 0)
--- Dependencies: 244
--- Name: salario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('salario_id_seq', 15, true);
-
-
 --
 -- TOC entry 2545 (class 0 OID 78955)
 -- Dependencies: 247
 -- Data for Name: telefone; Type: TABLE DATA; Schema: public; Owner: contavinculada
 --
 
-
-
---
--- TOC entry 2609 (class 0 OID 0)
--- Dependencies: 246
--- Name: telefone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: contavinculada
---
-
-SELECT pg_catalog.setval('telefone_id_seq', 1, false);
-
-
 -- Completed on 2016-09-30 09:14:34
-
---
--- PostgreSQL database dump complete
---
-
