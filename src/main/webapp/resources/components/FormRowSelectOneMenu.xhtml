@@ -3,13 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="selectValue"/>     
         <cc:attribute name="itemValues"/>
         <cc:attribute name="converter"/>
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>                                                
     </cc:interface>
 
     <cc:implementation>
@@ -17,13 +19,26 @@
             <p:outputLabel for="#{cc.id}:#{'Input'}" 
                            value="#{cc.attrs.labelValue}" 
                            styleClass="formRowLabel"/>
-            <p:selectOneMenu id="Input"  
-                             value="#{cc.attrs.selectValue}" 
-                             styleClass="formRowValue" 
-                             converter="#{cc.attrs.converter}">  
-                <f:selectItems value="#{cc.attrs.itemValues}"/>
-                <f:attribute name="collectionType" value="java.util.ArrayList" />                                        
-            </p:selectOneMenu>
+            <c:if test="#{cc.attrs.readonly}">
+                <p:selectOneMenu id="Input"  
+                                 value="#{cc.attrs.selectValue}" 
+                                 styleClass="formRowValue readOnlyCtrl" 
+                                 converter="#{cc.attrs.converter}"
+                                 disabled="true">  
+                    <f:selectItems value="#{cc.attrs.itemValues}"/>
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />                                        
+                </p:selectOneMenu>
+
+            </c:if>
+            <c:if test="#{!cc.attrs.readonly}">
+                <p:selectOneMenu id="Input"  
+                                 value="#{cc.attrs.selectValue}" 
+                                 styleClass="formRowValue" 
+                                 converter="#{cc.attrs.converter}">  
+                    <f:selectItems value="#{cc.attrs.itemValues}"/>
+                    <f:attribute name="collectionType" value="java.util.ArrayList" />                                        
+                </p:selectOneMenu>
+            </c:if>                                                          
         </div>
     </cc:implementation>
 </html>

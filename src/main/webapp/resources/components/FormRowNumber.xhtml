@@ -2,9 +2,10 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-      <cc:interface>
+    <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="numberValue"/>        
         <cc:attribute name="numberSize" default="10"/>        
@@ -14,16 +15,42 @@
         <cc:attribute name="decimalPlaces" default="2"/>        
         <cc:attribute name="roundMethod"/>   
         <cc:attribute name="symbol"/>   
-        <cc:attribute name="symbolPosition"/>           
+        <cc:attribute name="symbolPosition"/>      
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>                                        
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
-                <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" styleClass="formRowLabel"/>
-                <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" size="#{cc.attrs.numberSize}" 
-                               minValue="#{cc.attrs.minValue}" maxValue="#{cc.attrs.maxValue}" roundMethod="#{cc.attrs.roundMethod}" 
-                               decimalPlaces="#{cc.attrs.decimalPlaces}" decimalSeparator="," thousandSeparator="." 
-                               symbol="#{cc.attrs.symbol}" symbolPosition="#{cc.attrs.symbolPosition}" styleClass="formRowValue"/>                            
+            <p:outputLabel for="#{cc.id}:#{'Input'}" 
+                           value="#{cc.attrs.labelValue}" 
+                           styleClass="formRowLabel"/>
+            <c:if test="#{cc.attrs.readonly}">
+                <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" 
+                               size="#{cc.attrs.numberSize}" 
+                               minValue="#{cc.attrs.minValue}" 
+                               maxValue="#{cc.attrs.maxValue}" 
+                               roundMethod="#{cc.attrs.roundMethod}" 
+                               decimalPlaces="#{cc.attrs.decimalPlaces}" 
+                               decimalSeparator="," 
+                               thousandSeparator="." 
+                               symbol="#{cc.attrs.symbol}" 
+                               symbolPosition="#{cc.attrs.symbolPosition}" 
+                               styleClass="formRowValue readOnlyCtrl"
+                               readonly="true"/>                          
+            </c:if>
+            <c:if test="#{!cc.attrs.readonly}">
+                <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" 
+                               size="#{cc.attrs.numberSize}" 
+                               minValue="#{cc.attrs.minValue}" 
+                               maxValue="#{cc.attrs.maxValue}" 
+                               roundMethod="#{cc.attrs.roundMethod}" 
+                               decimalPlaces="#{cc.attrs.decimalPlaces}" 
+                               decimalSeparator="," 
+                               thousandSeparator="." 
+                               symbol="#{cc.attrs.symbol}" 
+                               symbolPosition="#{cc.attrs.symbolPosition}" 
+                               styleClass="formRowValue"/>
+            </c:if>                                                          
         </div>
     </cc:implementation>
 </html>

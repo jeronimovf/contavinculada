@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://java.sun.com/jsf/composite/components"                      
+                template="/template.xhtml">
+    <ui:define name="content"> 
+        <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
+                          entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
+                          saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoPorFiscalFlow.controller}">                           
+            <t:FormRowDate id="faturamentoReferenciaInicio" 
+                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.referenciaInicio}" 
+                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
+                           pattern="dd/MM/yyyy"/>
+            <t:FormRowDate id="faturamentoReferenciaFim" 
+                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.referenciaFim}" 
+                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
+                           pattern="dd/MM/yyyy"/>     
+            <t:FormRowString id="faturamentoNotas" 
+                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
+                             textSize="30" textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.notas}"/>
+            <t:FormRowMonetary id="faturamentoValorBruto" 
+                               numberValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.valorBruto}" 
+                               labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+            <t:FormRowMonetary id="faturamentoValorLiquido" 
+                               numberValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.valorLiquido}" 
+                               labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+            <t:FormRowString id="faturamentoNfeOuFatura" 
+                             textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.nfeOuFatura}" 
+                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+            <t:FormRowDate id="faturamentoAtestadaEm" 
+                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaEm}" 
+                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+            <t:FormRowString id="faturamentoAtestadaPor" 
+                             textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaPor}" 
+                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+            <p:commandButton action="#{retencaoController.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
+                             value="Processa retenções"/>
+            <p:commandButton action="retencaoflow"
+                             value="Ver retenções"/>            
+            <p:dataTable value="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens}"
+                         var="fi" 
+                         editable="true"
+                         paginator="true"
+                         paginatorAlwaysVisible="false"
+                         rows="#{contratoPorFiscalFlow.controller.faturamentoNovo.diasEntreReferencias}"
+                         id="faturamentoItemDT"
+                         sortFunction="#{contratoPorFiscalFlow.controller.sortByPostoDeTrabalhoDia}" 
+                         sortOrder="ascending" 
+                         sortBy="#{fi}"
+                         scrollHeight="350"
+                         scrollable="true">
+                <p:column headerText="Posto de trabalho" width="25%">
+                    <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
+                </p:column>
+                <p:column headerText="Dia" width="7%">
+                    <h:outputText value="#{fi.dia}" converter="localDateConverter"/>                                
+                </p:column>
+                <p:column headerText="Titular" width="25%">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{fi.titular.colaborador.toString()}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
+                                             converter="#{colaboradorConverter}" 
+                                             style="width: 100%">
+                                <f:selectItems value="#{contratoPorFiscalFlow.colaboradoresParaOContrato}"/>                          
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>                                                        
+                </p:column>
+                <p:column headerText="Evento" width="13%">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{fi.evento.toString()}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="evento" value="#{fi.evento}" 
+                                             style="width:100%" 
+                                             converter="#{faturamentoItemEventoConverter}">
+                                <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Substituto" width="25%">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{fi.substituto.colaborador.toString()}"/>
+                        </f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu id="colabSub" 
+                                             value="#{fi.substituto}" 
+                                             style="width: 100%" 
+                                             converter="#{colaboradorConverter}">
+                                <f:selectItems value="#{contratoPorFiscalFlow.colaboradoresParaOContrato}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>                            
+                </p:column>
+                <p:column width="5%">
+                    <p:rowEditor/>
+                </p:column>
+            </p:dataTable>              
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

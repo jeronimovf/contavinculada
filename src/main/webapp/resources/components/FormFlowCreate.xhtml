@@ -16,16 +16,29 @@
         <cc:attribute name="desdeMinDate"/>
         <cc:attribute name="desdeMaxDate"/>
         <cc:attribute name="ateMinDate"/>
-        <cc:attribute name="ateMaxDate"/>        
+        <cc:attribute name="ateMaxDate"/> 
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>        
     </cc:interface>
 
     <cc:implementation>
         <h:form id="#{cc.attrs.casePrefix.concat('Form')}" prependId="false">
-            <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>                            
+            <t:ContentTop controller="#{cc.attrs.controller}" 
+                          casePrefix="#{cc.attrs.casePrefix}"/>                            
             <div class="ui-grid">  
-                <p:panel header="#{messages.Active}" rendered="#{cc.attrs.mostrarVigencia}">
-                    <t:FormRowDate id="vigenteDesde" calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" labelValue="#{messages.ActiveSince}" mindate="#{cc.attrs.desdeMinDate}" maxdate="#{cc.attrs.desdeMaxDate}"/>
-                    <t:FormRowDate id="vigenteAte" calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" labelValue="#{messages.ActiveUntil}"  mindate="#{cc.attrs.ateMinDate}" maxdate="#{cc.attrs.ateMaxDate}"/>                
+                <p:panel header="#{messages.Active}" 
+                         rendered="#{cc.attrs.mostrarVigencia}">
+                    <t:FormRowDate id="vigenteDesde" 
+                                   calendarValue="#{cc.attrs.entityToUpdate.vigenteDesde}" 
+                                   labelValue="#{messages.ActiveSince}" 
+                                   mindate="#{cc.attrs.desdeMinDate}" 
+                                   maxdate="#{cc.attrs.desdeMaxDate}" 
+                                   readonly="#{cc.attrs.readonly}"/>
+                    <t:FormRowDate id="vigenteAte" 
+                                   calendarValue="#{cc.attrs.entityToUpdate.vigenteAte}" 
+                                   labelValue="#{messages.ActiveUntil}"  
+                                   mindate="#{cc.attrs.ateMinDate}" 
+                                   maxdate="#{cc.attrs.ateMaxDate}" 
+                                   readonly="#{cc.attrs.readonly}"/>                
                 </p:panel>
                 <cc:insertChildren/>
 

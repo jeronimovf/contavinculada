@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -29,6 +30,7 @@ import org.primefaces.component.datatable.DataTable;
 @Dependent
 @Getter
 @Setter
+@Default
 public class ContratoController extends AbstractController<Contrato> {
 
     public ContratoController() {

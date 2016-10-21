@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import lombok.Getter;
+import lombok.Setter;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
@@ -22,23 +25,44 @@ import org.primefaces.model.SortOrder;
  * @author generico
  * @param <T>
  */
-public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataModel<T> {
-
-    private final AbstractFacade<T> facade;
+public class GenericLazyDataModel<T extends EntidadeGenerica> extends LazyDataModel<T> {    
+    protected AbstractFacade<T> facade;
     private List<T> itemList;
     private Boolean isCountValid = Boolean.FALSE;
+    @Getter
+    @Setter
+    private Map<String, Object> permanentFilters;
+    private Class<T> entityClass;
 
-    public CustomLazyDataModel(AbstractFacade<T> facade) {
+    public GenericLazyDataModel() {
         super();
-        this.facade = facade;
+        this.permanentFilters = null;
+        this.facade = null;
         this.itemList = null;
     }
 
-    public CustomLazyDataModel(List<T> itemList) {
-        super();
-        this.facade = null;
-        this.itemList = itemList;
+    public GenericLazyDataModel(AbstractFacade<T> facade) {
+        this();
+        this.facade = facade;
     }
+
+    public GenericLazyDataModel(AbstractFacade<T> facade, Map<String, Object> filters) {
+        this();
+        this.facade = facade;
+        this.permanentFilters = filters;
+    }
+   
+    public GenericLazyDataModel(List<T> itemList) {
+        this();
+        this.itemList = itemList;
+    }  
+    
+    public GenericLazyDataModel(Class<T> entityClass) {
+        this();
+        this.entityClass = entityClass;
+    }    
+    
+    
 
     @Override
     public Object getRowKey(T object) {
@@ -61,31 +85,46 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
     public List<T> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
         // Turn sort info into a linked hash map for the facade
         HashMap<String, String> sortFields = new LinkedHashMap<>();
+        Map<String, Object> _filters = new TreeMap<>();
+        if (null != getPermanentFilters()) {
+            _filters.putAll(getPermanentFilters());
+        }
+        if (null != filters) {
+            _filters.putAll(filters);
+        }
         if (multiSortMeta != null) {
             for (SortMeta s : multiSortMeta) {
                 sortFields.put(s.getSortField(), s.getSortOrder().toString());
             }
         }
-        itemList = this.facade.findRange(first, pageSize, sortFields, filters);
-        this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
+
+        itemList = findRange(new LazyQueryHandler(first, pageSize, sortFields, _filters));
+        this.setRowCount(count(_filters)); // Count ALL records for the applied filter
         this.isCountValid = Boolean.TRUE;
-        return itemList;
+        return itemList;        
     }
 
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        if (this.facade != null) { // Handle data that needs to be retrieved from the data back-end of the application
+        Map<String, Object> _filters = new TreeMap<>();
+        if (null != getPermanentFilters()) {
+            _filters.putAll(getPermanentFilters());
+        }
+        if (null != filters) {
+            _filters.putAll(filters);
+        }
 
+        if (this.facade != null) { // Handle data that needs to be retrieved from the data back-end of the application
             String sortOrderName = sortOrder.toString();
-            this.itemList = this.facade.findRange(first, pageSize, sortField, sortOrderName, filters);
-            this.setRowCount(this.facade.count(filters)); // Count ALL records for the applied filter
+
+            this.itemList = findRange(new LazyQueryHandler(first, pageSize, sortField, sortOrderName, _filters));
+            this.setRowCount(count(_filters)); // Count ALL records for the applied filter
             this.isCountValid = Boolean.TRUE;
             return this.itemList;
-        } 
-        else if (this.itemList != null) { // Handle data that was passed in by application
+        } else if (this.itemList != null) { // Handle data that was passed in by application
 
             // filter
-            List<T> filteredItemList = filter(this.itemList, filters);
+            List<T> filteredItemList = filter(this.itemList, _filters);
 
             // sort
             if (sortField != null) {
@@ -137,18 +176,29 @@ public class CustomLazyDataModel<T extends EntidadeGenerica> extends LazyDataMod
     @Override
     public int getRowCount() {
         int rowCountTmp = super.getRowCount();
-        if(this.isCountValid){
+        if (this.isCountValid) {
             return rowCountTmp;
-        }
-        else{
-            rowCountTmp = this.facade.count();
-            setRowCount(rowCountTmp);  
-            this.isCountValid = Boolean.TRUE;            
+        } else {
+            if (null == this.facade) {
+                rowCountTmp = itemList.size();
+            } else {
+                rowCountTmp = this.facade.count();
+            }
+            setRowCount(rowCountTmp);
+            this.isCountValid = Boolean.TRUE;
             return rowCountTmp;
         }
     }
-    
-    public void refreshQuery(){
+
+    public void refreshQuery() {
         this.isCountValid = Boolean.FALSE;
+    }
+
+    protected List<T> findRange(LazyQueryHandler lazyQueryHandler) {
+        return this.facade.findRange(lazyQueryHandler);
+    }
+    
+    protected int count(Map<String, Object> filters){
+        return this.facade.count(filters);
     }
 }

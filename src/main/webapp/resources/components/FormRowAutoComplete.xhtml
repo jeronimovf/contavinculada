@@ -2,7 +2,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <cc:interface>
         <cc:attribute name="labelValue"/>
@@ -14,23 +15,40 @@
         <cc:attribute name="completeMethod" method-signature="String complete(String)"/>
         <cc:attribute name="autoCompleteEmptyMessage"/>
         <cc:attribute name="autoCompleteConverter"/>
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel"/>
-            <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}" 
-                            completeMethod="#{cc.attrs.completeMethod}" 
-                            minQueryLength="3" maxResults="10" queryDelay="600" 
-                            forceSelection="true" cache="true" 
-                            emptyMessage="#{cc.attrs.autoCompleteEmptyMessage}" 
-                            var="#{cc.attrs.autoCompleteItem}" 
-                            itemLabel="#{cc.attrs.autoCompleteItemLabel}" 
-                            itemValue="#{cc.attrs.autoCompleteItemValue}" 
-                            size="#{cc.attrs.autoCompleteSize}"
-                            styleClass="formRowValue"
-                            converter="#{cc.attrs.autoCompleteConverter}"/>     
+                           styleClass="formRowLabel" />
+            <c:if test="#{cc.attrs.readonly}">
+                <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}"                             
+                                completeMethod="#{cc.attrs.completeMethod}" 
+                                minQueryLength="3" maxResults="10" queryDelay="600" 
+                                forceSelection="true" cache="true" 
+                                emptyMessage="#{cc.attrs.autoCompleteEmptyMessage}" 
+                                var="#{cc.attrs.autoCompleteItem}" 
+                                itemLabel="#{cc.attrs.autoCompleteItemLabel}" 
+                                itemValue="#{cc.attrs.autoCompleteItemValue}" 
+                                size="#{cc.attrs.autoCompleteSize}"
+                                styleClass="formRowValue readOnlyCtrl"
+                                converter="#{cc.attrs.autoCompleteConverter}"
+                                readonly="true"/>                
+            </c:if>
+            <c:if test="#{!cc.attrs.readonly}">
+                <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}"                             
+                                completeMethod="#{cc.attrs.completeMethod}" 
+                                minQueryLength="3" maxResults="10" queryDelay="600" 
+                                forceSelection="true" cache="true" 
+                                emptyMessage="#{cc.attrs.autoCompleteEmptyMessage}" 
+                                var="#{cc.attrs.autoCompleteItem}" 
+                                itemLabel="#{cc.attrs.autoCompleteItemLabel}" 
+                                itemValue="#{cc.attrs.autoCompleteItemValue}" 
+                                size="#{cc.attrs.autoCompleteSize}"
+                                styleClass="formRowValue"
+                                converter="#{cc.attrs.autoCompleteConverter}"/>                
+            </c:if>  
         </div>
     </cc:implementation>
 </html>

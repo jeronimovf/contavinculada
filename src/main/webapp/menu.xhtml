@@ -17,15 +17,11 @@
                     <p:menuitem action="#{flowController.flow('encargoflow')}" value="Encargo"/>
                     <p:menuitem action="#{flowController.flow('fiscalespecieflow')}" value="Espécie de fiscal"/>                    
                 </p:submenu>
-                <p:submenu label="Pessoa">
-                    <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
-                </p:submenu>
-
                 <p:submenu label="Fiscal técnico" rendered="#{utilController.contemFuncionalidade('FISCAL TÉCNICO')}">
-                    <p:menuitem value="Lançamentos ponto"/>                        
-                    <p:menuitem value="Manutenção colaboradores"/>                                      
+                    <p:menuitem action="#{flowController.flow('contratoporfiscalflow')}" value="Operar contratos"/>                         
                 </p:submenu>
                 <p:submenu label="Fiscal administrativo" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
+                    <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
                     <p:menuitem action="#{flowController.flow('contratoflow')}" value="Contrato"/>                    
                     <p:menuitem value="Liquidações"/>                                                            
                 </p:submenu>                                

@@ -110,3 +110,10 @@ and open the template in the editor.
 .editorHeader{
     width: 70px;
 }
+
+input.readOnlyCtrl, select.readOnlyCtrl{
+    color: brown !important;
+    background-color: lightgray !important;        
+    border-color: green !important;    
+}
+

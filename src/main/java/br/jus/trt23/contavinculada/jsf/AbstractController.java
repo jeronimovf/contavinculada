@@ -2,7 +2,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.enums.EActiveAction;
-import br.jus.trt23.contavinculada.handlers.CustomLazyDataModel;
+import br.jus.trt23.contavinculada.handlers.GenericLazyDataModel;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.qualifiers.MessageBundle;
 import br.jus.trt23.contavinculada.sessions.AbstractFacade;
@@ -11,6 +11,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -30,12 +31,14 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     private Class<T> itemClass;
     //o escopo original de selected no CRUD PF é private
     protected T selected;
-    private Collection<T> items;
-    private CustomLazyDataModel<T> lazyItems = null;
+    protected Collection<T> items;
+    protected GenericLazyDataModel<T> lazyItems;
 
     //essas listas são utilizadas nas DataTable
     private List<T> selectedItems;
     private List<T> filteredItems;
+
+    private Map<String, Object> permanentFilters;
 
     //o messagePrefix é utilizado para a obtenção de strings de bundle
     protected abstract String getMessagePrefix();
@@ -66,22 +69,27 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         return items;
     }
 
-    public CustomLazyDataModel<T> getLazyItems() {
+    public GenericLazyDataModel<T> getLazyItems() {
         if (lazyItems == null) {
-            lazyItems = new CustomLazyDataModel<>(this.facade);
+            if (null == getPermanentFilters()) {
+                lazyItems = new GenericLazyDataModel<>(getFacade());
+            } else {
+                lazyItems = new GenericLazyDataModel<>(getFacade(),getPermanentFilters());
+            }
         }
+
         return lazyItems;
     }
 
-    public void setLazyItems(CustomLazyDataModel<T> lazyItems) {
+    public void setLazyItems(GenericLazyDataModel<T> lazyItems) {
         this.lazyItems = lazyItems;
     }
 
     public void setLazyItems(Collection<T> items) {
         if (items instanceof List) {
-            lazyItems = new CustomLazyDataModel<>((List<T>) items);
+            lazyItems = new GenericLazyDataModel<>((List<T>) items);
         } else {
-            lazyItems = new CustomLazyDataModel<>(new ArrayList<>(items));
+            lazyItems = new GenericLazyDataModel<>(new ArrayList<>(items));
         }
     }
 
@@ -103,7 +111,6 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return null;
         }
     }
-    
 
     public String create(T obj) throws Exception {
         String msg;
@@ -117,7 +124,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
-    }    
+    }
 
     public String saveOrCreate() throws Exception {
         if (getSelected().getId() != null) {
@@ -134,7 +141,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return create(obj);
         }
     }
-    
+
     public String prepareEdit() {
         setSelected((T) getLazyItems().getRowData());
         return "Edit";
@@ -146,14 +153,14 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             getFacade().edit(selected);
             msg = messages.getString(getMessagePrefix().concat("_Updated"));
             JsfUtil.addSuccessMessage(msg);
-            return "Edit"; 
+            return "Edit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
     }
-    
+
     public String update(T obj) {
         String msg;
         try {
@@ -163,10 +170,10 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             return "Edit";
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
-            JsfUtil.addErrorMessage(e, msg);           
+            JsfUtil.addErrorMessage(e, msg);
             return null;
         }
-    }    
+    }
 
     public String destroy() {
         String msg;
@@ -215,14 +222,12 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
 
     public String getDlgCreateHeader(String header) {
         String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
-        header_.concat(" (").concat(messages.getString("CreateLink")).concat(")");
-        return header_;
+        return header_.concat(" (").concat(messages.getString("CreateLink")).concat(")");
     }
 
     public String getDlgEditHeader(String header) {
         String header_ = messages.getString(getMessagePrefix().concat("_TabHeader_").concat(header));
-        header_.concat(" (").concat(messages.getString("EditLink")).concat(")");
-        return header_;
+        return header_.concat(" (").concat(messages.getString("EditLink")).concat(")");
     }
 
     public String getResponseCreated(String child) {
@@ -278,11 +283,11 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             setLazyItems((Collection<T>) paramItems);
         }
     }
-    
+
     //Essa função é necessária porque para os composite componets
     //não é aceito passar uma String diretamente para um atributo que
     //será associado a um action internamente. 
-    public String goBackTo(String str){
+    public String goBackTo(String str) {
         return str;
     }
 }

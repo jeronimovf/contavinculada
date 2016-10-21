@@ -4,6 +4,9 @@
 package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constants.Constantes;
+import br.jus.trt23.contavinculada.constraints.VigenciaUnicaNoContexto;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +22,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Alocacao extends EntidadeGenerica {
+@VigenciaUnicaNoContexto
+public class Alocacao extends EntidadeGenerica implements IEntidadeQueDefineOContexto{
     protected final static String[] uniqueIndex = {"titular", "substituto", "postoDeTrabalho"};
 
     @ManyToOne
@@ -37,6 +41,11 @@ public class Alocacao extends EntidadeGenerica {
     @Override
     public String getNomeNatural() {
         return "Alocação";
+    }
+
+    @Override
+    public AbstractMap.SimpleEntry<String, EntidadeGenerica> getContexto() {
+        return new SimpleEntry("postoDeTrabalho",getPostoDeTrabalho());
     }
 
     

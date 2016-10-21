@@ -9,7 +9,7 @@
         </view>
         <start-node>List</start-node>
         <flow-return id="homepage">
-            <from-outcome>/contavinculada.xhtml</from-outcome>
+            <from-outcome>/index.xhtml</from-outcome>
         </flow-return>
     </flow-definition>
 </faces-config>
