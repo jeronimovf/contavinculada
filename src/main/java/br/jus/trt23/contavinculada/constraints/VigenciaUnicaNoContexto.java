@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface VigenciaUnicaNoContexto {
 
-	String message() default "O período de vigência de %s deve estar contido no período de vigência do contrato.";
+	String message() default "As vigências neste contexto são exclusivas.  Não podem existir duas ocorrências com data de vigência em aberto (termino da validade em branco) ou coincidência de períodos, ainda que parcial.";
 
 	Class<?>[] groups() default { };
 

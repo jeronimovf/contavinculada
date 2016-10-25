@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,34 +34,34 @@ import org.slf4j.Logger;
  * @param <T>
  */
 public abstract class AbstractFacade<T extends EntidadeGenerica> {
-
+    
     @Inject
     @Slf4jLogger
     Logger logger;
-
+    
     private final Class<T> entityClass;
-
+    
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
+    
     protected abstract EntityManager getEntityManager();
-
+    
     public abstract List<T> complete(String criteria);
-
+    
     public void create(T entity) throws Exception {
         entity.setCriadoEm(getTimestampOnServer());
         getEntityManager().persist(entity);
     }
-
+    
     public void edit(T entity) {
         entity = getEntityManager().merge(entity);
     }
-
+    
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
-
+    
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
@@ -72,7 +73,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
             logger.error(ex.getMessage());
             return null;
         }
-    }    
+    }
 
     //o método findAll retorna apenas os registros que não tenham sido destruídos
     public List<T> findAll() {
@@ -126,8 +127,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         q.setFirstResult(range[0]);
         return q.getResultList();        
     }
-
-    public List<T> findRange(LazyQueryHandler lqh){
+    
+    public List<T> findRange(LazyQueryHandler lqh) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<T> entityRoot = cq.from(entityClass);
@@ -152,9 +153,9 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(lqh.getPageSize());
         q.setFirstResult(lqh.getPaginationFirst());
-        return q.getResultList();       
+        return q.getResultList();        
     }
-    
+
     //o método findRange retorna apenas os registros que não tenham sido 
     //destruídos paginados entre range[0] e range[1]
     public List<T> findRange(int[] range) {
@@ -166,8 +167,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
-    }    
-    
+    }
+
     //essa implementação tem por objetivo receber uma criteria query
     //já customizada para aplicar as restrições típicas de uma consulta
     //utilizada por um lazydatamodel
@@ -175,7 +176,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         Root<T> c = cq.from(entityClass);
         cq.getRestriction().getExpressions().addAll(getPredicates(c, lqh.getFilters()));
-
+        
         if (lqh.getSortFields() != null && !lqh.getSortFields().isEmpty()) {
             for (String sortField : lqh.getSortFields().keySet()) {
                 if (c.get(sortField) != null) {
@@ -215,7 +216,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }    
-
+    
     protected List<Predicate> getPredicates(Root<T> entityRoot, Map<String, Object> filters) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.metamodel.Metamodel entityModel = this.getEntityManager().getMetamodel();
@@ -255,7 +256,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
         return predicates;
     }
-
+    
     private Expression<?> getCastExpression(String searchValue, String typeName, CriteriaBuilder cb) {
         Expression<?> expression = null;
         switch (typeName) {
@@ -285,7 +286,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
         return expression;
     }
-
+    
     public LocalDateTime getTimestampOnServer() {
         Query qry = getEntityManager().createNativeQuery("SELECT LOCALTIMESTAMP FROM DUAL");
         Timestamp ts = (Timestamp) qry.getSingleResult();
@@ -301,7 +302,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     public Boolean isVigente(EntidadeGenerica entidade) {
         LocalDate hoje = getTimestampOnServer().toLocalDate();
         return entidade.isVigenteParcialmente(hoje, hoje);
-    }    
+    }
 
     //para entender a diferenca entre as funções que comparam períodos de 
     //vigência: 
@@ -320,7 +321,6 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     //informado.
     //Se o método for seguido de Predicado ele apenas acrescenta o critério
     //a um objeto query previamente configurado.
-
     //retorna entidades cujas vigencias coincidam, ainda que parcialmente
     //no intervalo especificado
     public List<T> vigenteParcialmenteEntre(LocalDate inicio, LocalDate fim) {
@@ -332,71 +332,74 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-
-    protected <X> Predicate vigenteHojePredicado(CriteriaQuery cq, Root<X> onde) {
+    
+    protected <X> void vigenteHojePredicado(CriteriaQuery cq, Root<X> onde) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();        
-        Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.lessThanOrEqualTo(onde.get("vigenteDesde"), cb.currentDate()),
-                        cb.greaterThanOrEqualTo(onde.get("vigenteAte"), cb.currentDate()),
+                        cb.or(
+                                cb.greaterThanOrEqualTo(onde.get("vigenteAte"), cb.currentDate()),
+                                cb.isNull(onde.get("vigenteAte"))
+                        ),
                         cb.isNull(onde.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
- 
-    protected <X> Predicate vigenteParcialmentePredicado(
+    
+    protected <X> void vigenteParcialmentePredicado(
             CriteriaQuery cq, Root<X> onde,
             final LocalDate inicio, final LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.lessThanOrEqualTo(onde.get("vigenteDesde"), fim),
-                        cb.greaterThanOrEqualTo(onde.get("vigenteAte"), inicio),
+                        cb.or(
+                                cb.greaterThanOrEqualTo(onde.get("vigenteAte"), inicio),
+                                cb.isNull(onde.get("vigenteAte"))
+                        ),
                         cb.isNull(onde.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }    
-
-    protected <Z, X> Predicate relacionadoVigenteHojePredicado(CriteriaQuery cq, Join<Z, X> path) {
+    
+    protected <Z, X> void relacionadoVigenteHojePredicado(CriteriaQuery cq, Join<Z, X> path) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.lessThanOrEqualTo(path.get("vigenteDesde"), cb.currentDate()),
                         cb.greaterThanOrEqualTo(path.get("vigenteAte"), cb.currentDate()),
                         cb.isNull(path.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
-   
-    protected <Z, X> Predicate relacionadoVigenteParcialmentePredicado(
+    
+    protected <Z, X> void relacionadoVigenteParcialmentePredicado(
             CriteriaQuery cq, Join<Z, X> path,
             final LocalDate inicio, final LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.lessThanOrEqualTo(path.get("vigenteDesde"), fim),
                         cb.greaterThanOrEqualTo(path.get("vigenteAte"), inicio),
                         cb.isNull(path.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
-
+    
     public List<T> vigentePlenamenteEntre(LocalDate inicio, LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery(entityClass);
@@ -406,25 +409,24 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-   
-    protected <T> Predicate vigentePlenamentePredicado(
+    
+    protected <T> void vigentePlenamentePredicado(
             CriteriaQuery cq, Root<T> root,
             final LocalDate inicio, final LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.lessThanOrEqualTo(root.get("vigenteDesde"), inicio),
                         cb.greaterThanOrEqualTo(root.get("vigenteAte"), fim),
                         cb.isNull(root.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
-    }    
-    
-        //retorna entidades cujas vigencias coincidam, ainda que parcialmente
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));        
+    }
+
+    //retorna entidades cujas vigencias coincidam, ainda que parcialmente
     //no intervalo especificado
     public List<T> vigenteEstritamenteEntre(LocalDate inicio, LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -435,24 +437,81 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-    
-    
+
     //adiciona um predicado a query cq para buscar apenas os objetos
     //indicados em root cujas vigências estejam contidadas no período
-    protected <T> Predicate vigenteEstritamentePredicado(
+    protected <T> void vigenteEstritamentePredicado(
             CriteriaQuery cq, Root<T> root,
             final LocalDate inicio, final LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        Predicate where = cq.getRestriction();
-        List<Expression<Boolean>> expressions = new ArrayList<>();
-        expressions.add(
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
                 cb.and(
                         cb.greaterThanOrEqualTo(root.get("vigenteDesde"), inicio),
                         cb.lessThanOrEqualTo(root.get("vigenteAte"), fim),
                         cb.isNull(root.get("destruidoEm"))
                 )
         );
-        where.getExpressions().addAll(expressions);
-        return where;
-    }        
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
+    }
+
+    //retorna entidades cujas vigencias coincidam, ainda que parcialmente
+    //no intervalo especificado
+    public <X extends EntidadeGenerica> List<X> vigenteEmAberto(LocalDate inicio, LocalDate fim) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(entityClass);
+        Root<T> c = cq.from(entityClass);
+        cq.select(c);
+        vigenteEmAbertoPredicado(cq, c);
+        Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();
+    }
+    
+    protected <X extends EntidadeGenerica> void vigenteEmAbertoPredicado(
+            CriteriaQuery cq, Root<X> onde) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        Predicate where = cq.getRestriction();
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(
+                cb.and(
+                        cb.isNull(onde.get("vigenteAte")),
+                        cb.isNull(onde.get("destruidoEm"))
+                )
+        );
+        predicates.add(cq.getRestriction());
+        cq.where(predicates.toArray(new Predicate[]{}));
+    }    
+    
+    public <X extends EntidadeGenerica> boolean eVigenciaUnicaNoContexto(AbstractMap.SimpleEntry<String, EntidadeGenerica> contexto,
+            X value) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Long> cq1 = cb.createQuery(Long.class);
+        CriteriaQuery cq2 = cb.createQuery();        
+        Root<? extends EntidadeGenerica> c = cq1.from(value.getClass());
+        Root<? extends EntidadeGenerica> d = cq2.from(value.getClass());        
+        List<?> vigenciasEmAberto;
+        
+        cq1.select(cb.count(c.get(contexto.getKey())));
+
+        //só pode haver uma vigência em aberto
+        if (null == value.getVigenteAte()) {
+            cq2.select(d).where(
+                    cb.equal(d.get(contexto.getKey()), contexto.getValue())
+            );
+            vigenteEmAbertoPredicado(cq2, d);
+            vigenciasEmAberto = getEntityManager().createQuery(cq2).getResultList();            
+            if (vigenciasEmAberto.size() > 0) {
+                return false;
+            }            
+        } else {
+            cq1.where(
+                    cb.equal(c.get(contexto.getKey()), contexto.getValue())
+            );
+            vigenteParcialmentePredicado(cq1, c, value.getVigenteDesde(), value.getVigenteAte());
+        }
+        Query q = getEntityManager().createQuery(cq1);
+        Long nRegistros = (Long) q.getSingleResult();
+        return nRegistros <= 0;
+    }    
 }

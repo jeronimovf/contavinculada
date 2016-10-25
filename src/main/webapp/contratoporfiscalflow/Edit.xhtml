@@ -57,11 +57,11 @@
                         </p:column>   
                         <p:column width="20%" 
                                   headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
-                            <h:outputText value="#{alocacaoController.findVigenteParaOPostoDeTrabalho(item).titular.colaborador.toString()}"/>
+                            <h:outputText value="#{alocacaoController.findVigenteHojeParaOPostoDeTrabalho(item).titular.colaborador.toString()}"/>
                         </p:column>   
                         <p:column width="20%" 
                                   headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
-                            <h:outputText value="#{alocacaoController.findVigenteParaOPostoDeTrabalho(item).substituto.colaborador.toString()}"/>
+                            <h:outputText value="#{alocacaoController.findVigenteHojeParaOPostoDeTrabalho(item).substituto.colaborador.toString()}"/>
                         </p:column>   
 
                         <p:column width="10%"  

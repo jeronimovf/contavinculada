@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @RequiredArgsConstructor
 @SequenceGenerator(name = "ID", sequenceName = "SALARIO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
-public class Salario extends EntidadeGenerica{
+public class Salario extends EntidadeGenerica {
     protected final static String[] uniqueIndex = {"valor"};        
     private Double valor;
     
@@ -30,6 +30,5 @@ public class Salario extends EntidadeGenerica{
     public String getNomeNatural() {
         return "Salário";
     }
-
-    
+  
 }

@@ -9,6 +9,7 @@ import br.jus.trt23.contavinculada.entities.Alocacao;
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.PessoaFisica;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -27,8 +28,6 @@ public class AlocacaoFacade extends AbstractFacade<Alocacao> {
 
     @Inject
     private EntityManager em;
-    
-
 
     public AlocacaoFacade() {
         super(Alocacao.class);
@@ -46,41 +45,46 @@ public class AlocacaoFacade extends AbstractFacade<Alocacao> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Alocacao> c = cq.from(Alocacao.class);
-        Join<Alocacao,Colaborador> p = c.join("titular");
-        Join<Alocacao,Colaborador> q = c.join("substituto");        
-        Join<Colaborador,PessoaFisica> n = p.join("colaborador");
-        Join<Colaborador,PessoaFisica> r = p.join("colaborador");        
+        Join<Alocacao, Colaborador> p = c.join("titular");
+        Join<Alocacao, Colaborador> q = c.join("substituto");
+        Join<Colaborador, PessoaFisica> n = p.join("colaborador");
+        Join<Colaborador, PessoaFisica> r = p.join("colaborador");
         cq.select(c).where(
                 cb.or(
-                    cb.like(cb.upper(n.get("nome")),"%".concat(criteria.toUpperCase()).concat("%")),
-                    cb.like(cb.upper(r.get("nome")),"%".concat(criteria.toUpperCase()).concat("%"))
+                        cb.like(cb.upper(n.get("nome")), "%".concat(criteria.toUpperCase()).concat("%")),
+                        cb.like(cb.upper(r.get("nome")), "%".concat(criteria.toUpperCase()).concat("%"))
                 )
         );
-        return getEntityManager().createQuery(cq).getResultList();         
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public Alocacao findVigenteParaOPostoDeTrabalho(PostoDeTrabalho posto) throws Exception{
-        List<Alocacao> listAlocacao;
+    public List<Alocacao> findVigenteParaOPostoDeTrabalho(
+            PostoDeTrabalho posto, LocalDate refInicio, LocalDate refFim) throws Exception {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<Alocacao> c = cq.from(Alocacao.class);
         cq.select(c).where(
-                cb.equal(c.get("postoDeTrabalho"), posto),
-                cb.isNull(c.get("vigenteAte"))
-        );
+                cb.equal(c.get("postoDeTrabalho"), posto));
 
-        listAlocacao = getEntityManager().createQuery(cq).getResultList();    
+        vigenteParcialmentePredicado(cq, c, refInicio, refFim);
+        return getEntityManager().createQuery(cq).getResultList();
+    }
 
-        switch (listAlocacao.size()){
-            case 0:
-                return null;
-            case 1:
-                return listAlocacao.get(0);
-            default:
-                throw new Exception("Situação inconsistente.  Posto de trabalho possui mais de uma alocação ativa");                
+    public Alocacao findVigenteHojeParaOPostoDeTrabalho(
+            PostoDeTrabalho posto) throws Exception {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Alocacao> cq = cb.createQuery(Alocacao.class);
+        Root<Alocacao> c = cq.from(Alocacao.class);
+        cq.select(c).where(
+                cb.equal(c.get("postoDeTrabalho"), posto));
+
+        vigenteHojePredicado(cq, c);
+        try {
+            Alocacao resultado = getEntityManager().createQuery(cq).getSingleResult();
+            return resultado;
+        } catch (Exception e) {
+            return null;
         }
     }
-    
-    
-    
+
 }

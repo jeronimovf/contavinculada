@@ -311,19 +311,42 @@ public class ContratoController extends AbstractController<Contrato> {
     private void inicializaFaturamento() throws Exception {
         FaturamentoItem faturamentoItem;
         FaturamentoItemEvento eventoPadrao = faturamentoItemEventoController.getFaturamentoItemEventoPadrao();
-        Alocacao alocacaoAtiva;
+        List<Alocacao> alocacoesAtivasNoPeriodo;
+        List<Alocacao> alocacoesOrdenadasPorVigencia;
+        int alocacaoPos;
         for (PostoDeTrabalho posto : getSelected().getPostosDeTrabalho()) {
-            alocacaoAtiva = alocacaoController.findVigenteParaOPostoDeTrabalho(posto);
-            for (int i = 0; i < getFaturamentoNovo().getDiasEntreReferencias(); i++) {
-                faturamentoItem = new FaturamentoItem();
-                faturamentoItem.setVigenteDesde(referenciaInicio.plusDays(i));
-                faturamentoItem.setDia(referenciaInicio.plusDays(i));
-                faturamentoItem.setPostoDeTrabalho(posto);
-                faturamentoItem.setTitular(alocacaoAtiva.getTitular());
-                faturamentoItem.setSubstituto(alocacaoAtiva.getSubstituto());
-                faturamentoItem.setFaturamento(faturamentoNovo);
-                faturamentoItem.setEvento(eventoPadrao);
-                faturamentoNovo.addItens(faturamentoItem);
+            alocacaoPos = 0;
+            alocacoesAtivasNoPeriodo = alocacaoController.
+                    findVigenteParaOPostoDeTrabalho(posto,
+                            faturamentoNovo.getReferenciaInicio(),
+                            faturamentoNovo.getReferenciaFim());
+            if (alocacoesAtivasNoPeriodo.size() > 0) {
+                alocacoesOrdenadasPorVigencia = alocacoesAtivasNoPeriodo.stream().sorted((a1, a2) -> a1.getVigenteDesde().compareTo(a2.getVigenteDesde())).collect(Collectors.toList());
+
+                for (int i = 0; i < getFaturamentoNovo().getDiasEntreReferencias(); i++) {
+                    //se o dia de faturamento não estiver na alocacao posicionada
+                    //avança para a próxima
+                    while (!(alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteDesde().compareTo(referenciaInicio.plusDays(i)) <= 0
+                            && alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte().compareTo(referenciaInicio.plusDays(i)) >= 0)) {
+                        if (alocacaoPos < alocacoesOrdenadasPorVigencia.size() - 1) {
+                            alocacaoPos++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (alocacaoPos >= alocacoesOrdenadasPorVigencia.size()) {
+                        break;
+                    }
+                    faturamentoItem = new FaturamentoItem();
+                    faturamentoItem.setVigenteDesde(referenciaInicio.plusDays(i));
+                    faturamentoItem.setDia(referenciaInicio.plusDays(i));
+                    faturamentoItem.setPostoDeTrabalho(posto);
+                    faturamentoItem.setTitular(alocacoesOrdenadasPorVigencia.get(alocacaoPos).getTitular());
+                    faturamentoItem.setSubstituto(alocacoesOrdenadasPorVigencia.get(alocacaoPos).getSubstituto());
+                    faturamentoItem.setFaturamento(faturamentoNovo);
+                    faturamentoItem.setEvento(eventoPadrao);
+                    faturamentoNovo.addItens(faturamentoItem);
+                }
             }
         }
     }

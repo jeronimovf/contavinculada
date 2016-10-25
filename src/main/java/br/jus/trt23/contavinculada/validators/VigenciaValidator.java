@@ -10,7 +10,6 @@ import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 
 /**
  *
- * @author j129-9
  */
 
 public class VigenciaValidator extends ValidadorGenerico<VigenciaValida, EntidadeGenerica>{    
