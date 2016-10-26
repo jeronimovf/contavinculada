@@ -8,10 +8,10 @@
                 template="/template.xhtml">
     <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
-                          entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
-                          saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
-                          goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoPorFiscalFlow.controller}">                           
+                           entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
+                           saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
+                           goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('Edit')}"
+                           controller="#{contratoPorFiscalFlow.controller}">                           
             <t:FormRowDate id="faturamentoReferenciaInicio" 
                            calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.referenciaInicio}" 
                            labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
@@ -39,9 +39,12 @@
                              textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
             <p:commandButton action="#{retencaoController.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
-                             value="Processa retenções"/>
-            <p:commandButton action="retencaoflow"
-                             value="Ver retenções"/>            
+                             rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens.size() le 0}" value="Processa retenções"/>
+            <p:inputSwitch onLabel="Retenções" offLabel="Faturamento" id="detalharOQue">
+                <p:ajax update="faturamentoItemDT,inputTest"
+            </p:inputSwitch>
+            <p:inputText id="inputTest" value="vaisifude" rendered="#{p.widgetVar('').}"/>
+
             <p:dataTable value="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens}"
                          var="fi" 
                          editable="true"
@@ -106,7 +109,10 @@
                 <p:column width="5%">
                     <p:rowEditor/>
                 </p:column>
-            </p:dataTable>              
+            </p:dataTable>   
+
+
+            
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

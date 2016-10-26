@@ -31,10 +31,10 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     @Inject
     FiscalEspecieController fiscalEspecieController;
     
-    @Inject   
+    @Inject
     @PorFiscal
     @Getter
-    private ContratoPorFiscalController controller;     
+    private ContratoPorFiscalController controller;
     
     private FiscalEspecie fiscalEspecie;
 

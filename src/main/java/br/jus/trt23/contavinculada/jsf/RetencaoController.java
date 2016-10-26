@@ -134,8 +134,13 @@ public class RetencaoController extends AbstractController<Retencao> {
 
     public List<Retencao> findRetencaoPorFaturamento(){
         RetencaoFacade rfacade = (RetencaoFacade) getFacade();
-        return rfacade.findRetencaoPorFaturamento(faturamento);
+        return rfacade.findRetencaoPorFaturamento(getFaturamento());
     }
+    
+    public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento){
+        setFaturamento(faturamento);
+        return findRetencaoPorFaturamento();
+    }    
     
     @Override
     protected String getMessagePrefix() {
