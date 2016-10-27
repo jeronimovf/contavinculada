@@ -16,10 +16,6 @@
             <base-name>configs</base-name>
             <var>configs</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/MyBundle2</base-name>
-            <var>myBundle2</var>
-        </resource-bundle>
     </application>
     
     <navigation-rule>

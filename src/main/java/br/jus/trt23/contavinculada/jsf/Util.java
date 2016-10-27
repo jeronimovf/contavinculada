@@ -7,6 +7,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import lombok.RequiredArgsConstructor;
@@ -90,4 +91,28 @@ public class Util implements Serializable {
         return sb.toString();
     }
 
+    public String getProadUrlParaOProcesso(final String numero, final String ano){
+        ResourceBundle bundle = ResourceBundle.getBundle("configs");
+        String urlBase = bundle.getString("proad_url");
+        String protocoloNumeroFieldName = 
+                bundle.getString("proad_protocoloNumeroFieldName");
+        String protocoloAnoFieldName = 
+                bundle.getString("proad_protocoloAnoFieldName");        
+        if(null!=numero && null!=ano && null!=urlBase && 
+                null!=protocoloAnoFieldName && null != protocoloNumeroFieldName){
+            StringBuilder sb = new StringBuilder();
+			sb.append(urlBase);
+			sb.append("?");
+			sb.append(protocoloNumeroFieldName);
+			sb.append("=");
+			sb.append(numero);
+			sb.append("&");
+			sb.append(protocoloAnoFieldName);
+			sb.append("=");
+			sb.append(ano);
+			sb.append("&evento=y");
+			return sb.toString();            
+        }
+        return null;
+    }    
 }

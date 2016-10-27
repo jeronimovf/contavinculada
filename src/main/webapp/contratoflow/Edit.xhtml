@@ -27,8 +27,12 @@
             <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('objeto')}" 
                              textValue="#{contratoFlow.controller.selected.objeto}" 
                              textSize="120"/><br/>
-            <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('processo')}" 
-                             textValue="#{contratoFlow.controller.selected.processo}"/>
+            <p:panel header="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}">
+                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloNumero')}" 
+                                 textValue="#{contratoFlow.controller.selected.processo.protocoloNumero}"/>
+                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloAno')}" 
+                                 textValue="#{contratoFlow.controller.selected.processo.protocoloAno}"/>            
+            </p:panel>
             <t:FormRowDate labelValue="#{contratoFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoFlow.controller.selected.assinaturaData}"/>
             <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 

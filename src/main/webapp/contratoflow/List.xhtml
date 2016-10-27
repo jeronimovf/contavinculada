@@ -18,8 +18,8 @@
                 <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoFlow.controller.getMsgFieldLabel('objeto')}">
                     <h:outputText value="#{item.objeto}"/>
                 </p:column>      
-                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoFlow.controller.getMsgFieldLabel('processo')}">
-                    <h:outputText value="#{item.processo}"/>
+                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}">
+                    <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo.protocoloNumero, item.processo.protocoloAno)}"/>
                 </p:column>                  
             </t:ListFlowView>
         </t:ListForm>

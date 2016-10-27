@@ -5,6 +5,7 @@ import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.entities.FiscalEspecie;
 import br.jus.trt23.contavinculada.jsf.ContratoPorFiscalController;
 import br.jus.trt23.contavinculada.jsf.FiscalEspecieController;
+import br.jus.trt23.contavinculada.jsf.RetencaoController;
 import br.jus.trt23.contavinculada.qualifiers.PorFiscal;
 import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.util.List;
@@ -15,21 +16,29 @@ import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Named
-@RequiredArgsConstructor
 @FlowScoped("contratoporfiscalflow")
 public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
+    //1 faturamento, 2 retenção
+    @Getter
     @Setter
-    List<Colaborador> colaboradoresParaOContrato;
+    private Integer exibeFaturamentoOuRetencao;
+    
+    @Setter
+    private List<Colaborador> colaboradoresParaOContrato;
     
     @Inject
-    UsuarioSessao usuarioSessao;
+    private UsuarioSessao usuarioSessao;
+    
+    @Getter
+    @Setter
+    @Inject 
+    private RetencaoController retencaoController;
     
     @Inject
-    FiscalEspecieController fiscalEspecieController;
+    private FiscalEspecieController fiscalEspecieController;
     
     @Inject
     @PorFiscal
@@ -38,6 +47,10 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     
     private FiscalEspecie fiscalEspecie;
 
+    public ContratoPorFiscalFlow() {
+        this.exibeFaturamentoOuRetencao = 1;
+
+    }   
     
     public List<Colaborador> getColaboradoresParaOContrato() throws Exception {
         if (this.colaboradoresParaOContrato == null) {

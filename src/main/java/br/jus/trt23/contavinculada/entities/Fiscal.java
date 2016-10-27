@@ -20,45 +20,46 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(schema = Constantes.SCHEMA)
-@SequenceGenerator(name = "ID", sequenceName = "FISCAL_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
+@SequenceGenerator(name = "ID", sequenceName = "FISCAL_SEQ", allocationSize = 1, schema = Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
-public class Fiscal extends EntidadeGenerica implements IEscopoRestritoAoContrato{
-    protected final static String[] uniqueIndex = {"especie","servidor"};        
+public class Fiscal extends EntidadeGenerica implements IEscopoRestritoAoContrato {
+
+    protected final static String[] uniqueIndex = {"especie", "servidor"};
     @Getter
     @Setter
     @NotNull
     @ManyToOne(targetEntity = FiscalEspecie.class)
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private FiscalEspecie especie;
 
-        @Getter
+    @Getter
     @Setter
     @NotEmpty
     private String atoDesignacao;
 
     @Getter
     @Setter
-        @NotNull
+    @NotNull
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private Servidor servidor;
-    
+
     @Getter
     @Setter
     @NotNull
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private Contrato contrato;
-    
+
     @Getter
     @OneToMany(mappedBy = "atestadaPor")
-    private List<Faturamento> faturamentosAtestados;    
+    private List<Faturamento> faturamentosAtestados;
 
     public Fiscal() {
         this.faturamentosAtestados = new ArrayList<>();
     }
 
-    public void addFaturamentosAtestados(Faturamento faturamento){
+    public void addFaturamentosAtestados(Faturamento faturamento) {
         faturamentosAtestados.add(faturamento);
     }
 
@@ -66,5 +67,5 @@ public class Fiscal extends EntidadeGenerica implements IEscopoRestritoAoContrat
     public String getNomeNatural() {
         return "Fiscal";
     }
-    
+
 }

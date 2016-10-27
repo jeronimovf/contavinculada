@@ -133,8 +133,11 @@ public class RetencaoController extends AbstractController<Retencao> {
     }
 
     public List<Retencao> findRetencaoPorFaturamento(){
-        RetencaoFacade rfacade = (RetencaoFacade) getFacade();
-        return rfacade.findRetencaoPorFaturamento(getFaturamento());
+        if(null==items){
+            RetencaoFacade rfacade = (RetencaoFacade) getFacade();
+            items = rfacade.findRetencaoPorFaturamento(getFaturamento());
+        }
+        return (List)items;
     }
     
     public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento){

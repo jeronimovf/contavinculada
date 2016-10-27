@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -66,8 +67,8 @@ public class Contrato extends EntidadeGenerica {
 
     @Getter
     @Setter
-    @NotNull
-    private String processo;
+    @Embedded
+    private Proad processo;
 
     @Getter
     @Setter
@@ -118,6 +119,7 @@ public class Contrato extends EntidadeGenerica {
         this.aditivos = new ArrayList<>();
         this.fiscais = new ArrayList<>();
         this.aliquotas = new ArrayList<>();
+        this.processo = new Proad();
     }
 
     public void AddContasVinculadas(ContaVinculada conta) {
