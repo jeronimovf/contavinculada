@@ -65,8 +65,6 @@ public class Contrato extends EntidadeGenerica {
     @Lob
     private Byte[] inteiroTeor;
 
-    @Getter
-    @Setter
     @Embedded
     private Proad processo;
 
@@ -119,7 +117,6 @@ public class Contrato extends EntidadeGenerica {
         this.aditivos = new ArrayList<>();
         this.fiscais = new ArrayList<>();
         this.aliquotas = new ArrayList<>();
-        this.processo = new Proad();
     }
 
     public void AddContasVinculadas(ContaVinculada conta) {
@@ -151,6 +148,19 @@ public class Contrato extends EntidadeGenerica {
         aliquotas.add(aliquota);
         aliquota.setContrato(this);
     }
+
+    public Proad getProcesso() {
+        if(null == processo){
+            processo = new Proad();
+        }
+        return processo;
+    }
+
+    public void setProcesso(Proad processo) {
+        this.processo = processo;
+    }
+
+    
 
     @Override
     public String toString() {

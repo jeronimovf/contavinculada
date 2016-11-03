@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
+
     <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
                            entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
@@ -38,12 +39,13 @@
             <t:FormRowString id="faturamentoAtestadaPor" 
                              textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
-            <p:commandButton action="#{retencaoController.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
-                             rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens.size() le 0}" value="Processa retenções"/>
-            <p:panel id="faturamentoItemPanel" >
+            <p:panel id="faturamentoItemPanel">
                 <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
-                               for="exibeFaturamentoOuRetencao"/>
-                <p:selectOneButton id="exibeFaturamentoOuRetencao" value="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao}">
+                               for="exibeFaturamentoOuRetencao" 
+                               rendered="#{contratoPorFiscalFlow.retencaoController.findRetencaoPorFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo).size()>0}"/>
+                <p:selectOneButton id="exibeFaturamentoOuRetencao" 
+                                   value="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao}"
+                                   rendered="#{contratoPorFiscalFlow.retencaoController.findRetencaoPorFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo).size()>0}"                                   >
                     <f:selectItem itemLabel="Faturamento" itemValue="1" />
                     <f:selectItem itemLabel="Retenções" itemValue="2" />
                     <p:ajax event="change" update="faturamentoItemPanel" partialSubmit="true"/>                
@@ -61,6 +63,12 @@
                              scrollHeight="350"
                              scrollable="true"
                              rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 1}">
+                    <f:facet name="header">
+                        <div class="alignRight">
+                            <p:commandButton action="#{retencaoController.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
+                                             value="#{contratoPorFiscalFlow.controller.getMsgAction('Retencao_Processar')}"/>
+                        </div>
+                    </f:facet>
                     <p:column headerText="Posto de trabalho" width="25%">
                         <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
                     </p:column>
@@ -156,11 +164,8 @@
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>
                     </p:column>                
-
                 </p:dataTable>                
             </p:panel>
-
-
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

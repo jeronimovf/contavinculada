@@ -31,9 +31,9 @@
                              textValue="#{contratoPorFiscalFlow.controller.selected.objeto}" 
                              textSize="120"
                              readonly="true"/><br/>
-            <t:FormRowString labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('processo')}" 
-                             textValue="#{contratoPorFiscalFlow.controller.selected.processo}"
-                             readonly="true"/>
+            <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}"/> 
+            <p:link value="#{contratoPorFiscalFlow.controller.selected.processo}" 
+                    href="#{util.getProadUrlParaOProcesso(contratoPorFiscalFlow.controller.selected.processo)}"/>
             <t:FormRowDate labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoPorFiscalFlow.controller.selected.assinaturaData}"
                            readonly="true"/>
@@ -119,7 +119,7 @@
                                   headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_notas')}">
                             <h:outputText value="#{item.notas}"/>
                         </p:column>                           
-                        
+
                         <p:column width="8%"
                                   headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
                             <h:outputText value="#{item.valorBruto}"/>

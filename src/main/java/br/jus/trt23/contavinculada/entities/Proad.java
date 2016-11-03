@@ -24,6 +24,9 @@ public class Proad implements Serializable{
 
     @Override
     public String toString() {
+        if(null == getProtocoloAno() || null ==getProtocoloAno()){
+            return "NULO";
+        }
         return getProtocoloNumero().toString().concat("/").concat(getProtocoloAno().toString());
     }
     

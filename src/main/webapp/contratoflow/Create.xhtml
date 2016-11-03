@@ -25,12 +25,11 @@
             <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('objeto')}" 
                              textValue="#{contratoFlow.controller.selected.objeto}" 
                              textSize="120"/><br/>
-            <p:panel header="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}">
-                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloNumero')}" 
-                                 textValue="#{contratoFlow.controller.selected.processo.protocoloNumero}"/>
-                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloAno')}" 
-                                 textValue="#{contratoFlow.controller.selected.processo.protocoloAno}"/>            
-            </p:panel>
+            <p:outputLabel value="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}"/>
+            <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloNumero')}" 
+                             textValue="#{contratoFlow.controller.selected.processo.protocoloNumero}"/>
+            <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloAno')}" 
+                             textValue="#{contratoFlow.controller.selected.processo.protocoloAno}"/>            
             <t:FormRowDate labelValue="#{contratoFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoFlow.controller.selected.assinaturaData}"/>
             <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 

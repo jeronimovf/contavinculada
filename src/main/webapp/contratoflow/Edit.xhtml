@@ -27,12 +27,11 @@
             <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('objeto')}" 
                              textValue="#{contratoFlow.controller.selected.objeto}" 
                              textSize="120"/><br/>
-            <p:panel header="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}">
-                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloNumero')}" 
-                                 textValue="#{contratoFlow.controller.selected.processo.protocoloNumero}"/>
-                <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloAno')}" 
-                                 textValue="#{contratoFlow.controller.selected.processo.protocoloAno}"/>            
-            </p:panel>
+            <p:outputLabel value="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}"/>
+            <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloNumero')}" 
+                             textValue="#{contratoFlow.controller.selected.processo.protocoloNumero}"/>
+            <t:FormRowString labelValue="#{contratoFlow.controller.getMsgFieldLabel('Proad_protocoloAno')}" 
+                             textValue="#{contratoFlow.controller.selected.processo.protocoloAno}"/>            
             <t:FormRowDate labelValue="#{contratoFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoFlow.controller.selected.assinaturaData}"/>
             <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 
@@ -147,7 +146,7 @@
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_notas')}">
                             <h:outputText value="#{item.notas}"/>
                         </p:column>                           
-                        
+
                         <p:column width="8%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
                             <h:outputText value="#{item.valorBruto}"/>
@@ -172,12 +171,12 @@
                 </p:tab>                 
                 <p:tab title="#{contratoFlow.controller.getTabHeader('Fiscal')}">
                     <t:ListFlowView selection="#{contratoFlow.controller.fiscalNovo}" 
-                                value="#{contratoFlow.controller.selected.fiscais}" 
-                                casePrefix="fiscal" 
-                                action="#{contratoFlow.controller.prepareFiscalEdit()}" 
-                                controller="#{contratoFlow.controller}" 
-                                id="fiscal"
-                                specificValues="true">
+                                    value="#{contratoFlow.controller.selected.fiscais}" 
+                                    casePrefix="fiscal" 
+                                    action="#{contratoFlow.controller.prepareFiscalEdit()}" 
+                                    controller="#{contratoFlow.controller}" 
+                                    id="fiscal"
+                                    specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <p:commandButton action="#{contratoFlow.controller.prepareFiscalNovo()}"
@@ -202,12 +201,12 @@
 
                 <p:tab title="#{contratoFlow.controller.getTabHeader('ContaVinculada')}">
                     <t:ListFlowView selection="#{contratoFlow.controller.contaNova}" 
-                                value="#{contratoFlow.controller.selected.contasVinculadas}" 
-                                casePrefix="contaVinculada" 
-                                action="#{contratoFlow.controller.prepareContaEdit}" 
-                                controller="#{contratoFlow.controller}" 
-                                id="contaVinculada"
-                                specificValues="true">
+                                    value="#{contratoFlow.controller.selected.contasVinculadas}" 
+                                    casePrefix="contaVinculada" 
+                                    action="#{contratoFlow.controller.prepareContaEdit}" 
+                                    controller="#{contratoFlow.controller}" 
+                                    id="contaVinculada"
+                                    specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <p:commandButton action="#{contratoFlow.controller.prepareContaNova}"

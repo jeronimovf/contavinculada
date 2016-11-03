@@ -22,7 +22,6 @@ import lombok.Setter;
 @FlowScoped("contratoporfiscalflow")
 public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     //1 faturamento, 2 retenção
-    @Getter
     @Setter
     private Integer exibeFaturamentoOuRetencao;
     
@@ -51,6 +50,14 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
         this.exibeFaturamentoOuRetencao = 1;
 
     }   
+
+    public Integer getExibeFaturamentoOuRetencao() {
+        if(retencaoController.findRetencaoPorFaturamento().size()<=0){
+            return 1;
+        }
+        return exibeFaturamentoOuRetencao;
+    }
+    
     
     public List<Colaborador> getColaboradoresParaOContrato() throws Exception {
         if (this.colaboradoresParaOContrato == null) {

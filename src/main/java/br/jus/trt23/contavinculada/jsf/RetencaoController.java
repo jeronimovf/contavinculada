@@ -106,7 +106,7 @@ public class RetencaoController extends AbstractController<Retencao> {
                         Double salario = colaboradorController.findSalarioPlenamenteVigenteEntre(
                                 faturamento.getReferenciaInicio(),
                                 faturamento.getReferenciaFim(), col).getValor();
-                        
+
                         for (RATItem item : faturamento.getContrato().getRat().getItens()) {
                             retencao = new Retencao();
                             retencao.setVigenciaIgual(faturamento);
@@ -114,16 +114,16 @@ public class RetencaoController extends AbstractController<Retencao> {
                             retencao.setSalario(salario);
                             retencao.setDiasSubstituicao(diasSubstituicao);
                             retencao.setDiasTitularidade(diasTitularidade);
-                            for(FaturamentoItem fi: faturamentoItensNaRetencao){                                
+                            for (FaturamentoItem fi : faturamentoItensNaRetencao) {
                                 fi.getRetencoes().add(retencao);
                             }
-                            retencao.setFaturamentoItens(faturamentoItensNaRetencao);                            
+                            retencao.setFaturamentoItens(faturamentoItensNaRetencao);
                             retencao.setColaborador(col);
                             update(retencao);
                         }
                     }
                 }
-                return "retencaoflow";
+                return "FaturamentoEdit";
             }
             return "FaturamentoEdit";
         } catch (Exception exception) {
@@ -132,19 +132,24 @@ public class RetencaoController extends AbstractController<Retencao> {
         }
     }
 
-    public List<Retencao> findRetencaoPorFaturamento(){
-        if(null==items){
+    public List<Retencao> findRetencaoPorFaturamento() {
+        if (null == items) {
             RetencaoFacade rfacade = (RetencaoFacade) getFacade();
             items = rfacade.findRetencaoPorFaturamento(getFaturamento());
         }
-        return (List)items;
+        return (List) items;
     }
-    
-    public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento){
-        setFaturamento(faturamento);
-        return findRetencaoPorFaturamento();
-    }    
-    
+
+    public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento) {
+        if (faturamento.equals(getFaturamento()) && null != items) {
+            return (List) items;
+        } else {
+            setFaturamento(faturamento);
+            items = null;
+            return findRetencaoPorFaturamento();
+        }
+    }
+
     @Override
     protected String getMessagePrefix() {
         return "Retencao";

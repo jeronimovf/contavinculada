@@ -23,7 +23,7 @@ import lombok.Setter;
 @SequenceGenerator(name = "ID", sequenceName = "RETENCAO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class Retencao extends EntidadeGenerica{
 
-    protected final static String[] uniqueIndex = {"faturamento", "colaborador", "aliquota"};
+    protected final static String[] uniqueIndex = {"faturamento", "colaborador"};
 
     public Retencao() {
         this.faturamentoItens = new ArrayList<>();
@@ -69,26 +69,16 @@ public class Retencao extends EntidadeGenerica{
     @Transient
     private Double retido;
     
-    @Transient
+    @Getter
+    @Setter
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @NotNull
     private Faturamento faturamento;
 
     @Getter
     @Setter
     @OneToOne(mappedBy = "retencao")
     private Liberacao liberacao;
-
-    public Faturamento getFaturamento() {
-        if(null == faturamento){
-            if(null != faturamentoItens){
-                if(faturamentoItens.size()>0){
-                    this.faturamento = faturamentoItens.get(0).getFaturamento();
-                }
-            }
-        }
-        return faturamento;
-    }
-    
-    
 
     public Double getRetido() throws Exception {
         if(null == retido){

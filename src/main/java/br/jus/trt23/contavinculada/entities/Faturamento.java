@@ -88,6 +88,11 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
     @OneToMany(targetEntity = Glosa.class, mappedBy = "faturamento")
     private List<Glosa> glosas;
 
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "faturamento")
+    private List<Retencao> retencoes;
+
     public Faturamento() {
         this.itens = new ArrayList<>();
         this.glosas = new ArrayList<>();
