@@ -146,7 +146,15 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         setSelected((T) getLazyItems().getRowData());
         return "Edit";
     }
+    
+    public void refresh(){
+        getFacade().refresh(selected);
+    }
 
+    public void refresh(T entidade){
+        getFacade().refresh(entidade);
+    }
+    
     public String update() {
         String msg;
         try {

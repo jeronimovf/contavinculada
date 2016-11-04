@@ -3,20 +3,40 @@ package br.jus.trt23.contavinculada.flows;
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.jsf.ContratoController;
+import br.jus.trt23.contavinculada.jsf.RetencaoController;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.faces.flow.FlowScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@RequiredArgsConstructor
 @FlowScoped("contratoflow")
 public class ContratoFlow extends AbstractFlow<Contrato>{
+    @Inject
+    @Getter
+    private RetencaoController retencaoController;
+    
     @Setter
-    List<Colaborador> colaboradoresParaOContrato;
+    private List<Colaborador> colaboradoresParaOContrato;
+    
+    //1 faturamento, 2 retenção
+    @Setter
+    private Integer exibeFaturamentoOuRetencao;    
+
+    public ContratoFlow() {
+        this.exibeFaturamentoOuRetencao = 1;    
+    }
+    
+    public Integer getExibeFaturamentoOuRetencao() {
+        if(getController().getFaturamentoNovo().getRetencoes().size()<=0){
+            return 1;
+        }
+        return exibeFaturamentoOuRetencao;
+    }
     
     @Override
     public ContratoController getController(){

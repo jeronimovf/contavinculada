@@ -109,6 +109,8 @@ public class RetencaoController extends AbstractController<Retencao> {
 
                         for (RATItem item : faturamento.getContrato().getRat().getItens()) {
                             retencao = new Retencao();
+                            retencao.setFaturamento(faturamento);
+                            faturamento.getRetencoes().add(retencao);
                             retencao.setVigenciaIgual(faturamento);
                             retencao.setRatItem(item);
                             retencao.setSalario(salario);

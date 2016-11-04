@@ -23,7 +23,7 @@ import lombok.Setter;
 @SequenceGenerator(name = "ID", sequenceName = "RETENCAO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 public class Retencao extends EntidadeGenerica{
 
-    protected final static String[] uniqueIndex = {"faturamento", "colaborador"};
+    protected final static String[] uniqueIndex = {"faturamento", "colaborador", "ratItem"};
 
     public Retencao() {
         this.faturamentoItens = new ArrayList<>();

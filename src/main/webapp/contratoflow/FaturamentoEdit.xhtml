@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
@@ -8,10 +9,10 @@
                 template="/template.xhtml">
     <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
-                          entityToUpdate="#{contratoFlow.controller.faturamentoNovo}" 
-                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
-                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}">                           
+                           entityToUpdate="#{contratoFlow.controller.faturamentoNovo}" 
+                           saveAction="#{contratoFlow.controller.saveOrCreate()}"
+                           goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
+                           controller="#{contratoFlow.controller}">                           
             <t:FormRowDate id="faturamentoReferenciaInicio" 
                            calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaInicio}" 
                            labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
@@ -38,71 +39,101 @@
             <t:FormRowString id="faturamentoAtestadaPor" 
                              textValue="#{contratoFlow.controller.faturamentoNovo.atestadaPor}" 
                              labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
-            <p:dataTable value="#{contratoFlow.controller.faturamentoNovo.itens}"
-                         var="fi" 
-                         editable="true"
-                         paginator="true"
-                         paginatorAlwaysVisible="false"
-                         rows="#{contratoFlow.controller.faturamentoNovo.diasEntreReferencias}"
-                         id="faturamentoItemDT"
-                         sortFunction="#{contratoFlow.controller.sortByPostoDeTrabalhoDia}" 
-                         sortOrder="ascending" 
-                         sortBy="#{fi}"
-                         scrollHeight="350"
-                         scrollable="true">
-                <p:column headerText="Posto de trabalho" width="25%">
-                    <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
-                </p:column>
-                <p:column headerText="Dia" width="7%">
-                    <h:outputText value="#{fi.dia}" converter="localDateConverter"/>                                
-                </p:column>
-                <p:column headerText="Titular" width="25%">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{fi.titular.colaborador.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
-                                             converter="#{colaboradorConverter}" 
-                                             style="width: 100%">
-                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>                          
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>                                                        
-                </p:column>
-                <p:column headerText="Evento" width="13%">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{fi.evento.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="evento" value="#{fi.evento}" 
-                                             style="width:100%" 
-                                             converter="#{faturamentoItemEventoConverter}">
-                                <f:selectItems value="#{faturamentoItemEventoController.itemsAvailableSelectOne}"/>
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Substituto" width="25%">
-                    <p:cellEditor>
-                        <f:facet name="output">
-                            <h:outputText value="#{fi.substituto.colaborador.toString()}"/>
-                        </f:facet>
-                        <f:facet name="input">
-                            <h:selectOneMenu id="colabSub" 
-                                             value="#{fi.substituto}" 
-                                             style="width: 100%" 
-                                             converter="#{colaboradorConverter}">
-                                <f:selectItems value="#{contratoFlow.colaboradoresParaOContrato}"/>
-                            </h:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>                            
-                </p:column>
-                <p:column width="5%">
-                    <p:rowEditor/>
-                </p:column>
-            </p:dataTable>              
+            <p:panel id="faturamentoItemPanel">
+                <p:outputLabel value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
+                               for="exibeFaturamentoOuRetencao" 
+                               rendered="#{contratoFlow.controller.faturamentoNovo.retencoes.size()>0}"/>
+                <p:selectOneButton id="exibeFaturamentoOuRetencao" 
+                                   value="#{contratoFlow.exibeFaturamentoOuRetencao}"
+                                   rendered="#{contratoFlow.controller.faturamentoNovo.retencoes.size()>0}"                                   >
+                    <f:selectItem itemLabel="Faturamento" itemValue="1" />
+                    <f:selectItem itemLabel="Retenções" itemValue="2" />
+                    <f:selectItem itemLabel="Liberações" itemValue="3" />                    
+                    <p:ajax event="change" update="faturamentoItemPanel" partialSubmit="true"/>                
+                </p:selectOneButton>                
+
+                <p:dataTable value="#{contratoFlow.controller.faturamentoNovo.itens}"
+                             var="fi" 
+                             paginator="true"
+                             paginatorAlwaysVisible="false"
+                             rows="#{contratoFlow.controller.faturamentoNovo.diasEntreReferencias}"
+                             id="faturamentoItemDT"
+                             sortFunction="#{contratoFlow.controller.sortByPostoDeTrabalhoDia}" 
+                             sortOrder="ascending" 
+                             sortBy="#{fi}"
+                             scrollHeight="350"
+                             scrollable="true"
+                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 1}">
+                    <p:column headerText="Posto de trabalho" width="25%">
+                        <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
+                    </p:column>
+                    <p:column headerText="Dia" width="7%">
+                        <h:outputText value="#{fi.dia}" converter="localDateConverter"/>                                
+                    </p:column>
+                    <p:column headerText="Titular" width="25%">
+                        <h:outputText value="#{fi.titular.colaborador.toString()}"/>
+                    </p:column>
+                    <p:column headerText="Evento" width="13%">
+                        <h:outputText value="#{fi.evento.toString()}"/>
+                    </p:column>
+                    <p:column headerText="Substituto" width="25%">
+                        <h:outputText value="#{fi.substituto.colaborador.toString()}"/>
+                    </p:column>
+                </p:dataTable>   
+                <p:dataTable id="retencaoDT" 
+                             value="#{contratoFlow.controller.faturamentoNovo.retencoes}"
+                             var="item" 
+                             paginator="true"
+                             paginatorAlwaysVisible="false"
+                             rows="10"
+                             scrollHeight="350"
+                             scrollable="true"
+                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 2}"
+                             rowSelectMode="checkbox"
+                             selection="#{contratoFlow.controller.selectedItems}"
+                             rowKey="#{item.id}">
+                    <f:facet name="header">
+                        <div class="alignRight">
+                            <p:commandButton action="vaisifude"
+                                             value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" update=":faturamentoEdit:faturamentoEditForm" />
+                        </div>
+                    </f:facet>              
+                    <p:column selectionMode="multiple" width="5%"/>
+                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('colaborador')}" >
+                        <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
+                    </p:column>
+                    <p:column width="30%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
+                        <h:outputText value="#{item.ratItem.encargo.toString()}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasTitularidade}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasSubstituicao}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasNoPeriodo}"/>
+                    </p:column>                
+                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
+                        <h:outputText value="#{item.fatorTrabalhadoNoPeriodo}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:column>                
+                    <p:column width="8%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
+                        <h:outputText value="#{item.salario}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>                        
+                    </p:column>                
+                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
+                        <h:outputText value="#{item.ratItem.aliquota}"/>
+                    </p:column>    
+                    <p:column width="7%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
+                        <h:outputText value="#{item.retido}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:column>                
+                </p:dataTable>                
+            </p:panel>
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

@@ -5,7 +5,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
-                template="/template.xhtml">
+                template="/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content"> 
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
@@ -42,17 +43,17 @@
             <p:panel id="faturamentoItemPanel">
                 <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
                                for="exibeFaturamentoOuRetencao" 
-                               rendered="#{contratoPorFiscalFlow.retencaoController.findRetencaoPorFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo).size()>0}"/>
+                               rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() > 0}"/>
                 <p:selectOneButton id="exibeFaturamentoOuRetencao" 
                                    value="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao}"
-                                   rendered="#{contratoPorFiscalFlow.retencaoController.findRetencaoPorFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo).size()>0}"                                   >
+                                   rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() > 0}"                                   >
                     <f:selectItem itemLabel="Faturamento" itemValue="1" />
                     <f:selectItem itemLabel="Retenções" itemValue="2" />
                     <p:ajax event="change" update="faturamentoItemPanel" partialSubmit="true"/>                
                 </p:selectOneButton>                
                 <p:dataTable value="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens}"
                              var="fi" 
-                             editable="true"
+                             editable="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}"
                              paginator="true"
                              paginatorAlwaysVisible="false"
                              rows="#{contratoPorFiscalFlow.controller.faturamentoNovo.diasEntreReferencias}"
@@ -63,12 +64,14 @@
                              scrollHeight="350"
                              scrollable="true"
                              rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 1}">
-                    <f:facet name="header">
-                        <div class="alignRight">
-                            <p:commandButton action="#{retencaoController.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
-                                             value="#{contratoPorFiscalFlow.controller.getMsgAction('Retencao_Processar')}"/>
-                        </div>
-                    </f:facet>
+                    <c:if test="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}">
+                        <f:facet name="header">
+                            <div class="alignRight" >
+                                <p:commandButton action="#{contratoPorFiscalFlow.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
+                                                 value="#{contratoPorFiscalFlow.controller.getMsgAction('Retencao_Processar')}" update=":faturamentoEdit:faturamentoEditForm" />
+                            </div>
+                        </f:facet>
+                    </c:if>
                     <p:column headerText="Posto de trabalho" width="25%">
                         <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
                     </p:column>
@@ -118,16 +121,15 @@
                             </f:facet>
                         </p:cellEditor>                            
                     </p:column>
-                    <p:column width="5%">
+                    <p:column width="5%" rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}">
                         <p:rowEditor/>
                     </p:column>
                 </p:dataTable> 
                 <p:dataTable id="retencaoDT" 
-                             value="#{contratoPorFiscalFlow.retencaoController.findRetencaoPorFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
+                             value="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes}"
                              var="item" 
                              paginator="true"
                              paginatorAlwaysVisible="false"
-                             rows="10"
                              scrollHeight="350"
                              scrollable="true"
                              rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 2}">

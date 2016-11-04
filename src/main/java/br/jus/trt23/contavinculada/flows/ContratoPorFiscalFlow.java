@@ -2,8 +2,10 @@ package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Contrato;
+import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.FiscalEspecie;
 import br.jus.trt23.contavinculada.jsf.ContratoPorFiscalController;
+import br.jus.trt23.contavinculada.jsf.FaturamentoController;
 import br.jus.trt23.contavinculada.jsf.FiscalEspecieController;
 import br.jus.trt23.contavinculada.jsf.RetencaoController;
 import br.jus.trt23.contavinculada.qualifiers.PorFiscal;
@@ -40,6 +42,9 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     private FiscalEspecieController fiscalEspecieController;
     
     @Inject
+    private FaturamentoController faturamentoController;
+    
+    @Inject
     @PorFiscal
     @Getter
     private ContratoPorFiscalController controller;
@@ -52,7 +57,7 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     }   
 
     public Integer getExibeFaturamentoOuRetencao() {
-        if(retencaoController.findRetencaoPorFaturamento().size()<=0){
+        if(controller.getFaturamentoNovo().getRetencoes().size()<=0){
             return 1;
         }
         return exibeFaturamentoOuRetencao;
@@ -73,6 +78,12 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
         Stream<Colaborador> stream = getColaboradoresParaOContrato().stream();
         return stream.filter(c -> c.getColaborador().getNome().toLowerCase().
                 contains(onde.toLowerCase())).collect(Collectors.toList());
+    }
+    
+    public String processaFaturamento(Faturamento faturamento) throws Exception {
+        String resposta= retencaoController.processaFaturamento(faturamento);
+        faturamentoController.refresh(faturamento);
+        return resposta;
     }
     
     @PostConstruct

@@ -34,38 +34,48 @@ import org.slf4j.Logger;
  * @param <T>
  */
 public abstract class AbstractFacade<T extends EntidadeGenerica> {
-    
+
     @Inject
     @Slf4jLogger
     Logger logger;
-    
+
     private final Class<T> entityClass;
-    
+
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-    
+
     protected abstract EntityManager getEntityManager();
-    
+
     public abstract List<T> complete(String criteria);
-    
+
     public void create(T entity) throws Exception {
         entity.setCriadoEm(getTimestampOnServer());
         getEntityManager().persist(entity);
     }
-    
+
     public void edit(T entity) {
         entity = getEntityManager().merge(entity);
     }
-    
+
+    public void refresh(T entity) {
+        if (!getEntityManager().contains(entity)) {
+            if (null != entity.getId()) {
+                getEntityManager().merge(entity);
+            }
+        } else {
+            getEntityManager().refresh(entity);
+        }
+    }
+
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
-    
+
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-    
+
     public T newInstance() {
         try {
             return (T) Class.forName(entityClass.getName()).newInstance();
@@ -125,9 +135,9 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
-        return q.getResultList();        
+        return q.getResultList();
     }
-    
+
     public List<T> findRange(LazyQueryHandler lqh) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -153,7 +163,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(lqh.getPageSize());
         q.setFirstResult(lqh.getPaginationFirst());
-        return q.getResultList();        
+        return q.getResultList();
     }
 
     //o método findRange retorna apenas os registros que não tenham sido 
@@ -176,7 +186,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         Root<T> c = cq.from(entityClass);
         cq.getRestriction().getExpressions().addAll(getPredicates(c, lqh.getFilters()));
-        
+
         if (lqh.getSortFields() != null && !lqh.getSortFields().isEmpty()) {
             for (String sortField : lqh.getSortFields().keySet()) {
                 if (c.get(sortField) != null) {
@@ -194,8 +204,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         q.setMaxResults(lqh.getPageSize());
         q.setFirstResult(lqh.getPaginationFirst());
         return q.getResultList();
-    }    
-    
+    }
+
     public int count(Map<String, Object> filters) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
@@ -208,15 +218,15 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
     public int count() {
         CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
-    }    
-    
+    }
+
     protected List<Predicate> getPredicates(Root<T> entityRoot, Map<String, Object> filters) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         javax.persistence.metamodel.Metamodel entityModel = this.getEntityManager().getMetamodel();
@@ -256,7 +266,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
         return predicates;
     }
-    
+
     private Expression<?> getCastExpression(String searchValue, String typeName, CriteriaBuilder cb) {
         Expression<?> expression = null;
         switch (typeName) {
@@ -286,19 +296,19 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
         return expression;
     }
-    
+
     public LocalDateTime getTimestampOnServer() {
         Query qry = getEntityManager().createNativeQuery("SELECT LOCALTIMESTAMP FROM DUAL");
         Timestamp ts = (Timestamp) qry.getSingleResult();
         return ts.toLocalDateTime();
     }
-    
+
     public LocalDate getDateOnServer() {
         Query qry = getEntityManager().createNativeQuery("SELECT LOCALDATE FROM DUAL");
         Date date = (Date) qry.getSingleResult();
         return date.toLocalDate();
-    }    
-    
+    }
+
     public Boolean isVigente(EntidadeGenerica entidade) {
         LocalDate hoje = getTimestampOnServer().toLocalDate();
         return entidade.isVigenteParcialmente(hoje, hoje);
@@ -332,9 +342,9 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-    
+
     protected <X> void vigenteHojePredicado(CriteriaQuery cq, Root<X> onde) {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();        
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(
                 cb.and(
@@ -349,7 +359,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         predicates.add(cq.getRestriction());
         cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
-    
+
     protected <X> void vigenteParcialmentePredicado(
             CriteriaQuery cq, Root<X> onde,
             final LocalDate inicio, final LocalDate fim) {
@@ -367,8 +377,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         );
         predicates.add(cq.getRestriction());
         cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
-    }    
-    
+    }
+
     protected <Z, X> void relacionadoVigenteHojePredicado(CriteriaQuery cq, Join<Z, X> path) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         List<Predicate> predicates = new ArrayList<>();
@@ -382,7 +392,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         predicates.add(cq.getRestriction());
         cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
-    
+
     protected <Z, X> void relacionadoVigenteParcialmentePredicado(
             CriteriaQuery cq, Join<Z, X> path,
             final LocalDate inicio, final LocalDate fim) {
@@ -399,7 +409,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         predicates.add(cq.getRestriction());
         cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
-    
+
     public List<T> vigentePlenamenteEntre(LocalDate inicio, LocalDate fim) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery(entityClass);
@@ -409,7 +419,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-    
+
     protected <T> void vigentePlenamentePredicado(
             CriteriaQuery cq, Root<T> root,
             final LocalDate inicio, final LocalDate fim) {
@@ -423,7 +433,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
                 )
         );
         predicates.add(cq.getRestriction());
-        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));        
+        cq.where(predicates.toArray(predicates.toArray(new Predicate[]{})));
     }
 
     //retorna entidades cujas vigencias coincidam, ainda que parcialmente
@@ -467,7 +477,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
-    
+
     protected <X extends EntidadeGenerica> void vigenteEmAbertoPredicado(
             CriteriaQuery cq, Root<X> onde) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
@@ -481,17 +491,17 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         );
         predicates.add(cq.getRestriction());
         cq.where(predicates.toArray(new Predicate[]{}));
-    }    
-    
+    }
+
     public <X extends EntidadeGenerica> boolean eVigenciaUnicaNoContexto(AbstractMap.SimpleEntry<String, EntidadeGenerica> contexto,
             X value) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Long> cq1 = cb.createQuery(Long.class);
-        CriteriaQuery cq2 = cb.createQuery();        
+        CriteriaQuery cq2 = cb.createQuery();
         Root<? extends EntidadeGenerica> c = cq1.from(value.getClass());
-        Root<? extends EntidadeGenerica> d = cq2.from(value.getClass());        
+        Root<? extends EntidadeGenerica> d = cq2.from(value.getClass());
         List<?> vigenciasEmAberto;
-        
+
         cq1.select(cb.count(c.get(contexto.getKey())));
 
         //só pode haver uma vigência em aberto
@@ -500,10 +510,10 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
                     cb.equal(d.get(contexto.getKey()), contexto.getValue())
             );
             vigenteEmAbertoPredicado(cq2, d);
-            vigenciasEmAberto = getEntityManager().createQuery(cq2).getResultList();            
+            vigenciasEmAberto = getEntityManager().createQuery(cq2).getResultList();
             if (vigenciasEmAberto.size() > 0) {
                 return false;
-            }            
+            }
         } else {
             cq1.where(
                     cb.equal(c.get(contexto.getKey()), contexto.getValue())
@@ -513,5 +523,5 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Query q = getEntityManager().createQuery(cq1);
         Long nRegistros = (Long) q.getSingleResult();
         return nRegistros <= 0;
-    }    
+    }
 }
