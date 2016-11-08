@@ -77,7 +77,7 @@ public class Retencao extends EntidadeGenerica{
 
     @Getter
     @Setter
-    @OneToOne(mappedBy = "retencao")
+    @OneToOne(mappedBy = "retencao",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Liberacao liberacao;
 
     public Double getRetido() throws Exception {

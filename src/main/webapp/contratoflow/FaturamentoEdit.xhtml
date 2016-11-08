@@ -8,6 +8,8 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content"> 
+        <p:importEnum type="java.time.DayOfWeek" var="DayOfWeek" 
+                      allSuffix="ALL_ENUM_VALUES"/>        
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
                            entityToUpdate="#{contratoFlow.controller.faturamentoNovo}" 
                            saveAction="#{contratoFlow.controller.saveOrCreate()}"
@@ -63,20 +65,24 @@
                              sortBy="#{fi}"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 1}">
-                    <p:column headerText="Posto de trabalho" width="25%">
+                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 1}"
+                             rowStyleClass="#{fi.dia.dayOfWeek==DayOfWeek.SUNDAY||fi.dia.dayOfWeek==DayOfWeek.SATURDAY?'fds':'diasemana'}">
+                    <p:column headerText="Posto de trabalho" width="20%">
                         <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
                     </p:column>
-                    <p:column headerText="Dia" width="7%">
-                        <h:outputText value="#{fi.dia}" converter="localDateConverter"/>                                
+                    <p:column headerText="Dia" width="9%">
+                        <h:outputText value="#{fi.dia}" >
+                            <f:converter converterId="localDateConverter"/>
+                            <f:attribute name="pattern" value="(EEE) dd/MM/yyyy"/>
+                        </h:outputText>
                     </p:column>
-                    <p:column headerText="Titular" width="25%">
+                    <p:column headerText="Titular" width="22%">
                         <h:outputText value="#{fi.titular.colaborador.toString()}"/>
                     </p:column>
-                    <p:column headerText="Evento" width="13%">
+                    <p:column headerText="Evento" width="21%">
                         <h:outputText value="#{fi.evento.toString()}"/>
                     </p:column>
-                    <p:column headerText="Substituto" width="25%">
+                    <p:column headerText="Substituto" width="22%">
                         <h:outputText value="#{fi.substituto.colaborador.toString()}"/>
                     </p:column>
                 </p:dataTable>   
@@ -89,50 +95,56 @@
                              scrollHeight="350"
                              scrollable="true"
                              rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 2}"
-                             rowSelectMode="checkbox"
-                             selection="#{contratoFlow.controller.selectedItems}"
+                             selectionMode="multiple"
+                             selection="#{contratoFlow.controller.retencaoController.selectedItems}"
                              rowKey="#{item.id}">
+                    <p:ajax event="rowSelect" listener="#{contratoFlow.controller.retencaoRowSelect}" update="retencaoDT" />
                     <f:facet name="header">
                         <div class="alignRight">
-                            <p:commandButton action="vaisifude"
-                                             value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" update=":faturamentoEdit:faturamentoEditForm" />
+                            <p:commandButton action="#{contratoFlow.controller.processarLiberacoes}"
+                                             value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" 
+                                             update=":faturamentoEdit:faturamentoEditForm"
+                                             rendered="#{contratoFlow.controller.retencaoController.selectedItems.size()>0}"/>
                         </div>
                     </f:facet>              
-                    <p:column selectionMode="multiple" width="5%"/>
-                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('colaborador')}" >
+                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoController.getMsgFieldLabel('colaborador')}" >
                         <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
                     </p:column>
-                    <p:column width="30%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
+                    <p:column width="23%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
                         <h:outputText value="#{item.ratItem.encargo.toString()}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
+                    <p:column width="7%" headerText="#{retencaoController.getMsgFieldLabel('Liberacao_liberadoEm')}" >
+                        <h:outputText value="#{item.liberacao.vigenteDesde}" converter="localDateConverter"/>
+                    </p:column>
+                    
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasTitularidade}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasSubstituicao}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasNoPeriodo}"/>
                     </p:column>                
-                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
                         <h:outputText value="#{item.fatorTrabalhadoNoPeriodo}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>
                     </p:column>                
-                    <p:column width="8%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
+                    <p:column width="8%" headerText="#{retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
                         <h:outputText value="#{item.salario}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>                        
                     </p:column>                
-                    <p:column width="5%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
                         <h:outputText value="#{item.ratItem.aliquota}"/>
                     </p:column>    
-                    <p:column width="7%" headerText="#{contratoFlow.retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
+                    <p:column width="7%" headerText="#{retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
                         <h:outputText value="#{item.retido}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>
                     </p:column>                
-                </p:dataTable>                
+                </p:dataTable>  
             </p:panel>
         </t:FormFlowCreate>
     </ui:define>

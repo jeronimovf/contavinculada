@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://java.sun.com/jsf/composite/components"                      
+                template="/template.xhtml">
+    <ui:define name="content">       
+        <t:FormFlowCreate  id="liberacaoCreate" casePrefix="liberacaoCreate" 
+                           entityToUpdate="#{contratoFlow.controller.liberacaoParecer}" 
+                           saveAction="#{contratoFlow.controller.saveOrCreateLiberacoes}"
+                           goBackToAction="#{contratoFlow.controller.goBackTo('faturamentoEdit')}"
+                           controller="#{contratoFlow.controller}"
+                           mostrarVigencia="false">                           
+            <t:FormRowString id="liberacaoParecer" 
+                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Liberacao_parecer')}"
+                             textSize="120" textValue="#{contratoFlow.controller.liberacaoParecer}"/>
+            <p:panel id="faturamentoItemPanel">
+                <p:dataTable id="retencaoDT" 
+                             value="#{contratoFlow.controller.retencaoController.selectedItems}"
+                             var="item" 
+                             paginator="true"
+                             paginatorAlwaysVisible="false"
+                             rows="10"
+                             scrollHeight="350"
+                             scrollable="true"
+                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 2}"
+                             rowKey="#{item.id}">
+                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoController.getMsgFieldLabel('colaborador')}" >
+                        <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
+                    </p:column>
+                    <p:column width="23%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
+                        <h:outputText value="#{item.ratItem.encargo.toString()}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasTitularidade}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasSubstituicao}"/>
+                    </p:column>
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
+                        <h:outputText value="#{item.diasNoPeriodo}"/>
+                    </p:column>                
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
+                        <h:outputText value="#{item.fatorTrabalhadoNoPeriodo}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:column>                
+                    <p:column width="8%" headerText="#{retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
+                        <h:outputText value="#{item.salario}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>                        
+                    </p:column>                
+                    <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
+                        <h:outputText value="#{item.ratItem.aliquota}"/>
+                    </p:column>    
+                    <p:column width="7%" headerText="#{retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
+                        <h:outputText value="#{item.retido}">
+                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:column>                
+                </p:dataTable>  
+            </p:panel>
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>

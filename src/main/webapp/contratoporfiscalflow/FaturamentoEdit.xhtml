@@ -9,6 +9,8 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content"> 
+        <p:importEnum type="java.time.DayOfWeek" var="DayOfWeek" 
+                      allSuffix="ALL_ENUM_VALUES"/>
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
                            entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
                            saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
@@ -63,7 +65,8 @@
                              sortBy="#{fi}"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 1}">
+                             rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 1}"
+                             rowStyleClass="#{fi.dia.dayOfWeek==DayOfWeek.SUNDAY||fi.dia.dayOfWeek==DayOfWeek.SATURDAY?'fds':'diasemana'}">
                     <c:if test="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}">
                         <f:facet name="header">
                             <div class="alignRight" >
@@ -72,13 +75,16 @@
                             </div>
                         </f:facet>
                     </c:if>
-                    <p:column headerText="Posto de trabalho" width="25%">
+                    <p:column headerText="Posto de trabalho" width="20%">
                         <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
                     </p:column>
-                    <p:column headerText="Dia" width="7%">
-                        <h:outputText value="#{fi.dia}" converter="localDateConverter"/>                                
+                    <p:column headerText="Dia" width="9%">
+                        <h:outputText value="#{fi.dia}" >
+                            <f:converter converterId="localDateConverter"/>
+                            <f:attribute name="pattern" value="(EEE) dd/MM/yyyy"/>
+                        </h:outputText>
                     </p:column>
-                    <p:column headerText="Titular" width="25%">
+                    <p:column headerText="Titular" width="22%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{fi.titular.colaborador.toString()}"/>
@@ -92,7 +98,7 @@
                             </f:facet>
                         </p:cellEditor>                                                        
                     </p:column>
-                    <p:column headerText="Evento" width="13%">
+                    <p:column headerText="Evento" width="21%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{fi.evento.toString()}"/>
@@ -106,7 +112,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Substituto" width="25%">
+                    <p:column headerText="Substituto" width="22%">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{fi.substituto.colaborador.toString()}"/>

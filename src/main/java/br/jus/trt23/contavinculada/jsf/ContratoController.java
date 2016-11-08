@@ -9,11 +9,14 @@ import br.jus.trt23.contavinculada.entities.Faturamento;
 import br.jus.trt23.contavinculada.entities.FaturamentoItem;
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
 import br.jus.trt23.contavinculada.entities.Fiscal;
+import br.jus.trt23.contavinculada.entities.Liberacao;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
 import br.jus.trt23.contavinculada.entities.PostoDeTrabalho;
+import br.jus.trt23.contavinculada.entities.Retencao;
 import br.jus.trt23.contavinculada.entities.Salario;
 import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import br.jus.trt23.contavinculada.validators.ValidadorUtil;
+import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.event.SelectEvent;
 
 @Named
 @Dependent
@@ -49,14 +53,21 @@ public class ContratoController extends AbstractController<Contrato> {
     private LocalDate referenciaInicio;
     private LocalDate referenciaFim;
     private List<Colaborador> colaboradoresPorContrato;
+    private String liberacaoParecer;
 
     @Inject
-    ColaboradorController colaboradorController;
+    private ColaboradorController colaboradorController;
     @Inject
-    FaturamentoItemEventoController faturamentoItemEventoController;
+    private FaturamentoItemEventoController faturamentoItemEventoController;
     @Inject
-    AlocacaoController alocacaoController;
-
+    private AlocacaoController alocacaoController;
+    @Inject
+    private LiberacaoController liberacaoController;
+    @Inject
+    private RetencaoController retencaoController;
+    @Inject
+    private UsuarioSessao usuarioSessao;
+    
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
         return "FiscalNovo";
@@ -374,5 +385,33 @@ public class ContratoController extends AbstractController<Contrato> {
             }
         }
         throw new Exception("Método destinado a comparações entre FaturamentoItem");
+    }
+
+    public void retencaoRowSelect(SelectEvent event) {
+        List<Retencao> retencoesComLiberacoes = new ArrayList<>();
+        retencaoController.getSelectedItems().stream().filter((ret) -> (null != ret.getLiberacao())).forEach((ret) -> {
+            retencoesComLiberacoes.add(ret);
+        });
+        retencaoController.getSelectedItems().removeAll(retencoesComLiberacoes);
+    }
+
+    public String processarLiberacoes() {
+        liberacaoParecer = null;
+        return "LiberacaoNova";
+    }
+
+    public String saveOrCreateLiberacoes() throws Exception {
+        Liberacao liberacao;
+        for (Retencao retencao : retencaoController.getSelectedItems()) {
+            liberacao = new Liberacao();
+            liberacao.setRetencao(retencao);
+            liberacao.setParecerLiberacao(liberacaoParecer);
+            liberacao.setVigenteDesde(liberacaoController.getFacade().getDateOnServer());
+            liberacao.setLiberadoPor(usuarioSessao.getLogin());
+            retencao.setLiberacao(liberacao);
+            liberacaoController.saveOrCreate(liberacao);
+        }
+        retencaoController.getSelectedItems().clear();
+        return "FaturamentoEdit";
     }
 }

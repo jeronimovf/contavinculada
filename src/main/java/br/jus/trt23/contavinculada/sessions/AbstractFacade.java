@@ -8,7 +8,6 @@ package br.jus.trt23.contavinculada.sessions;
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
 import br.jus.trt23.contavinculada.handlers.LazyQueryHandler;
 import br.jus.trt23.contavinculada.qualifiers.Slf4jLogger;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -304,9 +303,8 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     }
 
     public LocalDate getDateOnServer() {
-        Query qry = getEntityManager().createNativeQuery("SELECT LOCALDATE FROM DUAL");
-        Date date = (Date) qry.getSingleResult();
-        return date.toLocalDate();
+        LocalDateTime ld = getTimestampOnServer();
+        return ld.toLocalDate();
     }
 
     public Boolean isVigente(EntidadeGenerica entidade) {

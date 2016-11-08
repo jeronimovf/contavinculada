@@ -17,7 +17,6 @@ public class FlowController {
         Flow currentFlow = handler.getCurrentFlow();
         handler.transition(context, currentFlow, newFlow , null, context.getViewRoot().getViewId());
         currentFlow = handler.getCurrentFlow(); 
-        System.out.println(currentFlow.getId());
         return "List";
     }
 }

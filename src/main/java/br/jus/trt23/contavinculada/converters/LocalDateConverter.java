@@ -24,26 +24,31 @@ public class LocalDateConverter implements Converter {
         if (value.isEmpty()) {
             return null;
         }
-        String formato = "";
+        String formato;
         String newValue = value;
-        switch (value.length()){
+        formato = (String) component.getAttributes().get("patern");
+        if (null != formato) {
+            return LocalDate.parse(newValue, DateTimeFormatter.ofPattern(formato));
+        }
+
+        switch (value.length()) {
             //caso a string tenha 7 caracteres considera-se que
             //se trata da especificação de um mês, então completa-se
             //a string com 01 referindo-se ao primeiro dia
             case 7:
                 newValue = "01/".concat(newValue);
-                formato = "dd/MM/yyyy";                
+                formato = "dd/MM/yyyy";
                 break;
             //caso a string tenha 10 caracteres considera-se que 
             //se trata de uma data com o ano especificado com 2 dítigos
             case 8:
                 formato = "dd/MM/yy";
-                break;                
+                break;
             //caso a string tenha 10 caracteres considera-se que 
             //se trata de uma data em formato completo
             case 10:
                 formato = "dd/MM/yyyy";
-                break;                
+                break;
         }
         return LocalDate.parse(newValue, DateTimeFormatter.ofPattern(formato));
     }
@@ -55,6 +60,11 @@ public class LocalDateConverter implements Converter {
         }
         if (value instanceof LocalDate) {
             LocalDate dateValue = (LocalDate) value;
+            String formato;
+            formato = (String) component.getAttributes().get("pattern");
+            if (null != formato) {
+                return dateValue.format(DateTimeFormatter.ofPattern(formato));
+            }
             return dateValue.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } else {
             throw new IllegalArgumentException("object " + value + " is of type " + value.getClass().getName() + "; expected type: " + LocalDate.class.getName());

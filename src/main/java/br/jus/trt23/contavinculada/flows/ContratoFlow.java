@@ -3,23 +3,16 @@ package br.jus.trt23.contavinculada.flows;
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.jsf.ContratoController;
-import br.jus.trt23.contavinculada.jsf.RetencaoController;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.faces.flow.FlowScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import lombok.Getter;
 import lombok.Setter;
 
 @Named
 @FlowScoped("contratoflow")
-public class ContratoFlow extends AbstractFlow<Contrato>{
-    @Inject
-    @Getter
-    private RetencaoController retencaoController;
-    
+public class ContratoFlow extends AbstractFlow<Contrato>{  
     @Setter
     private List<Colaborador> colaboradoresParaOContrato;
     
@@ -61,4 +54,5 @@ public class ContratoFlow extends AbstractFlow<Contrato>{
         return stream.filter(c -> c.getColaborador().getNome().toLowerCase().
                 contains(onde.toLowerCase())).collect(Collectors.toList());
     }
+
 }

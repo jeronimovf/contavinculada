@@ -77,18 +77,6 @@ public class ContratoPorFiscalLazyDataModel extends GenericLazyDataModel<Contrat
         return null;
     }
 
-//    @Override
-//    public List<Contrato> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-//        System.out.println("vaisifude");
-//        return super.load(first, pageSize, sortField, sortOrder, filters); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    public List<Contrato> load(int first, int pageSize, List<SortMeta> multiSortMeta, Map<String, Object> filters) {
-//        System.out.println("vaisifude");
-//        return super.load(first, pageSize, multiSortMeta, filters); //To change body of generated methods, choose Tools | Templates.
-//    }
-
     @Override
     protected int count(Map<String, Object> filters) {
         return getFacade().countContratosPorServidorLogin(getMatricula(), getFiscalEspecie(), filters);
