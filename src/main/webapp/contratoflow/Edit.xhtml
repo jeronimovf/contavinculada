@@ -106,14 +106,15 @@
                     </t:ListFlowView>
                 </p:tab>  
                 <p:tab title="#{contratoFlow.controller.getTabHeader('Faturamento')}">
-                    <t:ListFlowView selection="#{contratoFlow.controller.faturamentoNovo}" 
-                                    value="#{contratoFlow.controller.selected.faturamentos}" 
-                                    casePrefix="faturamento" 
-                                    action="#{contratoFlow.controller.prepareFaturamentoEdit}"
-                                    controller="#{contratoFlow.controller}" 
-                                    id="faturamento"
-                                    specificValues="true"
-                                    mostrarVigencia="false">
+                    <p:dataTable id="faturamentoDT" 
+                                 value="#{contratoFlow.controller.selected.faturamentos}"  
+                                 var="item" paginator="true" rows="10" 
+                                 paginatorPosition="top" paginatorAlwaysVisible="false" 
+                                 selection="#{contratoFlow.controller.faturamentoNovo}"  
+                                 lazy="false" filterDelay="600" 
+                                 class="listDT"
+                                 scrollable="true"
+                                 scrollHeight="300">                    
                         <f:facet name="header">
                             <div class="alignRight">
                                 <h:outputLabel for="faturamentoReferenciaInicio" 
@@ -134,11 +135,11 @@
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
-                        <p:column width="8%"
+                        <p:column width="7%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
                             <h:outputText value="#{item.referenciaInicio}" converter="localDateConverter"/>
                         </p:column>   
-                        <p:column width="8%"
+                        <p:column width="7%"
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
                             <h:outputText value="#{item.referenciaFim}" converter="localDateConverter"/>
                         </p:column>           
@@ -167,7 +168,11 @@
                                   headerText="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}">
                             <h:outputText value="#{item.atestadaPor}"/>
                         </p:column>                                                                                                                 
-                    </t:ListFlowView>
+                        <p:column width="12%" headerText="#{messages.ActionLink}">
+                            <p:commandButton title="#{messages.EditLink}" icon="ui-icon-pencil" id="edit" action="#{contratoFlow.controller.prepareFaturamentoEdit}"/>                    
+                            <p:commandButton title="#{contratoFlow.controller.getMsgAction('Faturamento_Duplicar')}" icon="ui-icon-copy" id="duplicate" action="#{contratoFlow.controller.duplicarFaturamento}"/>                                                
+                        </p:column>
+                    </p:dataTable>                
                 </p:tab>                 
                 <p:tab title="#{contratoFlow.controller.getTabHeader('Fiscal')}">
                     <t:ListFlowView selection="#{contratoFlow.controller.fiscalNovo}" 

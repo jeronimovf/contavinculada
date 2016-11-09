@@ -67,7 +67,7 @@ public class ContratoController extends AbstractController<Contrato> {
     private RetencaoController retencaoController;
     @Inject
     private UsuarioSessao usuarioSessao;
-    
+
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
         return "FiscalNovo";
@@ -413,5 +413,26 @@ public class ContratoController extends AbstractController<Contrato> {
         }
         retencaoController.getSelectedItems().clear();
         return "FaturamentoEdit";
+    }
+
+    public String duplicarFaturamento() throws CloneNotSupportedException {
+        Object obj = JsfUtil.findComponent("faturamentoDT");
+        Faturamento faturamentoClone;
+        if (obj instanceof DataTable) {
+            DataTable dt = (DataTable) obj;
+            setFaturamentoNovo((Faturamento) dt.getRowData());
+            faturamentoClone = (Faturamento) getFaturamentoNovo().clone();
+            if (null != faturamentoClone.getRetencoes() && faturamentoClone.getRetencoes().size() > 0) {
+                faturamentoClone.setRetencoes(new ArrayList<>());
+            }
+            faturamentoClone.setVigenteDesde(faturamentoClone.getReferenciaInicio());
+            faturamentoClone.setVigenteAte(faturamentoClone.getReferenciaFim());
+            faturamentoClone.setContrato(getSelected());
+
+            setFaturamentoNovo(faturamentoClone);
+            getSelected().addFaturamentos(getFaturamentoNovo());
+            return "FaturamentoEdit";
+        }
+        return "";
     }
 }

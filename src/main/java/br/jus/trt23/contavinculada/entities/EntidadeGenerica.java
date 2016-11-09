@@ -40,7 +40,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @VigenciaValida
 @EntityListeners(EntidadeListener.class)
-public abstract class EntidadeGenerica implements Serializable, Comparable {
+public abstract class EntidadeGenerica implements Serializable, Comparable, Cloneable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ID" )      
@@ -221,4 +221,15 @@ public abstract class EntidadeGenerica implements Serializable, Comparable {
         setVigenteDesde(eg.getVigenteDesde());
         setVigenteAte(eg.getVigenteAte());
     }
+
+    @Override
+    public EntidadeGenerica clone() throws CloneNotSupportedException {
+        EntidadeGenerica eg = (EntidadeGenerica) super.clone();
+        eg.setId(null);
+        eg.setVigenteDesde(null);
+        eg.setVigenteAte(null);
+        return eg; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

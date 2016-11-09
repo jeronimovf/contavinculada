@@ -25,7 +25,7 @@ import lombok.Setter;
 @SequenceGenerator(name = "ID", sequenceName = "FATURAMENTO_SEQ", allocationSize = 1, schema=Constantes.SCHEMA)
 @VigenciaEstritaAoContrato
 public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoContrato{
-    protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim"};    
+    protected final static String[] uniqueIndex = {"contrato","referenciaInicio", "referenciaFim","notas"};    
     @Getter
     @Setter
     @NotNull(message = "Início da referência não pode ser nulo")
