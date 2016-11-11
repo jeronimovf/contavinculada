@@ -117,6 +117,14 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
     }
 
     @Override
+    public String toString() {
+        return "(" + getReferenciaInicio().toString() + " até " + 
+                getReferenciaFim().toString() + ") " + getNotas();
+    }
+    
+    
+
+    @Override
     public String getNomeNatural() {
         return "Faturamento";
     }

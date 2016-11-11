@@ -23,7 +23,7 @@
                 <p:submenu label="Fiscal administrativo" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
                     <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
                     <p:menuitem action="#{flowController.flow('contratoflow')}" value="Contrato"/>                    
-                    <p:menuitem value="Comparar retenções"/>
+                    <p:menuitem action="#{flowController.flow('compararetencoesflow', 'Passo01')}" value="Comparar retenções"/>
                     <p:menuitem value="Retenções por colaborador"/>                    
                 </p:submenu>                                
                 <p:submenu label="Consultas e relatórios">

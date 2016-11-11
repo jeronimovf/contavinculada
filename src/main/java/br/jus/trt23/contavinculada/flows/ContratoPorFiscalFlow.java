@@ -88,6 +88,7 @@ public class ContratoPorFiscalFlow extends AbstractFlow<Contrato>{
     
     @PostConstruct
     public void init(){
+        //o id 1 corresponde ao fiscal técnico
         fiscalEspecie = fiscalEspecieController.getEntity(1L);
         controller.getLazyItems().setMatricula(usuarioSessao.getLogin());
         controller.getLazyItems().setFiscalEspecie(fiscalEspecie);

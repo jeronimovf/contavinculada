@@ -16,7 +16,18 @@ public class FlowController {
         Flow newFlow = handler.getFlow(context, "", flow);
         Flow currentFlow = handler.getCurrentFlow();
         handler.transition(context, currentFlow, newFlow , null, context.getViewRoot().getViewId());
-        currentFlow = handler.getCurrentFlow(); 
         return "List";
     }
+    
+    public String flow(String flow, String step) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FlowHandler handler = context.getApplication().getFlowHandler();
+        Flow newFlow = handler.getFlow(context, "", flow);
+        Flow currentFlow = handler.getCurrentFlow();
+        handler.transition(context, currentFlow, newFlow , null, context.getViewRoot().getViewId());
+        if(null!=step && !step.isEmpty()){
+            return step;
+        }
+        return "List";
+    }    
 }

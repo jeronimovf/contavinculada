@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" 
+                xmlns:t="http://java.sun.com/jsf/composite/components"      
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">              
+    <ui:define name="content">
+        <h:form id="comparaRetencoesListForm" class="listForm"
+                prependId="false">
+            <t:ContentTop controller="#{comparaRetencoesFlow.controller}" 
+                          casePrefix="comparaRetencoes"/>
+            <p:dataTable id="contratosAdministradosDT" 
+                         value="#{comparaRetencoesFlow.controller.lazyItems}"  
+                         var="item" paginator="true" rows="10" 
+                         paginatorPosition="top" paginatorAlwaysVisible="false" 
+                         lazy="true" filterDelay="600" 
+                         class="listDT"
+                         scrollable="true"
+                         scrollHeight="150"
+                         selection="#{comparaRetencoesFlow.controller.selected}"
+                         selectionMode="single">                    
+                <p:ajax event="rowSelect" update="faturamentosAComparar"/>
+                <p:ajax event="rowUnselect" update="faturamentosAComparar"/>            
+                <p:column width="7%" headerText="#{messages.ActiveSince}">
+                    <h:outputText value="#{item.vigenteDesde}" converter="localDateConverter"/>
+                </p:column>  
+                <p:column width="7%" headerText="#{messages.ActiveUntil}">
+                    <h:outputText value="#{item.vigenteAte}" converter="localDateConverter"/>
+                </p:column>               
+                <p:column width="10%" filterBy="#{item.numero}" 
+                          headerText="#{comparaRetencoesFlow.controller.getMsgFieldLabel('numero')}" >
+                    <h:outputText value="#{item.numero}"/>
+                </p:column>
+                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" 
+                          headerText="#{comparaRetencoesFlow.controller.getMsgFieldLabel('contratado')}" >
+                    <h:outputText value="#{item.contratado.descricao}"/>
+                </p:column>
+                <p:column width="20%" filterBy="#{item.objeto}" 
+                          headerText="#{comparaRetencoesFlow.controller.getMsgFieldLabel('objeto')}">
+                    <h:outputText value="#{item.objeto}"/>
+                </p:column>      
+                <p:column width="10%" filterBy="#{item.processo}" 
+                          headerText="#{comparaRetencoesFlow.controller.getMsgFieldLabel('Proad_processo')}">
+                    <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo)}"/>
+                </p:column>                  
+            </p:dataTable>  
+            <p:panel id="faturamentosAComparar">
+                <p:outputLabel value="Faturamento base" for="faturamentoBase" 
+                               rendered="#{!empty comparaRetencoesFlow.controller.selected}"/>
+                <p:selectOneListbox id="faturamentoBase" 
+                                    required="true" 
+                                    rendered="#{!empty comparaRetencoesFlow.controller.selected}"
+                                    value="#{comparaRetencoesFlow.faturamentoBase}">                
+                    <p:ajax partialSubmit="true" update="faturamentoAComparar"/>
+                    <f:selectItems value="#{comparaRetencoesFlow.controller.selected.faturamentos}"/>                
+                </p:selectOneListbox>
+                <p:outputLabel value="Comparar com" for="faturamentoAComparar" 
+                               rendered="#{!empty comparaRetencoesFlow.faturamentoBase}"/>
+                <p:selectOneListbox id="faturamentoAComparar" required="true"
+                                    value="#{comparaRetencoesFlow.faturamentoAComparar}"
+                                    rendered="#{!empty comparaRetencoesFlow.faturamentoBase}">
+                    <f:selectItems value=""/>
+                </p:selectOneListbox>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>  
+
