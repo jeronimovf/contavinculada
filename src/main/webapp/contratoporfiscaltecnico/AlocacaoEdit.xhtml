@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:t="http://xmlns.jcp.org/jsf/composite/components"
+                template="/template.xhtml">
+    <ui:define name="content">
+
+        <t:FormFlowCreate id="alocacaoEdit" casePrefix="alocacaoEdit" 
+                          entityToUpdate="#{contratoPorFiscalFlow.controller.alocacaoNova}" 
+                          saveAction="#{contratoPorFiscalFlow.controller.saveOrCreateAlocacao()}"
+                          goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('PostoEdit')}"
+                          controller="#{contratoPorFiscalFlow.controller}" >                           
+            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
+                                   autoCompleteValue="#{contratoPorFiscalFlow.controller.alocacaoNova.titular}"
+                                   labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}"
+                                   completeMethod="#{contratoPorFiscalFlow.completeColaboradoresParaOContrato}"
+                                   autoCompleteSize="62" 
+                                   autoCompleteItemValue="#{colaborador}"
+                                   autoCompleteItem="colaborador"
+                                   autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
+                                   autoCompleteConverter="#{colaboradorConverter}"/><br/>
+            <t:FormRowAutoComplete autoCompleteItemLabel="#{colaborador.colaborador.toString()}"
+                                   autoCompleteValue="#{contratoPorFiscalFlow.controller.alocacaoNova.substituto}"
+                                   labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}"
+                                   completeMethod="#{contratoPorFiscalFlow.completeColaboradoresParaOContrato}"
+                                   autoCompleteSize="62" 
+                                   autoCompleteItemValue="#{colaborador}"
+                                   autoCompleteItem="colaborador"
+                                   autoCompleteEmptyMessage="#{colaboradorController.msgNotFound}"
+                                   autoCompleteConverter="#{colaboradorConverter}"/><br/>
+
+        </t:FormFlowCreate>
+    </ui:define>
+</ui:composition>
