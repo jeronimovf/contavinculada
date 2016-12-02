@@ -12,7 +12,8 @@
                           goBackToAction="#{pessoaJuridicaFlow.controller.goBackTo('ColaboradorEdit')}"
                           controller="#{pessoaJuridicaFlow.controller}">                     
             <t:FormRowMonetary labelValue="#{colaboradorController.getMsgFieldLabel('Salario_valor')}" 
-                               numberValue="#{pessoaJuridicaFlow.controller.salarioNovo.valor}" />
+                               numberValue="#{pessoaJuridicaFlow.controller.salarioNovo.valor}" 
+                               title="#{colaboradorController.getMsgFieldHint('Salario_valor')}"/>        
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

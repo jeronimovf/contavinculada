@@ -13,13 +13,15 @@
         <cc:attribute name="maxValue"/>                
         <cc:attribute name="roundMethod"/>   
         <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>                                
+        <cc:attribute name="title" class="java.lang.String"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" 
                            value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel"/>
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <c:if test="#{cc.attrs.readonly}">
                 <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" 
                                size="#{cc.attrs.numberSize}" 
@@ -30,7 +32,7 @@
                                symbolPosition="p" decimalSeparator="," 
                                thousandSeparator="." 
                                styleClass="formRowValue readOnlyCtrl"
-                               readonly="true"/>                            
+                               readonly="true"/>
             </c:if>
             <c:if test="#{!cc.attrs.readonly}">
                 <p:inputNumber id="Input" value="#{cc.attrs.numberValue}" 
@@ -41,7 +43,7 @@
                                decimalPlaces="2" symbol="R$" 
                                symbolPosition="p" decimalSeparator="," 
                                thousandSeparator="." 
-                               styleClass="formRowValue"/>                            
+                               styleClass="formRowValue"/>
             </c:if>                              
         </div>
     </cc:implementation>

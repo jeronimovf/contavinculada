@@ -338,7 +338,8 @@ public class ContratoController extends AbstractController<Contrato> {
                     //se o dia de faturamento não estiver na alocacao posicionada
                     //avança para a próxima
                     while (!(alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteDesde().compareTo(referenciaInicio.plusDays(i)) <= 0
-                            && alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte().compareTo(referenciaInicio.plusDays(i)) >= 0)) {
+                            && (null == alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte() || 
+                            alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte().compareTo(referenciaInicio.plusDays(i)) >= 0))) {
                         if (alocacaoPos < alocacoesOrdenadasPorVigencia.size() - 1) {
                             alocacaoPos++;
                         } else {

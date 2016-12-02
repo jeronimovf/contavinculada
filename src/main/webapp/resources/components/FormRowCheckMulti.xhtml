@@ -12,13 +12,15 @@
         <cc:attribute name="selectConverter"/>
         <cc:attribute name="collectionType" default="java.util.ArrayList"/>
         <cc:attribute name="readonly" class="java.lang.Boolean" default="true"/>
+        <cc:attribute name="title" class="java.lang.String"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" 
                            value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel"/>
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <p:selectManyCheckbox 
                 id="Input"  
                 value="#{cc.attrs.selectValue}" 

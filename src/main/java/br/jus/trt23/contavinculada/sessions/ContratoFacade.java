@@ -94,7 +94,7 @@ public class ContratoFacade extends AbstractFacade<Contrato> {
         cq.select(c).where(
                 cb.equal(cb.upper(s.get("matricula")),login.toUpperCase()),
                 cb.equal(f.get("especie"), fiscalEspecie)
-        );
+        ).distinct(true);
         relacionadoVigenteHojePredicado(cq, f);
         return findRange(cq, lqh);
     }
@@ -109,7 +109,7 @@ public class ContratoFacade extends AbstractFacade<Contrato> {
         cq.select(cb.count(c)).where(
                 cb.equal(cb.upper(s.get("matricula")),login.toUpperCase()),
                 cb.equal(f.get("especie"), fiscalEspecie)
-        );
+        ).distinct(true);
         relacionadoVigenteHojePredicado(cq, f);
         cq.getRestriction().getExpressions().addAll(getPredicates(c, filters));        
         

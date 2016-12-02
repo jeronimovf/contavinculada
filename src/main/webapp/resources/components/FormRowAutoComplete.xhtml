@@ -16,12 +16,14 @@
         <cc:attribute name="autoCompleteEmptyMessage"/>
         <cc:attribute name="autoCompleteConverter"/>
         <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>
+        <cc:attribute name="title" class="java.lang.String"/>        
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel" />
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <c:if test="#{cc.attrs.readonly}">
                 <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}"                             
                                 completeMethod="#{cc.attrs.completeMethod}" 
@@ -34,7 +36,7 @@
                                 size="#{cc.attrs.autoCompleteSize}"
                                 styleClass="formRowValue readOnlyCtrl"
                                 converter="#{cc.attrs.autoCompleteConverter}"
-                                readonly="true"/>                
+                                readonly="true"/>
             </c:if>
             <c:if test="#{!cc.attrs.readonly}">
                 <p:autoComplete id="Input" value="#{cc.attrs.autoCompleteValue}"                             
@@ -47,7 +49,7 @@
                                 itemValue="#{cc.attrs.autoCompleteItemValue}" 
                                 size="#{cc.attrs.autoCompleteSize}"
                                 styleClass="formRowValue"
-                                converter="#{cc.attrs.autoCompleteConverter}"/>                
+                                converter="#{cc.attrs.autoCompleteConverter}"/>
             </c:if>  
         </div>
     </cc:implementation>

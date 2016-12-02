@@ -96,6 +96,7 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
     public Faturamento() {
         this.itens = new ArrayList<>();
         this.glosas = new ArrayList<>();
+        this.retencoes = new ArrayList<>();
     }
 
     public void addItens(FaturamentoItem item){

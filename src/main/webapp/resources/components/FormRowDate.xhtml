@@ -11,14 +11,16 @@
         <cc:attribute name="pattern" default="dd/MM/yyyy"/>             
         <cc:attribute name="mindate"/>         
         <cc:attribute name="maxdate"/> 
-        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>                
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>
+        <cc:attribute name="title" class="java.lang.String"/>        
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" 
                            value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel" />
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <c:if test="#{cc.attrs.readonly}">
                 <p:calendar id="Input" value="#{cc.attrs.calendarValue}" 
                             mask="true" converter="localDateConverter" 

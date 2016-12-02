@@ -5,20 +5,22 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-      <cc:interface>
+    <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="calendarValue"/>        
         <cc:attribute name="pattern" default="dd/MM/yyyy HH:mm"/>  
         <cc:attribute name="mindate"/>         
         <cc:attribute name="maxdate"/>         
-        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>                        
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>
+        <cc:attribute name="title" class="java.lang.String"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
-                <p:outputLabel for="#{cc.id}:#{'Input'}" 
-                               value="#{cc.attrs.labelValue}" 
-                               styleClass="formRowLabel"/>
+            <p:outputLabel for="#{cc.id}:#{'Input'}" 
+                           value="#{cc.attrs.labelValue}" 
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <c:if test="#{cc.attrs.readonly}">
                 <p:calendar id="Input" value="#{cc.attrs.calendarValue}" 
                             mask="true" converter="localDateTimeConverter" 

@@ -224,6 +224,10 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         return messages.getString(getMessagePrefix().concat("_Field_").concat(field));
     }
 
+    public String getMsgFieldHint(String field) {
+        return messages.getString(getMessagePrefix().concat("_Field_Hint_").concat(field));
+    }
+
     public String getMsgAction(String action) {
         return messages.getString(getMessagePrefix().concat("_Action_").concat(action));
     }

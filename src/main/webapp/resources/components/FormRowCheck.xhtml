@@ -8,14 +8,16 @@
     <cc:interface>
         <cc:attribute name="labelValue"/>
         <cc:attribute name="checkValue"/>   
-        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/>        
+        <cc:attribute name="readonly" class="java.lang.Boolean" default="false"/> 
+        <cc:attribute name="title" class="java.lang.String"/>
     </cc:interface>
 
     <cc:implementation>
         <div class="formRow">
             <p:outputLabel for="#{cc.id}:#{'Input'}" 
                            value="#{cc.attrs.labelValue}" 
-                           styleClass="formRowLabel" />
+                           styleClass="formRowLabel"
+                           title="#{cc.attrs.title}"/>
             <c:if test="#{cc.attrs.readonly}">
                 <p:selectBooleanCheckbox id="Input" 
                                          value="#{cc.attrs.checkValue}" 
@@ -24,7 +26,7 @@
             <c:if test="#{!cc.attrs.readonly}">
                 <p:selectBooleanCheckbox id="Input" 
                                          value="#{cc.attrs.checkValue}" 
-                                         styleClass="formRowValue"  />
+                                         styleClass="formRowValue"/>
             </c:if>              
         </div>
     </cc:implementation>
