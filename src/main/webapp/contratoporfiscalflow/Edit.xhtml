@@ -33,7 +33,8 @@
                              readonly="true"/><br/>
             <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}"/> 
             <p:link value="#{contratoPorFiscalFlow.controller.selected.processo}" 
-                    href="#{util.getProadUrlParaOProcesso(contratoPorFiscalFlow.controller.selected.processo)}"/>
+                    href="#{util.getProadUrlParaOProcesso(contratoPorFiscalFlow.controller.selected.processo)}"
+                     target="_blank"/>
             <t:FormRowDate labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoPorFiscalFlow.controller.selected.assinaturaData}"
                            readonly="true"/>

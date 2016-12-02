@@ -19,7 +19,9 @@
                     <h:outputText value="#{item.objeto}"/>
                 </p:column>      
                 <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}">
-                    <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo)}"/>
+                    <p:link value="#{item.processo}" 
+                            href="#{util.getProadUrlParaOProcesso(item.processo)}"  
+                            target="_blank"/>
                 </p:column>                  
             </t:ListFlowView>
 

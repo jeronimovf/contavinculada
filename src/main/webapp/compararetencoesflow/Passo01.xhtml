@@ -44,7 +44,7 @@
                 </p:column>      
                 <p:column width="10%" filterBy="#{item.processo}" 
                           headerText="#{comparaRetencoesFlow.controller.getMsgFieldLabel('Proad_processo')}">
-                    <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo)}"/>
+                    <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo)}"  target="_blank"/>
                 </p:column>                  
             </p:dataTable>  
             <p:panel id="faturamentosAComparar">
