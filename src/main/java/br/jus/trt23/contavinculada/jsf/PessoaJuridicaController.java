@@ -61,6 +61,7 @@ public class PessoaJuridicaController extends AbstractController<PessoaJuridica>
     public String saveOrCreateColaborador() throws Exception {
         String msg;
         try {
+            colaboradorNovo.getColaborador().setVigenciaIgual(colaboradorNovo);
             selected.addContratanteEm(colaboradorNovo);
             saveOrCreate();
             msg = getResponseCreated("Colaborador");

@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="contaVinculadaPU" transaction-type="JTA">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:/contaVinculadaDS</jta-data-source>
-    <class>br.jus.trt23.contavinculada.entities.Alocacao</class>
-    <class>br.jus.trt23.contavinculada.entities.CalendarioFeriado</class>
-    <class>br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem</class>
-    <class>br.jus.trt23.contavinculada.entities.CargoOuFuncao</class>
-    <class>br.jus.trt23.contavinculada.entities.Colaborador</class>
-    <class>br.jus.trt23.contavinculada.entities.ContaVinculada</class>
-    <class>br.jus.trt23.contavinculada.entities.Contrato</class>
-    <class>br.jus.trt23.contavinculada.entities.Encargo</class>
-    <class>br.jus.trt23.contavinculada.entities.EncargoAliquota</class>
-    <class>br.jus.trt23.contavinculada.entities.Endereco</class>
-    <class>br.jus.trt23.contavinculada.entities.EnderecoEletronico</class>
-    <class>br.jus.trt23.contavinculada.entities.Faturamento</class>
-    <class>br.jus.trt23.contavinculada.entities.FaturamentoItem</class>
-    <class>br.jus.trt23.contavinculada.entities.FaturamentoItemEvento</class>
-    <class>br.jus.trt23.contavinculada.entities.Fiscal</class>
-    <class>br.jus.trt23.contavinculada.entities.FiscalEspecie</class>
-    <class>br.jus.trt23.contavinculada.entities.Glosa</class>
-    <class>br.jus.trt23.contavinculada.entities.GlosaEspecie</class>
-    <class>br.jus.trt23.contavinculada.entities.Jornada</class>
-    <class>br.jus.trt23.contavinculada.entities.Liberacao</class>
-    <class>br.jus.trt23.contavinculada.entities.Pessoa</class>
-    <class>br.jus.trt23.contavinculada.entities.PessoaFisica</class>
-    <class>br.jus.trt23.contavinculada.entities.PessoaJuridica</class>
-    <class>br.jus.trt23.contavinculada.entities.PostoDeTrabalho</class>
-    <class>br.jus.trt23.contavinculada.entities.RAT</class>
-    <class>br.jus.trt23.contavinculada.entities.RATItem</class>
-    <class>br.jus.trt23.contavinculada.entities.Retencao</class>
-    <class>br.jus.trt23.contavinculada.entities.Salario</class>
-    <class>br.jus.trt23.contavinculada.entities.Servidor</class>
-    <class>br.jus.trt23.contavinculada.entities.Telefone</class>
-    <class>br.jus.trt23.webacesso.entities.Acesso</class>
-    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
-    <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
-    <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
-    <class>br.jus.trt23.webacesso.entities.Perfil</class>
-    <class>br.jus.trt23.webacesso.entities.Permissao</class>
-    <class>br.jus.trt23.webacesso.entities.Recurso</class>
-    <class>br.jus.trt23.webacesso.entities.Sistema</class>
-    <class>br.jus.trt23.webacesso.entities.TipoUsuario</class>
-    <class>br.jus.trt23.webacesso.entities.Unidade</class>
-    <class>br.jus.trt23.webacesso.entities.UnidadeSemGestor</class>
-    <class>br.jus.trt23.webacesso.entities.Usuario</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <shared-cache-mode>NONE</shared-cache-mode>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-      <property name="hibernate.format_sql" value="true"/>
-      <property name="hibernate.show_sql" value="true"/>
-      <!--Essa propriedade corrige um bug relacionado a persistir duas
+    <persistence-unit name="contaVinculadaPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:/contaVinculadaDS</jta-data-source>
+        <class>br.jus.trt23.contavinculada.entities.Alocacao</class>
+        <class>br.jus.trt23.contavinculada.entities.CalendarioFeriado</class>
+        <class>br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem</class>
+        <class>br.jus.trt23.contavinculada.entities.CargoOuFuncao</class>
+        <class>br.jus.trt23.contavinculada.entities.Colaborador</class>
+        <class>br.jus.trt23.contavinculada.entities.ContaVinculada</class>
+        <class>br.jus.trt23.contavinculada.entities.Contrato</class>
+        <class>br.jus.trt23.contavinculada.entities.Encargo</class>
+        <class>br.jus.trt23.contavinculada.entities.EncargoAliquota</class>
+        <class>br.jus.trt23.contavinculada.entities.Endereco</class>
+        <class>br.jus.trt23.contavinculada.entities.EnderecoEletronico</class>
+        <class>br.jus.trt23.contavinculada.entities.Faturamento</class>
+        <class>br.jus.trt23.contavinculada.entities.FaturamentoItem</class>
+        <class>br.jus.trt23.contavinculada.entities.FaturamentoItemEvento</class>
+        <class>br.jus.trt23.contavinculada.entities.Fiscal</class>
+        <class>br.jus.trt23.contavinculada.entities.FiscalEspecie</class>
+        <class>br.jus.trt23.contavinculada.entities.Glosa</class>
+        <class>br.jus.trt23.contavinculada.entities.GlosaEspecie</class>
+        <class>br.jus.trt23.contavinculada.entities.Jornada</class>
+        <class>br.jus.trt23.contavinculada.entities.Liberacao</class>
+        <class>br.jus.trt23.contavinculada.entities.Pessoa</class>
+        <class>br.jus.trt23.contavinculada.entities.PessoaFisica</class>
+        <class>br.jus.trt23.contavinculada.entities.PessoaJuridica</class>
+        <class>br.jus.trt23.contavinculada.entities.PostoDeTrabalho</class>
+        <class>br.jus.trt23.contavinculada.entities.RAT</class>
+        <class>br.jus.trt23.contavinculada.entities.RATItem</class>
+        <class>br.jus.trt23.contavinculada.entities.Retencao</class>
+        <class>br.jus.trt23.contavinculada.entities.Salario</class>
+        <class>br.jus.trt23.contavinculada.entities.Servidor</class>
+        <class>br.jus.trt23.contavinculada.entities.Telefone</class>
+        <class>br.jus.trt23.webacesso.entities.Acesso</class>
+        <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
+        <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
+        <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
+        <class>br.jus.trt23.webacesso.entities.Perfil</class>
+        <class>br.jus.trt23.webacesso.entities.Permissao</class>
+        <class>br.jus.trt23.webacesso.entities.Recurso</class>
+        <class>br.jus.trt23.webacesso.entities.Sistema</class>
+        <class>br.jus.trt23.webacesso.entities.TipoUsuario</class>
+        <class>br.jus.trt23.webacesso.entities.Unidade</class>
+        <class>br.jus.trt23.webacesso.entities.UnidadeSemGestor</class>
+        <class>br.jus.trt23.webacesso.entities.Usuario</class>
+        <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
+        <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <!--Essa propriedade corrige um bug relacionado a persistir duas
             instâncias da mesma unidade obtidas por sessões diferentes
             http://stackoverflow.com/questions/26591521/java-lang-illegalstateexception-multiple-representations-of-the-same-entity-wit-->
-      <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
-    </properties>
-  </persistence-unit>
+            <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>    
+        </properties>
+    </persistence-unit>
 </persistence>

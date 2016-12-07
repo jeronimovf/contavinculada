@@ -6,7 +6,6 @@
 package br.jus.trt23.contavinculada.validators;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
-import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,7 +24,7 @@ public abstract class ValidadorGenerico<A extends Annotation, T extends Entidade
     protected T value;
 
     public abstract boolean passedCustomValidation();
-
+    
     @Override
     public void initialize(A constraintAnnotation) {
         this.constraintAnnotation = constraintAnnotation;
@@ -54,7 +53,7 @@ public abstract class ValidadorGenerico<A extends Annotation, T extends Entidade
         Boolean resultado = passedCustomValidation();
 
         if (!resultado) {
-            JsfUtil.addErrorMessage(String.format(getConstraintMessage(), value.getNomeNatural().toLowerCase()) );
+            //JsfUtil.addErrorMessage(String.format(getConstraintMessage(), value.getNomeNatural().toLowerCase()) );
         }
         return resultado;
     }

@@ -39,7 +39,7 @@
                                  textSize="10"/>                                         
             </p:panel>
             <t:FormRowDate calendarValue="#{pessoaJuridicaFlow.controller.colaboradorNovo.recebeuManualEm}"
-                           labelValue="#{colaboradorController.getMsgFieldLabel('recebeuManualEm')}"/><br/>
+                           labelValue="#{colaboradorController.getMsgFieldLabel('recebeuManualEm')}" rendered="false"/><br/>
             <t:FormRowCheck checkValue="#{pessoaJuridicaFlow.controller.colaboradorNovo.isDesligamentoPorJustaCausa}"
                             labelValue="#{colaboradorController.getMsgFieldLabel('isDesligamentoPorJustaCausa')}"/>
             <p:tabView id="colaboradorTabs">

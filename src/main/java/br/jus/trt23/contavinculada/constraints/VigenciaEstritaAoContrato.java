@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface VigenciaEstritaAoContrato {
 
-	String message() default "O período de vigência de %s deve estar contido no período de vigência do contrato.";
+	String message() default "{vigencia.estritaaocontrato}";
 
 	Class<?>[] groups() default { };
 

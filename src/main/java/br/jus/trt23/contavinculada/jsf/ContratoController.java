@@ -20,11 +20,14 @@ import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
@@ -79,7 +82,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "AliquotaNova";
     }
 
-    public String prepareFaturamentoNovo() throws Exception {
+    public String prepareFaturamentoNovo() throws Exception{
         setFaturamentoNovo(new Faturamento());
         getFaturamentoNovo().setVigenteDesde(referenciaInicio);
         getFaturamentoNovo().setVigenteAte(referenciaFim);
@@ -198,7 +201,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "FaturamentoItemEdit";
     }
 
-    public String saveOrCreatePostoDeTrabalho() throws Exception {
+    public String saveOrCreatePostoDeTrabalho()  {
         String msg;
         try {
             selected.addPostosDeTrabalho(postoNovo);
@@ -213,7 +216,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateEncargoAliquota() throws Exception {
+    public String saveOrCreateEncargoAliquota() {
         String msg;
         try {
             selected.addAliquotas(aliquotaNova);
@@ -228,7 +231,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateContaVinculada() throws Exception {
+    public String saveOrCreateContaVinculada(){
         String msg;
         try {
             selected.AddContasVinculadas(contaNova);
@@ -243,7 +246,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateFiscal() throws Exception {
+    public String saveOrCreateFiscal(){
         String msg;
         try {
             selected.addFiscais(fiscalNovo);
@@ -258,7 +261,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateFaturamento() throws Exception {
+    public String saveOrCreateFaturamento(){
         String msg;
         try {
             selected.addFaturamentos(faturamentoNovo);
@@ -273,22 +276,26 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateAlocacao() throws Exception {
+    public String saveOrCreateAlocacao(){
         String msg;
         try {
             getPostoNovo().addAlocacoes(alocacaoNova);
-            saveOrCreate();
+            alocacaoController.saveOrCreate(alocacaoNova);
             msg = getResponseCreated("PostoDeTrabalho_Alocacao");
             JsfUtil.addSuccessMessage(msg);
             return "PostoEdit";
-        } catch (Exception e) {
+        } 
+        catch (ConstraintViolationException e){
+            return null;            
+        }
+        catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
             return null;
         }
     }
 
-    public String saveOrCreateRemuneracao() throws Exception {
+    public String saveOrCreateRemuneracao() {
         String msg;
         try {
             getPostoNovo().addRemuneracaoes(remuneracaoNova);
@@ -401,7 +408,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "LiberacaoNova";
     }
 
-    public String saveOrCreateLiberacoes() throws Exception {
+    public String saveOrCreateLiberacoes() {
         Liberacao liberacao;
         for (Retencao retencao : retencaoController.getSelectedItems()) {
             liberacao = new Liberacao();
@@ -410,7 +417,11 @@ public class ContratoController extends AbstractController<Contrato> {
             liberacao.setVigenteDesde(liberacaoController.getFacade().getDateOnServer());
             liberacao.setLiberadoPor(usuarioSessao.getLogin());
             retencao.setLiberacao(liberacao);
-            liberacaoController.saveOrCreate(liberacao);
+            try {
+                liberacaoController.saveOrCreate(liberacao);
+            } catch (Exception ex) {
+                Logger.getLogger(ContratoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         retencaoController.getSelectedItems().clear();
         return "FaturamentoEdit";

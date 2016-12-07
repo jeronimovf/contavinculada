@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface VigenciaUnicaNoContexto {
 
-	String message() default "As vigências neste contexto são exclusivas.  Não podem existir duas ocorrências com data de vigência em aberto (termino da validade em branco) ou coincidência de períodos, ainda que parcial.";
+	String message() default "{vigencia.unicanocontexto}";
 
 	Class<?>[] groups() default { };
 

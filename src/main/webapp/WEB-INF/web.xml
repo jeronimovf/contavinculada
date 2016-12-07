@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <display-name>Conta Vinculada (Homologação)</display-name>
+    <display-name>Conta Vinculada (Desenvolvimento)</display-name>
     <!--                     CONFIGURAÇÕES TRT 23                            -->
     <context-param>
         <param-name>CODIGO_SISTEMA</param-name>
@@ -48,7 +48,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://sede-cas01:8280</param-value>
+            <param-value>http://localhost:8080</param-value>
         </init-param>
     </filter>
     <filter>
@@ -68,7 +68,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://sede-cas01:8280</param-value>
+            <param-value>http://localhost:8080</param-value>
         </init-param>
     </filter>
     <filter>

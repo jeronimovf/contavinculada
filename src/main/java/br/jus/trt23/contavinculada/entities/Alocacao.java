@@ -31,7 +31,7 @@ public class Alocacao extends EntidadeGenerica implements IEntidadeQueDefineOCon
     private Colaborador titular;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Colaborador substituto;
 
     @ManyToOne
