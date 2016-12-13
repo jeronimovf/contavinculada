@@ -3,11 +3,14 @@ package br.jus.trt23.contavinculada.flows;
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Contrato;
 import br.jus.trt23.contavinculada.jsf.ContratoController;
+import br.jus.trt23.contavinculada.jsf.RetencaoController;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.faces.flow.FlowScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
 import lombok.Setter;
 
 @Named
@@ -18,7 +21,11 @@ public class ContratoFlow extends AbstractFlow<Contrato>{
     
     //1 faturamento, 2 retenção
     @Setter
-    private Integer exibeFaturamentoOuRetencao;    
+    private Integer exibeFaturamentoOuRetencao; 
+    
+    @Inject
+    @Getter
+    private RetencaoController retencaoController;
 
     public ContratoFlow() {
         this.exibeFaturamentoOuRetencao = 1;    

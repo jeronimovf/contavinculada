@@ -7,6 +7,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constraints.Diferida;
 import br.jus.trt23.contavinculada.constraints.VigenciaValida;
+import br.jus.trt23.contavinculada.jsf.Util;
 import br.jus.trt23.contavinculada.listeners.EntidadeListener;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -43,7 +44,7 @@ import lombok.Setter;
 public abstract class EntidadeGenerica implements Serializable, Comparable, Cloneable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ID" )      
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID")
     protected Long id;
 
     @NotNull(message = "Início da vigência não pode ser nulo.")
@@ -57,7 +58,7 @@ public abstract class EntidadeGenerica implements Serializable, Comparable, Clon
     private LocalDateTime destruidoEm;
 
     protected static String[] uniqueIndex;
-    
+
     public abstract String getNomeNatural();
 
     public static Object getFieldValue(Object bean, String fieldName) {
@@ -178,43 +179,21 @@ public abstract class EntidadeGenerica implements Serializable, Comparable, Clon
     //retorna verdadeiro se a entidade tiver vigencia em todo o período
     //informado
     public Boolean isVigentePlenamenteEntre(LocalDate inicio, LocalDate fim) {
-        return (vigenteDesde.compareTo(inicio) <= 0 && (null == vigenteAte
-                || vigenteAte.compareTo(fim) >= 0));
+        Util u = new Util();
+        return u.isP1VigentePlenamenteEmP2(vigenteDesde, vigenteAte, inicio, fim);
     }
 
     //retorna verdadeiro se a entidade tiver vigencia que abranja a data 
     //informada
     public Boolean isVigenteParcialmente(LocalDate inicio, LocalDate fim) {
-        //início posterior
-        if ((vigenteDesde.compareTo(fim) <= 0) && (null == vigenteAte || vigenteAte.compareTo(inicio) >= 0)) {
-            return true;
-        } else {
-        }
-        return false;
+        Util u = new Util();
+        return u.isP1VigenteParcialmenteEmP2(vigenteDesde, vigenteAte, inicio, fim);
+
     }
 
     public Boolean isVigenteEstritamenteEntre(LocalDate inicio, LocalDate fim) {
-        //o inicio do objeto corrente deve ser igual ou superior ao inicio do 
-        //período testado
-        if (vigenteDesde.compareTo(inicio) >= 0) {
-            //se o período testado estiver em aberto, fim==null, retorna true,
-            //contudo, se posteriormente for definida uma vigência final para 
-            //o objeto pai, poderá gerar inconsistência            
-            if (null == fim) {
-                return true;
-            }
-            //se o período de teste tiver uma data de término definida,
-            //mas o objeto corrente não a tiver, acusa incompatibilidade de 
-            //vigência
-            if (null == vigenteAte) {
-                return false;
-            }
-
-            //se o objeto corrente possui vigência até a data final do período
-            //de teste retorna verdadeiro, senão, o contrário
-            return vigenteAte.compareTo(fim) <= 0;
-        }
-        return false;
+        Util u = new Util();
+        return u.isP1VigenteEstritamenteEmP2(vigenteDesde, vigenteAte, inicio, fim);
     }
 
     public void setVigenciaIgual(EntidadeGenerica eg) {
@@ -230,6 +209,5 @@ public abstract class EntidadeGenerica implements Serializable, Comparable, Clon
         eg.setVigenteAte(null);
         return eg; //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
+
 }

@@ -94,18 +94,8 @@
                              scrollHeight="350"
                              scrollable="true"
                              rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 2}"
-                             selectionMode="multiple"
-                             selection="#{contratoFlow.controller.retencaoController.selectedItems}"
+                             selection="#{contratoFlow.controller.retencaoController.selected}"
                              rowKey="#{item.id}">
-                    <p:ajax event="rowSelect" listener="#{contratoFlow.controller.retencaoRowSelect}" update="retencaoDT" />
-                    <f:facet name="header">
-                        <div class="alignRight">
-                            <p:commandButton action="#{contratoFlow.controller.processarLiberacoes}"
-                                             value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" 
-                                             update=":faturamentoEdit:faturamentoEditForm"
-                                             rendered="#{contratoFlow.controller.retencaoController.selectedItems.size()>0}"/>
-                        </div>
-                    </f:facet>              
                     <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoController.getMsgFieldLabel('colaborador')}" >
                         <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
                     </p:column>
