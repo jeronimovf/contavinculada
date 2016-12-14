@@ -36,7 +36,7 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
 
     @Inject
     @Slf4jLogger
-    Logger logger;
+    private Logger logger;
 
     private final Class<T> entityClass;
 
@@ -49,12 +49,20 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
     public abstract List<T> complete(String criteria);
 
     public void create(T entity) throws Exception {
-        entity.setCriadoEm(getTimestampOnServer());
-        getEntityManager().persist(entity);
+        try {
+            entity.setCriadoEm(getTimestampOnServer());
+            getEntityManager().persist(entity);
+        } catch (Exception e) {
+            logger.error("Erro ao persisitir entidade.");
+        }
     }
 
-    public void edit(T entity) {
-        entity = getEntityManager().merge(entity);
+    public void edit(T entity) throws Exception {
+        try {
+            entity = getEntityManager().merge(entity);
+        } catch (Exception e) {
+            logger.error("Erro ao mesclar entidade.");
+        }
     }
 
     public void refresh(T entity) {
@@ -67,8 +75,12 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         }
     }
 
-    public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+    public void remove(T entity) throws Exception {
+        try {
+            getEntityManager().remove(getEntityManager().merge(entity));
+        } catch (Exception e) {
+            logger.error("Erro ao remover entidade.");
+        }
     }
 
     public T find(Object id) {
@@ -499,27 +511,35 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         Root<? extends EntidadeGenerica> c = cq1.from(value.getClass());
         Root<? extends EntidadeGenerica> d = cq2.from(value.getClass());
         List<?> vigenciasEmAberto;
+        Query q;
+        Long nRegistros;
 
         cq1.select(cb.count(c.get(contexto.getKey())));
 
         //só pode haver uma vigência em aberto
         if (null == value.getVigenteAte()) {
             cq2.select(d).where(
-                    cb.equal(d.get(contexto.getKey()), contexto.getValue())
+                    cb.and(
+                            cb.equal(d.get(contexto.getKey()), contexto.getValue()),
+                            cb.notEqual(d, value)
+                    )
             );
             vigenteEmAbertoPredicado(cq2, d);
             vigenciasEmAberto = getEntityManager().createQuery(cq2).getResultList();
             if (vigenciasEmAberto.size() > 0) {
                 return false;
             }
-        } else {
-            cq1.where(
-                    cb.equal(c.get(contexto.getKey()), contexto.getValue())
-            );
-            vigenteParcialmentePredicado(cq1, c, value.getVigenteDesde(), value.getVigenteAte());
         }
-        Query q = getEntityManager().createQuery(cq1);
-        Long nRegistros = (Long) q.getSingleResult();
+        cq1.where(
+                cb.and(
+                        cb.equal(c.get(contexto.getKey()), contexto.getValue()),
+                        cb.notEqual(c, value)
+                )
+        );
+        vigenteParcialmentePredicado(cq1, c, value.getVigenteDesde(), value.getVigenteAte());
+        q = getEntityManager().createQuery(cq1);
+        nRegistros = (Long) q.getSingleResult();
         return nRegistros <= 0;
     }
+
 }

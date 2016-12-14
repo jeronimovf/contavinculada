@@ -7,6 +7,7 @@ package br.jus.trt23.contavinculada.jsf;
 
 import br.jus.trt23.contavinculada.entities.Proad;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javax.enterprise.context.ApplicationScoped;
@@ -117,4 +118,63 @@ public class Util implements Serializable {
         }
         return null;
     }
+    
+    //para entender a diferenca entre as funções que comparam períodos de 
+    //vigência: 
+    //isVigentePlenamenteEntre: não interessa se o início da vigência  
+    //do objeto corrente é anterior a do período de teste ou se o términdo da
+    //vigência do objeto seja posterior ao final do período, mas se, em todo
+    //o período de teste, o objeto esteve vigente.
+    //Se periodo está contido o.vigencia
+    //isVigenteParcialmente: se o objeto corrente tiver sua vigência coincidindo
+    //com qualquer parte do período teste, retorna verdadeiro.  
+    //Se existe (o.vigencia intersecção periodo)
+    //isVigenteEstritamenteEntre: a vigência do objeto corrente deve estar
+    //compreendida no período de teste.
+    //Se o.vigencia está contido periodo.
+    //retorna verdadeiro se a entidade tiver vigencia em todo o período
+    //informado
+    public Boolean isP1VigentePlenamenteEmP2(LocalDate p1Inicio, LocalDate p1Fim,
+            LocalDate p2Inicio, LocalDate p2Fim) {
+        return (p1Inicio.compareTo(p2Inicio) <= 0 && (null == p1Fim
+                || p1Fim.compareTo(p2Fim) >= 0));
+    }
+
+    //retorna verdadeiro se a entidade tiver vigencia que abranja a data 
+    //informada
+    public Boolean isP1VigenteParcialmenteEmP2(LocalDate p1Inicio, LocalDate p1Fim,
+            LocalDate p2Inicio, LocalDate p2Fim) {
+        //início posterior
+        if ((p1Inicio.compareTo(p2Fim) <= 0) && (null == p1Fim || p1Fim.compareTo(p2Inicio) >= 0)) {
+            return true;
+        } else {
+        }
+        return false;
+    }
+
+    public Boolean isP1VigenteEstritamenteEmP2(LocalDate p1Inicio, LocalDate p1Fim,
+            LocalDate p2Inicio, LocalDate p2Fim) {
+        //o inicio do objeto corrente deve ser igual ou superior ao inicio do 
+        //período testado
+        if (p1Inicio.compareTo(p2Inicio) >= 0) {
+            //se o período testado estiver em aberto, fim==null, retorna true,
+            //contudo, se posteriormente for definida uma vigência final para 
+            //o objeto pai, poderá gerar inconsistência            
+            if (null == p2Fim) {
+                return true;
+            }
+            //se o período de teste tiver uma data de término definida,
+            //mas o objeto corrente não a tiver, acusa incompatibilidade de 
+            //vigência
+            if (null == p1Fim) {
+                return false;
+            }
+
+            //se o objeto corrente possui vigência até a data final do período
+            //de teste retorna verdadeiro, senão, o contrário
+            return p1Fim.compareTo(p2Fim) <= 0;
+        }
+        return false;
+    }
+
 }

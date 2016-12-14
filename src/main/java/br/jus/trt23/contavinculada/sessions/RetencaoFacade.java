@@ -5,9 +5,10 @@
  */
 package br.jus.trt23.contavinculada.sessions;
 
+import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Faturamento;
-import br.jus.trt23.contavinculada.entities.FaturamentoItem;
 import br.jus.trt23.contavinculada.entities.Retencao;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 /**
@@ -47,13 +47,23 @@ public class RetencaoFacade extends AbstractFacade<Retencao> {
     public List<Retencao> findRetencaoPorFaturamento(Faturamento faturamento) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
-        Root<Retencao> c = cq.from(Retencao.class);
-        Join<Retencao,FaturamentoItem> fi = c.join("faturamentoItens");
-        
-        cq.select(c).where(cb.equal(fi.get("faturamento"),faturamento)).
+        Root<Retencao> c = cq.from(Retencao.class);        
+        cq.select(c).where(cb.equal(c.get("faturamento"),faturamento)).
                 distinct(true).orderBy(cb.asc(c.get("colaborador")),cb.asc(c.get("ratItem")));
         Query q = getEntityManager().createQuery(cq);
         return q.getResultList();        
+    }
+
+    public Collection<Retencao> findRetencaoPorColaborador(Colaborador colaborador) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<Retencao> c = cq.from(Retencao.class);
+        
+        cq.select(c).where(
+            cb.equal(c.get("colaborador"),colaborador)
+        ).distinct(true).orderBy(cb.asc(c.get("colaborador")),cb.asc(c.get("ratItem")));
+        Query q = getEntityManager().createQuery(cq);
+        return q.getResultList();              
     }
 
     

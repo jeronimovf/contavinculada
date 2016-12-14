@@ -20,11 +20,15 @@ import br.jus.trt23.webacesso.util.UsuarioSessao;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.component.datatable.DataTable;
@@ -39,6 +43,7 @@ public class ContratoController extends AbstractController<Contrato> {
 
     public ContratoController() {
         super(Contrato.class);
+        retencoesFiltradas = new ArrayList<>();
     }
 
     private Fiscal fiscalNovo;
@@ -54,6 +59,10 @@ public class ContratoController extends AbstractController<Contrato> {
     private LocalDate referenciaFim;
     private List<Colaborador> colaboradoresPorContrato;
     private String liberacaoParecer;
+    private LocalDate retencaoFiltroDesde;
+    private LocalDate retencaoFiltroAte;
+    private Colaborador retencaoFiltroColaborador;
+    private List<Retencao> retencoesFiltradas;
 
     @Inject
     private ColaboradorController colaboradorController;
@@ -198,7 +207,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "FaturamentoItemEdit";
     }
 
-    public String saveOrCreatePostoDeTrabalho() throws Exception {
+    public String saveOrCreatePostoDeTrabalho() {
         String msg;
         try {
             selected.addPostosDeTrabalho(postoNovo);
@@ -213,7 +222,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateEncargoAliquota() throws Exception {
+    public String saveOrCreateEncargoAliquota() {
         String msg;
         try {
             selected.addAliquotas(aliquotaNova);
@@ -228,7 +237,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateContaVinculada() throws Exception {
+    public String saveOrCreateContaVinculada() {
         String msg;
         try {
             selected.AddContasVinculadas(contaNova);
@@ -243,7 +252,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateFiscal() throws Exception {
+    public String saveOrCreateFiscal() {
         String msg;
         try {
             selected.addFiscais(fiscalNovo);
@@ -258,7 +267,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateFaturamento() throws Exception {
+    public String saveOrCreateFaturamento() {
         String msg;
         try {
             selected.addFaturamentos(faturamentoNovo);
@@ -273,7 +282,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateAlocacao() throws Exception {
+    public String saveOrCreateAlocacao() {
         String msg;
         try {
             getPostoNovo().addAlocacoes(alocacaoNova);
@@ -281,6 +290,8 @@ public class ContratoController extends AbstractController<Contrato> {
             msg = getResponseCreated("PostoDeTrabalho_Alocacao");
             JsfUtil.addSuccessMessage(msg);
             return "PostoEdit";
+        } catch (ConstraintViolationException e) {
+            return null;
         } catch (Exception e) {
             msg = messages.getString("PersistenceErrorOccured");
             JsfUtil.addErrorMessage(e, msg);
@@ -288,7 +299,7 @@ public class ContratoController extends AbstractController<Contrato> {
         }
     }
 
-    public String saveOrCreateRemuneracao() throws Exception {
+    public String saveOrCreateRemuneracao() {
         String msg;
         try {
             getPostoNovo().addRemuneracaoes(remuneracaoNova);
@@ -312,9 +323,13 @@ public class ContratoController extends AbstractController<Contrato> {
             Contrato contrato) throws Exception {
         //TODO: Deve ser configurado para que não se permita selecionar o
         //      mesmo colaborador para titular e substituto.
+
         if (contrato.getContratado() instanceof PessoaJuridica) {
             PessoaJuridica pj = (PessoaJuridica) getSelected().getContratado();
-            return colaboradorController.complete(criteria, pj);
+            Stream<Colaborador> scolaboradores = colaboradorController.complete(criteria, pj).stream();
+            return scolaboradores.sorted((c1, c2)
+                    -> c1.getColaborador().getNome().compareToIgnoreCase(
+                            c2.getColaborador().getNome())).collect(Collectors.toList());
         }
         throw new Exception("Contratado não é pessoa jurídica e não suporta colaboradores.");
     }
@@ -338,8 +353,8 @@ public class ContratoController extends AbstractController<Contrato> {
                     //se o dia de faturamento não estiver na alocacao posicionada
                     //avança para a próxima
                     while (!(alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteDesde().compareTo(referenciaInicio.plusDays(i)) <= 0
-                            && (null == alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte() || 
-                            alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte().compareTo(referenciaInicio.plusDays(i)) >= 0))) {
+                            && (null == alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte()
+                            || alocacoesOrdenadasPorVigencia.get(alocacaoPos).getVigenteAte().compareTo(referenciaInicio.plusDays(i)) >= 0))) {
                         if (alocacaoPos < alocacoesOrdenadasPorVigencia.size() - 1) {
                             alocacaoPos++;
                         } else {
@@ -401,7 +416,7 @@ public class ContratoController extends AbstractController<Contrato> {
         return "LiberacaoNova";
     }
 
-    public String saveOrCreateLiberacoes() throws Exception {
+    public String saveOrCreateLiberacoes() {
         Liberacao liberacao;
         for (Retencao retencao : retencaoController.getSelectedItems()) {
             liberacao = new Liberacao();
@@ -410,7 +425,11 @@ public class ContratoController extends AbstractController<Contrato> {
             liberacao.setVigenteDesde(liberacaoController.getFacade().getDateOnServer());
             liberacao.setLiberadoPor(usuarioSessao.getLogin());
             retencao.setLiberacao(liberacao);
-            liberacaoController.saveOrCreate(liberacao);
+            try {
+                liberacaoController.saveOrCreate(liberacao);
+            } catch (Exception ex) {
+                Logger.getLogger(ContratoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         retencaoController.getSelectedItems().clear();
         return "FaturamentoEdit";
@@ -436,4 +455,18 @@ public class ContratoController extends AbstractController<Contrato> {
         }
         return "";
     }
+
+    public List<Retencao> getRetencoesFiltradas() {
+        if (null != getRetencaoFiltroColaborador()
+                && null != getRetencaoFiltroDesde()
+                && null != getRetencaoFiltroAte()) {
+            Util u = new Util();
+            Stream<Retencao> sretencoes;
+            sretencoes = getRetencaoFiltroColaborador().getRetencoes().stream();
+            retencoesFiltradas = sretencoes.filter(r -> u.isP1VigenteEstritamenteEmP2(r.getFaturamento().getReferenciaInicio(), r.getFaturamento().getReferenciaFim(), retencaoFiltroDesde, retencaoFiltroAte)).collect(Collectors.toList());
+        }
+
+        return retencoesFiltradas;
+    }
+
 }

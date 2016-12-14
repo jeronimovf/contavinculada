@@ -20,8 +20,7 @@ import javax.validation.Payload;
 @Documented
 public @interface VigenciaValida {
 
-	String message() default "Uma vigência válida deve ter data de início "
-                + "preenchida e uma data final nula ou superior à data de início.";
+	String message() default "{vigencia.valida}";
 
 	Class<?>[] groups() default { };
 

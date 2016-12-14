@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +51,7 @@ public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestrito
     @Getter
     @Setter
     @OneToMany(mappedBy = "postoDeTrabalho", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Valid
     private List<Alocacao> alocacoes;
 
     @Getter
@@ -70,6 +72,7 @@ public class PostoDeTrabalho extends EntidadeGenerica implements IEscopoRestrito
     @Getter
     @Setter
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+    @Valid
     private List<Salario> remuneracoes;
 
     //TODO: incluir um script que permita liberar o preenchimento de feriadoCalendario

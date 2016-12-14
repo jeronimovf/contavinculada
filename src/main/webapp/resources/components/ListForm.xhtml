@@ -10,7 +10,8 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:t="http://java.sun.com/jsf/composite/components"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <cc:interface>
         <cc:attribute name="controller"/>
         <cc:attribute name="casePrefix"/>
@@ -21,12 +22,14 @@ and open the template in the editor.
     <cc:implementation>
         <h:form id="#{cc.attrs.casePrefix.concat('ListForm')}" class="listForm"
                 prependId="false">
-            <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>
-            <cc:insertChildren/>
-            <c:if test="#{cc.attrs.addAllowed}">
-                <p:commandButton id="goBackTo" value="#{messages.GoBack}" action="#{cc.attrs.goBackToAction}" immediate="true"/>
-                <p:commandButton action="#{cc.attrs.controller.prepareCreate()}" value="#{messages.CreateLink}"/>            
-            </c:if>
+            <f:validateBean>
+                <t:ContentTop controller="#{cc.attrs.controller}" casePrefix="#{cc.attrs.casePrefix}"/>
+                <cc:insertChildren/>
+                <c:if test="#{cc.attrs.addAllowed}">
+                    <p:commandButton id="goBackTo" value="#{messages.GoBack}" action="#{cc.attrs.goBackToAction}" immediate="true"/>
+                    <p:commandButton action="#{cc.attrs.controller.prepareCreate()}" value="#{messages.CreateLink}"/>            
+                </c:if>
+            </f:validateBean>
         </h:form>        
     </cc:implementation>
 

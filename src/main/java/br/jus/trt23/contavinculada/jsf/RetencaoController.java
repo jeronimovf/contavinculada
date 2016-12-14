@@ -41,6 +41,7 @@ public class RetencaoController extends AbstractController<Retencao> {
     @Getter
     @Setter
     private Faturamento faturamento;
+           
 
     public RetencaoController() {
         super(Retencao.class);
@@ -151,9 +152,11 @@ public class RetencaoController extends AbstractController<Retencao> {
             return findRetencaoPorFaturamento();
         }
     }
+    
 
     @Override
     protected String getMessagePrefix() {
         return "Retencao";
     }
+
 }

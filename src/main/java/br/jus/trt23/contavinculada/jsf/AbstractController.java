@@ -13,19 +13,35 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.annotation.PostConstruct;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.context.RequestContext;
 
 @Getter
 @Setter
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public abstract class AbstractController<T extends EntidadeGenerica> implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @Inject
+    private ValidatorFactory validatorFactory;
+    @Inject
+    private Validator validator;
+
     @Inject
     private AbstractFacade<T> facade;
     private Class<T> itemClass;
@@ -74,7 +90,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
             if (null == getPermanentFilters()) {
                 lazyItems = new GenericLazyDataModel<>(getFacade());
             } else {
-                lazyItems = new GenericLazyDataModel<>(getFacade(),getPermanentFilters());
+                lazyItems = new GenericLazyDataModel<>(getFacade(), getPermanentFilters());
             }
         }
 
@@ -98,7 +114,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         return "Create";
     }
 
-    public String create() throws Exception {
+    public String create() {
         String msg;
         try {
             getFacade().create(selected);
@@ -112,7 +128,7 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         }
     }
 
-    public String create(T obj) throws Exception {
+    public String create(T obj) {
         String msg;
         try {
             getFacade().create(obj);
@@ -126,36 +142,41 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public String saveOrCreate() throws Exception {
-        if (getSelected().getId() != null) {
-            return update();
-        } else {
-            return create();
-        }
+            validate(selected);
+            if (getSelected().getId() != null) {
+                return update();
+            } else {
+                return create();
+            }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public String saveOrCreate(T obj) throws Exception {
-        if (obj.getId() != null) {
-            return update(obj);
-        } else {
-            return create(obj);
-        }
+            validate(obj);
+
+            if (obj.getId() != null) {
+                return update(obj);
+            } else {
+                return create(obj);
+            }
     }
 
     public String prepareEdit() {
         setSelected((T) getLazyItems().getRowData());
         return "Edit";
     }
-    
-    public void refresh(){
+
+    public void refresh() {
         getFacade().refresh(selected);
     }
 
-    public void refresh(T entidade){
+    public void refresh(T entidade) {
         getFacade().refresh(entidade);
     }
-    
-    public String update() {
+
+    public String update() throws Exception {
         String msg;
         try {
             getFacade().edit(selected);
@@ -301,5 +322,14 @@ public abstract class AbstractController<T extends EntidadeGenerica> implements 
     //será associado a um action internamente. 
     public String goBackTo(String str) {
         return str;
+    }
+
+    public void validate(T entity) {
+        Set<ConstraintViolation<T>> constraintViolations
+                = validator.validate(entity);
+        if (constraintViolations.size() > 0) {
+            JsfUtil.addErrorMessagesFromConstraintViolations(constraintViolations);
+            throw new ConstraintViolationException(constraintViolations);
+        }
     }
 }
