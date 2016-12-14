@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -80,6 +81,7 @@ public class Faturamento extends EntidadeGenerica implements IEscopoRestritoAoCo
     @Getter
     @Setter
     @OneToMany(mappedBy = "faturamento", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Valid
     private List<FaturamentoItem> itens;
 
 

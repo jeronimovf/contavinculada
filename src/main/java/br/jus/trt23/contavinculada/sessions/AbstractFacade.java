@@ -519,7 +519,10 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
         //só pode haver uma vigência em aberto
         if (null == value.getVigenteAte()) {
             cq2.select(d).where(
-                    cb.equal(d.get(contexto.getKey()), contexto.getValue())
+                    cb.and(
+                            cb.equal(d.get(contexto.getKey()), contexto.getValue()),
+                            cb.notEqual(d, value)
+                    )
             );
             vigenteEmAbertoPredicado(cq2, d);
             vigenciasEmAberto = getEntityManager().createQuery(cq2).getResultList();
@@ -528,7 +531,10 @@ public abstract class AbstractFacade<T extends EntidadeGenerica> {
             }
         }
         cq1.where(
-                cb.equal(c.get(contexto.getKey()), contexto.getValue())
+                cb.and(
+                        cb.equal(c.get(contexto.getKey()), contexto.getValue()),
+                        cb.notEqual(c, value)
+                )
         );
         vigenteParcialmentePredicado(cq1, c, value.getVigenteDesde(), value.getVigenteAte());
         q = getEntityManager().createQuery(cq1);

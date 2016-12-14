@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,26 +79,32 @@ public class Contrato extends EntidadeGenerica {
 
     @Getter
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Valid
     private List<ContaVinculada> contasVinculadas;
 
     @Getter
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @Valid    
     private List<PostoDeTrabalho> postosDeTrabalho;
 
     @Getter
     @OneToMany(mappedBy = "contrato",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @Valid            
     private List<Faturamento> faturamentos;
 
     @Getter
     @OneToMany(mappedBy = "aditivoDe", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @Valid
     private List<Contrato> aditivos;
 
     @Getter
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @Valid
     private List<Fiscal> fiscais;
 
     @Getter
     @OneToMany(mappedBy = "contrato", cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @Valid
     private List<EncargoAliquota> aliquotas;
 
     @Getter

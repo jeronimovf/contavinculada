@@ -286,7 +286,7 @@ public class ContratoController extends AbstractController<Contrato> {
         String msg;
         try {
             getPostoNovo().addAlocacoes(alocacaoNova);
-            alocacaoController.saveOrCreate(alocacaoNova);
+            saveOrCreate();
             msg = getResponseCreated("PostoDeTrabalho_Alocacao");
             JsfUtil.addSuccessMessage(msg);
             return "PostoEdit";
