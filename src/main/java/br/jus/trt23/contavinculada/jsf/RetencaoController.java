@@ -15,6 +15,7 @@ import br.jus.trt23.contavinculada.sessions.RetencaoFacade;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,7 +42,6 @@ public class RetencaoController extends AbstractController<Retencao> {
     @Getter
     @Setter
     private Faturamento faturamento;
-           
 
     public RetencaoController() {
         super(Retencao.class);
@@ -53,6 +53,7 @@ public class RetencaoController extends AbstractController<Retencao> {
                 Set<Colaborador> colaboradoresNoFaturamento = new HashSet<>();
                 Set<FaturamentoItem> faturamentoItens = new HashSet<>();
                 List<FaturamentoItem> faturamentoItensNaRetencao = new ArrayList<>();
+                Set<FaturamentoItem> minhaxuruba;
                 Integer diasTitularidade;
                 Integer diasSubstituicao;
                 Integer diasTrabalhados;
@@ -63,11 +64,11 @@ public class RetencaoController extends AbstractController<Retencao> {
 
                 //faz o union dos colaboradores que atuaram como titulares e
                 //substitutos
-                colaboradoresNoFaturamento.addAll(sItens.map(FaturamentoItem::getTitular).collect(Collectors.toSet()));
+                colaboradoresNoFaturamento.addAll(sItens.map(FaturamentoItem::getTitular).filter(Objects::nonNull).collect(Collectors.toSet()));
 
                 sItens = faturamento.getItens().stream();
 
-                colaboradoresNoFaturamento.addAll(sItens.map(FaturamentoItem::getSubstituto).collect(Collectors.toSet()));
+                colaboradoresNoFaturamento.addAll(sItens.map(FaturamentoItem::getSubstituto).filter(Objects::nonNull).collect(Collectors.toSet()));
 
                 for (Colaborador col : colaboradoresNoFaturamento) {
                     diasTitularidade = diasSubstituicao = diasTrabalhados = 0;
@@ -78,7 +79,7 @@ public class RetencaoController extends AbstractController<Retencao> {
 
                     sItens = faturamento.getItens().stream();
 
-                    faturamentoItens.addAll(sItens.filter(p -> p.getTitular().equals(col)).collect(Collectors.toSet()));
+                    faturamentoItens.addAll(sItens.filter(Objects::nonNull).filter(p -> col.equals(p.getTitular())).collect(Collectors.toSet()));
 
                     for (FaturamentoItem fi : faturamentoItens) {
                         if (fi.getEvento().getConsideraTrabalhadoParaTitular()) {
@@ -92,7 +93,7 @@ public class RetencaoController extends AbstractController<Retencao> {
 
                     sItens = faturamento.getItens().stream();
 
-                    faturamentoItens.addAll(sItens.filter(p -> p.getSubstituto().equals(col)).collect(Collectors.toSet()));
+                    faturamentoItens.addAll(sItens.filter(p -> col.equals(p.getSubstituto())).filter(Objects::nonNull).collect(Collectors.toSet()));
                     for (FaturamentoItem fi : faturamentoItens) {
                         if (fi.getEvento().getConsideraTrabalhadoParaSubstituto()) {
                             diasSubstituicao++;
@@ -130,6 +131,8 @@ public class RetencaoController extends AbstractController<Retencao> {
             }
             return "FaturamentoEdit";
         } catch (Exception exception) {
+            exception.printStackTrace();
+            System.out.println(exception.getMessage());
             JsfUtil.addErrorMessage(exception, "");
             return "FaturamentoEdit";
         }
@@ -152,7 +155,6 @@ public class RetencaoController extends AbstractController<Retencao> {
             return findRetencaoPorFaturamento();
         }
     }
-    
 
     @Override
     protected String getMessagePrefix() {
