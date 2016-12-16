@@ -9,7 +9,7 @@
 	
     <context-param>
         <param-name>AMBIENTE_PRODUCAO</param-name>
-        <param-value>S</param-value>
+        <param-value>P</param-value>
     </context-param>
 
     <context-param>

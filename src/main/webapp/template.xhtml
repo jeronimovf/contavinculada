@@ -27,9 +27,12 @@
                 </p:layoutUnit>                
                 <p:layoutUnit position="center">
                     <center>
-                        <p:outputPanel rendered="#{not configuracaoAplicacao.ambienteProducao}">
+                        <p:outputPanel rendered="#{configuracaoAplicacao.ambienteHomologacao}">
                             <div style="background-color: #ffb380;"><p:outputLabel value="HOMOLOGAÇÃO" style="font-size: 20px; color: #ffffff; font-weight: bold;"/></div>						
                         </p:outputPanel>
+                        <p:outputPanel rendered="#{configuracaoAplicacao.ambienteDesenvolvimento}">
+                            <div style="background-color: #10FF00;"><p:outputLabel value="DESENVOLVIMENTO" style="font-size: 20px; color: #ffffff; font-weight: bold;"/></div>						
+                        </p:outputPanel>                        
                     </center>
                     <div class="ui-grid">
                         <div class="ui-grid-row">

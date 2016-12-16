@@ -8,8 +8,8 @@
     </context-param>
 	
     <context-param>
-        <param-name>AMBIENTE_PRODUCAO</param-name>
-        <param-value>N</param-value>
+        <param-name>AMBIENTE</param-name>
+        <param-value>D</param-value>
     </context-param>
 
     <context-param>

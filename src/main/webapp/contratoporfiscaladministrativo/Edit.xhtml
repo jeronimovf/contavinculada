@@ -34,7 +34,7 @@
             <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}"/> 
             <p:link value="#{contratoPorFiscalFlow.controller.selected.processo}" 
                     href="#{util.getProadUrlParaOProcesso(contratoPorFiscalFlow.controller.selected.processo)}"
-                     target="_blank"/>
+                    target="_blank"/>
             <t:FormRowDate labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('assinaturaData')}"
                            calendarValue="#{contratoPorFiscalFlow.controller.selected.assinaturaData}"
                            readonly="true"/>
@@ -142,7 +142,81 @@
                             <h:outputText value="#{item.atestadaPor}"/>
                         </p:column>                                                                                                                 
                     </t:ListFlowView>
-                </p:tab>                 
+                </p:tab>   
+                <p:tab id="liberacaoTab" title="#{contratoFlow.controller.getTabHeader('Liberacao')}">
+                    <t:FormRowSelectOneMenu id="liberacaoColaborador" 
+                                            labelValue="#{pessoaJuridicaController.getMsgFieldLabel('Colaborador_colaborador')}"
+                                            itemValues="#{contratoFlow.colaboradoresParaOContrato}"
+                                            selectValue="#{contratoFlow.controller.retencaoFiltroColaborador}"
+                                            converter="#{colaboradorConverter}"/>
+                    <t:FormRowDate id="liberacaoPeriodoDe"
+                                   mindate="#{contratoFlow.controller.selected.vigenteDesde}" 
+                                   maxdate="#{contratoFlow.controller.selected.vigenteAte}"
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('Liberacao_periodoDe')}"                                   
+                                   calendarValue="#{contratoFlow.controller.retencaoFiltroDesde}"/>
+                    <t:FormRowDate id="liberacaoPeriodoAte"
+                                   mindate="#{contratoFlow.controller.selected.vigenteDesde}" 
+                                   maxdate="#{contratoFlow.controller.selected.vigenteAte}"
+                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('Liberacao_periodoAte')}"
+                                   calendarValue="#{contratoFlow.controller.retencaoFiltroAte}"/> 
+                    <p:commandButton action="Edit" partialSubmit="true" 
+                                     partialSubmitFilter="liberacaoColaborador liberacaoPeriodoDe liberacaoPeriodoAte" update="liberacaoDT"
+                                     value="#{contratoFlow.controller.getMsgAction('Liberacao_Filtrar')}"/>
+                    <p:dataTable id="liberacaoDT" 
+                                 value="#{contratoFlow.controller.retencoesFiltradas}"
+                                 var="item" 
+                                 paginator="true"
+                                 paginatorAlwaysVisible="false"
+                                 rows="10"
+                                 scrollHeight="350"
+                                 scrollable="true">
+                        <f:facet name="header">
+                            <div class="alignRight">
+                                <p:commandButton action="#{contratoFlow.controller.processarLiberacoes}"
+                                                 value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" 
+                                                 update=":faturamentoEdit:faturamentoEditForm"
+                                                 rendered="#{contratoFlow.controller.retencaoController.selectedItems.size()>0}"/>
+                            </div>
+                        </f:facet>              
+                        <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoController.getMsgFieldLabel('colaborador')}" >
+                            <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
+                        </p:column>
+                        <p:column width="23%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
+                            <h:outputText value="#{item.ratItem.encargo.toString()}"/>
+                        </p:column>
+                        <p:column width="7%" headerText="#{retencaoController.getMsgFieldLabel('Liberacao_liberadoEm')}" >
+                            <h:outputText value="#{item.liberacao.vigenteDesde}" converter="localDateConverter"/>
+                        </p:column>
+
+                        <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
+                            <h:outputText value="#{item.diasTitularidade}"/>
+                        </p:column>
+                        <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
+                            <h:outputText value="#{item.diasSubstituicao}"/>
+                        </p:column>
+                        <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
+                            <h:outputText value="#{item.diasNoPeriodo}"/>
+                        </p:column>                
+                        <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
+                            <h:outputText value="#{item.fatorTrabalhadoNoPeriodo}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                            </h:outputText>
+                        </p:column>                
+                        <p:column width="8%" headerText="#{retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
+                            <h:outputText value="#{item.salario}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                            </h:outputText>                        
+                        </p:column>                
+                        <p:column width="5%" headerText="#{retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
+                            <h:outputText value="#{item.ratItem.aliquota}"/>
+                        </p:column>    
+                        <p:column width="7%" headerText="#{retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
+                            <h:outputText value="#{item.retido}">
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
+                            </h:outputText>
+                        </p:column>                
+                    </p:dataTable>  
+                </p:tab>                            
             </p:tabView>        
         </t:FormFlowCreate>
 
