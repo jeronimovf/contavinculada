@@ -53,7 +53,6 @@ public class RetencaoController extends AbstractController<Retencao> {
                 Set<Colaborador> colaboradoresNoFaturamento = new HashSet<>();
                 Set<FaturamentoItem> faturamentoItens = new HashSet<>();
                 List<FaturamentoItem> faturamentoItensNaRetencao = new ArrayList<>();
-                Set<FaturamentoItem> minhaxuruba;
                 Integer diasTitularidade;
                 Integer diasSubstituicao;
                 Integer diasTrabalhados;
