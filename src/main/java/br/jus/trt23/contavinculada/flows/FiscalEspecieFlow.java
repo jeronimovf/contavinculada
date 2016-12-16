@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named
 @RequiredArgsConstructor
-@FlowScoped("fiscalespecieflow")
+@FlowScoped("fiscalespecie")
 public class FiscalEspecieFlow extends AbstractFlow<FiscalEspecie>{
     @Override
     public FiscalEspecieController getController(){

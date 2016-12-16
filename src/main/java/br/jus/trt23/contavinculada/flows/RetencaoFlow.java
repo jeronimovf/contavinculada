@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named("retencaoFlow")
 @RequiredArgsConstructor
-@FlowScoped("retencaoflow")
+@FlowScoped("retencao")
 public class RetencaoFlow extends AbstractFlow<Retencao>{
     @Override
     public RetencaoController getController(){

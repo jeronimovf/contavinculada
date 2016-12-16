@@ -9,27 +9,34 @@
         <h:form id="mainMenu">
             <f:event type="preRenderView" listener="#{autenticacaoController.autenticarCAS()}" />
             <p:menu toggleable="true" >
-                <p:submenu label="Tabelas básicas" rendered="#{utilController.contemFuncionalidade('TABELAS BÁSICAS')}">
-                    <p:menuitem action="#{flowController.flow('ratflow')}" value="RAT"/>                    
-                    <p:menuitem action="#{flowController.flow('faturamentoitemeventoflow')}" value="Evento de faturamento"/>                    
-                    <p:menuitem action="#{flowController.flow('calendarioferiadoflow')}" value="Calendario feriados"/>      
-                    <p:menuitem action="#{flowController.flow('cargooufuncaoflow')}" value="Cargo/função"/> 
-                    <p:menuitem action="#{flowController.flow('encargoflow')}" value="Encargo"/>
-                    <p:menuitem action="#{flowController.flow('fiscalespecieflow')}" value="Espécie de fiscal"/>                    
+                <p:submenu label="#{messages.Menu_Funcao_TabelasBasicas}" rendered="#{utilController.contemFuncionalidade('TABELAS BÁSICAS')}">
+                    <p:menuitem action="#{flowController.flow('rat')}" value="#{messages.Menu_Entrada_Rat}"/>                    
+                    <p:menuitem action="#{flowController.flow('faturamentoitemevento')}" value="#{messages.Menu_Entrada_FaturamentoEvento}"/>                    
+                    <p:menuitem action="#{flowController.flow('calendarioferiado')}" value="#{messages.Menu_Entrada_CalendarioFeriado}"/>      
+                    <p:menuitem action="#{flowController.flow('cargooufuncao')}" value="#{messages.Menu_Entrada_CargoFuncao}"/> 
+                    <p:menuitem action="#{flowController.flow('encargo')}" value="#{messages.Menu_Entrada_Encargo}"/>
+                    <p:menuitem action="#{flowController.flow('fiscalespecie')}" value="#{messages.Menu_Entrada_FiscalEspecie}"/>                    
                 </p:submenu>
-                <p:submenu label="Fiscal técnico" rendered="#{utilController.contemFuncionalidade('FISCAL TÉCNICO')}">
-                    <p:menuitem action="#{flowController.flow('contratoporfiscalflow')}" value="Operar contratos"/>                         
+                <p:submenu label="#{messages.Menu_Funcao_FiscalTecnico}" rendered="#{utilController.contemFuncionalidade('FISCAL TÉCNICO')}">
+                    <p:menuitem action="#{flowController.flow('contratoporfiscaltecnico')}" value="#{messages.Menu_Entrada_Contrato}"/>                         
                 </p:submenu>
-                <p:submenu label="Fiscal administrativo" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
-                    <p:menuitem action="#{flowController.flow('pessoajuridicaflow')}" value="Pessoa jurídica"/>
-                    <p:menuitem action="#{flowController.flow('contratoflow')}" value="Contrato"/>                    
-                    <p:menuitem action="#{flowController.flow('compararetencoesflow', 'Passo01')}" value="Comparar faturamentos" rendered="false"/>
+                <p:submenu label="#{messages.Menu_Funcao_FiscalAdministrativo}" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
+                    <p:menuitem action="#{flowController.flow('pessoajuridica')}" value="#{messages.Menu_Entrada_PessoaJuridica}"/>
+                    <p:menuitem action="#{flowController.flow('contratoporfiscaladministrativo')}" value="#{messages.Menu_Entrada_Contrato}"/>                    
+                    <p:menuitem action="#{flowController.flow('compararetencoes', 'Passo01')}" value="#{messages.Menu_Entrada_FaturamentoComparar}" rendered="false"/>
                 </p:submenu>                                
-                <p:submenu label="Consultas e relatórios" rendered="false">
-                    <p:menuitem value="Ext de retenções sintético"/>                        
-                    <p:menuitem value="Ext de retenções analítico"/>                                                            
-                    <p:menuitem value="Extrato de liquidações"/>                                     
-                    <p:menuitem value="Termo abertura de conta"/>                                                                                                             
+                <p:submenu label="#{messages.Menu_Funcao_OF}" rendered="#{utilController.contemFuncionalidade('ORÇAMENTO E FINANÇAS')}">
+
+                </p:submenu>      
+                <p:submenu label="#{messages.Menu_Funcao_CCC}" rendered="#{utilController.contemFuncionalidade('CONTA VINCULADA')}">
+                    <p:menuitem action="#{flowController.flow('pessoajuridica')}" value="#{messages.Menu_Entrada_PessoaJuridica}"/>
+                    <p:menuitem action="#{flowController.flow('contratoadministrador')}" value="#{messages.Menu_Entrada_Contrato}"/>                    
+                </p:submenu>                      
+                <p:submenu label="#{messages.Menu_Funcao_ConsultaRelatorio}" rendered="false">
+                    <p:menuitem value="#{messages.Menu_Entrada_RetencaoAnalitico}"/>                        
+                    <p:menuitem value="#{messages.Menu_Entrada_RetencaoSintetico}"/>                                                            
+                    <p:menuitem value="#{messages.Menu_Entrada_Liquidacao}"/>                                     
+                    <p:menuitem value="#{messages.Menu_Entrada_TermoAberturaConta}"/>                                                                                                             
                 </p:submenu>                                                                
             </p:menu> 
         </h:form>

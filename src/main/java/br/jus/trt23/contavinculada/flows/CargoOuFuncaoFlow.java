@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named
 @RequiredArgsConstructor
-@FlowScoped("cargooufuncaoflow")
+@FlowScoped("cargooufuncao")
 public class CargoOuFuncaoFlow extends AbstractFlow<CargoOuFuncao>{
     @Override
     public CargoOuFuncaoController getController(){

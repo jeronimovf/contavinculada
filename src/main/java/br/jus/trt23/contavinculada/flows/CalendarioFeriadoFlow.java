@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named
 @RequiredArgsConstructor
-@FlowScoped("calendarioferiadoflow")
+@FlowScoped("calendarioferiado")
 public class CalendarioFeriadoFlow extends AbstractFlow<CalendarioFeriado>{
     @Override
     public CalendarioFeriadoController getController(){

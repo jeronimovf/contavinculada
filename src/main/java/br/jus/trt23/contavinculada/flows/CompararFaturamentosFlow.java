@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@FlowScoped("compararfaturamentosflow")
+@FlowScoped("compararfaturamentos")
 public class CompararFaturamentosFlow extends AbstractFlow<Contrato>{  
     public CompararFaturamentosFlow() {
     }

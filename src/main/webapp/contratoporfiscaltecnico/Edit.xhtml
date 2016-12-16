@@ -8,18 +8,18 @@
                 xmlns:t="http://java.sun.com/jsf/composite/components"                      
                 template="/template.xhtml">
     <ui:define name="content">
-        <t:FormFlowCreate saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
+        <t:FormFlowCreate saveAction="#{contratoPorFiscalTecnicoFlow.controller.saveOrCreate()}"
                           casePrefix="contratoEdit"
-                          controller="#{contratoPorFiscalFlow.controller}"
-                          entityToUpdate="#{contratoPorFiscalFlow.controller.selected}"
-                          goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('List')}"
+                          controller="#{contratoPorFiscalTecnicoFlow.controller}"
+                          entityToUpdate="#{contratoPorFiscalTecnicoFlow.controller.selected}"
+                          goBackToAction="#{contratoPorFiscalTecnicoFlow.controller.goBackTo('List')}"
                           readonly="true">
-            <t:FormRowString labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('numero')}" 
-                             textValue="#{contratoPorFiscalFlow.controller.selected.numero}"
+            <t:FormRowString labelValue="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('numero')}" 
+                             textValue="#{contratoPorFiscalTecnicoFlow.controller.selected.numero}"
                              readonly="true"/>
             <t:FormRowAutoComplete autoCompleteItemLabel="#{pessoa.toString()}"
-                                   autoCompleteValue="#{contratoPorFiscalFlow.controller.selected.contratado}"
-                                   labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('contratado')}"
+                                   autoCompleteValue="#{contratoPorFiscalTecnicoFlow.controller.selected.contratado}"
+                                   labelValue="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('contratado')}"
                                    completeMethod="#{pessoaController.complete}"
                                    autoCompleteSize="62" 
                                    autoCompleteItemValue="#{pessoa}"
@@ -27,118 +27,118 @@
                                    autoCompleteEmptyMessage="#{pessoaController.msgNotFound}"
                                    autoCompleteConverter="#{pessoaConverter}"
                                    readonly="true"/><br/>
-            <t:FormRowString labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('objeto')}" 
-                             textValue="#{contratoPorFiscalFlow.controller.selected.objeto}" 
+            <t:FormRowString labelValue="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('objeto')}" 
+                             textValue="#{contratoPorFiscalTecnicoFlow.controller.selected.objeto}" 
                              textSize="120"
                              readonly="true"/><br/>
-            <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}"/> 
-            <p:link value="#{contratoPorFiscalFlow.controller.selected.processo}" 
-                    href="#{util.getProadUrlParaOProcesso(contratoPorFiscalFlow.controller.selected.processo)}"
+            <p:outputLabel value="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Proad_processo')}"/> 
+            <p:link value="#{contratoPorFiscalTecnicoFlow.controller.selected.processo}" 
+                    href="#{util.getProadUrlParaOProcesso(contratoPorFiscalTecnicoFlow.controller.selected.processo)}"
                      target="_blank"/>
-            <t:FormRowDate labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('assinaturaData')}"
-                           calendarValue="#{contratoPorFiscalFlow.controller.selected.assinaturaData}"
+            <t:FormRowDate labelValue="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('assinaturaData')}"
+                           calendarValue="#{contratoPorFiscalTecnicoFlow.controller.selected.assinaturaData}"
                            readonly="true"/>
             <t:FormRowSelectOneMenu itemValues="#{ratController.itemsAvailableSelectOne}" 
-                                    labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('rat')}" 
-                                    selectValue="#{contratoPorFiscalFlow.controller.selected.rat}"
+                                    labelValue="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('rat')}" 
+                                    selectValue="#{contratoPorFiscalTecnicoFlow.controller.selected.rat}"
                                     converter="#{ratConverter}"
                                     readonly="true"/>                        
             <p:tabView id="contratoTabs">
-                <p:tab title="#{contratoPorFiscalFlow.controller.getTabHeader('PostoDeTrabalho')}">
-                    <t:ListFlowView selection="#{contratoPorFiscalFlow.controller.postoNovo}" 
-                                    value="#{contratoPorFiscalFlow.controller.selected.postosDeTrabalho}" 
+                <p:tab title="#{contratoPorFiscalTecnicoFlow.controller.getTabHeader('PostoDeTrabalho')}">
+                    <t:ListFlowView selection="#{contratoPorFiscalTecnicoFlow.controller.postoNovo}" 
+                                    value="#{contratoPorFiscalTecnicoFlow.controller.selected.postosDeTrabalho}" 
                                     casePrefix="postoDeTrabalho" 
-                                    action="#{contratoPorFiscalFlow.controller.preparePostoEdit}" 
-                                    controller="#{contratoPorFiscalFlow.controller}" 
+                                    action="#{contratoPorFiscalTecnicoFlow.controller.preparePostoEdit}" 
+                                    controller="#{contratoPorFiscalTecnicoFlow.controller}" 
                                     id="postoDeTrabalho"
                                     specificValues="true" mostrarVigencia="false">
                         <p:column width="20%" 
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}">
                             <h:outputText value="#{item.cargoOuFuncao.nome}"/>
                         </p:column>   
                         <p:column width="20%" 
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
                             <h:outputText value="#{alocacaoController.findVigenteHojeParaOPostoDeTrabalho(item).titular.colaborador.toString()}"/>
                         </p:column>   
                         <p:column width="20%" 
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
                             <h:outputText value="#{alocacaoController.findVigenteHojeParaOPostoDeTrabalho(item).substituto.colaborador.toString()}"/>
                         </p:column>   
 
                         <p:column width="10%"  
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}">
                             <h:outputText value="#{item.jornada.nome}"/>
                         </p:column>                                                     
                         <p:column width="15%"  
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}">
                             <h:outputText value="#{item.diasComputados}"/>
                         </p:column>                                                     
                         <p:column width="10%"  
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}">
                             <h:outputText value="#{item.feriadoCalendario.nome}"/>
                         </p:column>                                                     
                     </t:ListFlowView>
                 </p:tab>
-                <p:tab title="#{contratoPorFiscalFlow.controller.getTabHeader('Faturamento')}">
-                    <t:ListFlowView selection="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
-                                    value="#{contratoPorFiscalFlow.controller.selected.faturamentos}" 
+                <p:tab title="#{contratoPorFiscalTecnicoFlow.controller.getTabHeader('Faturamento')}">
+                    <t:ListFlowView selection="#{contratoPorFiscalTecnicoFlow.controller.faturamentoNovo}" 
+                                    value="#{contratoPorFiscalTecnicoFlow.controller.selected.faturamentos}" 
                                     casePrefix="faturamento" 
-                                    action="#{contratoPorFiscalFlow.controller.prepareFaturamentoEdit}"
-                                    controller="#{contratoPorFiscalFlow.controller}" 
+                                    action="#{contratoPorFiscalTecnicoFlow.controller.prepareFaturamentoEdit}"
+                                    controller="#{contratoPorFiscalTecnicoFlow.controller}" 
                                     id="faturamento"
                                     specificValues="true"
                                     mostrarVigencia="false">
                         <f:facet name="header">
                             <div class="alignRight">
                                 <h:outputLabel for="faturamentoReferenciaInicio" 
-                                               value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}"/>
+                                               value="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}"/>
                                 <p:inputMask id="faturamentoReferenciaInicio" 
                                              converter="localDateConverter" 
-                                             value="#{contratoPorFiscalFlow.controller.referenciaInicio}"
+                                             value="#{contratoPorFiscalTecnicoFlow.controller.referenciaInicio}"
                                              mask="99/99/9999" title="dd/MM/yyyy" 
                                              size="7"/>
                                 <h:outputLabel for="faturamentoReferenciaFim" 
-                                               value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"/>
+                                               value="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"/>
                                 <p:inputMask id="faturamentoReferenciaFim" 
                                              converter="localDateConverter" 
-                                             value="#{contratoPorFiscalFlow.controller.referenciaFim}"
+                                             value="#{contratoPorFiscalTecnicoFlow.controller.referenciaFim}"
                                              mask="99/99/9999" title="dd/MM/yyyy" 
                                              size="7"/>                                
-                                <p:commandButton action="#{contratoPorFiscalFlow.controller.prepareFaturamentoNovo()}"
+                                <p:commandButton action="#{contratoPorFiscalTecnicoFlow.controller.prepareFaturamentoNovo()}"
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}">
                             <h:outputText value="#{item.referenciaInicio}" converter="localDateConverter"/>
                         </p:column>   
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}">
                             <h:outputText value="#{item.referenciaFim}" converter="localDateConverter"/>
                         </p:column>           
                         <p:column width="12%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_notas')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_notas')}">
                             <h:outputText value="#{item.notas}"/>
                         </p:column>                           
 
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}">
                             <h:outputText value="#{item.valorBruto}"/>
                         </p:column>                           
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}">
                             <h:outputText value="#{item.valorLiquido}"/>
                         </p:column>          
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}">
                             <h:outputText value="#{item.nfeOuFatura}"/>
                         </p:column>                                            
                         <p:column width="8%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}">
                             <h:outputText value="#{item.atestadaEm}"/>
                         </p:column>                                            
                         <p:column width="20%"
-                                  headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}">
+                                  headerText="#{contratoPorFiscalTecnicoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}">
                             <h:outputText value="#{item.atestadaPor}"/>
                         </p:column>                                                                                                                 
                     </t:ListFlowView>

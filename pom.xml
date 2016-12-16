@@ -20,10 +20,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.jus.trt23</groupId>
-    <artifactId>ContaVinculada</artifactId>
+    <artifactId>ContaVinculadaV2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Conta Vinculada</name>
+    <name>Conta Vinculada V2</name>
     <description>Sistema para gestão de contas vinculadas</description>
 
     <properties>

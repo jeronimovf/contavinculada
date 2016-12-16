@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named("ratFlow")
 @RequiredArgsConstructor
-@FlowScoped("ratflow")
+@FlowScoped("rat")
 public class RATFlow extends AbstractFlow<RAT>{
     @Override
     public RATController getController(){

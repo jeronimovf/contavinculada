@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@FlowScoped("contratoporfiscaladministrativoflow")
+@FlowScoped("contratoporfiscaladministrativo")
 public class ContratoPorFiscalAdministrativoFlow extends AbstractFlow<Contrato>{
     //1 faturamento, 2 retenção
     @Setter
@@ -89,7 +89,7 @@ public class ContratoPorFiscalAdministrativoFlow extends AbstractFlow<Contrato>{
     @PostConstruct
     public void init(){
         //o id 1 corresponde ao fiscal técnico
-        fiscalEspecie = fiscalEspecieController.getEntity(1L);
+        fiscalEspecie = fiscalEspecieController.getEntity(3L);
         controller.getLazyItems().setMatricula(usuarioSessao.getLogin());
         controller.getLazyItems().setFiscalEspecie(fiscalEspecie);
     }

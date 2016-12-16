@@ -11,60 +11,60 @@
         <p:importEnum type="java.time.DayOfWeek" var="DayOfWeek" 
                       allSuffix="ALL_ENUM_VALUES"/>        
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
-                           entityToUpdate="#{contratoFlow.controller.faturamentoNovo}" 
-                           saveAction="#{contratoFlow.controller.saveOrCreate()}"
-                           goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                           controller="#{contratoFlow.controller}">                           
+                           entityToUpdate="#{contratoAdministradorFlow.controller.faturamentoNovo}" 
+                           saveAction="#{contratoAdministradorFlow.controller.saveOrCreate()}"
+                           goBackToAction="#{contratoAdministradorFlow.controller.goBackTo('Edit')}"
+                           controller="#{contratoAdministradorFlow.controller}">                           
             <t:FormRowDate id="faturamentoReferenciaInicio" 
-                           calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaInicio}" 
-                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
+                           calendarValue="#{contratoAdministradorFlow.controller.faturamentoNovo.referenciaInicio}" 
+                           labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
                            pattern="dd/MM/yyyy"/>
             <t:FormRowDate id="faturamentoReferenciaFim" 
-                           calendarValue="#{contratoFlow.controller.faturamentoNovo.referenciaFim}" 
-                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
+                           calendarValue="#{contratoAdministradorFlow.controller.faturamentoNovo.referenciaFim}" 
+                           labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
                            pattern="dd/MM/yyyy"/>     
             <t:FormRowString id="faturamentoNotas" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
-                             textSize="30" textValue="#{contratoFlow.controller.faturamentoNovo.notas}"/>
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
+                             textSize="30" textValue="#{contratoAdministradorFlow.controller.faturamentoNovo.notas}"/>
             <t:FormRowMonetary id="faturamentoValorBruto" 
-                               numberValue="#{contratoFlow.controller.faturamentoNovo.valorBruto}" 
-                               labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+                               numberValue="#{contratoAdministradorFlow.controller.faturamentoNovo.valorBruto}" 
+                               labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
             <t:FormRowMonetary id="faturamentoValorLiquido" 
-                               numberValue="#{contratoFlow.controller.faturamentoNovo.valorLiquido}" 
-                               labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+                               numberValue="#{contratoAdministradorFlow.controller.faturamentoNovo.valorLiquido}" 
+                               labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
             <t:FormRowString id="faturamentoNfeOuFatura" 
-                             textValue="#{contratoFlow.controller.faturamentoNovo.nfeOuFatura}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+                             textValue="#{contratoAdministradorFlow.controller.faturamentoNovo.nfeOuFatura}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
             <t:FormRowDate id="faturamentoAtestadaEm" 
-                           calendarValue="#{contratoFlow.controller.faturamentoNovo.atestadaEm}" 
-                           labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+                           calendarValue="#{contratoAdministradorFlow.controller.faturamentoNovo.atestadaEm}" 
+                           labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
             <t:FormRowString id="faturamentoAtestadaPor" 
-                             textValue="#{contratoFlow.controller.faturamentoNovo.atestadaPor}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+                             textValue="#{contratoAdministradorFlow.controller.faturamentoNovo.atestadaPor}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
             <p:panel id="faturamentoItemPanel">
-                <p:outputLabel value="#{contratoFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
+                <p:outputLabel value="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
                                for="exibeFaturamentoOuRetencao" 
-                               rendered="#{contratoFlow.controller.faturamentoNovo.retencoes.size()>0}"/>
+                               rendered="#{contratoAdministradorFlow.controller.faturamentoNovo.retencoes.size()>0}"/>
                 <p:selectOneButton id="exibeFaturamentoOuRetencao" 
-                                   value="#{contratoFlow.exibeFaturamentoOuRetencao}"
-                                   rendered="#{contratoFlow.controller.faturamentoNovo.retencoes.size()>0}"                                   >
+                                   value="#{contratoAdministradorFlow.exibeFaturamentoOuRetencao}"
+                                   rendered="#{contratoAdministradorFlow.controller.faturamentoNovo.retencoes.size()>0}"                                   >
                     <f:selectItem itemLabel="Faturamento" itemValue="1" />
                     <f:selectItem itemLabel="Retenções" itemValue="2" />
                     <p:ajax event="change" update="faturamentoItemPanel" partialSubmit="true"/>                
                 </p:selectOneButton>                
 
-                <p:dataTable value="#{contratoFlow.controller.faturamentoNovo.itens}"
+                <p:dataTable value="#{contratoAdministradorFlow.controller.faturamentoNovo.itens}"
                              var="fi" 
                              paginator="true"
                              paginatorAlwaysVisible="false"
-                             rows="#{contratoFlow.controller.faturamentoNovo.diasEntreReferencias}"
+                             rows="#{contratoAdministradorFlow.controller.faturamentoNovo.diasEntreReferencias}"
                              id="faturamentoItemDT"
-                             sortFunction="#{contratoFlow.controller.sortByPostoDeTrabalhoDia}" 
+                             sortFunction="#{contratoAdministradorFlow.controller.sortByPostoDeTrabalhoDia}" 
                              sortOrder="ascending" 
                              sortBy="#{fi}"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 1}"
+                             rendered="#{contratoAdministradorFlow.exibeFaturamentoOuRetencao eq 1}"
                              rowStyleClass="#{fi.dia.dayOfWeek==DayOfWeek.SUNDAY||fi.dia.dayOfWeek==DayOfWeek.SATURDAY?'fds':'diasemana'}">
                     <p:column headerText="Posto de trabalho" width="20%">
                         <h:outputText value="#{fi.postoDeTrabalho.toString()}"/>
@@ -86,24 +86,24 @@
                     </p:column>
                 </p:dataTable>   
                 <p:dataTable id="retencaoDT" 
-                             value="#{contratoFlow.controller.faturamentoNovo.retencoes}"
+                             value="#{contratoAdministradorFlow.controller.faturamentoNovo.retencoes}"
                              var="item" 
                              paginator="true"
                              paginatorAlwaysVisible="false"
                              rows="10"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoFlow.exibeFaturamentoOuRetencao eq 2}"
+                             rendered="#{contratoAdministradorFlow.exibeFaturamentoOuRetencao eq 2}"
                              selectionMode="multiple"
-                             selection="#{contratoFlow.controller.retencaoController.selectedItems}"
+                             selection="#{contratoAdministradorFlow.controller.retencaoController.selectedItems}"
                              rowKey="#{item.id}">
-                    <p:ajax event="rowSelect" listener="#{contratoFlow.controller.retencaoRowSelect}" update="retencaoDT" />
+                    <p:ajax event="rowSelect" listener="#{contratoAdministradorFlow.controller.retencaoRowSelect}" update="retencaoDT" />
                     <f:facet name="header">
                         <div class="alignRight">
-                            <p:commandButton action="#{contratoFlow.controller.processarLiberacoes}"
-                                             value="#{contratoFlow.controller.getMsgAction('Liberacao_Processar')}" 
+                            <p:commandButton action="#{contratoAdministradorFlow.controller.processarLiberacoes}"
+                                             value="#{contratoAdministradorFlow.controller.getMsgAction('Liberacao_Processar')}" 
                                              update=":faturamentoEdit:faturamentoEditForm"
-                                             rendered="#{contratoFlow.controller.retencaoController.selectedItems.size()>0}"/>
+                                             rendered="#{contratoAdministradorFlow.controller.retencaoController.selectedItems.size()>0}"/>
                         </div>
                     </f:facet>              
                     <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{retencaoController.getMsgFieldLabel('colaborador')}" >

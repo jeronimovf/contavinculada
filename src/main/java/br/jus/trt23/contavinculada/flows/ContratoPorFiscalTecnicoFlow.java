@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Named
-@FlowScoped("contratoporfiscaltecnicoflow")
+@FlowScoped("contratoporfiscaltecnico")
 public class ContratoPorFiscalTecnicoFlow extends AbstractFlow<Contrato>{
     //1 faturamento, 2 retenção
     @Setter

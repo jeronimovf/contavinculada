@@ -34,7 +34,7 @@ public class EntidadeListener {
     private ImplementacaoBasicaFacade lookupImplementacaoBasicaFacadeBean() {
         try {
             Context c = new InitialContext();
-            return (ImplementacaoBasicaFacade) c.lookup("java:global/ContaVinculada/ImplementacaoBasicaFacade");
+            return (ImplementacaoBasicaFacade) c.lookup("java:global/ContaVinculadaV2/ImplementacaoBasicaFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

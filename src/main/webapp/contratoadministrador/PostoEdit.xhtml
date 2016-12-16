@@ -14,84 +14,84 @@
     <ui:define name="content">     
         <t:FormFlowCreate id="postoDeTrabalhoEdit" 
                           casePrefix="postoDeTrabalhoEdit" 
-                          entityToUpdate="#{contratoFlow.controller.postoNovo}" 
-                          saveAction="#{contratoFlow.controller.saveOrCreate}"
-                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}" mostrarVigencia="false">
+                          entityToUpdate="#{contratoAdministradorFlow.controller.postoNovo}" 
+                          saveAction="#{contratoAdministradorFlow.controller.saveOrCreate}"
+                          goBackToAction="#{contratoAdministradorFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoAdministradorFlow.controller}" mostrarVigencia="false">
             <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.cargoOuFuncao}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.cargoOuFuncao}" 
                                    autoCompleteItem="cargoOuFuncao" 
                                    autoCompleteItemLabel="#{cargoOuFuncao.toString()}" 
                                    autoCompleteItemValue="#{cargoOuFuncao}" 
                                    completeMethod="#{cargoOuFuncaoController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}"
                                    autoCompleteConverter="#{cargoOuFuncaoConverter}"
                                    autoCompleteSize="40"/>
             <t:FormRowAutoComplete id="postoDeTrabalhoJornada" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.jornada}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.jornada}" 
                                    autoCompleteItem="jornada" 
                                    autoCompleteItemLabel="#{jornada.toString()}" 
                                    autoCompleteItemValue="#{jornada}" 
                                    completeMethod="#{jornadaController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
                                    autoCompleteConverter="#{jornadaConverter}"
                                    autoCompleteSize="30"/><br/>
 
             <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
-                                 labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
+                                 labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
                                  itemValues="#{calendarioFeriadoController.diasComputados}" 
-                                 selectValue="#{contratoFlow.controller.postoNovo.diasComputados}" 
+                                 selectValue="#{contratoAdministradorFlow.controller.postoNovo.diasComputados}" 
                                  selectConverter="#{diasComputadosConverter}"
                                  collectionType="java.util.HashSet"/>         
             <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.feriadoCalendario}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.feriadoCalendario}" 
                                    autoCompleteItem="feriadoCalendario" 
                                    autoCompleteItemLabel="#{feriadoCalendario.toString()}" 
                                    autoCompleteItemValue="#{feriadoCalendario}" 
                                    completeMethod="#{calendarioFeriadoController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
                                    autoCompleteConverter="#{calendarioFeriadoConverter}"
                                    autoCompleteSize="30"/> 
             <p:tabView id="alocacaoTabs">
-                <p:tab title="#{contratoFlow.controller.getTabHeader('PostoDeTrabalho_Alocacao')}">
-                    <t:ListFlowView selection="#{contratoFlow.controller.alocacaoNova}" 
-                                    value="#{contratoFlow.controller.postoNovo.alocacoes}" 
+                <p:tab title="#{contratoAdministradorFlow.controller.getTabHeader('PostoDeTrabalho_Alocacao')}">
+                    <t:ListFlowView selection="#{contratoAdministradorFlow.controller.alocacaoNova}" 
+                                    value="#{contratoAdministradorFlow.controller.postoNovo.alocacoes}" 
                                     casePrefix="alocacao" 
-                                    action="#{contratoFlow.controller.prepareAlocacaoEdit}" 
-                                    controller="#{contratoFlow.controller}" 
+                                    action="#{contratoAdministradorFlow.controller.prepareAlocacaoEdit}" 
+                                    controller="#{contratoAdministradorFlow.controller}" 
                                     id="alocacao"
                                     specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton action="#{contratoFlow.controller.prepareAlocacaoNova}"
+                                <p:commandButton action="#{contratoAdministradorFlow.controller.prepareAlocacaoNova}"
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
                         <p:column width="25%" 
-                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
+                                  headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_titular')}">
                             <h:outputText value="#{item.titular.colaborador.toString()}"/>
                         </p:column>   
                         <p:column width="25%" 
-                                  headerText="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
+                                  headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Alocacao_substituto')}">
                             <h:outputText value="#{item.substituto.colaborador.toString()}"/>
                         </p:column>                       
                     </t:ListFlowView>
                 </p:tab>
-                <p:tab title="#{contratoFlow.controller.getTabHeader('PostoDeTrabalho_Remuneracao')}">
-                    <t:ListFlowView selection="#{contratoFlow.controller.remuneracaoNova}" 
-                                    value="#{contratoFlow.controller.postoNovo.remuneracoes}" 
+                <p:tab title="#{contratoAdministradorFlow.controller.getTabHeader('PostoDeTrabalho_Remuneracao')}">
+                    <t:ListFlowView selection="#{contratoAdministradorFlow.controller.remuneracaoNova}" 
+                                    value="#{contratoAdministradorFlow.controller.postoNovo.remuneracoes}" 
                                     casePrefix="remuneracao" 
-                                    action="#{contratoFlow.controller.prepareRemuneracaoEdit}" 
-                                    controller="#{contratoFlow.controller}" 
+                                    action="#{contratoAdministradorFlow.controller.prepareRemuneracaoEdit}" 
+                                    controller="#{contratoAdministradorFlow.controller}" 
                                     id="remuneracao"
                                     specificValues="true">
                         <f:facet name="header">
                             <div class="alignRight">
-                                <p:commandButton action="#{contratoFlow.controller.prepareRemuneracaoNova}"
+                                <p:commandButton action="#{contratoAdministradorFlow.controller.prepareRemuneracaoNova}"
                                                  value="#{messages.CreateLink}"/>
                             </div>
                         </f:facet>
-                        <p:column headerText="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Remuneracao_valor')}"
+                        <p:column headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_Remuneracao_valor')}"
                                   styleClass="alignRight">
                             <t:OutputMonetary value="#{item.valor}"/>
                         </p:column>   

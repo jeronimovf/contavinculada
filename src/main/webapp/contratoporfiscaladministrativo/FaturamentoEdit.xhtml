@@ -12,66 +12,66 @@
         <p:importEnum type="java.time.DayOfWeek" var="DayOfWeek" 
                       allSuffix="ALL_ENUM_VALUES"/>
         <t:FormFlowCreate  id="faturamentoEdit" casePrefix="faturamentoEdit" 
-                           entityToUpdate="#{contratoPorFiscalFlow.controller.faturamentoNovo}" 
-                           saveAction="#{contratoPorFiscalFlow.controller.saveOrCreate()}"
-                           goBackToAction="#{contratoPorFiscalFlow.controller.goBackTo('Edit')}"
-                           controller="#{contratoPorFiscalFlow.controller}">                           
+                           entityToUpdate="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo}" 
+                           saveAction="#{contratoPorFiscalAdministrativoFlow.controller.saveOrCreate()}"
+                           goBackToAction="#{contratoPorFiscalAdministrativoFlow.controller.goBackTo('Edit')}"
+                           controller="#{contratoPorFiscalAdministrativoFlow.controller}">                           
             <t:FormRowDate id="faturamentoReferenciaInicio" 
-                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.referenciaInicio}" 
-                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
+                           calendarValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.referenciaInicio}" 
+                           labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_referenciaInicio')}" 
                            pattern="dd/MM/yyyy"/>
             <t:FormRowDate id="faturamentoReferenciaFim" 
-                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.referenciaFim}" 
-                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
+                           calendarValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.referenciaFim}" 
+                           labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_referenciaFim')}"
                            pattern="dd/MM/yyyy"/>     
             <t:FormRowString id="faturamentoNotas" 
-                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
-                             textSize="30" textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.notas}"/>
+                             labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_notas')}"
+                             textSize="30" textValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.notas}"/>
             <t:FormRowMonetary id="faturamentoValorBruto" 
-                               numberValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.valorBruto}" 
-                               labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
+                               numberValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.valorBruto}" 
+                               labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_valorBruto')}"/>                
             <t:FormRowMonetary id="faturamentoValorLiquido" 
-                               numberValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.valorLiquido}" 
-                               labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
+                               numberValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.valorLiquido}" 
+                               labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_valorLiquido')}"/>                                
             <t:FormRowString id="faturamentoNfeOuFatura" 
-                             textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.nfeOuFatura}" 
-                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
+                             textValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.nfeOuFatura}" 
+                             labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_nfeOuFatura')}"/>                           
             <t:FormRowDate id="faturamentoAtestadaEm" 
-                           calendarValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaEm}" 
-                           labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
+                           calendarValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.atestadaEm}" 
+                           labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_atestadaEm')}" />                
             <t:FormRowString id="faturamentoAtestadaPor" 
-                             textValue="#{contratoPorFiscalFlow.controller.faturamentoNovo.atestadaPor}" 
-                             labelValue="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
+                             textValue="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.atestadaPor}" 
+                             labelValue="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_atestadaPor')}"/> 
             <p:panel id="faturamentoItemPanel">
-                <p:outputLabel value="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
+                <p:outputLabel value="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Faturamento_ExibeFaturamentoOuRetencao')}" 
                                for="exibeFaturamentoOuRetencao" 
-                               rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() > 0}"/>
+                               rendered="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes.size() > 0}"/>
                 <p:selectOneButton id="exibeFaturamentoOuRetencao" 
-                                   value="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao}"
-                                   rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() > 0}"                                   >
+                                   value="#{contratoPorFiscalAdministrativoFlow.exibeFaturamentoOuRetencao}"
+                                   rendered="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes.size() > 0}"                                   >
                     <f:selectItem itemLabel="Faturamento" itemValue="1" />
                     <f:selectItem itemLabel="Retenções" itemValue="2" />
                     <p:ajax event="change" update="faturamentoItemPanel" partialSubmit="true"/>                
                 </p:selectOneButton>                
-                <p:dataTable value="#{contratoPorFiscalFlow.controller.faturamentoNovo.itens}"
+                <p:dataTable value="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.itens}"
                              var="fi" 
-                             editable="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}"
+                             editable="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes.size() le 0}"
                              paginator="true"
                              paginatorAlwaysVisible="false"
-                             rows="#{contratoPorFiscalFlow.controller.faturamentoNovo.diasEntreReferencias}"
+                             rows="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.diasEntreReferencias}"
                              id="faturamentoItemDT"
-                             sortFunction="#{contratoPorFiscalFlow.controller.sortByPostoDeTrabalhoDia}" 
+                             sortFunction="#{contratoPorFiscalAdministrativoFlow.controller.sortByPostoDeTrabalhoDia}" 
                              sortOrder="ascending" 
                              sortBy="#{fi}"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 1}"
+                             rendered="#{contratoPorFiscalAdministrativoFlow.exibeFaturamentoOuRetencao eq 1}"
                              rowStyleClass="#{fi.dia.dayOfWeek==DayOfWeek.SUNDAY||fi.dia.dayOfWeek==DayOfWeek.SATURDAY?'fds':'diasemana'}">
-                    <c:if test="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}">
+                    <c:if test="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes.size() le 0}">
                         <f:facet name="header">
                             <div class="alignRight" >
-                                <p:commandButton action="#{contratoPorFiscalFlow.processaFaturamento(contratoPorFiscalFlow.controller.faturamentoNovo)}"
-                                                 value="#{contratoPorFiscalFlow.controller.getMsgAction('Retencao_Processar')}" update=":faturamentoEdit:faturamentoEditForm" />
+                                <p:commandButton action="#{contratoPorFiscalAdministrativoFlow.processaFaturamento(contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo)}"
+                                                 value="#{contratoPorFiscalAdministrativoFlow.controller.getMsgAction('Retencao_Processar')}" update=":faturamentoEdit:faturamentoEditForm" />
                             </div>
                         </f:facet>
                     </c:if>
@@ -93,7 +93,7 @@
                                 <h:selectOneMenu id="colabTit" value="#{fi.titular}" 
                                                  converter="#{colaboradorConverter}" 
                                                  style="width: 100%">
-                                    <f:selectItems value="#{contratoPorFiscalFlow.colaboradoresParaOContrato}"/>                          
+                                    <f:selectItems value="#{contratoPorFiscalAdministrativoFlow.colaboradoresParaOContrato}"/>                          
                                 </h:selectOneMenu>
                             </f:facet>
                         </p:cellEditor>                                                        
@@ -122,52 +122,52 @@
                                                  value="#{fi.substituto}" 
                                                  style="width: 100%" 
                                                  converter="#{colaboradorConverter}">
-                                    <f:selectItems value="#{contratoPorFiscalFlow.colaboradoresParaOContrato}"/>
+                                    <f:selectItems value="#{contratoPorFiscalAdministrativoFlow.colaboradoresParaOContrato}"/>
                                 </h:selectOneMenu>
                             </f:facet>
                         </p:cellEditor>                            
                     </p:column>
-                    <p:column width="5%" rendered="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes.size() le 0}">
+                    <p:column width="5%" rendered="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes.size() le 0}">
                         <p:rowEditor/>
                     </p:column>
                 </p:dataTable> 
                 <p:dataTable id="retencaoDT" 
-                             value="#{contratoPorFiscalFlow.controller.faturamentoNovo.retencoes}"
+                             value="#{contratoPorFiscalAdministrativoFlow.controller.faturamentoNovo.retencoes}"
                              var="item" 
                              paginator="true"
                              paginatorAlwaysVisible="false"
                              scrollHeight="350"
                              scrollable="true"
-                             rendered="#{contratoPorFiscalFlow.exibeFaturamentoOuRetencao eq 2}">
-                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('colaborador')}" >
+                             rendered="#{contratoPorFiscalAdministrativoFlow.exibeFaturamentoOuRetencao eq 2}">
+                    <p:column width="19%" filterBy="#{item.colaborador.colaborador.toString()}" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('colaborador')}" >
                         <h:outputText value="#{item.colaborador.colaborador.toString()}"/>
                     </p:column>
-                    <p:column width="35%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
+                    <p:column width="35%" filterBy="#{item.ratItem.encargo.toString()}" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('RATItem_encargo')}" >
                         <h:outputText value="#{item.ratItem.encargo.toString()}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('diasTitularidade')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasTitularidade}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('diasSubstituicao')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasSubstituicao}"/>
                     </p:column>
-                    <p:column width="5%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('diasNoPeriodo')}" styleClass="alignRight">
                         <h:outputText value="#{item.diasNoPeriodo}"/>
                     </p:column>                
-                    <p:column width="5%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('fatorTrabalhadoNoPeriodo')}" styleClass="alignRight">
                         <h:outputText value="#{item.fatorTrabalhadoNoPeriodo}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>
                     </p:column>                
-                    <p:column width="8%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
+                    <p:column width="8%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('salario')}" styleClass="alignRight">
                         <h:outputText value="#{item.salario}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>                        
                     </p:column>                
-                    <p:column width="5%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
+                    <p:column width="5%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('RATItem_aliquota')}" styleClass="alignRight">
                         <h:outputText value="#{item.ratItem.aliquota}"/>
                     </p:column>    
-                    <p:column width="7%" headerText="#{contratoPorFiscalFlow.retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
+                    <p:column width="7%" headerText="#{contratoPorFiscalAdministrativoFlow.retencaoController.getMsgFieldLabel('retido')}" styleClass="alignRight">
                         <h:outputText value="#{item.retido}">
                             <f:convertNumber minFractionDigits="2" maxFractionDigits="2" minIntegerDigits="1" groupingUsed="true"/>
                         </h:outputText>

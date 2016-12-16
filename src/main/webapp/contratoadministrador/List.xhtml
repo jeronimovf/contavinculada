@@ -7,18 +7,18 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">              
     <ui:define name="content">
-        <t:ListForm casePrefix="contrato" controller="#{contratoFlow.controller}">
-            <t:ListFlowView controller="#{contratoFlow.controller}" casePrefix="contrato">
-                <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoFlow.controller.getMsgFieldLabel('numero')}" >
+        <t:ListForm casePrefix="contrato" controller="#{contratoAdministradorFlow.controller}">
+            <t:ListFlowView controller="#{contratoAdministradorFlow.controller}" casePrefix="contrato">
+                <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('numero')}" >
                     <h:outputText value="#{item.numero}"/>
                 </p:column>
-                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoFlow.controller.getMsgFieldLabel('contratado')}" >
+                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('contratado')}" >
                     <h:outputText value="#{item.contratado.descricao}"/>
                 </p:column>
-                <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoFlow.controller.getMsgFieldLabel('objeto')}">
+                <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('objeto')}">
                     <h:outputText value="#{item.objeto}"/>
                 </p:column>      
-                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoFlow.controller.getMsgFieldLabel('Proad_processo')}">
+                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoAdministradorFlow.controller.getMsgFieldLabel('Proad_processo')}">
                     <p:link value="#{item.processo}" href="#{util.getProadUrlParaOProcesso(item.processo)}" target="_blank"/>
                 </p:column>                  
             </t:ListFlowView>

@@ -6,41 +6,41 @@
                 template="/template.xhtml">
     <ui:define name="content"> 
         <t:FormFlowCreate id="postoDeTrabalhoCreate" casePrefix="postoDeTrabalhoCreate" 
-                          entityToUpdate="#{contratoFlow.controller.postoNovo}" 
-                          saveAction="#{contratoFlow.controller.saveOrCreatePostoDeTrabalho()}"
-                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}" mostrarVigencia="false">
+                          entityToUpdate="#{contratoAdministradorFlow.controller.postoNovo}" 
+                          saveAction="#{contratoAdministradorFlow.controller.saveOrCreatePostoDeTrabalho()}"
+                          goBackToAction="#{contratoAdministradorFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoAdministradorFlow.controller}" mostrarVigencia="false">
             <t:FormRowAutoComplete id="postoDeTrabalhoCargoOuFuncao" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.cargoOuFuncao}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.cargoOuFuncao}" 
                                    autoCompleteItem="cargoOuFuncao" 
                                    autoCompleteItemLabel="#{cargoOuFuncao}" 
                                    autoCompleteItemValue="#{cargoOuFuncao}" 
                                    completeMethod="#{cargoOuFuncaoController.complete}" 
-                                    labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}" 
+                                    labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_cargoOuFuncao')}" 
                                    autoCompleteConverter="#{cargoOuFuncaoConverter}"
                                    autoCompleteSize="40"/><br/>
             <t:FormRowAutoComplete id="postoDeTrabalhoJornada" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.jornada}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.jornada}" 
                                    autoCompleteItem="jornada" 
                                    autoCompleteItemLabel="#{jornada}" 
                                    autoCompleteItemValue="#{jornada}" 
                                    completeMethod="#{jornadaController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_jornada')}"
                                    autoCompleteConverter="#{jornadaConverter}"
                                    autoCompleteSize="30"/><br/>
             <t:FormRowCheckMulti id="postoDeTrabalhoDiasComputados" 
-                                 labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
+                                 labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_diasComputados')}" 
                                  itemValues="#{calendarioFeriadoController.diasComputados}" 
-                                 selectValue="#{contratoFlow.controller.postoNovo.diasComputados}" 
+                                 selectValue="#{contratoAdministradorFlow.controller.postoNovo.diasComputados}" 
                                  selectConverter="#{diasComputadosConverter}"
                                  collectionType="java.util.HashSet"/><br/>
             <t:FormRowAutoComplete id="postoDeTrabalhoFeriadoCalendario" 
-                                   autoCompleteValue="#{contratoFlow.controller.postoNovo.feriadoCalendario}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.postoNovo.feriadoCalendario}" 
                                    autoCompleteItem="feriadoCalendario" 
                                    autoCompleteItemLabel="#{feriadoCalendario.toString()}" 
                                    autoCompleteItemValue="#{feriadoCalendario}" 
                                    completeMethod="#{calendarioFeriadoController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('PostoDeTrabalho_feriadoCalendario')}"
                                    autoCompleteConverter="#{calendarioFeriadoConverter}"
                                    autoCompleteSize="30"/> 
         </t:FormFlowCreate>

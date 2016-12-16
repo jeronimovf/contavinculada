@@ -4,7 +4,7 @@
     <!--                     CONFIGURAÇÕES TRT 23                            -->
     <context-param>
         <param-name>CODIGO_SISTEMA</param-name>
-        <param-value>8</param-value>
+        <param-value>10</param-value>
     </context-param>
 	
     <context-param>

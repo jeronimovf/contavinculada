@@ -7,25 +7,25 @@
     <ui:define name="content">
 
         <t:FormFlowCreate id="contaVinculadaEdit" casePrefix="contaVinculadaEdit" 
-                          entityToUpdate="#{contratoFlow.controller.contaNova}" 
-                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
-                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}">                           
+                          entityToUpdate="#{contratoAdministradorFlow.controller.contaNova}" 
+                          saveAction="#{contratoAdministradorFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoAdministradorFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoAdministradorFlow.controller}">                           
             <t:FormRowString id="contaBanco" 
-                             textValue="#{contratoFlow.controller.contaNova.banco}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('ContaVinculada_banco')}"
+                             textValue="#{contratoAdministradorFlow.controller.contaNova.banco}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('ContaVinculada_banco')}"
                              textSize="30"/>                
             <t:FormRowString id="contaAgencia" 
-                             textValue="#{contratoFlow.controller.contaNova.agencia}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('ContaVinculada_agencia')}"
+                             textValue="#{contratoAdministradorFlow.controller.contaNova.agencia}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('ContaVinculada_agencia')}"
                              textSize="30"/><br/>
             <t:FormRowString id="contaConta" 
-                             textValue="#{contratoFlow.controller.contaNova.conta}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('ContaVinculada_conta')}"
+                             textValue="#{contratoAdministradorFlow.controller.contaNova.conta}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('ContaVinculada_conta')}"
                              textSize="15"/>                
             <t:FormRowString id="contaOperacao" 
-                             textValue="#{contratoFlow.controller.contaNova.operacao}" 
-                             labelValue="#{contratoFlow.controller.getMsgFieldLabel('ContaVinculada_operacao')}"
+                             textValue="#{contratoAdministradorFlow.controller.contaNova.operacao}" 
+                             labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('ContaVinculada_operacao')}"
                              textSize="20"/> 
         </t:FormFlowCreate>
     </ui:define>

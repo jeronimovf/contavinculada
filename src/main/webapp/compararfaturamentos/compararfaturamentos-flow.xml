@@ -3,7 +3,7 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-    <flow-definition id="compararfaturamentosflow">
+    <flow-definition id="compararfaturamentos">
         <view id="Passo01">
             <vdl-document>/compararfaturamentos/Passo01.xhtml</vdl-document>
         </view>

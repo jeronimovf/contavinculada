@@ -6,21 +6,21 @@
                 template="/template.xhtml">
     <ui:define name="content">                                
         <t:FormFlowCreate id="encargoAliquotaEdit" casePrefix="encargoAliquotaEdit"                           
-                          entityToUpdate="#{contratoFlow.controller.aliquotaNova}" 
-                          saveAction="#{contratoFlow.controller.saveOrCreate()}"
-                          goBackToAction="#{contratoFlow.controller.goBackTo('Edit')}"
-                          controller="#{contratoFlow.controller}" mostrarVigencia="false">
+                          entityToUpdate="#{contratoAdministradorFlow.controller.aliquotaNova}" 
+                          saveAction="#{contratoAdministradorFlow.controller.saveOrCreate()}"
+                          goBackToAction="#{contratoAdministradorFlow.controller.goBackTo('Edit')}"
+                          controller="#{contratoAdministradorFlow.controller}" mostrarVigencia="false">
             <t:FormRowAutoComplete id="contratoAliquotaEncargo" 
-                                   autoCompleteValue="#{contratoFlow.controller.aliquotaNova.encargo}" 
+                                   autoCompleteValue="#{contratoAdministradorFlow.controller.aliquotaNova.encargo}" 
                                    autoCompleteItem="encargo" 
                                    autoCompleteItemLabel="#{encargo}" 
                                    autoCompleteItemValue="#{encargo}" 
                                    completeMethod="#{encargoController.complete}" 
-                                   labelValue="#{contratoFlow.controller.getMsgFieldLabel('EncargoAliquota_encargo')}"
+                                   labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('EncargoAliquota_encargo')}"
                                    autoCompleteConverter="#{encargoConverter}"
                                    autoCompleteSize="30"/>                
-            <t:FormRowPercent id="contratoAliquotaAliquota" numberValue="#{contratoFlow.controller.aliquotaNova.aliquota}" 
-                              labelValue="#{contratoFlow.controller.getMsgFieldLabel('EncargoAliquota_aliquota')}" />
+            <t:FormRowPercent id="contratoAliquotaAliquota" numberValue="#{contratoAdministradorFlow.controller.aliquotaNova.aliquota}" 
+                              labelValue="#{contratoAdministradorFlow.controller.getMsgFieldLabel('EncargoAliquota_aliquota')}" />
         </t:FormFlowCreate>
     </ui:define>
 </ui:composition>

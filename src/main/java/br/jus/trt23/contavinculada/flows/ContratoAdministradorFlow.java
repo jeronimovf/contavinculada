@@ -11,7 +11,7 @@ import javax.inject.Named;
 import lombok.Setter;
 
 @Named
-@FlowScoped("contratoadministradorflow")
+@FlowScoped("contratoadministrador")
 public class ContratoAdministradorFlow extends AbstractFlow<Contrato>{  
     @Setter
     private List<Colaborador> colaboradoresParaOContrato;

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Named
 @RequiredArgsConstructor
-@FlowScoped("faturamentoitemeventoflow")
+@FlowScoped("faturamentoitemevento")
 public class FaturamentoItemEventoFlow extends AbstractFlow<FaturamentoItemEvento> {
 
     @Override

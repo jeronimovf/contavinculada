@@ -7,18 +7,18 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template.xhtml">              
     <ui:define name="content">
-        <t:ListForm casePrefix="contrato" controller="#{contratoPorFiscalFlow.controller}" addAllowed="false">
-            <t:ListFlowView controller="#{contratoPorFiscalFlow.controller}" casePrefix="contrato">
-                <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('numero')}" >
+        <t:ListForm casePrefix="contrato" controller="#{contratoPorFiscalAdministrativoFlow.controller}" addAllowed="false">
+            <t:ListFlowView controller="#{contratoPorFiscalAdministrativoFlow.controller}" casePrefix="contrato">
+                <p:column width="10%" filterBy="#{item.numero}" headerText="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('numero')}" >
                     <h:outputText value="#{item.numero}"/>
                 </p:column>
-                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('contratado')}" >
+                <p:column width="20%" filterBy="#{item.contratado.razaoSocial}" headerText="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('contratado')}" >
                     <h:outputText value="#{item.contratado.descricao}"/>
                 </p:column>
-                <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('objeto')}">
+                <p:column width="20%" filterBy="#{item.objeto}" headerText="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('objeto')}">
                     <h:outputText value="#{item.objeto}"/>
                 </p:column>      
-                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoPorFiscalFlow.controller.getMsgFieldLabel('Proad_processo')}">
+                <p:column width="10%" filterBy="#{item.processo}" headerText="#{contratoPorFiscalAdministrativoFlow.controller.getMsgFieldLabel('Proad_processo')}">
                     <p:link value="#{item.processo}" 
                             href="#{util.getProadUrlParaOProcesso(item.processo)}"  
                             target="_blank"/>
