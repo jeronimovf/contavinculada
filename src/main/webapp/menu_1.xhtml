@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">      
+    <ui:composition>
+        <h:form id="mainMenu">
+            <f:event type="preRenderView" listener="#{autenticacaoController.autenticarCAS()}" />
+            <p:menu toggleable="true" >
+                <p:submenu label="#{messages.Menu_Funcao_TabelasBasicas}" rendered="#{utilController.contemFuncionalidade('TABELAS BÁSICAS')}">
+                    <p:menuitem action="#{flowController.flow('rat')}" value="#{messages.Menu_Entrada_Rat}"/>                    
+                    <p:menuitem action="#{flowController.flow('faturamentoitemevento')}" value="#{messages.Menu_Entrada_FaturamentoEvento}"/>                    
+                    <p:menuitem action="#{flowController.flow('calendarioferiado')}" value="#{messages.Menu_Entrada_CalendarioFeriado}"/>      
+                    <p:menuitem action="#{flowController.flow('cargooufuncao')}" value="#{messages.Menu_Entrada_CargoFuncao}"/> 
+                    <p:menuitem action="#{flowController.flow('encargo')}" value="#{messages.Menu_Entrada_Encargo}"/>
+                    <p:menuitem action="#{flowController.flow('fiscalespecie')}" value="#{messages.Menu_Entrada_FiscalEspecie}"/>                    
+                </p:submenu>
+                <p:submenu label="#{messages.Menu_Funcao_FiscalTecnico}" rendered="#{utilController.contemFuncionalidade('FISCAL TÉCNICO')}">
+                    <p:menuitem action="#{flowController.flow('contratoporfiscaltecnico')}" value="#{messages.Menu_Entrada_Contrato}"/>                         
+                </p:submenu>
+                <p:submenu label="#{messages.Menu_Funcao_FiscalAdministrativo}" rendered="#{utilController.contemFuncionalidade('FISCAL ADMINISTRATIVO')}">
+                    <p:menuitem action="#{flowController.flow('pessoajuridica')}" value="#{messages.Menu_Entrada_PessoaJuridica}"/>
+                    <p:menuitem action="#{flowController.flow('contratoporfiscaladministrativo')}" value="#{messages.Menu_Entrada_Contrato}"/>                    
+                    <p:menuitem action="#{flowController.flow('compararetencoes', 'Passo01')}" value="#{messages.Menu_Entrada_FaturamentoComparar}" rendered="false"/>
+                </p:submenu>                                
+                <p:submenu label="#{messages.Menu_Funcao_OF}" rendered="#{utilController.contemFuncionalidade('ORÇAMENTO E FINANÇAS')}">
+
+                </p:submenu>      
+                <p:submenu label="#{messages.Menu_Funcao_CCC}" rendered="#{utilController.contemFuncionalidade('CONTA VINCULADA')}">
+                    <p:menuitem action="#{flowController.flow('pessoajuridica')}" value="#{messages.Menu_Entrada_PessoaJuridica}"/>
+                    <p:menuitem action="#{flowController.flow('contratoadministrador')}" value="#{messages.Menu_Entrada_Contrato}"/>                    
+                </p:submenu>                      
+                <p:submenu label="#{messages.Menu_Funcao_ConsultaRelatorio}" rendered="false">
+                    <p:menuitem value="#{messages.Menu_Entrada_RetencaoAnalitico}"/>                        
+                    <p:menuitem value="#{messages.Menu_Entrada_RetencaoSintetico}"/>                                                            
+                    <p:menuitem value="#{messages.Menu_Entrada_Liquidacao}"/>                                     
+                    <p:menuitem value="#{messages.Menu_Entrada_TermoAberturaConta}"/>                                                                                                             
+                </p:submenu>                                                                
+            </p:menu> 
+        </h:form>
+
+    </ui:composition>
+
+</html>
+

@@ -1,0 +1,12 @@
+DECLARE 
+outmessage VARCHAR2(512);
+BEGIN
+FOR x IN (SELECT DISTINCT TABLE_NAME
+  FROM all_tables
+ WHERE OWNER = 'SRH2')
+LOOP   
+  EXECUTE IMMEDIATE 'GRANT SELECT ON SRH2.' || x.TABLE_NAME || ' TO webacesso';
+  outmessage:= x.TABLE_NAME;
+  DBMS_OUTPUT.PUT_LINE (outmessage); 
+END LOOP;
+END;

@@ -1,7 +1,7 @@
 package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.Encargo;
-import br.jus.trt23.contavinculada.jsf.EncargoController;
+import br.jus.trt23.contavinculada.controllers.EncargoController;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 import lombok.RequiredArgsConstructor;

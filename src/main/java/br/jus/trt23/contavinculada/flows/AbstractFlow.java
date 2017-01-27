@@ -6,10 +6,11 @@
 package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.EntidadeGenerica;
-import br.jus.trt23.contavinculada.jsf.AbstractController;
+import br.jus.trt23.contavinculada.controllers.AbstractController;
 import java.io.Serializable;
 import javax.inject.Inject;
 import lombok.Getter;
+import org.primefaces.component.tabview.Tab;
 
 /**
  *
@@ -18,5 +19,14 @@ import lombok.Getter;
 public abstract class AbstractFlow<T extends EntidadeGenerica> implements Serializable{
     @Getter
     @Inject    
-    protected AbstractController<T> controller;       
+    protected AbstractController<T> controller;  
+    private Tab activeTab;
+
+    public Tab getActiveTab() {
+        return activeTab;
+    }
+
+    public void setActiveTab(Tab activeTab) {
+        this.activeTab = activeTab;
+    }
 }

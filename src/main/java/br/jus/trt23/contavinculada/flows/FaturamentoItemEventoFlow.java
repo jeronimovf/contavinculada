@@ -1,7 +1,7 @@
 package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.FaturamentoItemEvento;
-import br.jus.trt23.contavinculada.jsf.FaturamentoItemEventoController;
+import br.jus.trt23.contavinculada.controllers.FaturamentoItemEventoController;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 import lombok.RequiredArgsConstructor;

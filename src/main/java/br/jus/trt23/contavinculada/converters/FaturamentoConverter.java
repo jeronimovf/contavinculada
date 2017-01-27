@@ -6,7 +6,7 @@
 package br.jus.trt23.contavinculada.converters;
 
 import br.jus.trt23.contavinculada.entities.Faturamento;
-import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
+import br.jus.trt23.contavinculada.handlers.JsfUtil;
 import br.jus.trt23.contavinculada.sessions.FaturamentoFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;

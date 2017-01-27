@@ -2,7 +2,7 @@ package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.Colaborador;
 import br.jus.trt23.contavinculada.entities.Contrato;
-import br.jus.trt23.contavinculada.jsf.ContratoController;
+import br.jus.trt23.contavinculada.controllers.ContratoController;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

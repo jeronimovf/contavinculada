@@ -3,6 +3,22 @@
   <persistence-unit name="contaVinculadaPU" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/contaVinculadaDS</jta-data-source>
+    <class>br.jus.trt23.webacesso.entities.Flow</class>
+    <class>br.jus.trt23.webacesso.entities.ViewId</class>
+    <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
+    <class>br.jus.trt23.webacesso.entities.Acesso</class>
+    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
+    <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
+    <class>br.jus.trt23.webacesso.entities.Perfil</class>
+    <class>br.jus.trt23.webacesso.entities.Permissao</class>
+    <class>br.jus.trt23.webacesso.entities.Recurso</class>
+    <class>br.jus.trt23.webacesso.entities.Sistema</class>
+    <class>br.jus.trt23.webacesso.entities.TipoUsuario</class>
+    <class>br.jus.trt23.webacesso.entities.Unidade</class>
+    <class>br.jus.trt23.webacesso.entities.UnidadeSemGestor</class>
+    <class>br.jus.trt23.webacesso.entities.Usuario</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
+    <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
     <class>br.jus.trt23.contavinculada.entities.Alocacao</class>
     <class>br.jus.trt23.contavinculada.entities.CalendarioFeriado</class>
     <class>br.jus.trt23.contavinculada.entities.CalendarioFeriadoItem</class>
@@ -33,20 +49,6 @@
     <class>br.jus.trt23.contavinculada.entities.Salario</class>
     <class>br.jus.trt23.contavinculada.entities.Servidor</class>
     <class>br.jus.trt23.contavinculada.entities.Telefone</class>
-    <class>br.jus.trt23.webacesso.entities.Acesso</class>
-    <class>br.jus.trt23.webacesso.entities.DelegarGestor</class>
-    <class>br.jus.trt23.webacesso.entities.Funcionalidade</class>
-    <class>br.jus.trt23.webacesso.entities.FuncionalidadeUrl</class>
-    <class>br.jus.trt23.webacesso.entities.Perfil</class>
-    <class>br.jus.trt23.webacesso.entities.Permissao</class>
-    <class>br.jus.trt23.webacesso.entities.Recurso</class>
-    <class>br.jus.trt23.webacesso.entities.Sistema</class>
-    <class>br.jus.trt23.webacesso.entities.TipoUsuario</class>
-    <class>br.jus.trt23.webacesso.entities.Unidade</class>
-    <class>br.jus.trt23.webacesso.entities.UnidadeSemGestor</class>
-    <class>br.jus.trt23.webacesso.entities.Usuario</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioExterno</class>
-    <class>br.jus.trt23.webacesso.entities.UsuarioSistema</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
@@ -57,6 +59,12 @@
             instâncias da mesma unidade obtidas por sessões diferentes
             http://stackoverflow.com/questions/26591521/java-lang-illegalstateexception-multiple-representations-of-the-same-entity-wit-->
       <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
+      <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
+      <property name="javax.persistence.schema-generation.scripts.create-target" value="./sampleCreate.ddl"/>
+      <property name="javax.persistence.schema-generation.scripts.drop-target" value="./sampleDrop.ddl"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521/xe"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>
 </persistence>

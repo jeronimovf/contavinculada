@@ -1,7 +1,7 @@
 package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.FiscalEspecie;
-import br.jus.trt23.contavinculada.jsf.FiscalEspecieController;
+import br.jus.trt23.contavinculada.controllers.FiscalEspecieController;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 import lombok.RequiredArgsConstructor;

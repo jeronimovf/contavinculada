@@ -1,7 +1,7 @@
 package br.jus.trt23.contavinculada.flows;
 
 import br.jus.trt23.contavinculada.entities.RAT;
-import br.jus.trt23.contavinculada.jsf.RATController;
+import br.jus.trt23.contavinculada.controllers.RATController;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Named;
 import lombok.RequiredArgsConstructor;

@@ -7,7 +7,7 @@ package br.jus.trt23.contavinculada.entities;
 
 import br.jus.trt23.contavinculada.constraints.Diferida;
 import br.jus.trt23.contavinculada.constraints.VigenciaValida;
-import br.jus.trt23.contavinculada.jsf.Util;
+import br.jus.trt23.contavinculada.controllers.Util;
 import br.jus.trt23.contavinculada.listeners.EntidadeListener;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;

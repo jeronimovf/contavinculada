@@ -5,7 +5,7 @@
  */
 package br.jus.trt23.contavinculada.validators;
 
-import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
+import br.jus.trt23.contavinculada.handlers.JsfUtil;
 import java.util.Collection;
 import java.util.Set;
 import javax.validation.ConstraintViolation;

@@ -8,7 +8,7 @@ package br.jus.trt23.contavinculada.converters;
 import br.jus.trt23.contavinculada.entities.Pessoa;
 import br.jus.trt23.contavinculada.entities.PessoaFisica;
 import br.jus.trt23.contavinculada.entities.PessoaJuridica;
-import br.jus.trt23.contavinculada.jsf.util.JsfUtil;
+import br.jus.trt23.contavinculada.handlers.JsfUtil;
 import br.jus.trt23.contavinculada.sessions.PessoaFacade;
 import br.jus.trt23.contavinculada.sessions.PessoaFisicaFacade;
 import br.jus.trt23.contavinculada.sessions.PessoaJuridicaFacade;
