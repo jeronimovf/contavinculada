@@ -17,6 +17,8 @@ import javax.validation.ConstraintValidatorContext;
 /**
  *
  * @author j129-9
+ * @param <A>
+ * @param <T>
  */
 public abstract class ValidadorGenerico<A extends Annotation, T extends EntidadeGenerica> implements ConstraintValidator<A, T> {
 

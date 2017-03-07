@@ -6,7 +6,7 @@ import br.jus.trt23.contavinculada.entities.FiscalEspecie;
 import br.jus.trt23.contavinculada.controllers.ContratoPorFiscalController;
 import br.jus.trt23.contavinculada.controllers.FiscalEspecieController;
 import br.jus.trt23.contavinculada.qualifiers.PorFiscal;
-import br.jus.trt23.webacesso.util.UsuarioSessao;
+import br.jus.trt23.webacesso.controllers.UsuarioController;
 import javax.annotation.PostConstruct;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ public class CompararFaturamentosFlow extends AbstractFlow<Contrato>{
     private Faturamento faturamentoAComparar;    
     
     @Inject
-    private UsuarioSessao usuarioSessao;
+    private UsuarioController usuarioSessao;
        
     @Inject
     private FiscalEspecieController fiscalEspecieController;

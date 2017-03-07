@@ -9,7 +9,7 @@ import br.jus.trt23.contavinculada.controllers.FaturamentoController;
 import br.jus.trt23.contavinculada.controllers.FiscalEspecieController;
 import br.jus.trt23.contavinculada.controllers.RetencaoController;
 import br.jus.trt23.contavinculada.qualifiers.PorFiscal;
-import br.jus.trt23.webacesso.util.UsuarioSessao;
+import br.jus.trt23.webacesso.controllers.UsuarioController;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,7 +31,7 @@ public class ContratoPorFiscalAdministrativoFlow extends AbstractFlow<Contrato>{
     private List<Colaborador> colaboradoresParaOContrato;
     
     @Inject
-    private UsuarioSessao usuarioSessao;
+    private UsuarioController usuarioSessao;
     
     @Getter
     @Setter

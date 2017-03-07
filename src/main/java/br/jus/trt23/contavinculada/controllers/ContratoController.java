@@ -16,7 +16,7 @@ import br.jus.trt23.contavinculada.entities.Retencao;
 import br.jus.trt23.contavinculada.entities.Salario;
 import br.jus.trt23.contavinculada.handlers.JsfUtil;
 import br.jus.trt23.contavinculada.validators.ValidadorUtil;
-import br.jus.trt23.webacesso.util.UsuarioSessao;
+import br.jus.trt23.webacesso.controllers.UsuarioController;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public class ContratoController extends AbstractController<Contrato> {
     @Inject
     private RetencaoController retencaoController;
     @Inject
-    private UsuarioSessao usuarioSessao;
+    private UsuarioController usuarioController;
 
     public String prepareFiscalNovo() {
         setFiscalNovo(new Fiscal());
@@ -423,7 +423,7 @@ public class ContratoController extends AbstractController<Contrato> {
             liberacao.setRetencao(retencao);
             liberacao.setParecerLiberacao(liberacaoParecer);
             liberacao.setVigenteDesde(liberacaoController.getFacade().getDateOnServer());
-            liberacao.setLiberadoPor(usuarioSessao.getLogin());
+            liberacao.setLiberadoPor(usuarioController. getLogin());
             retencao.setLiberacao(liberacao);
             try {
                 liberacaoController.saveOrCreate(liberacao);

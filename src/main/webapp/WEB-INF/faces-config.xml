@@ -18,26 +18,6 @@
         </resource-bundle>
     </application>
     
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>selecionarPerfil</from-outcome>
-            <to-view-id>/selecionarPerfil.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>menu</from-outcome>
-            <to-view-id>/menu.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>erro</from-outcome>
-            <to-view-id>/erro.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>    
-    
     <lifecycle>
         <phase-listener>br.jus.trt23.webacesso.filter.AutorizacaoListener</phase-listener>
     </lifecycle>    

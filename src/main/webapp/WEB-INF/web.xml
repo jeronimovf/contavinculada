@@ -17,16 +17,16 @@
         <param-value>http://sede-cas01.trt23.jus.br:8080/cas/logout</param-value>
     </context-param>   
     
+    <context-param>  
+        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>  
+        <param-value>false</param-value>  
+    </context-param>    
+    
     <filter>
         <filter-name>SessaoExpiradaFilter</filter-name>
         <filter-class>br.jus.trt23.webacesso.filter.SessaoExpiradaFilter</filter-class>
     </filter>
     
-    <context-param>  
-        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>  
-        <param-value>false</param-value>  
-    </context-param>    
-
     <filter-mapping>
         <filter-name>SessaoExpiradaFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -147,9 +147,7 @@
     </servlet-mapping>
 
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>300</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
